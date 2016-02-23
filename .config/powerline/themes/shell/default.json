@@ -1,0 +1,35 @@
+{
+    "segments": {
+        "left": [
+            {
+                "name": "user",
+                "function": "powerline.segments.common.env.user",
+                "priority": 30
+            },
+            {
+                "function": "powerline.segments.common.vcs.branch",
+                "args": {
+                    "status_colors": true,
+                    "ignore_statuses": ["U"]
+                }
+            },
+            {
+                "name": "cwd",
+                "function": "powerline.segments.common.env.cwd"
+            },
+			{
+				"function": "powerline.segments.shell.jobnum",
+				"priority": 20
+			}
+        ],
+	    "right": [
+			{
+				"function": "powerline.segments.common.time.date",
+				"args": {
+					"istime": "false",
+					"format": "%y-%m-%d"
+				}
+			}
+		]
+    }
+}

@@ -1,0 +1,7 @@
+[user]
+	email = doron.behar@gmail.com
+	name = Doron Behar
+[core]
+	editor = vim
+[credential]
+	helper = cache --timeout=300
