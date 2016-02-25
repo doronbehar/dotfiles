@@ -1,5 +1,3 @@
-set nocompatible
-set ts=4 " tabsize
 set backspace=eol,start,indent " actionfor backspace
 set whichwrap+=<,>,h,l
 set nowrap " no word wrap
@@ -19,7 +17,11 @@ set incsearch " incremental search
 " make a double-click on '/' while in visual/select mode execute a search
 " through document for the selected text:
 vnoremap // y/<C-R>"<CR>
+" make vim's * register compatible with system's clipboard:
+set clipboard=unnamedplus
+" tab's and indentation preferences:
 set shiftwidth=4
+set ts=4 " tabsize
 set preserveindent
 set noexpandtab
 " make <c-r> insert the current visually selected text inserted into a replace
