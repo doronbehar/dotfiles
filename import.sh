@@ -6,6 +6,8 @@ cp ~/.bashrc ./
 # bash&&zsh
 cp -r ~/.config/powerline ./.config/
 cp ~/.shell/aliases ./.shell/
+cp ~/.shell/enviorment ./.shell/
+cp ~/.shell/functions ./.shell/
 # zsh:
 cp ~/.zshrc ./
 cp -r ~/.zsh/themes ./.zsh/

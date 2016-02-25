@@ -55,8 +55,8 @@ source /etc/zsh_command_not_found
 # source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
 # . /usr/share/powerline/bindings/zsh/powerline.zsh
 HISTIGNORE="ls:history*:fg:exit:ls -[lahLAH]:ls -l[ahAH]:ls -a[lhLH]:ls -h[laLA]:ls -la[hH]:ls -lh[aA]:ls -al[hH]"
-export QSYS_ROOTDIR="/opt/altera.15.1/quartus/sopc_builder/bin"
 
-export ALTERAOCLSDKROOT="/opt/altera.15.1/hld"
-PATH=$PATH:/home/doron/.bin
-export PAGER=`which most`
+# envirmental variables:
+source ~/.shell/enviorment
+# functions:
+source ~/.shell/functions

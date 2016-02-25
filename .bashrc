@@ -83,5 +83,7 @@ POWERLINE_BASH_SELECT=1
 POWERLINE_NO_SHELL_ABOVE=1
 . /usr/share/powerline/bindings/bash/powerline.sh
 
-export PATH=$PATH":/home/$USER/.bin/:/home/$USER/.local/bin"
-export PAGER=`which most`
+# envirmental variables:
+source ~/.shell/enviorment
+# functions:
+source ~/.shell/functions
