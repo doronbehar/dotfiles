@@ -15,7 +15,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000
 HISTFILESIZE=10000
-HISTFILE=~/.bash/history
+HISTFILE=~/.shell/history
 HISTIGNORE="fg:exit:history:ls[ -lahLAH]"
 
 # check the window size after each command and, if necessary,
@@ -68,13 +68,7 @@ xterm*|rxvt*)
 esac
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash/aliases ]; then
-    . ~/.bash/aliases
-fi
+. ~/.shell/aliases
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

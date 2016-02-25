@@ -26,7 +26,7 @@ bindkey -e
 # Keep 1000 lines of history within the shell and save it to ~/.zsh/history:
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.zsh/history
+HISTFILE=~/.shell/history
 
 # Use modern completion system
 autoload -Uz compinit
@@ -49,7 +49,8 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source ~/.zsh/aliases
+source ~/.shell/aliases
+source /etc/zsh_command_not_found
 # the following line is as described in a user-guide by powerline:
 # source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
 # . /usr/share/powerline/bindings/zsh/powerline.zsh

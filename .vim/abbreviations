@@ -1,0 +1,22 @@
+" very usefull ailiases:
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev te tabedit
+cnoreabbrev rename Rename
+cnoreabbrev rn Rename
+cnoreabbrev x Explor
+cnoreabbrev explor Explor
+cnoreabbrev xx tabedit `pwd`
+cnoreabbrev tabmerge Tabmerge
+cnoreabbrev tm Tabmerge
+" make change git disply easier to type made by gitgutter plugin
+cnoreabbrev git GitGutterEnable
+cnoreabbrev nogit GitGutterDisable
+"GitGutterToggle
+cnoreabbrev gitsigns GitGutterSignsEnable
+cnoreabbrev nogitsigns GitGutterSignsDisable
+"GitGutterSignsToggle
+cnoreabbrev gitbg GitGutterLineHighlightsEnable
+cnoreabbrev nogitbg GitGutterLineHighlightsDisable
+"GitGutterLineHighlightsToggle
+" vim: syn=vim
