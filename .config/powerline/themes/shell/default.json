@@ -19,10 +19,15 @@
             },
 			{
 				"function": "powerline.segments.shell.jobnum",
-				"priority": 20
+				"args": {
+					"show_zero": false
+				}
 			}
         ],
 	    "right": [
+			{
+				"function": "powerline.segments.shell.last_pipe_status"
+			},
 			{
 				"function": "powerline.segments.common.time.date",
 				"args": {

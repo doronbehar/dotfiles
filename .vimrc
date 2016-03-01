@@ -1,7 +1,7 @@
 set backspace=eol,start,indent " actionfor backspace
 set whichwrap+=<,>,h,l
 set nowrap " no word wrap
-set hlsearch " highlight search during typing
+set nohlsearch " highlight search during typing
 filetype plugin on
 filetype indent on
 set autoread

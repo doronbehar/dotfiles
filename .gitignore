@@ -1,3 +1,4 @@
 .vim/tmp/*.swp
 .vim/backup/*
 .vim/.netrwhist
+.shell/history

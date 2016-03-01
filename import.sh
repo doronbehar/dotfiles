@@ -1,27 +1,24 @@
 # general:
-chmod -R u+w `pwd`
-cp ~/.profile ./
+rsync ~/.profile ./.profile
 # bash:
-cp ~/.bashrc ./
+rsync ~/.bashrc ./.bashrc
 # bash&&zsh
-cp -r ~/.config/powerline ./.config/
-cp ~/.shell/aliases ./.shell/
-cp ~/.shell/enviorment ./.shell/
-cp ~/.shell/functions ./.shell/
+rsync -av --delete ~/.config/powerline/ ./.config/powerline/
+rsync -av --delete ~/.shell/ ./.shell/
 # zsh:
-cp ~/.zshrc ./
-cp -r ~/.zsh/themes ./.zsh/
+rsync ~/.zshrc ./
+rsync -av --delete ~/.zsh/ ./.zsh/
 # git:
-cp ~/.gitconfig ./
+rsync ~/.gitconfig ./
 # vim:
-cp -r ~/.vim ./
-cp ~/.vimrc ./
+rsync -av --delete ~/.vim/ ./.vim/
+rsync ~/.vimrc ./
 # tmux:
-cp -r ~/.tmux ./
-cp ~/.tmux.conf ./
+rsync -av --delete ~/.tmux/ ./.tmux/
+rsync ~/.tmux.conf ./.tmux.conf
 echo import file \`~/.tmux-powerlinerc\`? it holds a passowrd for gmail which will have to be changed afterwards.. answer y/n/yes/no
 read a
 if [ "$a" = "y" ] || [ "$a" = "yes" ]; then
-	cp ~/.tmux-powerlinerc ./
+	rsync ~/.tmux-powerlinerc ./.tmux-powerlinerc
 	vim .tmux-powerlinerc
 fi

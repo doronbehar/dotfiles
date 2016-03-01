@@ -1,7 +1,7 @@
 # Set up the prompt:
 #plugins=(rails git textmate ruby lighthouse)
 ## set the dircetory for the 'Oh My ZSH' functions directory:
-#ZSH=~/.config/powerline/zsh
+#ZSH=~/.zsh
 ## load functions:
 #source $ZSH/autoload
 ## variable exported for 'agnoster' theme
