@@ -61,4 +61,9 @@ map מ n
 map צ m
 map ת ,
 map ץ .
+" keyboard maps for navigation between words in normal mode:
+nnoremap w b
+nnoremap W B
+nnoremap e w
+nnoremap E W
 " vim: syn=vim
