@@ -50,6 +50,9 @@ unbind-key [
 unbind-key ]
 bind-key C-c copy-mode
 bind-key C-v paste-buffer
+# make the use of e and w more like in my .vimrc
+bind-key -t vi-copy e next-word
+bind-key -t vi-copy w previous-word
 # make new windows/panes open in the same
 # dirctory in which they were opened from:
 bind-key c new-window -c '#{pane_current_path}'
