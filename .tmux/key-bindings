@@ -1,0 +1,62 @@
+# change prefix-key:
+set-option -g prefix C-d
+unbind-key C-b
+bind-key C-d send-prefix
+set-option -g mode-keys vi
+# key-bindings for manipulating windows and panes
+# - unbind old keys:
+unbind-key p
+unbind-key n
+unbind-key M-Up
+unbind-key M-Down
+unbind-key M-Left
+unbind-key M-Right
+unbind-key C-Up
+unbind-key C-Down
+unbind-key C-Left
+unbind-key C-Right
+unbind-key Up
+unbind-key Down
+unbind-key Left
+unbind-key Right
+# - bind page-up and page-down recursively for window navigation:
+bind-key -n C-PageUp previous-window
+bind-key -n C-PageDown next-window
+# - bind Shift+PageUp/PageDown for moving windows around like in chrome:
+bind-key -n C-S-PageUp swap-window -t -1
+bind-key -n C-S-PageDown swap-window -t +1
+# resizing panes in the true spirit of vim:
+bind-key -r > resize-pane -R
+bind-key -r < resize-pane -L
+bind-key -r + resize-pane -D
+bind-key -r - resize-pane -U
+# make layout configurations more like in vim:
+unbind-key M-1
+unbind-key M-2
+unbind-key M-3
+unbind-key M-4
+unbind-key M-5
+bind-key -r k select-pane -U
+bind-key -r j select-pane -D
+bind-key -r l select-pane -R
+bind-key -r h select-pane -L
+bind-key | resize-pane -x 200
+bind-key _ resize-pane -y 200
+bind-key Up select-pane -U
+bind-key Down select-pane -D
+bind-key Left select-pane -L
+bind-key Right select-pane -R
+unbind-key [
+unbind-key ]
+bind-key C-c copy-mode
+bind-key C-v paste-buffer
+# make new windows/panes open in the same
+# dirctory in which they were opened from:
+bind-key c new-window -c '#{pane_current_path}'
+bind-key '"' split-window -c '#{pane_current_path}'
+bind-key % split-window -h -c '#{pane_current_path}'
+# make renaming window process easier
+bind-key , command-prompt -I "rename-window "
+# make renaming current session easier:
+bind-key '$' command-prompt -I "rename-session "
+# vim:ft=tmux
