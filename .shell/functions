@@ -1,17 +1,17 @@
 # quartus IDE command line interface:
 quartus(){
 	BIN_PATH="/opt/altera.15.1/quartus/bin"
-		if [ "$1" = "gui" ] || [ "$1" = "--gui" ] || [ "$1" = "-g" ]; then
-			command $BIN_PATH/quartus
-		elif [ "$1" = "" ]; then
-			echo "Usage:\n--gui | -g | gui for the gui version or:"
-			echo `ls $BIN_PATH/quartus_* | cut -d'_' -f2`;
-		else
-			for EXTENSION in $(ls $BIN_PATH/quartus_* | cut -d'_' -f2); do
-				if [ "$1" = "$EXTENSION" ]; then
-					command $BIN_PATH/quartus_$EXTENSION
-				fi
-			done
-		fi
+	if [ "$1" = "gui" ] || [ "$1" = "--gui" ] || [ "$1" = "-g" ]; then
+		command $BIN_PATH/quartus "${@:2}"
+	elif [ "$1" = "" ]; then
+		echo "Usage:\n--gui | -g | gui for the gui version or:"
+		echo `ls $BIN_PATH/quartus_* | cut -d'_' -f2`;
+	else
+		for EXTENSION in $(ls $BIN_PATH/quartus_* | cut -d'_' -f2); do
+			if [ "$1" = "$EXTENSION" ]; then
+				command $BIN_PATH/quartus_$EXTENSION "${@:2}"
+			fi
+		done
+	fi
 }
 # vim:syn=sh
