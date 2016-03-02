@@ -1,3 +1,5 @@
+set nocompatible
+set modeline
 set backspace=eol,start,indent " actionfor backspace
 set whichwrap+=<,>,h,l
 set nowrap " no word wrap

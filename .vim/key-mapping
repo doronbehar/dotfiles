@@ -66,4 +66,4 @@ nnoremap w b
 nnoremap W B
 nnoremap e w
 nnoremap E W
-" vim: syn=vim
+" vim: ft=vim

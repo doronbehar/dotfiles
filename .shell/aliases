@@ -65,3 +65,4 @@ alias "tclsh"='/opt/altera.15.1/quartus/bin/tclsh'
 alias "uniphy-mcc"='/opt/altera.15.1/quartus/bin/uniphy_mcc'
 alias "wish"='/opt/altera.15.1/quartus/bin/wish'
 alias "xcvr-diffmifgen"='/opt/altera.15.1/quartus/bin/xcvr_diffmifgen'
+# vim:ft=sh
