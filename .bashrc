@@ -87,3 +87,5 @@ POWERLINE_NO_SHELL_ABOVE=1
 source ~/.shell/enviorment
 # functions:
 source ~/.shell/functions
+# personal stuff:
+source ~/.shell/personal

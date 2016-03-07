@@ -13,7 +13,6 @@ nnoremap t8 :tabm 8 <enter>
 nnoremap t9 :tabm 9 <enter>
 nnoremap g<right> :tabn <enter>
 nnoremap g<left> :tabp <enter>
-nnoremap g0 :tabfirst <enter>
 nnoremap g1 1gt
 nnoremap g2 2gt
 nnoremap g3 3gt
@@ -61,9 +60,7 @@ map מ n
 map צ m
 map ת ,
 map ץ .
-" keyboard maps for navigation between words in normal mode:
-nnoremap e w
-nnoremap E W
-nnoremap w b
-nnoremap W B
+" keyboard maps for navigation between words in normal&visual mode:
+noremap w b
+noremap W B
 " vim: ft=vim

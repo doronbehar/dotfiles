@@ -2,3 +2,4 @@
 .vim/backup/*
 .vim/.netrwhist
 .shell/history
+.shell/personal

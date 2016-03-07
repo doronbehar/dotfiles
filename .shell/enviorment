@@ -1,4 +1,3 @@
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/urserver:/opt/android-sdk/tools:/opt/verilog2vhdl/bin"
 export PATH=$PATH":/home/$USER/.bin/:/home/$USER/.local/bin"
 export PAGER=`which most`
 # vim: syn=sh

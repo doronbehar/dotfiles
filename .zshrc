@@ -60,3 +60,5 @@ HISTIGNORE="ls:history*:fg:exit:ls -[lahLAH]:ls -l[ahAH]:ls -a[lhLH]:ls -h[laLA]
 source ~/.shell/enviorment
 # functions:
 source ~/.shell/functions
+# personal stuff:
+source ~/.shell/personal
