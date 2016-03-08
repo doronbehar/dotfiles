@@ -27,13 +27,6 @@
 	    "right": [
 			{
 				"function": "powerline.segments.shell.last_pipe_status"
-			},
-			{
-				"function": "powerline.segments.common.time.date",
-				"args": {
-					"istime": "false",
-					"format": "%y-%m-%d"
-				}
 			}
 		]
     }
