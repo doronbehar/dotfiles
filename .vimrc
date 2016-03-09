@@ -57,6 +57,8 @@ source ~/.vim/key-mapping
 set list listchars=tab:›\ ,trail:-,extends:>,precedes:<,eol:¬
 set foldmethod=indent
 set foldcolumn=2
+" fix rendering:
+set tenc=utf8
 " plugin settings:
 " - gitgutter signs:
 let g:gitgutter_sign_added = '﬩ '

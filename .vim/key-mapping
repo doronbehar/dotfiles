@@ -60,7 +60,11 @@ map מ n
 map צ m
 map ת ,
 map ץ .
-" keyboard maps for navigation between words in normal&visual mode:
+" make navigation between words in normal&visual mode more intuitive:
 noremap w b
 noremap W B
+noremap gw ge
+noremap gW gE
+noremap ge w
+noremap gE W
 " vim: ft=vim

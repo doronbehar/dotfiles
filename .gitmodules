@@ -10,9 +10,21 @@
 [submodule "vim-tmux"]
 	path = .vim/bundle/tmux
 	url = https://github.com/zaiste/tmux.vim
-[submodule "vim-neocomplete"]
-	path = .vim/bundle/neocomplete
+[submodule "vim-auto-complete"]
+	path = .vim/bundle/auto-complete
 	url = https://github.com/Shougo/neocomplete.vim
 [submodule "tmux-powerline"]
 	path = .tmux/powerline
 	url = https://github.com/erikw/tmux-powerline
+[submodule "tmux-open-url"]
+	path = .tmux/open-url
+	url = https://github.com/tmux-plugins/tmux-open
+[submodule "tmux-search"]
+	path = .tmux/search
+	url = https://github.com/tmux-plugins/tmux-copycat
+[submodule "tmux-yank"]
+	path = .tmux/yank
+	url = https://github.com/tmux-plugins/tmux-yank
+[submodule "tmux-session-saver"]
+	path = .tmux/resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
