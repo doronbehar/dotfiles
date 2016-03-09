@@ -1,20 +1,25 @@
 set nocompatible
 set modeline
-set backspace=eol,start,indent " actionfor backspace
+set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-set nowrap " no word wrap
-set nohlsearch " highlight search during typing
+" no word wrap:
+set nowrap
+if &diff
+	set wrap
+endif
+" highlight search during typing:
+set nohlsearch
 filetype plugin on
 filetype indent on
 set autoread
 syntax enable
-set mouse=a " enable mouse actions
+" enable mouse actions
+set mouse=a
 colorscheme desert
 set background=dark
 set encoding=utf8
-set ai " auto indent
-set si " smart indent
-set wrap " wrap lines
+set autoindent
+set smartindent
 set incsearch " incremental search
 " make a double-click on '/' while in visual/select mode execute a search
 " through document for the selected text:
@@ -34,29 +39,8 @@ set directory=~/.vim/tmp//
 " make double click on escape button execute `noh` which unhighlights all
 " previously search's results
 nnoremap <esc><esc> :noh <enter>
-" for python-powerline:
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-" for vim-airline powerline plugin:
-"let g:airline_theme='badwolf'
-"if !exists('g:airline_symbols')
-"	let g:airline_symbols = {}
-"endif
-"let g:airline_detect_paste=1
-"let g:airline_detect_modified=1
-"let g:airline_powerline_fonts=0
-"let g:airline_left_alt_sep = ''
-"let g:airline_left_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_symbols.crypt = '🔒'
-"let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.notexists = '∄'
-"let g:airline_symbols.whitespace = 'Ξ'
-"let g:airline#extensions#bufferline#enabled = 0
+" powerline:
+source ~/.vim/powerline
 " make the return to normal mode with escape not take too long and confuse me
 set timeoutlen=1000
 set ttimeoutlen=0
@@ -70,3 +54,12 @@ execute pathogen#infect()
 Helptags
 source ~/.vim/abbreviations
 source ~/.vim/key-mapping
+set list listchars=tab:›\ ,trail:-,extends:>,precedes:<,eol:¬
+set foldmethod=indent
+set foldcolumn=2
+" plugin settings:
+" - gitgutter signs:
+let g:gitgutter_sign_added = '﬩ '
+let g:gitgutter_sign_modified = '≈ '
+let g:gitgutter_sign_removed = '⌐ '
+let g:gitgutter_sign_modified_removed = '⌐˯'
