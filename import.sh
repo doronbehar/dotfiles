@@ -7,7 +7,6 @@ rsync -av --delete ~/.config/powerline/ ./.config/powerline/
 rsync -av --delete ~/.shell/ ./.shell/
 # zsh:
 rsync ~/.zshrc ./
-rsync -av --delete ~/.zsh/ ./.zsh/
 # git:
 rsync ~/.gitconfig ./
 # vim:

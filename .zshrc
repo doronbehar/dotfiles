@@ -1,20 +1,4 @@
-# Set up the prompt:
-#plugins=(rails git textmate ruby lighthouse)
-## set the dircetory for the 'Oh My ZSH' functions directory:
-#ZSH=~/.zsh
-## load functions:
-#source $ZSH/autoload
-## variable exported for 'agnoster' theme
-#export DEFAULT_USER=$USER
-## variables ment for default theme:
-#export POWERLINE_RIGHT_A="exit-status-on-fail"
-#export POWERLINE_PATH="short"
-#export POWERLINE_DETECT_SSH="true"
-#export POWERLINE_HIDE_HOST_NAME="true"
-#export POWERLINE_NO_BLANK_LINE="true"
-## load the theme wanted:
-#source ~/.zsh/themes/default
-# other powerline theme - works smarte:
+# powerline:
 . /usr/share/powerline/bindings/zsh/powerline.zsh
 
 

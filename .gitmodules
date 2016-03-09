@@ -13,3 +13,6 @@
 [submodule "vim-neocomplete"]
 	path = .vim/bundle/neocomplete
 	url = https://github.com/Shougo/neocomplete.vim
+[submodule "tmux-powerline"]
+	path = .tmux/powerline
+	url = https://github.com/erikw/tmux-powerline
