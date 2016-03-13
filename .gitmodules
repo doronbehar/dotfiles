@@ -28,3 +28,6 @@
 [submodule "tmux-session-saver"]
 	path = .tmux/resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "tmux-vim-navigator"]
+	path = .vim/bundle/tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator

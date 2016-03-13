@@ -49,6 +49,7 @@ set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 " make plugin installations easy and use github-plugins from ~/.vim/bundle:
+let g:pathogen_disabled = []
 execute pathogen#infect()
 " make reading help documents easier:
 Helptags

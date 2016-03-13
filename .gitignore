@@ -1,5 +1,7 @@
 .vim/tmp/*.swp
 .vim/backup/*
+.vim/view
+.tmux/resurrect/last
 .vim/.netrwhist
 .shell/history
 .shell/personal
