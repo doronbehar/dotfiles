@@ -18,48 +18,26 @@ nnoremap g2 2gt
 nnoremap g3 3gt
 nnoremap g4 4gt
 nnoremap g5 5gt
-nnoremap g6 6gt
-nnoremap g7 7gt
-nnoremap g8 8gt
+nnoremap g6 6gt nnoremap g7 7gt nnoremap g8 8gt
 nnoremap g9 :tablast <enter>
 " make resizing windows much easier:
-if bufwinnr(1)
-	map + <C-W>+
-	map - <C-W>-
-	map > <C-W>>
-	map < <C-W><
-endif
+execute "set <M-->=\033-"
+execute "set <M-=>=\033="
+execute "set <M-,>=\033,"
+execute "set <M-.>=\033."
+nmap <M--> <C-W>+
+nmap <M-=> <C-W>-
+nmap <M-,> <C-W>>
+nmap <M-.> <C-W><
 " make scrolling horizontally easier and more intutive:
-map <C-L> zl " Scroll 20 characters to the right
-map <C-H> zh " Scroll 20 characters to the left
-" keyboard maps to aviod typing in hebrew:
-map ק e
-map ר r
-map א t
-map ט y
-map ו u
-map ן i
-map ם o
-map פ p
-map ש a
-map ד s
-map ג d
-map כ f
-map ע g
-map י h
-map ח j
-map ל k
-map ך l
-map ף ;
-map ז z
-map ס x
-map ב c
-map ה v
-map נ b
-map מ n
-map צ m
-map ת ,
-map ץ .
+execute "set <M-h>=\033h"
+execute "set <M-l>=\033l"
+nmap <M-l> zl
+nmap <M-h> zh
+execute "set <M-j>=\033j"
+execute "set <M-k>=\033k"
+nmap <M-j> jzz
+nmap <M-k> kzz
 " make navigation between words in normal&visual mode more intuitive:
 noremap w b
 noremap W B
