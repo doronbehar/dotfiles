@@ -1,6 +1,7 @@
 # powerline:
 . /usr/share/powerline/bindings/zsh/powerline.zsh
-
+# syntax highlighting:
+source ~/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh
 
 setopt histignorealldups sharehistory
 

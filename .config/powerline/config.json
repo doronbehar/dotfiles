@@ -9,7 +9,7 @@
         },
         "tmux": {
             "colorscheme": "default",
-            "theme": "sbiddle"
+            "theme": "default"
         },
         "vim": {
             "colorscheme": "default",

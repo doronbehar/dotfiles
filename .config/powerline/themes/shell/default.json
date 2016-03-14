@@ -1,33 +1,33 @@
 {
-    "segments": {
-        "left": [
-            {
-                "name": "user",
-                "function": "powerline.segments.common.env.user",
-                "priority": 30
-            },
-            {
-                "function": "powerline.segments.common.vcs.branch",
-                "args": {
-                    "status_colors": true,
-                    "ignore_statuses": ["U"]
-                }
-            },
-            {
-                "name": "cwd",
-                "function": "powerline.segments.common.env.cwd"
-            },
+	"segments": {
+		"left": [
+			{
+				"name": "user",
+				"function": "powerline.segments.common.env.user",
+				"priority": 30
+			},
+			{
+				"function": "powerline.segments.common.vcs.branch",
+				"args": {
+					"status_colors": true,
+					"ignore_statuses": ["U"]
+				}
+			},
+			{
+				"name": "cwd",
+				"function": "powerline.segments.common.env.cwd"
+			},
 			{
 				"function": "powerline.segments.shell.jobnum",
 				"args": {
 					"show_zero": false
 				}
 			}
-        ],
-	    "right": [
+		],
+		"right": [
 			{
 				"function": "powerline.segments.shell.last_pipe_status"
 			}
 		]
-    }
+	}
 }
