@@ -2,6 +2,7 @@
 .vim/backup/*
 .vim/view
 .tmux/resurrect/last
+.tmux/mail
 .vim/.netrwhist
 .shell/history
 .shell/personal

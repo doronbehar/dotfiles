@@ -16,9 +16,3 @@ rsync ~/.vimrc ./
 # tmux:
 rsync -av --delete ~/.tmux/ ./.tmux/
 rsync ~/.tmux.conf ./.tmux.conf
-echo import file \`~/.tmux-powerlinerc\`? it holds a passowrd for gmail which will have to be changed afterwards.. answer y/n/yes/no
-read a
-if [ "$a" = "y" ] || [ "$a" = "yes" ]; then
-	rsync ~/.tmux-powerlinerc ./.tmux-powerlinerc
-	vim .tmux-powerlinerc
-fi
