@@ -5,3 +5,9 @@
 	editor = vim
 [credential]
 	helper = cache --timeout=300
+[diff]
+	tool = vimdiff
+[alias]
+	d = difftool
+[difftool]
+	prompt = false
