@@ -1,5 +1,11 @@
 # powerline:
-. /usr/share/powerline/bindings/zsh/powerline.zsh
+if [ -f /usr/bin/powerline ]; then
+	. /usr/share/powerline/bindings/zsh/powerline.zsh
+elif [ -f ~/.local/bin/powerline ]; then
+	. ~/.local/share/powerline/bindings/zsh/powerline.zsh
+else
+	echo "you don't have powerline installed, run \`git clone https://github.com/powerline/powerline .shell/powerline && source ~/.zshrc\` to fix it"
+fi
 # syntax highlighting:
 source ~/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh
 

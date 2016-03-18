@@ -77,11 +77,18 @@ if [ -f /etc/bash/completion ] && ! shopt -oq posix; then
     . /etc/bash/completion
 fi
 
-powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 POWERLINE_NO_SHELL_ABOVE=1
-. /usr/share/powerline/bindings/bash/powerline.sh
+if [ -f /usr/bin/powerline ]; then
+	powerline-daemon -q
+	. /usr/share/powerline/bindings/bash/powerline.sh
+elif [ -f ~/.local/bin/powerline ]; then
+	powerline-daemon -q
+	. ~/.local/share/powerline/bindings/bash/powerline.sh
+else
+	echo "you don't seem to have powerline installed, try to install pip or use the git repository to install powerline"
+fi
 
 # envirmental variables:
 source ~/.shell/enviorment
