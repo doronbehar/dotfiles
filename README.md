@@ -4,7 +4,7 @@ My Dotfiles - tmux, vim, bash, zsh, git.
 All of these files create an enviorment with powerline for vim, tmux and the shell.
 I use as well key-bindings/key-mappings that integrate tmux and vim beautifully together so it could be much easier to remember mine then the originals.
 Here are some screenshots: (my host-name is NUC)
-![powerline example](https://lh3.googleusercontent.com/-69tCFbgPqRo/Vu1eaLbmnaI/AAAAAAAAHBw/TqLRZnW1Y7EnAvHstdagbOCC-x94oJPkg/s0/Screenshot+from+2016-03-19+16-12-30.png "powerline.png")
+![powerline](https://raw.githubusercontent.com/Doron-Behar/dotfiles/master/screenshots/1.png)
 In the image you can see I even have live syntax highlighting for the terminal itself. I'm pretty sure it's possible or available only for zsh but it's pretty awesome. Maybe it's not as impressive as vim's syntax highlighting but it's good enough.
 It is possible thanks to: https://github.com/zsh-users/zsh-syntax-highlighting
 
