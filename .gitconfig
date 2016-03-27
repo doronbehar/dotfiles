@@ -10,4 +10,4 @@
 [alias]
 	d = difftool
 [difftool]
-	prompt = false
+	prompt = true
