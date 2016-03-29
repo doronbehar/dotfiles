@@ -21,6 +21,10 @@ quartus(){
 	awk "BEGIN{ print $* }"
 }
 # open vim enviorments easily with a database csv file in ~/.shell/vim-enviorments
+# store your database in the following format:
+# name,source # a line must
+# project1,~/repos/project1/.vim-source-file
+# project2,~/repos/project2/.vim-source-file
 v(){
 	for i in `cat ~/.shell/vim-enviorments | cut -d',' -f1`; do
 		if [ "$i" = "$1" ]; then
