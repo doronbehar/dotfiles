@@ -11,3 +11,5 @@
 	d = difftool
 [difftool]
 	prompt = true
+[pager]
+	stash = false

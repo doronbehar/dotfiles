@@ -22,6 +22,10 @@ alias ccat='pygmentize -g'
 alias cdiff='colordiff'
 # an alias to grep my public IP address and insert in the clipboard
 alias xip='wget http://ipinfo.io/ip -O - | xclip'
+# alias for git to easily print commits with --no-pager
+alias git-l='git --no-pager log'
+# alias to show dotfiles only:
+alias lh='ls -ld .??*'
 # aliases for quartus IDE command line interface:
 alias "altgx-diffmifgen"='/opt/altera.15.1/quartus/bin/altgx_diffmifgen'
 alias "altgx-mifgen"='/opt/altera.15.1/quartus/bin/altgx_mifgen'

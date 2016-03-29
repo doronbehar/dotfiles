@@ -16,4 +16,16 @@ quartus(){
 		IFS=$OLDIFS
 	fi
 }
+
+'='(){
+	awk "BEGIN{ print $* }"
+}
+# open vim enviorments easily with a database csv file in ~/.shell/vim-enviorments
+v(){
+	for i in `cat ~/.shell/vim-enviorments | cut -d',' -f1`; do
+		if [ "$i" = "$1" ]; then
+			vim -S $(grep "$i" ~/.shell/vim-enviorments | cut -d',' -f2)
+		fi
+	done
+}
 # vim:syn=sh

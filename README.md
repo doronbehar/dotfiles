@@ -17,5 +17,11 @@ It is possible thanks to: https://github.com/zsh-users/zsh-syntax-highlighting
  * I believe it's also possible to install these powerline bindings directly from source but I'm sure about it.
 * I use zsh but my dotfiles will work almost as well for bash thanks to the flexibility of the powerline bindings.
 * I don't use 'Oh-My-zsh' -- I just don't like it because I'm not sure it's stable as the python based powerline I do use.
-
+* using the 'v' function:
+ * create a file ~/.shell/vim-enviorments and in it put something like that:
+```
+name,source
+name1,~/repos/project1/.vim-source-file
+project,~/repos/project/.vim-source-file
+```
 `git clone && ./export && echo enjoy!`
