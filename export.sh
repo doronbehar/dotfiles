@@ -8,7 +8,6 @@ mkdir -p ~/.shell
 rsync -av --delete .shell/ ~/.shell/
 # zsh:
 rsync .zshrc ~/
-mkdir -p ~/.shell
 rsync -av .zsh/ ~/.zsh/
 # git:
 rsync .gitconfig ~/
@@ -31,3 +30,8 @@ if [ `which powerline` = "powerline not found" ]; then
 		sudo apt-get install powerline
 	fi
 fi
+# mpd/mpc/ncmpcpp
+mkdir -p ~/.ncmpcpp
+mkdir -p ~/.mpd
+rsync -av --delete ./.ncmpcpp/ ~/.ncmpcpp/
+rsync .mpdconf ~/.mpdconf

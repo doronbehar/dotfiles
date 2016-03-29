@@ -4,6 +4,15 @@
 .tmux/resurrect/last
 .tmux/mail
 .vim/.netrwhist
+*.vim
 .shell/history
 .shell/personal
 .shell/vim-enviorments
+.ncmpcpp/error.log
+.ncmpcpp/lyrics
+.mpd/log
+.mpd/pid
+.mpd/playlists
+.mpd/state
+.mpd/sticker.sql
+.mpd/tag_cache

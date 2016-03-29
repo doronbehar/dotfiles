@@ -16,3 +16,8 @@ rsync ~/.vimrc ./
 # tmux:
 rsync -av --delete ~/.tmux/ ./.tmux/
 rsync ~/.tmux.conf ./.tmux.conf
+# mpd/mpc/ncmpcpp
+rsync -av --delete ~/.ncmpcpp/ ./.ncmpcpp/
+rsync .mpdconf ~/.mpdconf
+# print the status:
+git status
