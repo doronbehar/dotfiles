@@ -26,10 +26,12 @@ quartus(){
 # project1,~/repos/project1/.vim-source-file
 # project2,~/repos/project2/.vim-source-file
 v(){
+	IFS=$'\n'
 	for i in `cat ~/.shell/vim-enviorments | cut -d',' -f1`; do
 		if [ "$i" = "$1" ]; then
 			vim -S $(grep "$i" ~/.shell/vim-enviorments | cut -d',' -f2)
 		fi
 	done
+	IFS=$OLDIFS
 }
 # vim:syn=sh
