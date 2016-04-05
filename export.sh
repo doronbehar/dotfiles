@@ -4,8 +4,8 @@ rsync .profile ~/.profile
 rsync .bashrc ~/.bashrc
 # bash&&zsh
 rsync -av --delete .config/powerline/ ~/.config/powerline/
-mkdir -p ~/.shell
-rsync -av --delete .shell/ ~/.shell/
+mkdir -p ~/.profile.d
+rsync -av --delete .profile.d/ ~/.profile.d/
 # zsh:
 rsync .zshrc ~/
 rsync -av .zsh/ ~/.zsh/
@@ -35,3 +35,4 @@ mkdir -p ~/.ncmpcpp
 mkdir -p ~/.mpd
 rsync -av --delete ./.ncmpcpp/ ~/.ncmpcpp/
 rsync .mpdconf ~/.mpdconf
+# vim: ft=sh

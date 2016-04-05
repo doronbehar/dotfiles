@@ -20,16 +20,17 @@ quartus(){
 '='(){
 	awk "BEGIN{ print $* }"
 }
-# open vim enviorments easily with a database csv file in ~/.shell/vim-enviorments
-# store your database in the following format:
+# open vim enviorments easily with a database csv file in ~/.profile.d/vim-enviorments
+# store your 'database' in the following format:
 # name,source # a line must
 # project1,~/repos/project1/.vim-source-file
 # project2,~/repos/project2/.vim-source-file
+# personaly I store my 'database' in ~/.vim/enviorment
 v(){
 	IFS=$'\n'
-	for i in `cat ~/.shell/vim-enviorments | cut -d',' -f1`; do
+	for i in `cat ~/.profile.d/vim-enviorments | cut -d',' -f1`; do
 		if [ "$i" = "$1" ]; then
-			vim -S $(grep "$i" ~/.shell/vim-enviorments | cut -d',' -f2)
+			vim -S $(grep "$i" ~/.profile.d/vim-enviorments | cut -d',' -f2)
 		fi
 	done
 	IFS=$OLDIFS

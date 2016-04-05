@@ -15,7 +15,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000
 HISTFILESIZE=10000
-HISTFILE=~/.shell/history
+HISTFILE=~/.profile.d/history
 HISTIGNORE="fg:exit:history:ls[ -lahLAH]"
 
 # check the window size after each command and, if necessary,
@@ -68,7 +68,7 @@ xterm*|rxvt*)
 esac
 
 # Alias definitions.
-. ~/.shell/aliases
+. ~/.profile.d/aliases
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -89,10 +89,3 @@ elif [ -f ~/.local/bin/powerline ]; then
 else
 	echo "you don't seem to have powerline installed, try to install pip or use the git repository to install powerline"
 fi
-
-# envirmental variables:
-source ~/.shell/enviorment
-# functions:
-source ~/.shell/functions
-# personal stuff:
-source ~/.shell/personal

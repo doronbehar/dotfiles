@@ -5,9 +5,9 @@
 .tmux/mail
 .vim/.netrwhist
 *.vim
-.shell/history
-.shell/personal
-.shell/vim-enviorments
+.profile.d/history
+.profile.d/personal
+.profile.d/vim-enviorments
 .ncmpcpp/error.log
 .ncmpcpp/lyrics
 .mpd/log
