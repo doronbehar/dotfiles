@@ -4,7 +4,7 @@ rsync ~/.profile ./.profile
 rsync ~/.bashrc ./.bashrc
 # bash&&zsh
 rsync -av --delete ~/.config/powerline/ ./.config/powerline/
-rsync -av --delete ~/.shell/ ./.shell/
+rsync -av --delete ~/.profile.d/ ./.profile.d/
 # zsh:
 rsync ~/.zshrc ./
 rsync -av ~/.zsh/ ./.zsh/
@@ -21,3 +21,4 @@ rsync -av --delete ~/.ncmpcpp/ ./.ncmpcpp/
 rsync .mpdconf ~/.mpdconf
 # print the status:
 git status
+# vim: ft=sh

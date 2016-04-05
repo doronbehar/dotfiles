@@ -21,8 +21,9 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-
-export QSYS_ROOTDIR="/opt/altera.15.1/quartus/sopc_builder/bin"
-
-export ALTERAOCLSDKROOT="/opt/altera.15.1/hld"
+# envirmental variables:
+source ~/.profile.d/enviorment
+# functions:
+source ~/.profile.d/functions
+# personal stuff:
+source ~/.profile.d/personal
