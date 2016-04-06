@@ -8,5 +8,6 @@
 .vim/enviorments/
 .sh/history
 .sh/enviorments.csv
+.bin/fix
 .ncmpcpp/error.log
 .ncmpcpp/lyrics
