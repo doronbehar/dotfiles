@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # general:
 rsync .profile ~/.profile
 # bash:
@@ -9,8 +10,32 @@ rsync -av --delete .profile.d/ ~/.profile.d/
 # zsh:
 rsync .zshrc ~/
 rsync -av .zsh/ ~/.zsh/
+||||||| merged common ancestors
+# general:
+rsync .profile ~/.profile
+# bash:
+rsync .bashrc ~/.bashrc
+# bash&&zsh
+rsync -av --delete .config/powerline/ ~/.config/powerline/
+mkdir -p ~/.shell
+rsync -av --delete .shell/ ~/.shell/
+# zsh:
+rsync .zshrc ~/
+rsync -av .zsh/ ~/.zsh/
+=======
+# shells:
+rsync ./.profile ~/.profile
+rsync ./.bashrc ~/.bashrc
+rsync ./.config/powerline/ ~/.config/powerline/
+rsync ./.zprofile ~/.zprofile
+rsync ./.zlogin ~/.zlogin
+rsync ./.zshenv ~/.zshenv
+rsync ./.zshrc ~/.zshrc
+mkdir -p ~/.zsh
+rsync -av --delete ./.zsh/ ~/.zsh/
+>>>>>>> shells
 # git:
-rsync .gitconfig ~/
+rsync ./.gitconfig ~/.gitconfig
 # vim:
 mkdir -p ~/.vim
 rsync -av --delete .vim/ ~/.vim/
@@ -30,9 +55,14 @@ if [ `which powerline` = "powerline not found" ]; then
 		sudo apt-get install powerline
 	fi
 fi
-# mpd/mpc/ncmpcpp
+# ncmpcpp
 mkdir -p ~/.ncmpcpp
-mkdir -p ~/.mpd
 rsync -av --delete ./.ncmpcpp/ ~/.ncmpcpp/
+<<<<<<< HEAD
 rsync .mpdconf ~/.mpdconf
 # vim: ft=sh
+||||||| merged common ancestors
+rsync .mpdconf ~/.mpdconf
+=======
+# vim: ft=sh
+>>>>>>> shells

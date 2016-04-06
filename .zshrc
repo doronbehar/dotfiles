@@ -1,3 +1,5 @@
+# The following line is as described in a user-guide by powerline:
+# source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
 # powerline:
 if [ -f /usr/bin/powerline ]; then
 	. /usr/share/powerline/bindings/zsh/powerline.zsh
@@ -7,17 +9,12 @@ else
 	echo "you don't have powerline installed, run \`git clone https://github.com/powerline/powerline .profile.d/powerline && source ~/.zshrc\` to fix it"
 fi
 # syntax highlighting:
-source ~/.zsh/syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.sh/syntax-highlighting/plugin
 
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh/history:
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.profile.d/history
 
 # Use modern completion system
 autoload -Uz compinit
@@ -40,9 +37,8 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source ~/.profile.d/aliases
 source /etc/zsh_command_not_found
-# the following line is as described in a user-guide by powerline:
-# source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
-# . /usr/share/powerline/bindings/zsh/powerline.zsh
-HISTIGNORE="ls:history*:fg:exit:ls -[lahLAH]:ls -l[ahAH]:ls -a[lhLH]:ls -h[laLA]:ls -la[hH]:ls -lh[aA]:ls -al[hH]"
+# function that is not compatible this way written in bash:
+'='(){
+	awk "BEGIN{ print $* }"
+}

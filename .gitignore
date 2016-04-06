@@ -4,15 +4,20 @@
 .tmux/resurrect/last
 .tmux/mail
 .vim/.netrwhist
+<<<<<<< HEAD
 *.vim
 .profile.d/history
 .profile.d/personal
 .profile.d/vim-enviorments
+||||||| merged common ancestors
+*.vim
+.shell/history
+.shell/personal
+.shell/vim-enviorments
+=======
+.vim/enviorments
+.sh/history
+.sh/enviorments.csv
+>>>>>>> shells
 .ncmpcpp/error.log
 .ncmpcpp/lyrics
-.mpd/log
-.mpd/pid
-.mpd/playlists
-.mpd/state
-.mpd/sticker.sql
-.mpd/tag_cache

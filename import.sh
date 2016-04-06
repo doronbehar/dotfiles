@@ -1,24 +1,22 @@
-# general:
+# shells:
 rsync ~/.profile ./.profile
-# bash:
 rsync ~/.bashrc ./.bashrc
-# bash&&zsh
-rsync -av --delete ~/.config/powerline/ ./.config/powerline/
-rsync -av --delete ~/.profile.d/ ./.profile.d/
-# zsh:
-rsync ~/.zshrc ./
-rsync -av ~/.zsh/ ./.zsh/
+rsync ~/.config/powerline/ ./.config/powerline/
+rsync ~/.zprofile ./.zprofile
+rsync ~/.zlogin ./.zlogin
+rsync ~/.zshenv ./.zshenv
+rsync ~/.zshrc ./.zshrc
+rsync -av --delete ~/.sh/ ./.sh/
 # git:
-rsync ~/.gitconfig ./
+rsync ~/.gitconfig ./.gitconfig
 # vim:
 rsync -av --delete ~/.vim/ ./.vim/
 rsync ~/.vimrc ./
 # tmux:
 rsync -av --delete ~/.tmux/ ./.tmux/
 rsync ~/.tmux.conf ./.tmux.conf
-# mpd/mpc/ncmpcpp
+# ncmpcpp
 rsync -av --delete ~/.ncmpcpp/ ./.ncmpcpp/
-rsync .mpdconf ~/.mpdconf
 # print the status:
 git status
 # vim: ft=sh
