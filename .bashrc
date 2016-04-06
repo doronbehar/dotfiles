@@ -5,18 +5,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=10000
-HISTFILE=~/.profile.d/history
-HISTIGNORE="fg:exit:history:ls[ -lahLAH]"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -67,9 +57,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Alias definitions.
-. ~/.profile.d/aliases
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -89,3 +76,7 @@ elif [ -f ~/.local/bin/powerline ]; then
 else
 	echo "you don't seem to have powerline installed, try to install pip or use the git repository to install powerline"
 fi
+# function that can't be defined this way written in zsh:
+=(){
+	awk "BEGIN{ print $* }"
+}
