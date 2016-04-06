@@ -1,0 +1,15 @@
+#!/bin/zsh
+if [ -f "$HOME/.zshenv" ]; then
+	. "$HOME/.zshenv"
+fi
+if [ -f "$HOME/.zlogin" ]; then
+	. "$HOME/.zlogin"
+fi
+if [ -f "$HOME/.zprofile" ]; then
+	. "$HOME/.zprofile"
+fi
+if [ "$1" = "bash" ]; then
+	. ~/.bashrc
+elif [ "$1" = "zsh" ]; then
+	. ~/.zshrc
+fi

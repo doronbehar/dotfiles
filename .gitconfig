@@ -13,3 +13,6 @@
 	prompt = true
 [pager]
 	stash = false
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
