@@ -1,5 +1,4 @@
-#!/bin/bash
-# quartus IDE command line interface:
+# quartus IDE function
 quartus(){
 	if [ "$1" = "gui" ] || [ "$1" = "--gui" ] || [ "$1" = "-g" ]; then
 		command $QUARTUS_BIN/quartus --64bit "${@:2}" > /dev/null 2>&1 &
@@ -17,9 +16,6 @@ quartus(){
 	fi
 }
 
-'='(){
-	awk "BEGIN{ print $* }"
-}
 # open vim enviorments easily with a database csv file in ~/.profile.d/vim-enviorments
 # store your 'database' in the following format:
 # name,source # a line must
@@ -28,9 +24,9 @@ quartus(){
 # personaly I store my 'database' in ~/.vim/enviorment
 v(){
 	IFS=$'\n'
-	for i in `cat ~/.profile.d/vim-enviorments | cut -d',' -f1`; do
+	for i in `cat ~/.sh/enviorments.csv | cut -d',' -f1`; do
 		if [ "$i" = "$1" ]; then
-			vim -S $(grep "$i" ~/.profile.d/vim-enviorments | cut -d',' -f2)
+			vim -S $(grep "$i" ~/.sh/enviorments.csv | cut -d',' -f2)
 		fi
 	done
 	IFS=$OLDIFS
@@ -45,4 +41,3 @@ man() {
 	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 	man "$@"
 }
-# vim:syn=sh

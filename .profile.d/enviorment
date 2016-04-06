@@ -1,3 +1,0 @@
-export PATH=$PATH":/home/$USER/.bin/:/home/$USER/.local/bin"
-export PAGER=`which less`
-# vim: syn=sh
