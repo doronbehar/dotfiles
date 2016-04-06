@@ -7,6 +7,7 @@ rsync ~/.zlogin ./.zlogin
 rsync ~/.zshenv ./.zshenv
 rsync ~/.zshrc ./.zshrc
 rsync -av --delete ~/.sh/ ./.sh/
+rsync -av --delete ~/.bin/ ./.bin/
 # git:
 rsync ~/.gitconfig ./.gitconfig
 # vim:

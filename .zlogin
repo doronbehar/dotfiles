@@ -21,7 +21,7 @@ quartus(){
 # name,source # a line must
 # project1,~/repos/project1/.vim-source-file
 # project2,~/repos/project2/.vim-source-file
-# personaly I store my 'database' in ~/.vim/enviorment
+# personaly I store my 'database' in ~/.sh/enviorments.csv
 v(){
 	IFS=$'\n'
 	for i in `cat ~/.sh/enviorments.csv | cut -d',' -f1`; do
