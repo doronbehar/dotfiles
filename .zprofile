@@ -22,6 +22,7 @@ alias lsl="ls -lhFA | less"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias ccat='pygmentize -g'
 alias cdiff='colordiff'
+alias 'p'='. ~/.bin/setup'
 # an alias to grep my public IP address and insert in the clipboard
 alias xip='wget http://ipinfo.io/ip -O - | xclip'
 # alias for git to easily print commits with --no-pager
