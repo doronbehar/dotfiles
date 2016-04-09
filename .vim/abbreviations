@@ -4,9 +4,6 @@ cnoreabbrev Q q
 cnoreabbrev te tabedit
 cnoreabbrev rename Rename
 cnoreabbrev rn Rename
-cnoreabbrev x Explor
-cnoreabbrev explor Explor
-cnoreabbrev xx tabedit `pwd`
 cnoreabbrev tabmerge Tabmerge
 cnoreabbrev tm Tabmerge
 " make change git disply easier to type made by gitgutter plugin
