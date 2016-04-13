@@ -9,6 +9,12 @@
 	tool = vimdiff
 [alias]
 	d = difftool
+	l = log --decorate --all --graph
+	co = checkout
+	cmt = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [difftool]
 	prompt = true
 [pager]

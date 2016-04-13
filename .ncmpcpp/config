@@ -32,7 +32,7 @@ lyrics_directory = ~/.ncmpcpp/lyrics
 #
 ## Needed for tag editor and file operations to work.
 ##
-mpd_music_dir = ~/Music
+mpd_music_dir = ~/music
 #
 #mpd_crossfade_time = 5
 #
@@ -360,7 +360,7 @@ visualizer_look = ●▮
 #
 #lines_scrolled = 2
 #
-#follow_now_playing_lyrics = no
+follow_now_playing_lyrics = yes
 #
 #fetch_lyrics_for_current_song_in_background = no
 #
@@ -382,9 +382,9 @@ visualizer_look = ●▮
 #
 ## Available values: add_remove, always_add.
 ##
-#space_add_mode = always_add
+space_add_mode = add_remove
 #
-#show_hidden_files_in_local_browser = no
+show_hidden_files_in_local_browser = no
 #
 ##
 ## How shall screen switcher work?
@@ -395,7 +395,7 @@ visualizer_look = ●▮
 ## Screens available for use: help, playlist, browser, search_engine,
 ## media_library, playlist_editor, tag_editor, outputs, visualizer, clock.
 ##
-#screen_switcher_mode = playlist, browser
+screen_switcher_mode = playlist, browser,search_engine,media_library
 #
 ##
 ## Note: You can define startup screen for ncmpcpp
@@ -416,17 +416,17 @@ visualizer_look = ●▮
 #
 #ask_before_clearing_playlists = yes
 #
-#clock_display_seconds = no
+clock_display_seconds = yes
 #
-#display_volume_level = yes
+display_volume_level = yes
 #
-#display_bitrate = no
+display_bitrate = no
 #
-#display_remaining_time = no
+display_remaining_time = yes
 #
 ## Available values: none, basic, extended.
 ##
-#regular_expressions = none
+regular_expressions = extended
 #
 ##
 ## Note: If below is enabled, ncmpcpp will ignore leading
@@ -449,7 +449,7 @@ visualizer_look = ●▮
 #
 #media_library_sort_by_mtime = no
 #
-#enable_window_title = yes
+enable_window_title = yes
 #
 ##
 ## Note: You can choose default search mode for search
@@ -465,15 +465,15 @@ visualizer_look = ●▮
 #
 #search_engine_default_search_mode = 1
 #
-#external_editor = nano
+external_editor = vim
 #
 ## Note: set to yes if external editor is a console application.
 ##
-#use_console_editor = yes
+use_console_editor = yes
 #
 ##### colors definitions #####
 #
-#colors_enabled = yes
+colors_enabled = yes
 #
 #empty_tag_color = cyan
 #
@@ -509,4 +509,4 @@ visualizer_look = ●▮
 #
 #active_window_border = red
 #
-# vim: ft=conf
+## vim: ft=conf

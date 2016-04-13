@@ -9,6 +9,7 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 export PAGER=`which less`
+export EDITOR=`which vim`
 # Keep 1000 lines of history within the shell and save it to ~/.sh/history:
 HISTSIZE=10000
 SAVEHIST=10000
