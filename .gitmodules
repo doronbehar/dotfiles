@@ -32,5 +32,5 @@
 	path = .vim/bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
 [submodule "zsh-syntax-highlighting"]
-	path = .zsh/syntax-highlighting
+	path = .sh/syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
