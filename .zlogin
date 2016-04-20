@@ -16,28 +16,15 @@ quartus(){
 	fi
 }
 
-# open vim enviorments easily with a database csv file in ~/.profile.d/vim-enviorments
-# store your 'database' in the following format:
-# name,source # a line must
-# project1,~/repos/project1/.vim-source-file
-# project2,~/repos/project2/.vim-source-file
-# personaly I store my 'database' in ~/.sh/enviorments.csv
-v(){
-	IFS=$'\n'
-	for i in `cat ~/.sh/enviorments.csv | cut -d',' -f1`; do
-		if [ "$i" = "$1" ]; then
-			vim -S $(grep "$i" ~/.sh/enviorments.csv | cut -d',' -f2)
-		fi
-	done
-	IFS=$OLDIFS
-}
+# make man with `less` be more colorfull
 man() {
-	env LESS_TERMCAP_mb=$'\E[01;31m' \
-	LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-	LESS_TERMCAP_me=$'\E[0m' \
-	LESS_TERMCAP_se=$'\E[0m' \
-	LESS_TERMCAP_so=$'\E[38;5;246m' \
-	LESS_TERMCAP_ue=$'\E[0m' \
-	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-	man "$@"
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
 }
+

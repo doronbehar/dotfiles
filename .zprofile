@@ -13,7 +13,6 @@ fi
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
 alias ..="cd .."
 alias lsl="ls -lhFA | less"
 
@@ -23,6 +22,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ccat='pygmentize -g'
 alias cdiff='colordiff'
 alias 'p'='. ~/.bin/setup'
+alias 'load'='. ~/.bin/load'
 # an alias to grep my public IP address and insert in the clipboard
 alias xip='wget http://ipinfo.io/ip -O - | xclip'
 # alias for git to easily print commits with --no-pager

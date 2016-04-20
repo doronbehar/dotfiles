@@ -1,4 +1,8 @@
 #!/bin/zsh
+. /etc/profile
+if [ -f "$HOME/.profile" ]; then
+	. "$HOME/.profile"
+fi
 if [ -f "$HOME/.zshenv" ]; then
 	. "$HOME/.zshenv"
 fi

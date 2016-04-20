@@ -2,7 +2,7 @@
 IFS=$'\n'
 while read -r line; do
 	if [ "$1" = "$(echo "$line" | cut -d',' -f1)" ]; then
-		eval cd "$(echo "$line" | cut -d',' -f3)"
+		eval cd "$(echo "$line" | cut -d',' -f2)"
 		if [ -f makefile ]; then
 			grep '=' makefile | grep -v '\$' | while read -r l; do
 				export $l
