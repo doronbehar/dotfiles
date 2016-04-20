@@ -45,6 +45,8 @@ source ~/.vim/powerline
 set timeoutlen=1000
 set ttimeoutlen=0
 set t_Co=256
+set splitbelow
+set splitright
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
@@ -56,6 +58,7 @@ Helptags
 source ~/.vim/abbreviations
 source ~/.vim/key-mapping
 set list listchars=tab:›\ ,trail:-,extends:>,precedes:<,eol:¬
+set foldenable
 set foldmethod=indent
 set foldcolumn=2
 " fix rendering:

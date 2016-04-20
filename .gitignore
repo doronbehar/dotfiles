@@ -1,13 +1,11 @@
 .vim/tmp/*.swp
 .vim/backup/*
 .vim/view
-.tmux/resurrect/last
-.tmux/mail
+.vim/sessions
 .vim/.netrwhist
-*.vim
 .vim/enviorments/
+.tmux/resurrect/last
 .sh/history
 .sh/enviorments.csv
 .bin/fix
 .ncmpcpp/error.log
-.ncmpcpp/lyrics

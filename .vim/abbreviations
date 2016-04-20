@@ -7,8 +7,8 @@ cnoreabbrev rn Rename
 cnoreabbrev tabmerge Tabmerge
 cnoreabbrev tm Tabmerge
 " make change git disply easier to type made by gitgutter plugin
-cnoreabbrev git GitGutterEnable
-cnoreabbrev nogit GitGutterDisable
+cnoreabbrev gitenable GitGutterEnable
+cnoreabbrev nogitenable GitGutterDisable
 "GitGutterToggle
 cnoreabbrev gitsigns GitGutterSignsEnable
 cnoreabbrev nogitsigns GitGutterSignsDisable
