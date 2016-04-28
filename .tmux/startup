@@ -1,0 +1,2 @@
+#!/bin/zsh
+tmux attach-session -t work || tmux
