@@ -19,6 +19,9 @@
 [submodule "vim-session-manager"]
 	path = .vim/bundle/session
 	url = https://github.com/xolox/vim-session
+[submodule "vim-easymotion"]
+	path = .vim/bundle/easymotion
+	url = https://github.com/easymotion/vim-easymotion
 [submodule "tmux-vim-navigator"]
 	path = .vim/bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator

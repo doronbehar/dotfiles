@@ -1,12 +1,18 @@
 " very usefull ailiases:
 cnoreabbrev W w
+cnoreabbrev Wa wa
 cnoreabbrev Q q
+cnoreabbrev Qa qa
+cnoreabbrev WQa wqa
+cnoreabbrev WQa wqa
+cnoreabbrev Wqa wqa
+cnoreabbrev Wqa wqa
 cnoreabbrev te tabedit
 cnoreabbrev rename Rename
 cnoreabbrev rn Rename
 cnoreabbrev tabmerge Tabmerge
 cnoreabbrev tm Tabmerge
-" make change git disply easier to type made by gitgutter plugin
+" make change gitgutter's signs refresh easier to type
 cnoreabbrev gitenable GitGutterEnable
 cnoreabbrev nogitenable GitGutterDisable
 "GitGutterToggle

@@ -21,23 +21,15 @@ nnoremap g5 5gt
 nnoremap g6 6gt nnoremap g7 7gt nnoremap g8 8gt
 nnoremap g9 :tablast <enter>
 " make resizing windows much easier:
-execute "set <M-->=\033-"
-execute "set <M-=>=\033="
-execute "set <M-,>=\033,"
-execute "set <M-.>=\033."
-nmap <M-=> <C-W>+
-nmap <M--> <C-W>-
-nmap <M-,> <C-W>>
-nmap <M-.> <C-W><
+nnoremap <F5> <C-W>+
+nnoremap <F4> <C-W>-
+nnoremap <F6> <C-W>>
+nnoremap <F3> <C-W><
 " make scrolling horizontally easier and more intutive:
-execute "set <M-h>=\033h"
-execute "set <M-l>=\033l"
-nmap <M-l> zl
-nmap <M-h> zh
-execute "set <M-j>=\033j"
-execute "set <M-k>=\033k"
-nmap <M-j> jzz
-nmap <M-k> kzz
+nnoremap <C-i> zl
+nnoremap <C-u> zh
+nnoremap <C-n> jzz
+nnoremap <C-m> kzz
 " make navigation between words in normal&visual mode more intuitive:
 noremap w b
 noremap W B

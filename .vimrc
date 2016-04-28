@@ -15,12 +15,13 @@ set autoread
 syntax enable
 " enable mouse actions
 set mouse=a
-colorscheme desert
+colorscheme koehler
 set background=dark
 set encoding=utf8
 set autoindent
 set smartindent
-set incsearch " incremental search
+" incremental search
+set incsearch
 " make a double-click on '/' while in visual/select mode execute a search
 " through document for the selected text:
 vnoremap // y/<C-R>"<CR>
@@ -36,6 +37,10 @@ set noexpandtab
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left> <backspace>
 set backupdir=~/.vim/backup//
 set directory=~/.vim/tmp//
+" make certain settings for certain filetypes:
+source ~/.vim/filetype-specific-settings
+" create a command that sets up all normal word wrap "Wrap"
+command! -nargs=* Wrap set wrap linebreak nolist
 " make double click on escape button execute `noh` which unhighlights all
 " previously search's results
 nnoremap <esc><esc> :noh <enter>
@@ -53,7 +58,7 @@ set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusl
 " make plugin installations easy and use github-plugins from ~/.vim/bundle:
 let g:pathogen_disabled = []
 execute pathogen#infect()
-" make reading help documents easier:
+" make reading help documents for Plugins easier:
 Helptags
 source ~/.vim/abbreviations
 source ~/.vim/key-mapping
