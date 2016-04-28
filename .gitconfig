@@ -3,6 +3,7 @@
 	name = Doron Behar
 [core]
 	editor = vim
+	pager = less -r
 [credential]
 	helper = cache --timeout=300
 [diff]
@@ -15,6 +16,7 @@
 	st = status
 	br = branch
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	ls = ls-files
 [difftool]
 	prompt = true
 [pager]
