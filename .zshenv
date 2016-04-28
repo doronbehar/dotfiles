@@ -1,12 +1,17 @@
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+add2PATH-only-if-arg-not-exist(){
+	if ! echo $PATH | grep -q "$1"; then
+		PATH="$1"":""$PATH"
+	fi
+}
+if [ -d "$HOME/bin" ]; then
+	add2PATH-only-if-arg-not-exist "$HOME/bin"
 fi
 if [ -d "$HOME/.bin" ]; then
-    PATH="$HOME/.bin:$PATH"
+	add2PATH-only-if-arg-not-exist "$HOME/.bin"
 fi
 if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.local/bin:$PATH"
+	add2PATH-only-if-arg-not-exist "$HOME/.local/bin"
 fi
 export PAGER=`which less`
 export LESS="-X"

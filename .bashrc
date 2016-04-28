@@ -67,16 +67,21 @@ fi
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 POWERLINE_NO_SHELL_ABOVE=1
-if [ -f /usr/bin/powerline ]; then
-	powerline-daemon -q
+powerline-daemon -q
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
 	. /usr/share/powerline/bindings/bash/powerline.sh
-elif [ -f ~/.local/bin/powerline ]; then
-	powerline-daemon -q
+elif [ -f ~/.local/share/powerline/bindings/bash/powerline.sh ]; then
 	. ~/.local/share/powerline/bindings/bash/powerline.sh
+elif [ -f /usr/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh ]; then
+	. /usr/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
 else
-	echo "you don't seem to have powerline installed, try to install pip or use the git repository to install powerline"
+	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
 fi
 # function that can't be defined this way written in zsh:
 =(){
 	awk "BEGIN{ print $* }"
 }
+
+export QSYS_ROOTDIR="/opt/altera/quartus/sopc_builder/bin"
+
+export ALTERAOCLSDKROOT="/opt/altera/hld"

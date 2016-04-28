@@ -6,6 +6,6 @@
 .vim/enviorments/
 .tmux/resurrect/last
 .sh/history
-.sh/enviorments.csv
+.sh/environment.csv
 .bin/fix
 .ncmpcpp/error.log

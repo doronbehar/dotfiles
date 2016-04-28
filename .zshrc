@@ -1,12 +1,14 @@
-# The following line is as described in a user-guide by powerline:
-# source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
+# The following line is as described in a user-guide by powerline: # source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
 # powerline:
-if [ -f /usr/bin/powerline ]; then
+powerline-daemon -q
+if [ -f /usr/share/powerline/bindings/zsh/powerline.zsh ]; then
 	. /usr/share/powerline/bindings/zsh/powerline.zsh
-elif [ -f ~/.local/bin/powerline ]; then
+elif [ -f ~/.local/share/powerline/bindings/zsh/powerline.zsh ]; then
 	. ~/.local/share/powerline/bindings/zsh/powerline.zsh
+elif [ -f /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh ]; then
+	. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 else
-	echo "you don't have powerline installed, run \`git clone https://github.com/powerline/powerline .profile.d/powerline && source ~/.zshrc\` to fix it"
+	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
 fi
 # syntax highlighting:
 source ~/.sh/syntax-highlighting/plugin
@@ -37,7 +39,9 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source /etc/zsh_command_not_found
+if [ -f /etc/zsh_command_not_found ]; then
+	source /etc/zsh_command_not_found
+fi
 # function that is not compatible this way written in bash:
 '='(){
 	awk "BEGIN{ print $* }"
