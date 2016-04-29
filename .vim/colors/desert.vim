@@ -97,7 +97,7 @@ hi Constant	ctermfg=brown
 hi Special	ctermfg=5
 hi Identifier	ctermfg=6
 hi Statement	ctermfg=3
-hi PreProc	ctermfg=5
+hi PreProc	ctermfg=6
 hi Type		ctermfg=2
 hi Underlined	cterm=underline ctermfg=5
 hi Ignore	cterm=bold ctermfg=7
