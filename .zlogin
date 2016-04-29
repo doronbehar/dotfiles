@@ -1,13 +1,3 @@
-# make grep use colors always when inside a pipeline e.g `less -R`
-# as well, always use line numbers when not in a pipeline but do use when not in a pipline
-# stolen from: http://unix.stackexchange.com/questions/25546/grep-alias-line-numbers-unless-its-in-a-pipeline/25549
-grep(){
-	if [[ -t 0 && -t 1 ]]; then
-		command grep -n --color=auto "$@"
-	else
-		command grep --color=always "$@"
-	fi
-}
 # `setup` function:
 # 1. The function reads a file located in ~/.sh/environment.csv and decides according
 #    to the argument to which place to go. The argument corresponds to the 1st column
@@ -15,6 +5,9 @@ grep(){
 # 2. Afterwards it load variables from the makefile located in that directory.
 # 3. Then, it prints `ls -l` && `git status`
 setup(){
+	local SHOW="==========================================
+showing releavent files for the project:
+=========================================="
 	IFS=$'\n'
 	while read -r line; do
 		if [ "$1" = "$(echo "$line" | cut -d',' -f1)" ]; then
@@ -24,7 +17,9 @@ setup(){
 					export $l
 				done
 			fi
-			ls -lh
+			echo "$SHOW"
+			# ment for working with directories containing files for Quartus IDE
+			ls -ld `ls | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
 			git status
 		fi
 	done < ~/.sh/environment.csv
