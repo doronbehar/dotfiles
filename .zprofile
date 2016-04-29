@@ -28,11 +28,14 @@ alias 'p'='setup'
 alias 'load'='. ~/.bin/load'
 # Show PATH
 alias 'path'="echo $PATH | sed -e 's/:/\n/g'"
-# an alias to grep my public IP address and insert in the clipboard
+# make the mv and cp commands interactive and therefor safer
+alias cp='cp -i'
+alias mv='mv -i'
+# grep my public IP address and insert in the clipboard
 alias xip='wget http://ipinfo.io/ip -O - | xclip'
-# alias for git to easily print commits with --no-pager
+# make git to easily print log commits with --no-pager
 alias git-l='git --no-pager log'
-# alias to show dotfiles only:
+# show dotfiles only:
 alias lh='ls -ld .??*'
 # quartus IDE command line interface:
 if [ -z "$QUARTUS_BIN" ]; then
