@@ -1,0 +1,19 @@
+#!/bin/zsh
+active="$(pacmd list-sinks | grep '*' | sed 's/\(\s\|index\|*\|:\)//g')"
+echo the sinks available are:
+pacmd list-sinks | grep index | sed 's/\(index\|*\|:\|\s\)//g'
+total_number_of_sinks=0
+for sink in $(pacmd list-sinks | grep index | sed "s/\(index\|*\|:\|\s\)//g"); do
+	let "total_number_of_sinks+=1"
+done
+#all_sinks=($(pacmd list-sinks | grep index | sed 's/\(index\|*\|:\|\s\)//g'))
+#total_number_of_sinks=${#all_sinks}
+echo the total number of sinks is "$total_number_of_sinks"
+for not_active in $(pacmd list-sinks | grep index | grep -v '*' | sed 's/\(\s\|index\|*\|:\)//g'); do
+	if [ "$not_active" = "$(expr $((active + 1)) % "$total_number_of_sinks")" ]; then
+		echo activating sink "$not_active" out of "$total_number_of_sinks"
+		for i in $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g'); do
+			pacmd set-default-sink "$not_active" && pacmd move-sink-input "$i" "$not_active"
+		done
+	fi
+done
