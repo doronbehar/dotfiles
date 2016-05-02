@@ -1,12 +1,12 @@
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls='ls --color=auto'
-	alias dir='dir --color=auto'
-	alias vdir='vdir --color=auto'
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
+	alias ls='ls --color=always'
+	alias dir='dir --color=always'
+	alias vdir='vdir --color=always'
+	alias grep='grep --color=always'
+	alias fgrep='fgrep --color=always'
+	alias egrep='egrep --color=always'
 fi
 
 # some more ls aliases
@@ -37,6 +37,8 @@ alias xip='wget http://ipinfo.io/ip -O - | xclip'
 alias git-l='git --no-pager log'
 # show dotfiles only:
 alias lh='ls -ld .??*'
+# make it easier to open files in multiple tabs with vim - without specifying the -p flag
+alias vim='vim -p'
 # quartus IDE command line interface:
 if [ -z "$QUARTUS_BIN" ]; then
 	QUARTUS_BIN="/opt/altera/quartus/bin"

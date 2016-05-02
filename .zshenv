@@ -20,9 +20,9 @@ fi
 if [ -d "$HOME/.local/bin" ]; then
 	add2PATH "$HOME/.local/bin"
 fi
-export PAGER=`which less`
-export LESS="-X"
-export EDITOR=`which vim`
+export PAGER="less"
+export LESS="-X -x4 -r"
+export EDITOR="vim"
 # Keep 1000 lines of history within the shell and save it to ~/.sh/history:
 HISTSIZE=10000
 SAVEHIST=10000
