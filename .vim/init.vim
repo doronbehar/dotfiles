@@ -1,1 +1,1 @@
-/home/doron/.vimrc
+../.vimrc

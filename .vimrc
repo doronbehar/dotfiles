@@ -6,6 +6,7 @@ set whichwrap+=<,>,h,l
 set nowrap
 if &diff
 	set wrap
+	set diffopt+=iwhite
 endif
 " highlight search during typing:
 set nohlsearch
@@ -46,15 +47,18 @@ command! -nargs=* Wrap set wrap linebreak nolist
 nnoremap <esc><esc> :noh <enter>
 " powerline:
 source ~/.vim/powerline
-" make the return to normal mode with escape not take too long and confuse me
+" make the return to normal mode with escape not take too long and confuse me:
 set timeoutlen=1000
 set ttimeoutlen=0
 set t_Co=256
 set splitbelow
 set splitright
-set laststatus=2 " Always display the statusline in all windows
-set showtabline=2 " Always display the tabline, even if there is only one tab
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+" Always display the statusline in all windows:
+set laststatus=2
+" Always display the tabline, even if there is only one tab:
+set showtabline=2
+" Hide the default mode text (e.g. -- INSERT -- below the statusline):
+set noshowmode
 " make plugin installations easy and use github-plugins from ~/.vim/bundle:
 let g:pathogen_disabled = []
 execute pathogen#infect()
@@ -68,6 +72,9 @@ set foldmethod=indent
 set foldcolumn=2
 " fix rendering:
 set tenc=utf8
+" make foldings-view automatic:
+autocmd BufWinLeave * mkview!
+autocmd BufWinEnter * silent loadview
 " plugin settings:
 " - gitgutter signs:
 let g:gitgutter_sign_added = '﬩ '

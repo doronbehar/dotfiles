@@ -1,12 +1,16 @@
 " very usefull ailiases:
 cnoreabbrev W w
-cnoreabbrev Wa wa
 cnoreabbrev Q q
+cnoreabbrev Wa wa
 cnoreabbrev Qa qa
-cnoreabbrev WQa wqa
-cnoreabbrev WQa wqa
+cnoreabbrev Wq wq
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev WQ wq
 cnoreabbrev Wqa wqa
 cnoreabbrev Wqa wqa
+cnoreabbrev WQa wqa
+cnoreabbrev WQa wqa
 cnoreabbrev te tabedit
 cnoreabbrev rename Rename
 cnoreabbrev rn Rename
