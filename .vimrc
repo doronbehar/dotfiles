@@ -36,7 +36,7 @@ set noexpandtab
 " make <c-r> insert the current visually selected text inserted into a replace
 " text inside vim's command line
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left> <backspace>
-set backupdir=~/.vim/backup//
+set backupdir=~/.vim/tmp//
 set directory=~/.vim/tmp//
 " make certain settings for certain filetypes:
 source ~/.vim/filetype-specific-settings

@@ -13,15 +13,12 @@
 [submodule "vim-auto-complete"]
 	path = .vim/bundle/auto-complete
 	url = https://github.com/Shougo/neocomplete.vim
-[submodule "vim-misc-by-Xolox"]
-	path = .vim/bundle/xolox-misc
-	url = https://github.com/xolox/vim-misc
-[submodule "vim-session-manager"]
-	path = .vim/bundle/session
-	url = https://github.com/xolox/vim-session
 [submodule "vim-easymotion"]
 	path = .vim/bundle/easymotion
 	url = https://github.com/easymotion/vim-easymotion
+[submodule "vim-incsearch"]
+	path = .vim/bundkle/incsearch
+	url = https://github.com/haya14busa/incsearch.vim
 [submodule "tmux-vim-navigator"]
 	path = .vim/bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator

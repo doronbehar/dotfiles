@@ -1,0 +1,39 @@
+#!/bin/zsh
+if [ -f "$1" ]; then
+	echo file exist;
+	echo "$1" > /tmp/doron/rm-view
+	if egrep -q "^/" /tmp/doron/rm-view; then
+		echo you have specified a full path for the file
+		FIL="$(echo "$1" | sed 's/\/home\/doron/\~/g' | sed 's/\//=+/g')"
+		echo FIL: "$FIL"
+		E="="
+		FILE="$FIL""$E"
+		echo FILE: "$FILE"
+		if [ -f ~/.vim/view/"$FILE" ]; then
+			echo "file exists in ~/.vim/view"
+			REAL_FILE="$(ls ~/.vim/view/"$FILE")"
+		else
+			echo "file doesn't exist in ~/.vim/view"
+			exit 1
+		fi
+		rm "$REAL_FILE"
+	else
+		echo you have specified ot a full path
+		FIL="$(echo "$(pwd)"/"$1" | sed 's/\/home\/doron/\~/g' | sed 's/\//=+/g')"
+		echo FIL: "$FIL"
+		E="="
+		FILE="$FIL""$E"
+		echo FILE: "$FILE"
+		if [ -f ~/.vim/view/"$FILE" ]; then
+			echo "file exists in ~/.vim/view"
+			REAL_FILE="$(ls ~/.vim/view/"$FILE")"
+		else
+			echo "file doesn't exist in ~/.vim/view"
+			exit 1
+		fi
+		rm "$REAL_FILE"
+	fi
+	rm /tmp/doron/rm-view
+else
+	echo "rm-view: file doesn't exist"
+fi
