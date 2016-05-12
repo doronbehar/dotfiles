@@ -94,7 +94,7 @@ visualizer_sync_interval = 30
 ##
 visualizer_type = wave
 #
-visualizer_look = ●▮
+visualizer_look = xx
 #
 ##### system encoding #####
 ##
