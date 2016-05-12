@@ -23,7 +23,12 @@ _tmux(){
 _ncmpcpp(){
 	rsync -av --delete ~/.ncmpcpp/ ./.ncmpcpp/
 }
-
+_X(){
+	rsync ~/.Xdefaults ./.Xdefaults
+	rsync ~/.Xresources ./.Xresources
+	rsync ~/.Xinitrc ./.Xinitrc
+	rsync ~/.Xsessionrc ./.Xsessionrc
+}
 case "$1" in
 	shells)
 		_shells
@@ -40,12 +45,20 @@ case "$1" in
 	ncmpcpp)
 		_ncmpcpp
 		;;
+	X)
+		_X
+		;;
+	transmission)
+		_transmission
+		;;
 	*)
 		_ncmpcpp
 		_tmux
 		_vim
 		_git
 		_shells
+		_X
+		_transmission
 		# print the status:
 		git status
 		;;

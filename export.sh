@@ -34,4 +34,7 @@ fi
 # ncmpcpp
 mkdir -p ~/.ncmpcpp
 rsync -av --delete ./.ncmpcpp/ ~/.ncmpcpp/
+# X:
+rsync ./.Xdefaults ~/.Xdefaults
+rsync ./.Xresources ~/.Xresources
 # vim: ft=sh
