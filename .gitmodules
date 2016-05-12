@@ -19,6 +19,15 @@
 [submodule "vim-incsearch"]
 	path = .vim/bundle/incsearch
 	url = https://github.com/haya14busa/incsearch.vim
+[submodule "vim-NERDTree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim-airline"]
+	path = .vim/bundle/airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "vim-airline-themes"]
+	path = .vim/bundle/airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
 [submodule "tmux-vim-navigator"]
 	path = .vim/bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
