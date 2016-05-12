@@ -29,6 +29,9 @@ _X(){
 	rsync ~/.Xinitrc ./.Xinitrc
 	rsync ~/.Xsessionrc ./.Xsessionrc
 }
+_transmission(){
+	rsync -av --delete ~/.config/transmission-remote-cli/ .config/transmission-remote-cli/
+}
 case "$1" in
 	shells)
 		_shells
