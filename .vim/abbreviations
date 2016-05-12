@@ -16,14 +16,4 @@ cnoreabbrev rename Rename
 cnoreabbrev rn Rename
 cnoreabbrev tabmerge Tabmerge
 cnoreabbrev tm Tabmerge
-" make change gitgutter's signs refresh easier to type
-cnoreabbrev gitenable GitGutterEnable
-cnoreabbrev nogitenable GitGutterDisable
-"GitGutterToggle
-cnoreabbrev gitsigns GitGutterSignsEnable
-cnoreabbrev nogitsigns GitGutterSignsDisable
-"GitGutterSignsToggle
-cnoreabbrev gitbg GitGutterLineHighlightsEnable
-cnoreabbrev nogitbg GitGutterLineHighlightsDisable
-"GitGutterLineHighlightsToggle
 " vim: syn=vim

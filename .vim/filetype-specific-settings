@@ -1,5 +1,0 @@
-" markdown: spellchecking and wrap
-autocmd Filetype markdown setlocal wrap spell nolist linebreak
-" gitcommit: spellcheck
-autocmd Filetype gitcommit setlocal spell
-" vim:ft=vim

@@ -1,0 +1,18 @@
+" make change gitgutter's signs refresh easier to type
+command! -nargs=* GGE GitGutterEnable
+command! -nargs=* GGD GitGutterDisable
+"GitGutterToggle
+command! -nargs=* GGSE GitGutterSignsEnable
+command! -nargs=* GGSD GitGutterSignsDisable
+"GitGutterSignsToggle
+command! -nargs=* GGHE GitGutterLineHighlightsEnable
+command! -nargs=* GGHD GitGutterLineHighlightsDisable
+"GitGutterLineHighlightsToggle
+" pasting from xclipboard settings:
+command! -nargs=* Paste set paste list
+command! -nargs=* Nopaste set nopaste list
+" create a command that sets up all normal word wrap "Wrap"
+command! -nargs=* Wrap set wrap linebreak nolist | nmap j gj| nmap k gk| nmap 0 g0| nmap $ g$
+command! -nargs=* Nowrap set nowrap nolinebreak list | nunmap j| uunmap k| nunmap 0| nunmap $
+" vim: syn=vim
+
