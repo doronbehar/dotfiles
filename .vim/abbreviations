@@ -1,19 +1,23 @@
 " very usefull ailiases:
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Wa wa
-cnoreabbrev Qa qa
-cnoreabbrev Wq wq
-cnoreabbrev Wq wq
-cnoreabbrev WQ wq
-cnoreabbrev WQ wq
-cnoreabbrev Wqa wqa
-cnoreabbrev Wqa wqa
-cnoreabbrev WQa wqa
-cnoreabbrev WQa wqa
-cnoreabbrev te tabedit
-cnoreabbrev rename Rename
-cnoreabbrev rn Rename
-cnoreabbrev tabmerge Tabmerge
-cnoreabbrev tm Tabmerge
+cabbrev Wa wa
+cabbrev Qa qa
+cabbrev Wqa wqa
+cabbrev Wqa wqa
+cabbrev WQa wqa
+cabbrev WQa wqa
+
+" Abbreviations for deleting the buffer that was last opened according
+" to ~/.vim/commands:
+cabbrev q Q
+cabbrev Wq WQ
+cabbrev Wq WQ
+cabbrev wq WQ
+cabbrev wq WQ
+
+" shortcuts:
+cabbrev te tabedit
+cabbrev rename Rename
+cabbrev rn Rename
+cabbrev tabmerge Tabmerge
+cabbrev tm Tabmerge
 " vim: syn=vim

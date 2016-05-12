@@ -108,8 +108,8 @@ set foldcolumn=2
 set tenc=utf8
 
 " make foldings-view automatic:
-autocmd BufWinLeave * mkview!
-autocmd BufWinEnter * silent loadview
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 " plugin settings:
 " - gitgutter signs:
