@@ -6,6 +6,8 @@
 	pager = less -r
 [credential]
 	helper = cache --timeout=300
+[credential "https://github.com"]
+	username = Doron-Behar
 [diff]
 	tool = vimdiff
 [alias]
@@ -17,6 +19,7 @@
 	br = branch
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	ls = ls-files
+	m = mergetool
 [difftool]
 	prompt = true
 [pager]
@@ -24,3 +27,5 @@
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+[push]
+	default = simple
