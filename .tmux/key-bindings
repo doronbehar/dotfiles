@@ -23,8 +23,8 @@ unbind-key Right
 bind-key -n C-PageUp previous-window
 bind-key -n C-PageDown next-window
 # - bind Shift+PageUp/PageDown for moving windows around like in chrome:
-bind-key -n C-S-PageUp swap-window -t -1
-bind-key -n C-S-PageDown swap-window -t +1
+bind-key -n M-PageUp swap-window -t -1
+bind-key -n M-PageDown swap-window -t +1
 # resizing panes in the true spirit of vim:
 bind-key -r -n M-Right resize-pane -R
 bind-key -r -n M-Left resize-pane -L
@@ -66,4 +66,10 @@ bind-key % split-window -h -c '#{pane_current_path}'
 bind-key , command-prompt -I "rename-window "
 # make renaming current session easier:
 bind-key '$' command-prompt -I "rename-session "
+# Enable running a command in all panes and windows:
+bind E command-prompt -p "Command:" \
+	"run \"tmux list-sessions                  -F '##{session_name}'        | xargs -I SESS \
+		tmux list-windows  -t SESS          -F 'SESS:##{window_index}'   | xargs -I SESS_WIN \
+		tmux list-panes    -t SESS_WIN      -F 'SESS_WIN.##{pane_index}' | xargs -I SESS_WIN_PANE \
+		tmux send-keys     -t SESS_WIN_PANE '%1' Enter\""
 # vim:ft=tmux

@@ -63,6 +63,9 @@ esac
 if [ -f /etc/bash/completion ] && ! shopt -oq posix; then
     . /etc/bash/completion
 fi
+if [ -f ~/.tmux/bash-completion ]; then
+	source ~/.tmux/bash-completion
+fi
 
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
