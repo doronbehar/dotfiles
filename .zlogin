@@ -52,7 +52,7 @@ quartus(){
 		fi
 	fi
 	if [ "$1" = "gui" ] || [ "$1" = "--gui" ] || [ "$1" = "-g" ]; then
-		command $QUARTUS_BIN/quartus --64bit "${@:2}" > /dev/null 2>&1 &
+		command $QUARTUS_BIN/quartus --64bit "${@:2}"
 	elif [ "$1" = "" ]; then
 		echo "Usage:\n--gui | -g | gui for the gui"
 		echo `ls $QUARTUS_BIN/quartus_* | cut -d'_' -f2`;
