@@ -17,7 +17,7 @@ command! -nargs=* Nowrap set nowrap nolinebreak list | nunmap j| uunmap k| nunma
 " Fully Hijack netrw with NERDTree:
 command! -nargs=* Ex NERDTree
 " delete buffers when exiting:
-command! -nargs=* WQ w | bdelete
+command! -nargs=* WQ w | if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1| q | else | bdelete | endif
 command! -nargs=* Q bdelete
 command! -nargs=* W w
 command! -nargs=* Q if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1| q | else | bdelete | endif

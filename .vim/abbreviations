@@ -8,7 +8,6 @@ cabbrev WQa wqa
 
 " Abbreviations for deleting the buffer that was last opened according
 " to ~/.vim/commands:
-cabbrev q Q
 cabbrev Wq WQ
 cabbrev Wq WQ
 cabbrev wq WQ
