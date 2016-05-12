@@ -53,12 +53,6 @@ autocmd Filetype markdown Wrap
 autocmd Filetype gitcommit setlocal spell
 
 
-" powerline:
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-"set rtp+=/usr/lib/python3.5/site-packages/powerline/bindings/vim
-"set rtp+=/usr/share/powerline/bindings/vim
 
 " make the return to normal mode with escape not take too long and confuse me:
 set timeoutlen=1000
@@ -76,11 +70,28 @@ set showtabline=2
 " Hide the default mode text (e.g. -- INSERT -- below the statusline):
 set noshowmode
 
+" powerline:
 " make plugin installations easy and use github-plugins from ~/.vim/bundle:
-let g:pathogen_disabled = []
 execute pathogen#infect()
 " make reading help documents for Plugins easier:
 Helptags
+if !has('nvim')
+	let g:pathogen_disabled = ["airline"]
+	python from powerline.vim import setup as powerline_setup
+	python powerline_setup()
+	python del powerline_setup
+	"set rtp+=/usr/lib/python3.5/site-packages/powerline/bindings/vim
+else
+	if !exists('g:airline_symbols')
+		let g:airline_symbols = {}
+	endif
+	" disable file encoding if width is smaller than 50:
+	call airline#parts#define_minwidth('ffenc', 50)
+	let g:airline_symbols.maxlinenr = 'Ξ'
+	let g:airline_theme = 'powerlineish'
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_powerline_fonts = 1
+endif
 
 " abbreviations:
 source ~/.vim/abbreviations
@@ -97,9 +108,19 @@ set tenc=utf8
 " make foldings-view automatic:
 autocmd BufWinLeave * mkview!
 autocmd BufWinEnter * silent loadview
+
 " plugin settings:
 " - gitgutter signs:
-"let g:gitgutter_sign_added = '+ '
+let g:gitgutter_sign_added = '+ '
 let g:gitgutter_sign_modified = '≈ '
 "let g:gitgutter_sign_removed = '⌐ '
-"let g:gitgutter_sign_modified_removed = '⌐˯'
+" - NERDTree open automatically when no file is specified:
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeDirArrowExpandable = '»'
+let g:NERDTreeDirArrowCollapsible = '¬'
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeHijackNetrw = 1
+let g:NERDTreeCaseSensitiveSort = 1
+let g:NERDTreeShowLineNumbers = 1

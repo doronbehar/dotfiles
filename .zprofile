@@ -40,7 +40,7 @@ alias git-l='git --no-pager log'
 # show dotfiles only:
 alias lh='LC_ALL=en_us ls -ld .??*'
 # make it easier to open files in multiple tabs with vim - without specifying the -p flag
-alias vim='vim -p'
+alias vim='nvim -p'
 # quartus IDE command line interface:
 if [ -z "$QUARTUS_BIN" ]; then
 	QUARTUS_BIN="/opt/altera/quartus/bin"
