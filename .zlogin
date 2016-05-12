@@ -13,13 +13,13 @@ showing releavent files for the project:
 		if [ "$1" = "$(echo "$line" | cut -d',' -f1)" ]; then
 			eval cd "$(echo "$line" | cut -d',' -f2)"
 			if [ -f makefile ]; then
-				grep '=' makefile | grep -v '\$' | while read -r l; do
+				grep --color=never '=' makefile | grep -v '\$' | while read -r l; do
 					export $l
 				done
 			fi
 			echo "$SHOW"
 			# ment for working with directories containing files for Quartus IDE
-			ls -ld `ls | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
+			LC_ALL=en_us ls --color=auto -ldh `ls --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
 			git status
 		fi
 	done < ~/.sh/environment.csv
@@ -86,47 +86,11 @@ insync(){
 		"status" )
 			command insync get_status
 			;;
+		"st" )
+			command insync get_status
+			;;
 		* )
 			command insync `echo "$@" | sed 's/\s/_/g'`
 		;;
 	esac
-	#case "$@" in
-	#	"accept all new shares"		) command insync accept_all_new_shares;;
-	#	"accept share"				) command insync accept_share;;
-	#	"add account"				) command insync add_account;;
-	#	"force sync"				) command insync force_sync;;
-	#	"get account information"	) command insync get_account_information;;
-	#	"get account info"			) command insync get_account_information;;
-	#	"get actions required"		) command insync get_actions_required;;
-	#	"get domain link"			) command insync get_domain_link;;
-	#	"get errors"				) command insync get_errors;;
-	#	"get file status"			) command insync get_file_status;;
-	#	"get new shares" 			) command insync get_new_shares;;
-	#	"get private link"			) command insync get_private_link;;
-	#	"get proxy"					) command insync get_proxy;;
-	#	"get public link" 			) command insync get_public_link;;
-	#	"get recent changes"		) command insync get_recent_changes;;
-	#	"get root_drive files"		) command insync get_root_drive_files;;
-	#	"get sync progress"			) command insync get_sync_progress;;
-	#	"get status"				) command insync get_status;;
-	#	"status"					) command insync get_status;;
-	#	"manage ignore list"		) command insync manage_ignore_list;;
-	#	"manage selective sync"		) command insync manage_selective_sync;;
-	#	"move folder"				) command insync move_folder;;
-	#	"open in gdrive"			) command insync open_in_gdrive;;
-	#	"pause syncing"				) command insync pause_syncing;;
-	#	"quit"						) command insync quit;;
-	#	"reject all new_shares"		) command insync reject_all_new_shares;;
-	#	"reject share"				) command insync reject_share;;
-	#	"remove account"			) command insync remove_account;;
-	#	"remove from insync"		) command insync remove_from_insync;;
-	#	"resume syncing"			) command insync resume_syncing;;
-	#	"retry_errors"				) command insync retry_errors;;
-	#	"set autostart"				) command insync set_autostart;;
-	#	"set export option"			) command insync set_export_option;;
-	#	"set proxy"					) command insync set_proxy;;
-	#	"set selective sync"		) command insync set_selective_sync;;
-	#	"share"						) command insync share;;
-	#	"start"						) command insync start;;
-	#esac
 }

@@ -1,7 +1,8 @@
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls='ls --color=always'
+	# Make `ls` show time always in en_us always
+	alias ls='LC_ALL=en_us ls --color=always'
 	alias dir='dir --color=always'
 	alias vdir='vdir --color=always'
 	alias grep='grep --color=always'
@@ -10,10 +11,11 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
+alias ll='LC_ALL=en_us ls -alF'
+alias la='LC_ALL=en_us ls -A'
 alias ..="cd .."
-alias lsl="ls -lhFA | less"
+alias lsl="LC_ALL=en_us ls -lhFA | less"
+alias trc=transmission-remote-cli
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -36,7 +38,7 @@ alias xip='wget http://ipinfo.io/ip -O - | xclip'
 # make git to easily print log commits with --no-pager
 alias git-l='git --no-pager log'
 # show dotfiles only:
-alias lh='ls -ld .??*'
+alias lh='LC_ALL=en_us ls -ld .??*'
 # make it easier to open files in multiple tabs with vim - without specifying the -p flag
 alias vim='vim -p'
 # quartus IDE command line interface:
