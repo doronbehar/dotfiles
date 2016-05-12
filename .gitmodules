@@ -17,7 +17,7 @@
 	path = .vim/bundle/easymotion
 	url = https://github.com/easymotion/vim-easymotion
 [submodule "vim-incsearch"]
-	path = .vim/bundkle/incsearch
+	path = .vim/bundle/incsearch
 	url = https://github.com/haya14busa/incsearch.vim
 [submodule "tmux-vim-navigator"]
 	path = .vim/bundle/tmux-navigator
