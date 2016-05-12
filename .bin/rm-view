@@ -1,8 +1,8 @@
 #!/bin/zsh
 if [ -f "$1" ]; then
 	echo file exist;
-	echo "$1" > /tmp/doron/rm-view
-	if egrep -q "^/" /tmp/doron/rm-view; then
+	echo "$1" > /tmp/doron.rm-view
+	if egrep -q "^/" /tmp/doron.rm-view; then
 		echo you have specified a full path for the file
 		FIL="$(echo "$1" | sed 's/\/home\/doron/\~/g' | sed 's/\//=+/g')"
 		echo FIL: "$FIL"
@@ -33,7 +33,7 @@ if [ -f "$1" ]; then
 		fi
 		rm "$REAL_FILE"
 	fi
-	rm /tmp/doron/rm-view
+	rm /tmp/doron.rm-view
 else
 	echo "rm-view: file doesn't exist"
 fi
