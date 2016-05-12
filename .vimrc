@@ -95,7 +95,9 @@ endif
 
 " abbreviations:
 source ~/.vim/abbreviations
-source ~/.vim/key-mapping
+
+" Key mappings:
+source ~/.vim/mappings
 
 set list listchars=tab:›\ ,trail:-,extends:»,precedes:«,eol:¬
 set foldenable
