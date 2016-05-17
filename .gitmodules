@@ -4,6 +4,6 @@
 [submodule "tmux"]
 	path = .tmux
 	url = https://github.com/Doron-Behar/tmuxfiles
-[submodule "vim"]
+[submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/Doron-Behar/vimfiles
