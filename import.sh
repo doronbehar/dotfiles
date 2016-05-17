@@ -12,14 +12,6 @@ _shells(){
 _git(){
 	rsync ~/.gitconfig ./.gitconfig
 }
-_vim(){
-	rsync -av --delete ~/.vim/ ./.vim/
-	rsync ~/.vimrc ./
-}
-_tmux(){
-	rsync -av --delete ~/.tmux/ ./.tmux/
-	rsync ~/.tmux.conf ./.tmux.conf
-}
 _ncmpcpp(){
 	rsync -av --delete ~/.ncmpcpp/ ./.ncmpcpp/
 }
@@ -38,12 +30,6 @@ case "$1" in
 		;;
 	git)
 		_git
-		;;
-	vim)
-		_vim
-		;;
-	tmux)
-		_tmux
 		;;
 	ncmpcpp)
 		_ncmpcpp
