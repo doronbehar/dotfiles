@@ -17,6 +17,8 @@ alias ..="cd .."
 alias lsl="LC_ALL=en_us ls -lhFA | less"
 alias trc=transmission-remote-cli
 
+alias vim=nvim
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -39,8 +41,6 @@ alias xip='wget http://ipinfo.io/ip -O - | xclip'
 alias git-l='git --no-pager log'
 # show dotfiles only:
 alias lh='LC_ALL=en_us ls -ld .??*'
-# make it easier to open files in multiple tabs with vim - without specifying the -p flag
-alias vim='nvim -p'
 # quartus IDE command line interface:
 if [ -z "$QUARTUS_BIN" ]; then
 	QUARTUS_BIN="/opt/altera/quartus/bin"

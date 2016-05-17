@@ -1,0 +1,4 @@
+vbell off
+startup_message off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%= %{= kw}%?%-Lw%?%{B}%n*%f%t%?(%u)%?%{w}%?%+Lw%?%?%= %{g}][%{B}%d/%m %{G}%c]'

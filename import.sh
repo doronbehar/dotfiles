@@ -4,6 +4,7 @@ _shells(){
 	rsync ~/.config/powerline/ ./.config/powerline/
 	rsync ~/.zprofile ./.zprofile
 	rsync ~/.zlogin ./.zlogin
+	rsync ~/.zlogout ./.zlogout
 	rsync ~/.zshenv ./.zshenv
 	rsync ~/.zshrc ./.zshrc
 	rsync -av --delete ~/.sh/ ./.sh/

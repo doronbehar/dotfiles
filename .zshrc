@@ -42,7 +42,4 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
 fi
-# function that is not compatible this way written in bash:
-'='(){
-	awk "BEGIN{ print $* }"
-}
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && startx
