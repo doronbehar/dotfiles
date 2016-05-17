@@ -1,11 +1,7 @@
-.vim/tmp/*.swp
-.vim/backup/*
-.vim/view
-.vim/sessions
-.vim/.netrwhist
-.vim/enviorments/
-.tmux/resurrect/last
 .sh/history
 .sh/environment.csv
 .bin/fix
 .ncmpcpp/error.log
+.config/ranger/tagged
+.config/ranger/bookmarks
+.config/ranger/history
