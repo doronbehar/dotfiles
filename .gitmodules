@@ -1,57 +1,9 @@
-[submodule "vim-fugitive.vim"]
-	path = .vim/bundle/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim-gitgutter"]
-	path = .vim/bundle/gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
-[submodule "vim-csv"]
-	path = .vim/bundle/csv
-	url = https://github.com/chrisbra/csv.vim.git
-[submodule "vim-tmux"]
-	path = .vim/bundle/tmux
-	url = https://github.com/zaiste/tmux.vim
-[submodule "vim-auto-complete"]
-	path = .vim/bundle/auto-complete
-	url = https://github.com/Shougo/neocomplete.vim
-[submodule "vim-easymotion"]
-	path = .vim/bundle/easymotion
-	url = https://github.com/easymotion/vim-easymotion
-[submodule "vim-incsearch"]
-	path = .vim/bundle/incsearch
-	url = https://github.com/haya14busa/incsearch.vim
-[submodule "vim-NERDTree"]
-	path = .vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree
-[submodule "vim-airline"]
-	path = .vim/bundle/airline
-	url = https://github.com/vim-airline/vim-airline
-[submodule "vim-airline-themes"]
-	path = .vim/bundle/airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes
-[submodule "tmux-vim-navigator"]
-	path = .vim/bundle/tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator
-[submodule "tmux-powerline"]
-	path = .tmux/powerline
-	url = https://github.com/erikw/tmux-powerline
-[submodule "tmux-open-url"]
-	path = .tmux/open-url
-	url = https://github.com/tmux-plugins/tmux-open
-[submodule "tmux-search"]
-	path = .tmux/search
-	url = https://github.com/tmux-plugins/tmux-copycat
-[submodule "tmux-yank"]
-	path = .tmux/yank
-	url = https://github.com/tmux-plugins/tmux-yank
-[submodule "tmux-session-saver"]
-	path = .tmux/resurrect
-	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "zsh-syntax-highlighting"]
 	path = .sh/syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule ".tmux"]
+[submodule "tmux"]
 	path = .tmux
 	url = https://github.com/Doron-Behar/tmuxfiles
-[submodule ".config/nvim"]
+[submodule "vim"]
 	path = .config/nvim
 	url = https://github.com/Doron-Behar/vimfiles
