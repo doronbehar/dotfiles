@@ -24,12 +24,11 @@ xterm*title: xterm
 xterm*toolBar: false
 xterm*termName: xterm-256color
 xterm*geometry: 1000x1000
-xterm*cursorBlink: false
+xterm*cursorBlink: true
+xterm*cursorOffTime: 500
+xterm*cursorOnTime: 500
 xterm*activeIcon: true
 xterm*sameName: true
-xterm*modifyKeybaord: 0
-xterm*modifyCursorKeys: 2
-xterm*modifyFunctionKeys: 2
 !xterm.VT100.translations: #override \
 !	Shift <KeyPress> Prior			:ignore() \n\
 !	Shift <KeyPress> Next			:ignore() \n\
