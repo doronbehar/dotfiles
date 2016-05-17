@@ -24,7 +24,7 @@ lyrics_directory = /var/lib/mpd/lyrics
 #
 ##### connection settings #####
 #
-mpd_host = NopeNope@localhost
+mpd_host = localhost
 #
 #mpd_port = 6600
 #
@@ -437,7 +437,7 @@ regular_expressions = extended
 #
 #block_search_constraints_change_if_items_found = yes
 #
-#mouse_support = yes
+mouse_support = yes
 #
 #mouse_list_scroll_whole_page = yes
 #
@@ -465,7 +465,7 @@ enable_window_title = yes
 #
 #search_engine_default_search_mode = 1
 #
-external_editor = vim
+external_editor = /usr/local/bin/nvim
 #
 ## Note: set to yes if external editor is a console application.
 ##
