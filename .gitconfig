@@ -9,7 +9,14 @@
 [credential "https://github.com"]
 	username = Doron-Behar
 [diff]
-	tool = vimdiff
+	tool = vimdiff3
+[difftool]
+	prompt = true
+[difftool "vimdiff3"]
+	cmd = nvim -d "$MERGED" "$LOCAL"
+[merge]
+	tool = vimdiff3
+	conflictstyle = diff3
 [alias]
 	d = difftool
 	l = log --decorate --all --graph
@@ -20,12 +27,9 @@
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	ls = ls-files
 	m = mergetool
-[difftool]
-	prompt = true
 [pager]
 	stash = false
-[merge]
-	tool = vimdiff
-	conflictstyle = diff3
 [push]
 	default = simple
+[mergetool "vimdiff3"]
+	cmd = nvim -d -O3 \"$BASE\" \"$REMOTE\" \"$MERGED\" -c botright\\ split\\ \"$LOCAL\"
