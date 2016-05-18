@@ -7,3 +7,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/Doron-Behar/vimfiles
+[submodule ".sh/completion"]
+	path = .sh/completion
+	url = https://github.com/Doron-Behar/zsh-completions.git
