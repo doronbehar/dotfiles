@@ -42,4 +42,4 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
 fi
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && startx
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && startx && logout
