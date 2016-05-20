@@ -7,12 +7,12 @@ xterm*metaSendsEscape: true
 xterm*loginShell: true
 
 !! Fonts:
-xterm*reportFonts: false
+xterm*reportFonts: true
 xterm*renderFont: true
 xterm*faceName: Ubuntu Mono derivative Powerline
 xterm*faceNameDoublesize: PowerlineSymbols
 xterm*cacheDoublesize: 1
-xterm*faceSize: 12.5
+xterm*faceSize: 12
 xterm*utf8: always
 xterm*utf8Fonts: true
 xterm*utf8Latin1: true
@@ -23,7 +23,7 @@ xterm*locale: false
 xterm*title: xterm
 xterm*toolBar: false
 xterm*termName: xterm-256color
-xterm*geometry: 1000x1000
+!xterm*geometry: 1000x1000
 xterm*cursorBlink: true
 xterm*cursorOffTime: 500
 xterm*cursorOnTime: 500
