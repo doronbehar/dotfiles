@@ -10,3 +10,6 @@
 [submodule ".sh/completion"]
 	path = .sh/completion
 	url = https://github.com/Doron-Behar/zsh-completions.git
+[submodule ".config/awesome"]
+	path = .config/awesome
+	url = https://github.com/Doron-Behar/awesome-files
