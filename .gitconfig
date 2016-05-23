@@ -32,4 +32,4 @@
 [push]
 	default = simple
 [mergetool "vimdiff3"]
-	cmd = nvim -d -O3 \"$BASE\" \"$REMOTE\" \"$LOCAL\" -c botright\\ split\\ \"$MERGED\"
+	cmd = nvim -d -O \"$BASE\" \"$REMOTE\" \"$LOCAL\" \"$MERGED\"
