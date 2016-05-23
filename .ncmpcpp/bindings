@@ -148,12 +148,12 @@
 #def_key "mouse"
 #  mouse_event
 #
-#def_key "up"
-#  scroll_up
-#
-#def_key "down"
-#  scroll_down
-#
+def_key "k"
+  scroll_up
+
+def_key "j"
+  scroll_down
+
 #def_key "["
 #  scroll_up_album
 #
@@ -184,15 +184,15 @@
 #def_key "enter"
 #  press_enter
 #
-#def_key "delete"
-#  delete_playlist_items
-#
-#def_key "delete"
-#  delete_browser_items
-#
-#def_key "delete"
-#  delete_stored_playlist
-#
+def_key "d"
+  delete_playlist_items
+
+def_key "d"
+  delete_browser_items
+
+def_key "d"
+  delete_stored_playlist
+
 #def_key "right"
 #  next_column
 #

@@ -1,4 +1,5 @@
+escape ^Dd
 vbell off
 startup_message off
 hardstatus alwayslastline
-hardstatus string '%{= kG}[%= %{= kw}%?%-Lw%?%{B}%n*%f%t%?(%u)%?%{w}%?%+Lw%?%?%= %{g}][%{B}%d/%m %{G}%c]'
+hardstatus alwayslastline '%{= G}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n*%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}][ %{y}Load: %l %{g}][%{B}%Y-%m-%d %{W}%c:%s %{g}]'
