@@ -19,7 +19,7 @@ showing releavent files for the project:
 			fi
 			echo "$SHOW"
 			# ment for working with directories containing files for Quartus IDE
-			LC_ALL=en_us ls --color=auto -ldh `ls --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
+			LC_ALL=en_us ls --color=auto -ldh `ls -A --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
 			git status
 		fi
 	done < ~/.sh/environment.csv

@@ -80,3 +80,4 @@ elif [ -f /usr/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh 
 else
 	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
 fi
+# vim:ft=sh
