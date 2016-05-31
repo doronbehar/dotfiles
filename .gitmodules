@@ -1,5 +1,5 @@
 [submodule "zsh-syntax-highlighting"]
-	path = .sh/syntax-highlighting
+	path = .sh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "tmux"]
 	path = .tmux
@@ -7,9 +7,12 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/Doron-Behar/vimfiles
-[submodule ".sh/completion"]
-	path = .sh/completion
+[submodule ".sh/zsh-completion"]
+	path = .sh/zsh-completion
 	url = https://github.com/Doron-Behar/zsh-completions.git
 [submodule ".config/awesome"]
 	path = .config/awesome
 	url = https://github.com/Doron-Behar/awesome-files
+[submodule ".sh/zsh-completions"]
+	path = .sh/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions

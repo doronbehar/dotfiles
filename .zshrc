@@ -11,7 +11,9 @@ else
 	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
 fi
 # syntax highlighting:
-source ~/.sh/syntax-highlighting/plugin
+source ~/.sh/zsh-syntax-highlighting/plugin
+# zsh-completion:
+fpath=(~/.sh/zsh-completions/src $fpath)
 
 setopt histignorealldups sharehistory
 
