@@ -1,6 +1,0 @@
-#!/bin/sh
-enabled="$(mpc outputs | egrep -v "(HTTP|feed)" | grep enabled | cut -d' ' -f2)"
-disabled="$(mpc outputs | egrep -v "(HTTP|feed)" | grep disabled | cut -d' ' -f2)"
-mpc enable "$disabled"
-mpc disable "$enabled"
-

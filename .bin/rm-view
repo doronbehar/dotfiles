@@ -1,5 +1,5 @@
 #!/bin/zsh
-view-dir="~/.local/share/nvim/view"
+view_dir="$HOME""/.local/share/nvim/view"
 if [ -f "$1" ]; then
 	echo file exist;
 	echo "$1" > /tmp/doron.rm-view
@@ -10,11 +10,11 @@ if [ -f "$1" ]; then
 		E="="
 		FILE="$FIL""$E"
 		echo FILE: "$FILE"
-		if [ -f "$view-dir"/"$FILE" ]; then
-			echo "file exists in "$view-dir""
-			REAL_FILE="$(ls "$view-dir"/"$FILE")"
+		if [ -f "$view_dir"/"$FILE" ]; then
+			echo "file exists in "$view_dir""
+			REAL_FILE="$(ls "$view_dir"/"$FILE")"
 		else
-			echo "file doesn't exist in "$view-dir""
+			echo "file doesn't exist in "$view_dir""
 			exit 1
 		fi
 		rm "$REAL_FILE"
@@ -25,11 +25,11 @@ if [ -f "$1" ]; then
 		E="="
 		FILE="$FIL""$E"
 		echo FILE: "$FILE"
-		if [ -f "$view-dir"/"$FILE" ]; then
-			echo "file exists in "$view-dir""
-			REAL_FILE="$(ls "$view-dir"/"$FILE")"
+		if [ -f "$view_dir"/"$FILE" ]; then
+			echo "file exists in "$view_dir""
+			REAL_FILE="$(ls "$view_dir"/"$FILE")"
 		else
-			echo "file doesn't exist in "$view-dir""
+			echo "file doesn't exist in "$view_dir""
 			exit 1
 		fi
 		rm "$REAL_FILE"

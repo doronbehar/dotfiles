@@ -1,0 +1,19 @@
+#!/bin/bash
+timestamp="$(date +%d.%m.%Y"-"%H:%M:%S)"
+targetbase="$HOME/pictures/screenshots"
+mkdir -p $targetbase
+[ -d $targetbase ] || exit 1
+case "$1" in
+	"all")
+		import -window root $targetbase/$timestamp.png
+		;;
+	"window")
+		import -window "$(xdotool getwindowfocus -f)" $targetbase/$timestamp.png
+		;;
+	"frame")
+		import -frame $targetbase/$timestamp.png
+		;;
+	*)
+		echo please specify a valid option
+		;;
+esac
