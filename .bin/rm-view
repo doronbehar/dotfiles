@@ -1,17 +1,17 @@
 #!/bin/zsh
 view_dir="$HOME""/.local/share/nvim/view"
 if [ -f "$1" ]; then
-	echo file exist;
+	#echo file exist;
 	echo "$1" > /tmp/doron.rm-view
 	if egrep -q "^/" /tmp/doron.rm-view; then
-		echo you have specified a full path for the file
+		#echo you have specified a full path for the file
 		FIL="$(echo "$1" | sed 's/\/home\/doron/\~/g' | sed 's/\//=+/g')"
-		echo FIL: "$FIL"
+		#echo FIL: "$FIL"
 		E="="
 		FILE="$FIL""$E"
 		echo FILE: "$FILE"
 		if [ -f "$view_dir"/"$FILE" ]; then
-			echo "file exists in "$view_dir""
+			#echo "file exists in "$view_dir""
 			REAL_FILE="$(ls "$view_dir"/"$FILE")"
 		else
 			echo "file doesn't exist in "$view_dir""
@@ -19,20 +19,21 @@ if [ -f "$1" ]; then
 		fi
 		rm "$REAL_FILE"
 	else
-		echo you have specified ot a full path
+		#echo you have specified ot a full path
 		FIL="$(echo "$(pwd)"/"$1" | sed 's/\/home\/doron/\~/g' | sed 's/\//=+/g')"
-		echo FIL: "$FIL"
+		#echo FIL: "$FIL"
 		E="="
 		FILE="$FIL""$E"
-		echo FILE: "$FILE"
+		#echo FILE: "$FILE"
 		if [ -f "$view_dir"/"$FILE" ]; then
-			echo "file exists in "$view_dir""
+			#echo "file exists in "$view_dir""
 			REAL_FILE="$(ls "$view_dir"/"$FILE")"
 		else
-			echo "file doesn't exist in "$view_dir""
+			#echo "file doesn't exist in "$view_dir""
 			exit 1
 		fi
 		rm "$REAL_FILE"
+		echo File removed.
 	fi
 	rm /tmp/doron.rm-view
 else

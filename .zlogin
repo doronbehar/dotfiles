@@ -25,6 +25,7 @@ showing releavent files for the project:
 	done < ~/.sh/environment.csv
 	IFS=$OLDIFS
 }
+
 # quartus function:
 # The function makes it easier to call Quartus' IDE executables
 # Explanation:
@@ -39,15 +40,14 @@ showing releavent files for the project:
 # As well, it automatically puts the --64 argument to each one of these executables
 # so you will always stay with the 64 function
 quartus(){
-	local ERROR="Error: check the environmental variable \"QUARTUS_BIN\".
-       It should be a path to where you quartus\' executables.
-       It can be for example: /opt/altera/quartus/bin.
-           **Note**: Don't put an extra / at the end of the path."
 	if [ -z "$QUARTUS_BIN" ]; then
 		if [ -d "/opt/altera/quartus/bin" ]; then
 			QUARTUS_BIN="/opt/altera/quartus/bin"
 		else
-			echo "$ERROR"
+			echo "Error: check the environmental variable \"QUARTUS_BIN\"."
+			echo "       It should be a path to where you quartus\' executables."
+			echo "       It can be for example: /opt/altera/quartus/bin."
+			echo "           **Note**: Don\'t put an extra / at the end of the path."
 			return 1
 		fi
 	fi
@@ -67,6 +67,7 @@ quartus(){
 		command $QUARTUS_BIN/quartus_"$1" --64bit "${@:2}"
 	fi
 }
+
 # make man with `less` be more colorfull
 # taken from wiki.archlinux.org
 man() {
@@ -79,6 +80,7 @@ man() {
 	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 	man "$@"
 }
+
 # Make insync easier to be used for insync - command line interface
 #available commands
 insync(){
