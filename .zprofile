@@ -18,7 +18,8 @@ alias ..="cd .."
 alias lsl="LC_ALL=en_us ls -lhFA | less"
 alias trc=transmission-remote-cli
 
-alias vim=nvim
+alias vim='TERM=tmux-256color nvim'
+alias nvim='TERM=tmux-256color nvim'
 # alias taken from http://superuser.com/questions/1043806/is-it-possible-to-exit-from-ranger-file-explorer-back-to-command-prompt-but:
 alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
 

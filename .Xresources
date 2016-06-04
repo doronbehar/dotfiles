@@ -9,7 +9,7 @@ xterm*loginShell: true
 !! Fonts:
 xterm*reportFonts: true
 xterm*renderFont: true
-xterm*faceName: Ubuntu Mono derivative Powerline
+xterm*faceName: UbuntuMonoDerivativePowerline Nerd Font
 xterm*faceNameDoublesize: PowerlineSymbols
 xterm*cacheDoublesize: 1
 xterm*faceSize: 12
@@ -17,7 +17,7 @@ xterm*utf8: always
 xterm*utf8Fonts: true
 xterm*utf8Latin1: true
 xterm*utf8Title: true
-xterm*locale: false
+xterm*locale: true
 
 !! User Interface:
 xterm*title: xterm
