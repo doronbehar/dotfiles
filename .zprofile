@@ -34,8 +34,6 @@ alias cdiff='colordiff'
 alias 'p'='setup'
 # script to load all ".files" in their correct order:
 alias 'load'='. ~/.bin/load'
-# Show PATH
-alias 'path'="echo $PATH | sed -e 's/:/\n/g'"
 # make the mv and cp commands interactive and therefor safer
 alias cp='cp -i'
 alias mv='mv -i'

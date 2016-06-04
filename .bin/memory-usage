@@ -1,0 +1,5 @@
+#!/bin/bash
+ps aux | grep "$1" | awk '\
+{count+=$4}\
+END { print "It uses "count"% of the avialable memory" }\
+'

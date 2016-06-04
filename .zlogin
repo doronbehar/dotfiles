@@ -96,3 +96,10 @@ insync(){
 		;;
 	esac
 }
+
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
+# Show PATH
+path(){
+	echo $PATH | sed -e 's/:/\n/g'
+}
