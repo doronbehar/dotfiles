@@ -1,0 +1,25 @@
+#!/bin/zsh
+# 1. The script reads a file located in ~/.sh/environment.csv and decides according
+#    to the argument to which place to go. The argument corresponds to the 1st column
+#    in the csv file.
+# 2. Afterwards it load variables from the makefile located in that directory.
+# 3. Then, it prints `ls -l` && `git status`
+local SHOW="==========================================
+showing releavent files for the project:
+=========================================="
+IFS=$'\n'
+while read -r line; do
+	if [ "$1" = "$(echo "$line" | cut -d',' -f1)" ]; then
+		eval cd "$(echo "$line" | cut -d',' -f2)"
+		if [ -f makefile ]; then
+			grep --color=never '=' makefile | grep -v '\$' | while read -r l; do
+				export $l
+			done
+		fi
+		echo "$SHOW"
+		# ment for working with directories containing files for Quartus IDE
+		LC_ALL=en_us ls --color=auto -ldh `ls -A --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
+		git status
+	fi
+done < ~/.sh/environment.csv
+IFS=$OLDIFS

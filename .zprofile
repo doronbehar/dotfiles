@@ -31,7 +31,7 @@ alias ccat='pygmentize -g'
 # colored diff
 alias cdiff='colordiff'
 # script maid to load variables and put me in a certain directory
-alias 'p'='setup'
+alias 'p'='. setup'
 # script to load all ".files" in their correct order:
 alias 'load'='. ~/.bin/load'
 # make the mv and cp commands interactive and therefor safer

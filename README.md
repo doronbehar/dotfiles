@@ -7,7 +7,7 @@
 * I don't use 'Oh-My-zsh' -- I just don't like it because I'm not sure it's stable as the python based powerline I do use.
 
 ## scripts and functions:
-### `setup` - function from `.zlogin`.
+### `setup`
 `p` is aliased to `. setup` which is located in `~/.bin/` and it does the following:
 * It brings you to a predefined directory of a project or a repository.
 * If you have a makefile in that directory, any variables in that directory will be sourced to the shell.

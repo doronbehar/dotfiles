@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -L -s https://www.gitignore.io/api/$@

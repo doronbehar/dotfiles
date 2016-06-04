@@ -1,0 +1,3 @@
+#!/bin/bash
+# Show PATH
+echo $PATH | sed -e 's/:/\n/g'
