@@ -443,7 +443,7 @@ mouse_support = yes
 #
 #empty_tag_marker = <empty>
 #
-#tags_separator = " | "
+tags_separator = " | "
 #
 #tag_editor_extended_numeration = no
 #
@@ -465,7 +465,7 @@ enable_window_title = yes
 #
 #search_engine_default_search_mode = 1
 #
-external_editor = /usr/local/bin/nvim
+external_editor = nvim
 #
 ## Note: set to yes if external editor is a console application.
 ##

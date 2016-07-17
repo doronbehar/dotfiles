@@ -2,7 +2,7 @@ enable-mouse = yes
 screen-list = playlist, browse, search, lyrics, outputs, help, artist, song, keydef
 audible-bell = no
 lyrics-autosave = yes
-lyrics-show-plugin - yes
+lyrics-show-plugin = yes
 text-editor = nvim
 display-time = yes
 set-xterm-title = yes

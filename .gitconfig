@@ -19,7 +19,7 @@
 	conflictstyle = diff3
 [alias]
 	d = difftool
-	l = log --decorate --all --graph
+	l = log --decorate --graph
 	co = checkout
 	cmt = commit
 	st = status

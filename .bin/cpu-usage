@@ -1,6 +1,6 @@
 #!/bin/bash
 ps aux | grep "$1" | awk '
-	{count+=$4}
+	{count+=$3}
 	END {
 		print "It uses "count"%"
 	}

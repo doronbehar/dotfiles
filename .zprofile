@@ -21,7 +21,9 @@ alias trc=transmission-remote-cli
 alias vim='TERM=tmux-256color nvim'
 alias nvim='TERM=tmux-256color nvim'
 # alias taken from http://superuser.com/questions/1043806/is-it-possible-to-exit-from-ranger-file-explorer-back-to-command-prompt-but:
-alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
+alias cranger='IFS=$'\n'; ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`; IFS=$OLDIFS'
+alias ranger='IFS=$'\n'; ranger --choosedir=/tmp/doron.rangerdir; IFS=$OLDIFS'
+alias cdr='IFS=$'\n'; cd `cat /tmp/doron.rangerdir`; IFS=$OLDIFS'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
