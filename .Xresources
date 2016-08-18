@@ -29,6 +29,9 @@ xterm*cursorOffTime: 500
 xterm*cursorOnTime: 500
 xterm*activeIcon: true
 xterm*sameName: true
+
+!! Taken from https://wiki.archlinux.org/index.php/Xterm#PRIMARY_and_CLIPBOARD
+xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
 !xterm.VT100.translations: #override \
 !	Shift <KeyPress> Prior			:ignore() \n\
 !	Shift <KeyPress> Next			:ignore() \n\
@@ -73,3 +76,14 @@ xterm*sameName: true
 !	<Btn5Down>						:scroll-forw(5,line,m)     \n\
 !	<BtnUp>							:select-end(SELECT, CUT_BUFFER0) \n\
 !	<BtnDown>						:ignore()
+
+!! Looks:
+urxvt*font:xft:UbuntuMonoDerivativePowerline Nerd Font:size=12
+urxvt*scrollBar:false
+urxvt*saveLines:65535
+urxvt.background:#000000
+urxvt*foreground:#ffffff
+
+!! behaviour:
+urxvt*loginShell:true
+urxvt*perl-ext-common:default,matcher,clipboard

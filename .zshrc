@@ -14,6 +14,10 @@ fi
 source ~/.sh/zsh-syntax-highlighting/plugin
 # zsh-completion:
 fpath=(~/.sh/zsh-completions/src $fpath)
+# Correction of previous command:
+eval "$(thefuck --alias)"
+# You can use whatever you want as an alias, like for Mondays:
+eval "$(thefuck --alias FUCK)"
 
 setopt histignorealldups sharehistory
 

@@ -20,14 +20,21 @@ fi
 if [ -d "$HOME/.local/bin" ]; then
 	add2PATH "$HOME/.local/bin"
 fi
+
+# Program's settings
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export PAGER="less"
 export LESS="-X -x4 -r"
 export EDITOR="vim"
-# Keep 1000 lines of history within the shell and save it to ~/.sh/history:
+
+# Shell settings
+# - Keep 1000 lines of history within the shell and save it to ~/.sh/history:
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.sh/history
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
+# - don't put duplicate lines in the history:
 HISTCONTROL="ignoredups:ignorespace"
+
+# Genreal settings
+# - I always forget this one before I parse commands outputs etc:
+IFS=$'\n'

@@ -13,7 +13,7 @@
 [difftool]
 	prompt = true
 [difftool "vimdiff3"]
-	cmd = nvim -d "$MERGED" "$LOCAL"
+	cmd = TERM=tmux-256color nvim -d "$MERGED" "$LOCAL"
 [merge]
 	tool = vimdiff3
 	conflictstyle = diff3
@@ -32,4 +32,4 @@
 [push]
 	default = simple
 [mergetool "vimdiff3"]
-	cmd = nvim -d -O \"$BASE\" \"$REMOTE\" \"$LOCAL\" \"$MERGED\"
+	cmd = TERM=tmux-256color nvim -d -O \"$BASE\" \"$REMOTE\" \"$LOCAL\" \"$MERGED\"

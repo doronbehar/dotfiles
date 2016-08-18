@@ -7,7 +7,6 @@
 local SHOW="==========================================
 showing releavent files for the project:
 =========================================="
-IFS=$'\n'
 while read -r line; do
 	if [ "$1" = "$(echo "$line" | cut -d',' -f1)" ]; then
 		eval cd "$(echo "$line" | cut -d',' -f2)"
@@ -22,4 +21,3 @@ while read -r line; do
 		git status
 	fi
 done < ~/.sh/environment.csv
-IFS=$OLDIFS

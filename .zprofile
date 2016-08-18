@@ -1,8 +1,8 @@
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	# Make `ls` show time always in en_us always
-	alias ls='LC_ALL=en_us ls --color=always'
+	# Make `ls` show time always in en_US.UTF-8 always
+	alias ls='LC_ALL=en_US.UTF-8 ls --color=always'
 	alias dir='dir --color=always'
 	alias vdir='vdir --color=always'
 	alias grep='grep --color=auto'
@@ -12,22 +12,24 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='LC_ALL=en_us ls -alF'
-alias la='LC_ALL=en_us ls -A'
+alias ll='LC_ALL=en_US.UTF-8 ls -alF'
+alias la='LC_ALL=en_US.UTF-8 ls -A'
 alias ..="cd .."
-alias lsl="LC_ALL=en_us ls -lhFA | less"
-alias trc=transmission-remote-cli
+alias lsl="LC_ALL=en_US.UTF-8 ls -lhFA | less"
+# show dotfiles only:
+alias lh='LC_ALL=en_US.UTF-8 ls -ld .??*'
 
 alias vim='TERM=tmux-256color nvim'
 alias nvim='TERM=tmux-256color nvim'
 # alias taken from http://superuser.com/questions/1043806/is-it-possible-to-exit-from-ranger-file-explorer-back-to-command-prompt-but:
-alias cranger='IFS=$'\n'; ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`; IFS=$OLDIFS'
-alias ranger='IFS=$'\n'; ranger --choosedir=/tmp/doron.rangerdir; IFS=$OLDIFS'
-alias cdr='IFS=$'\n'; cd `cat /tmp/doron.rangerdir`; IFS=$OLDIFS'
+alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
+alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
+alias cdr='cd `cat /tmp/doron.rangerdir`'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # colored cat:
 alias ccat='pygmentize -g'
 # colored diff
@@ -39,12 +41,13 @@ alias 'load'='. ~/.bin/load'
 # make the mv and cp commands interactive and therefor safer
 alias cp='cp -i'
 alias mv='mv -i'
-# grep my public IP address and insert in the clipboard
-alias xip='wget http://ipinfo.io/ip -O - | xclip'
 # make git to easily print log commits with --no-pager
 alias git-l='git --no-pager log'
-# show dotfiles only:
-alias lh='LC_ALL=en_us ls -ld .??*'
+
+alias trc=transmission-remote-cli
+# Make sure I don't use PRIMARY when running xclip
+alias xclip="xclip -selection clipboard"
+
 # quartus IDE command line interface:
 if [ -z "$QUARTUS_BIN" ]; then
 	QUARTUS_BIN="/opt/altera/quartus/bin"

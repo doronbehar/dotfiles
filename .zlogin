@@ -29,13 +29,11 @@ quartus(){
 		echo "Usage:\n--gui | -g | gui for the gui"
 		echo `ls $QUARTUS_BIN/quartus_* | cut -d'_' -f2`;
 	else
-		#IFS=$'\n'
 		#for EXTENSION in $(ls $QUARTUS_BIN/quartus_* | cut -d'_' -f2); do
 		#	if [ "$1" = "$EXTENSION" ]; then
 		#		command $QUARTUS_BIN/quartus_$EXTENSION --64bit "${@:2}"
 		#	fi
 		#done
-		#IFS=$OLDIFS
 		command $QUARTUS_BIN/quartus_"$1" --64bit "${@:2}"
 	fi
 }
