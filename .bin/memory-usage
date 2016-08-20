@@ -2,6 +2,6 @@
 ps aux | grep "$1" | awk '
 	{count+=$4}
 	END {
-		print "It uses "count"%"
+		print "It uses "count"% out of the total memory used"
 	}
 '

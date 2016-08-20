@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo wpa_supplicant -B -i wlp2s0 -D wext -c /etc/wpa_supplicant.conf
