@@ -23,6 +23,11 @@ setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
+# Enable word-movement with ctrl and arrows on command-line feed
+bindkey "5C" forward-word
+bindkey "5D" backward-word
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
 
 # Use modern completion system
 autoload -Uz compinit

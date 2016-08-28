@@ -2,9 +2,11 @@
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 	# Make `ls` show time always in en_US.UTF-8 always
-	alias ls='LC_ALL=en_US.UTF-8 ls --color=always'
-	alias dir='dir --color=always'
-	alias vdir='vdir --color=always'
+	alias ls='LC_ALL=en_US.UTF-8 ls --color=auto'
+	alias cls='LC_ALL=en_US.UTF-8 ls --color=always'
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias cdir='dir --color=always'
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
@@ -12,10 +14,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='LC_ALL=en_US.UTF-8 ls -alF'
-alias la='LC_ALL=en_US.UTF-8 ls -A'
 alias ..="cd .."
-alias lsl="LC_ALL=en_US.UTF-8 ls -lhFA | less"
 # show dotfiles only:
 alias lh='LC_ALL=en_US.UTF-8 ls -ld .??*'
 
@@ -31,7 +30,7 @@ alias cdr='cd `cat /tmp/doron.rangerdir`'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # colored cat:
-alias ccat='pygmentize -g'
+alias ccat='pygmentize -g -f 256 -O style=monokai'
 # colored diff
 alias cdiff='colordiff'
 # script maid to load variables and put me in a certain directory

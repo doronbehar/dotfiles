@@ -30,7 +30,7 @@ xterm*cursorOnTime: 500
 xterm*activeIcon: true
 xterm*sameName: true
 
-!! Taken from https://wiki.archlinux.org/index.php/Xterm#PRIMARY_and_CLIPBOARD
+!!! Taken from https://wiki.archlinux.org/index.php/Xterm#PRIMARY_and_CLIPBOARD
 xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
 !xterm.VT100.translations: #override \
 !	Shift <KeyPress> Prior			:ignore() \n\
@@ -87,3 +87,8 @@ urxvt*foreground:#ffffff
 !! behaviour:
 urxvt*loginShell:true
 urxvt*perl-ext-common:default,matcher,clipboard
+!!! Taken from https://github.com/neovim/neovim/issues/2269#issuecomment-202440562:
+URxvt.keysym.Control-Up:\033[1;5A
+URxvt.keysym.Control-Down:\033[1;5B
+URxvt.keysym.Control-Left:\033[1;5D
+URxvt.keysym.Control-Right:\033[1;5C
