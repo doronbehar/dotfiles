@@ -1,3 +1,4 @@
+#!/bin/zsh
 # quartus function:
 # The function makes it easier to call Quartus' IDE executables
 # Explanation:

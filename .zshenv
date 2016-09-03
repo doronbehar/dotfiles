@@ -1,3 +1,4 @@
+#!/bin/zsh
 # function to append $PATH a directory only if it doesn't exist already.
 # On my machine at home it overrides almost the same function. The difference
 # is that the system wide function appends the argument in the beginning and

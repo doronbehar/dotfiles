@@ -1,3 +1,4 @@
+#!/bin/zsh
 # The following line is as described in a user-guide by powerline: # source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
 # powerline:
 powerline-daemon -q
