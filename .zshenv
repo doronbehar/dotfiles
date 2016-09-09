@@ -27,6 +27,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export PAGER="less"
 export LESS="-X -x4 -r"
 export EDITOR="vim"
+export VIMRUNTIME="/usr/local/share/nvim/runtime"
 
 # Shell settings
 # - Keep 1000 lines of history within the shell and save it to ~/.sh/history:

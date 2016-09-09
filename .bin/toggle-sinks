@@ -15,8 +15,9 @@ for not_active in $(pacmd list-sinks | grep index | grep -v '*' | sed 's/\(\s\|i
 	if [ "$not_active" = "$(expr $((active + 1)) % "$total_number_of_sinks")" ]; then
 		echo activating sink "$not_active" out of "$total_number_of_sinks"
 		echo running loop: $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g')
+		pacmd set-default-sink "$not_active"
 		for i in $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g'); do
-			pacmd set-default-sink "$not_active" && pacmd move-sink-input "$i" "$not_active"
+			pacmd move-sink-input "$i" "$not_active"
 		done
 	fi
 done

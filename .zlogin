@@ -67,3 +67,14 @@ insync(){
 		;;
 	esac
 }
+
+# cd into git repository even if it's a submodule.
+cdg(){
+	if [ -d .git ]; then
+		cd .git
+	elif [ -f .git ]; then
+		cd $(sed 's/gitdir: //g' .git)
+	else
+		echo this is not a git repository - No .git file or directory found here
+	fi
+}

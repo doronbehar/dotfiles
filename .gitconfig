@@ -13,7 +13,7 @@
 [difftool]
 	prompt = true
 [difftool "vimdiff3"]
-	cmd = TERM=tmux-256color nvim -d "$MERGED" "$LOCAL"
+	cmd = nvim -d "$MERGED" "$LOCAL"
 [merge]
 	tool = vimdiff3
 	conflictstyle = diff3
@@ -24,12 +24,12 @@
 	cmt = commit
 	st = status
 	br = branch
-	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	ls = ls-files
 	m = mergetool
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [pager]
 	stash = false
 [push]
 	default = simple
 [mergetool "vimdiff3"]
-	cmd = TERM=tmux-256color nvim -d -O \"$BASE\" \"$REMOTE\" \"$LOCAL\" \"$MERGED\"
+	cmd = nvim -d -O \"$BASE\" \"$REMOTE\" \"$LOCAL\" \"$MERGED\"

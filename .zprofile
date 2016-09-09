@@ -3,24 +3,24 @@
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 	# Make `ls` show time always in en_US.UTF-8 always
-	alias ls='LC_ALL=en_US.UTF-8 ls --color=auto'
-	alias cls='LC_ALL=en_US.UTF-8 ls --color=always'
+	alias ls='ls --color=auto'
+	alias cls='ls --color=always'
 	alias dir='dir --color=auto'
 	alias vdir='vdir --color=auto'
 	alias cdir='dir --color=always'
+	alias cvdir='vdir --color=always'
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 	alias cgrep='grep --color=always'
+	alias cfgrep='fgrep --color=always'
+	alias cegrep='egrep --color=always'
 fi
 
 # some more ls aliases
 alias ..="cd .."
-# show dotfiles only:
-alias lh='LC_ALL=en_US.UTF-8 ls -ld .??*'
 
-alias vim='TERM=tmux-256color nvim'
-alias nvim='TERM=tmux-256color nvim'
+alias v='nvim'
 # alias taken from http://superuser.com/questions/1043806/is-it-possible-to-exit-from-ranger-file-explorer-back-to-command-prompt-but:
 alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
 alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
@@ -38,15 +38,16 @@ alias cdiff='colordiff'
 alias 'p'='. setup'
 # script to load all ".files" in their correct order:
 alias 'load'='. ~/.bin/load'
-# make the mv and cp commands interactive and therefor safer
-alias cp='cp -i'
-alias mv='mv -i'
+# make the mv and cp commands interactive and therefor safer and verbose.
+alias cp='cp -vi'
+alias mv='mv -vi'
 # make git to easily print log commits with --no-pager
 alias git-l='git --no-pager log'
 
 alias trc=transmission-remote-cli
-# Make sure I don't use PRIMARY when running xclip
-alias xclip="xclip -selection clipboard"
+# Shorten the xclip command for both options:
+alias cxclip="xclip -selection clipboard"
+alias pxclip="xclip -selection primary"
 
 # quartus IDE command line interface:
 if [ -z "$QUARTUS_BIN" ]; then
