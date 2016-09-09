@@ -1,5 +1,4 @@
-.sh/history
-.bin/fix
+.zsh_history
 .ncmpcpp/error.log
 .config/ranger/tagged
 .config/ranger/bookmarks

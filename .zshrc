@@ -12,9 +12,9 @@ else
 	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
 fi
 # syntax highlighting:
-source ~/.sh/zsh-syntax-highlighting/plugin
+source ~/.zsh-syntax-highlighting/plugin
 # zsh-completion:
-fpath=(~/.sh/zsh-completions/src $fpath)
+fpath=(~/.zsh-completions/src $fpath)
 # Correction of previous command:
 eval "$(thefuck --alias)"
 # You can use whatever you want as an alias, like for Mondays:
