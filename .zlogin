@@ -78,3 +78,8 @@ cdg(){
 		echo this is not a git repository - No .git file or directory found here
 	fi
 }
+
+# Show fpath - list of paths for directories containing functions for zsh completion
+fpath(){
+	echo "$fpath" | sed -e 's/\ /\n/g'
+}

@@ -48,5 +48,23 @@ A simple script to mute the MPD server you are connecting to with `mpc` in the s
 ### `show-term-colors`
 Very useful python script to tell the terminal to show the 256 available colors. Taken from [https://bbs.archlinux.org/viewtopic.php?id=101509](https://bbs.archlinux.org/viewtopic.php?id=101509)
 
-### `memory-usage`
-a script using awk to calculate the amount of RAM used by a certain program is using. The 1st argument is the name of the program you will perform the test.
+### `memory-usage` and `cpu-usage`
+Scripts that use `awk` to calculate the amount of RAM/CPU used by a certain program is using. The 1st and last argument is the name of the program you will perform the test.
+
+### `show-active-sink`
+Script used for showing the active sink for PulseAudio.
+
+### `toggle-sinks`
+Script for toggling PulseAudio sinks.
+
+### `gi`
+gitignore generator from using "gitigore.io".
+
+### `screencast`
+Script to start a screen cast in the background using `ffmpeg -f x11grab`.
+
+### `start-wifi`
+Script that starts WiFi according to /etc/wpa_supplicant.conf configuration file.
+
+### `path`
+Small script to show the $PATH environment variable with $'\n' instead of ':' and therefor more readable.
