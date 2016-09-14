@@ -1,4 +1,4 @@
-.zsh_history
+.local/share/shells-history
 .ncmpcpp/error.log
 .config/ranger/tagged
 .config/ranger/bookmarks

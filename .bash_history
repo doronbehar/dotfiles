@@ -1,1 +1,1 @@
-.zsh_history
+.local/share/shells-history

@@ -33,6 +33,7 @@ export VIMRUNTIME="/usr/local/share/nvim/runtime"
 # - Keep 1000 lines of history within the shell and save it to ~/.sh/history:
 HISTSIZE=10000
 SAVEHIST=10000
+HISTFILE="$HOME/.local/share/shells-history"
 # - don't put duplicate lines in the history:
 HISTCONTROL="ignoredups:ignorespace"
 
