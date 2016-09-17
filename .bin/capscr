@@ -1,6 +1,6 @@
 #!/bin/bash
 timestamp="$(date +%d.%m.%Y"-"%H:%M:%S)"
-targetbase="$HOME/pictures/screenshots"
+targetbase="$XDG_PICTURES_DIR/screenshots"
 mkdir -p $targetbase
 [ -d $targetbase ] || exit 1
 case "$1" in

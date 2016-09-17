@@ -1,6 +1,6 @@
 #!/bin/bash
 timestamp="$(date +%d.%m.%Y"-"%H:%M:%S)"
-targetbase="$HOME/videos/screencasts"
+targetbase="$XDG_PICTURES_DIR/screencasts"
 mkdir -p $targetbase
 # Exit if creating the folder was not successful:
 [ -d $targetbase ] || exit 1

@@ -15,9 +15,13 @@ while read -r line; do
 				export $l
 			done
 		fi
-		echo "$SHOW"
+		if [ -e .git ]; then
+			echo "$SHOW"
+		fi
 		# ment for working with directories containing files for Quartus IDE
 		ls --color=auto -ldh `ls -A --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
-		git status
+		if [ -e .git ]; then
+			git status
+		fi
 	fi
 done < ~/.config/ranger/bookmarks

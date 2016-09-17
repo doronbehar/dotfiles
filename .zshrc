@@ -61,5 +61,12 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
 fi
+
+# Launch ssh-agent if not running already
+if ! ps x | grep -v grep | grep -q ssh-agent; then
+	eval "$(ssh-agent -s)"
+fi
+
+# Startx in every start up only if it's on tty1 and there is no xsession running already.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && exec startx
 #vim:ft=zsh

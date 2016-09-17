@@ -1,8 +1,0 @@
-#!/bin/bash
-if [ -f /etc/wpa_supplicant.conf ]; then
-	sudo wpa_supplicant -B -i wlp2s0 -D wext -c /etc/wpa_supplicant.conf
-	exit 0
-else
-	echo No /etc/wpa_supplicant.conf file found
-	exit 1
-fi

@@ -24,10 +24,32 @@ fi
 
 # Program's settings
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export LESS="-X -x4 -r -i"
+export LESSHISTFILE="$HOME/.local/share/less-history"
+
+# Check If a command is installed locally in /usr/local/bin/ or ~/.local/bin/ and not /usr/bin/ for example.
+_command_is_local(){
+	if type "$1" | grep -q local; then
+		return 0
+	else
+		return 1
+	fi
+}
+# Show if a command exists
+# Taken from http://stackoverflow.com/a/592649/4935114
+_command_exists () {
+	type "$1" &> /dev/null ;
+}
+if _command_exists nvim; then
+	export EDITOR="nvim"
+	export VISUAL="nvim"
+	if _command_is_local; then
+		export VIMRUNTIME="/usr/local/share/nvim/runtime"
+	fi
+elif _command_exists vim; then
+	export EDITOR="vim"
+fi
 export PAGER="less"
-export LESS="-X -x4 -r"
-export EDITOR="vim"
-export VIMRUNTIME="/usr/local/share/nvim/runtime"
 
 # Shell settings
 # - Keep 1000 lines of history within the shell and save it to ~/.sh/history:
@@ -40,3 +62,5 @@ HISTCONTROL="ignoredups:ignorespace"
 # Genreal settings
 # - I always forget this one before I parse commands outputs etc:
 IFS=$'\n'
+# - Source xdg settings from .config/user-dirs.dirs
+source "$HOME/.config/user-dirs.dirs"

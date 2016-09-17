@@ -41,7 +41,7 @@ quartus(){
 
 # make man with `less` be more colorfull
 # taken from wiki.archlinux.org
-man() {
+man(){
 	env LESS_TERMCAP_mb=$'\E[01;31m' \
 	LESS_TERMCAP_md=$'\E[01;38;5;74m' \
 	LESS_TERMCAP_me=$'\E[0m' \
@@ -50,22 +50,6 @@ man() {
 	LESS_TERMCAP_ue=$'\E[0m' \
 	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 	man "$@"
-}
-
-# Make insync easier to be used for insync - command line interface
-#available commands
-insync(){
-	case "$1" in
-		"status" )
-			command insync get_status
-			;;
-		"st" )
-			command insync get_status
-			;;
-		* )
-			command insync `echo "$@" | sed 's/\s/_/g'`
-		;;
-	esac
 }
 
 # cd into git repository even if it's a submodule.
