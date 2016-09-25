@@ -78,7 +78,8 @@ xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT
 !	<BtnDown>						:ignore()
 
 !! Looks:
-urxvt*font:xft:UbuntuMonoDerivativePowerline Nerd Font:size=12
+urxvt*font: xft:UbuntuMonoDerivativePowerline Nerd Font:size=12,\
+			xft:Arimo for Powerline
 urxvt*scrollBar:false
 urxvt*saveLines:65535
 urxvt.background:#000000

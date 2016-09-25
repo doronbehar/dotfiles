@@ -66,3 +66,6 @@ alias "qt-example-app"="$QUARTUS_BIN/qt_example_app"
 alias "tb2-install"="$QUARTUS_BIN/tb2_install"
 alias "uniphy-mcc"="$QUARTUS_BIN/uniphy_mcc"
 alias "xcvr-diffmifgen"="$QUARTUS_BIN/xcvr_diffmifgen"
+
+# todo.sh for todo.txt
+alias t="todo.sh"

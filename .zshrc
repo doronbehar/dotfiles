@@ -60,6 +60,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
+elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
 
 # Launch ssh-agent if not running already
