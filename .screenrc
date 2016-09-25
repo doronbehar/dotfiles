@@ -1,4 +1,4 @@
-escape ^Dd
+escape ^Ds
 vbell off
 startup_message off
 hardstatus alwayslastline

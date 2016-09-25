@@ -26,6 +26,7 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export LESS="-X -x4 -r -i"
 export LESSHISTFILE="$HOME/.local/share/less-history"
+export RANGER_LOAD_DEFAULT_RC="FALSE"
 
 # Check If a command is installed locally in /usr/local/bin/ or ~/.local/bin/ and not /usr/bin/ for example.
 _command_is_local(){
