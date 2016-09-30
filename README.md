@@ -10,16 +10,17 @@
 ### `setup`
 `p` is aliased to `. setup` which is located in `~/.bin/` and it does the following:
 * It brings you to a predefined directory of a project or a repository.
-* If you have a makefile in that directory, any variables in that directory will be sourced to the shell.
+* If you have a makefile in that directory, any variables in that file will be sourced to the shell.
 
 ##### Usage
-Create the file `~/.sh/environments.csv` and put in it something like that:
+You need to use/create a bookmarks file in `.config/ranger/bookmarks` which looks like that:
 ```
-name,wd
-name1,/path/2/dir
-project,/path/2/another/dir
+v:/home/doron/repos/dotfiles/.config/nvim
+O:/opt
+a:/home/doron/repos/dotfiles/.config/awesome
+x:/home/doron/repos/dotfiles/.tmux
 ```
-Now, if you type **`p <a predefined name>`** you will jump to a predefined directory defined in **`~/.sh/environments.csv`**.
+Now, if you type **`p <letter>`** you will jump to a directory defined in the bookmarks file.
 
 ### `capscr`
 Used for the window manager [awesome](https://github.com/Doron-Behar/awesome-files/blob/46012e655b3cb62cce8568eeaac20de41b527f08/rc.lua#L513) to capture the screen contents and save it to `~/pictures/screenshots`.
