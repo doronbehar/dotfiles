@@ -1,0 +1,2 @@
+#!/bin/sh
+pip install -U `pip list -o | grep -v -i warning | cut -f1 -d' ' | tr  "\n|\r" " "`

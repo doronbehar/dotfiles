@@ -26,7 +26,10 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export LESS="-X -x4 -r -i"
 export LESSHISTFILE="$HOME/.local/share/less-history"
+# make ranger not load default rc.conf so startup will be faster
 export RANGER_LOAD_DEFAULT_RC="FALSE"
+# make ranger more efficient
+export PYTHONOPTIMIZE=2
 
 # Check If a command is installed locally in /usr/local/bin/ or ~/.local/bin/ and not /usr/bin/ for example.
 _command_is_local(){
@@ -44,11 +47,14 @@ _command_exists () {
 if _command_exists nvim; then
 	export EDITOR="nvim"
 	export VISUAL="nvim"
-	if _command_is_local; then
+	if _command_is_local nvim; then
 		export VIMRUNTIME="/usr/local/share/nvim/runtime"
+	else
+		export VIMRUNTIME="/usr/share/nvim/runtime"
 	fi
 elif _command_exists vim; then
 	export EDITOR="vim"
+	export VISUAL="vim"
 fi
 export PAGER="less"
 
