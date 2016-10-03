@@ -1,6 +1,7 @@
 #!/bin/sh
-
-/opt/urserver/urserver-start --no-manager --no-notify &
-sleep 5 && xset -dpms && xset s noblank && xset s off &
-sleep 5 && xset r rate 250 27 &
+xset -dpms
+xset s noblank
+xset s off
+xset r rate 250 27
+[ -f ~/.xprofile ] && source ~/.xprofile
 exec awesome

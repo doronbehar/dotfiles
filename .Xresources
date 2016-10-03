@@ -78,8 +78,22 @@ xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT
 !	<BtnDown>						:ignore()
 
 !! Looks:
-urxvt*font: xft:UbuntuMonoDerivativePowerline Nerd Font:size=12,\
-			xft:Arimo for Powerline
+urxvt*font: \
+	xft:DroidSansMonoForPowerline Nerd Font:size=10,\
+	xft:DejaVu Sans Mono for Powerline:size=9,\
+	xft:DejaVuSansMonoForPowerline Nerd Font:size=9,\
+	xft:Hack:size=9,\
+	xft:Sauce Code Powerline:size=9,\
+	xft:Source Code Pro for Powerline:size=9,\
+	xft:SauceCodePro Nerd Font:size=9,\
+	xft:AnonymicePowerline Nerd Font:size=9,\
+	xft:AurulentSansMono Nerd Font:size=9,\
+	xft:Arimo for Powerline:size=9,\
+	xft:Cousine for Powerline:size=9,\
+	xft:Droid Sans Mono for Powerline:size=9,\
+	xft:Fira Mono for Powerline:size=9,\
+	xft:Roboto Mono for Powerline:size=9,\
+
 urxvt*scrollBar:false
 urxvt*saveLines:65535
 urxvt.background:#000000
@@ -111,3 +125,5 @@ URxvt.keysym.Control-Left:\033[1;5D
 URxvt.keysym.Control-Right:\033[1;5C
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
+
+DejaVu Sans Mono for Powerline:style=Book
