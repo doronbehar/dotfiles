@@ -64,8 +64,8 @@ gitignore generator from using "gitigore.io".
 ### `screencast`
 Script to start a screen cast in the background using `ffmpeg -f x11grab`.
 
-### `start-wifi`
-Script that starts WiFi according to /etc/wpa_supplicant.conf configuration file.
-
 ### `path`
 Small script to show the $PATH environment variable with $'\n' instead of ':' and therefor more readable.
+
+### `online`
+Inspired by a [stack overflow answer](http://stackoverflow.com/a/14939373/4935114). A simple script that returns true or false if the computer is currently online.
