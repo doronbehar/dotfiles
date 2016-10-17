@@ -14,3 +14,6 @@ keyword =
    "postdoc_reference|reference|lineprefix|translations|begin|end"
 
 symbol = "=|+|,"
+
+
+# vim:ft=lang

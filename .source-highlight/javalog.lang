@@ -10,3 +10,6 @@ specialchar = '[[:digit:]]{4}/[[:digit:]]{2}/[[:digit:]]{2}', $basic_time, '[[:d
 number = '\b[[:digit:]]+\b'
 
 type = '[[:blank:]](?=\w*\d)\w*((_|\-)(?=\w*\d)\w*)+'
+
+
+# vim:ft=lang

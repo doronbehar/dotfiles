@@ -3,3 +3,6 @@ environment comment = '^[[:blank:]]*#[[:blank:]]*if[[:blank:]]+0' begin
 end
 
 include "cpp.lang"
+
+
+# vim:ft=lang

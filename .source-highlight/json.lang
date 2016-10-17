@@ -16,3 +16,6 @@ number =
 
 symbol = ",","{","}","[","]"
 keyword = "true|false|null"
+
+
+# vim:ft=lang

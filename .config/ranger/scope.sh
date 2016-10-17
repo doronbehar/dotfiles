@@ -91,7 +91,7 @@ case "$mimetype" in
 		;;
 	# Syntax highlight for text files:
 	*)
-		try pygmentize -g -f 256 -O style=monokai "$path" && { dump | trim; exit 5; }
+		source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i "$path" && { dump | trim; exit 5; }
 		exit 2
 		;;
 esac

@@ -6,3 +6,6 @@ comment start "!"
 
 (type,normal,symbol) = `([^="+]+)([[:blank:]]*)(\+?=)`
 
+
+
+# vim:ft=lang

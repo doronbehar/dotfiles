@@ -22,3 +22,6 @@ variable delim "`" "`"  escape "\\"
 variable = '[A-Z][[:alpha:][:digit:]]*'
 
 string delim "\"" "\"" escape "\\"
+
+
+# vim:ft=lang

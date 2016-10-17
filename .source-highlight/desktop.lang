@@ -9,3 +9,5 @@ section start '\[.*\]'
 include "number.lang"
 include "symbols.lang"
 include "c_string.lang"
+
+# vim:ft=lang

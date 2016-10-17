@@ -60,3 +60,6 @@ usertype = $IDENT+'(?=[[:blank:]]*=)'
 # matches some stdlib types
 # really ought to parse type expr in type def and in type annotations
 type = '\<(?:int|bool|option|float|void|string|list|text|xhtml|xml)\>'
+
+
+# vim:ft=lang

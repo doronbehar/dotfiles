@@ -34,3 +34,6 @@ subst keyword = "abstract|event|new|struct",
 subst type = "bool|byte|sbyte|char|decimal|double",
  "float|int|uint|long|ulong|object",
  "short|ushort|string|void"
+
+
+# vim:ft=lang

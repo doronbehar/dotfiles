@@ -50,3 +50,6 @@ optionalargument delim "[" "]" escape "\\"
 argument delim "{" "}" escape "\\" multiline nested 
 
 
+
+
+# vim:ft=lang

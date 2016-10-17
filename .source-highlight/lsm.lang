@@ -5,3 +5,5 @@ keyword = 'Begin[[:digit:]]*|End'
 type = '^[[:word:]-]+:'
 
 include "url.lang"
+
+# vim:ft=lang

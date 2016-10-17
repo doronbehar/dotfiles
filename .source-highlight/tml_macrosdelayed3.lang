@@ -9,3 +9,6 @@ environment keyword delim $DELAYEDMACROSTART $DELAYEDMACROEND multiline nested b
     end
     include "tml_macrotokens.lang"
 end
+
+
+# vim:ft=lang

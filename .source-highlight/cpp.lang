@@ -13,3 +13,6 @@ keyword = "class|const_cast|delete",
   "using|virtual"
 
 include "c.lang"
+
+
+# vim:ft=lang

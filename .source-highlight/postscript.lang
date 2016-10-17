@@ -40,3 +40,6 @@ comment start "%"
 include "number.lang"
 
 symbol = "[","]","=","==","{","}","<<",">>"
+
+
+# vim:ft=lang

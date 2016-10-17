@@ -31,7 +31,7 @@ alias cdr='cd `cat /tmp/doron.rangerdir`'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # colored cat:
-alias ccat='pygmentize -g -f 256 -O style=monokai'
+alias ccat='source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i'
 # colored diff
 alias cdiff='colordiff'
 # script maid to load variables and put me in a certain directory

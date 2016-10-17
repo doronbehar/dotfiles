@@ -11,3 +11,6 @@ environment url delim "[[" "]]" begin
     end
     include "tml_macrotokens.lang"
 end
+
+
+# vim:ft=lang

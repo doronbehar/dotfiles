@@ -30,3 +30,6 @@ cbracket = "{|}"
 # can be written even without parenthesis
 # include "function.lang"
 
+
+
+# vim:ft=lang

@@ -24,3 +24,6 @@ state symbol delim "<?php" "?>" multiline begin
 end
 
 include "html.lang"
+
+
+# vim:ft=lang

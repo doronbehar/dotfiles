@@ -12,3 +12,5 @@ include "url.lang"
 (string,symbol) = `(^[^:;]+)(:)`
 
 regexp = '%([[:alnum:]]+)'
+
+# vim:ft=lang

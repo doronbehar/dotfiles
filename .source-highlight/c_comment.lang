@@ -23,3 +23,5 @@ environment comment delim "/*" "*/" multiline begin
   include "url.lang"
   include "todo.lang"
 end
+
+# vim:ft=lang

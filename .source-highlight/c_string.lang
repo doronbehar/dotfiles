@@ -7,3 +7,6 @@ end
 environment string delim "'" "'" begin
   specialchar = $SPECIALCHAR
 end
+
+
+# vim:ft=lang

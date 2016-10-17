@@ -19,3 +19,6 @@ vardef ID = '[[:word:]]+'
 variable = '\$' + $ID
 
 variable = $ID
+
+
+# vim:ft=lang

@@ -30,3 +30,6 @@ cbracket = "{|}"
 vardef FUNCTION = '([[:alpha:]]|_|[[:punct:]])([[:word:]]|[[:punct:]])*(?=[[:blank:]]*\()'
 function = $FUNCTION
 
+
+
+# vim:ft=lang

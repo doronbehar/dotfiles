@@ -2,3 +2,6 @@
 `([[:alpha:]_](?:[^[:punct:][:space:]]|[_])*)
 ((?:<.*>)?)
 (\s+(?=[*&]*[[:alpha:]_][^[:punct:][:space:]]*\s*[[:punct:]\[\]]+))`
+
+
+# vim:ft=lang

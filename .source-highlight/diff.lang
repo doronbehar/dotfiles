@@ -30,3 +30,6 @@ state difflines = '(?=^[[:digit:]])' begin
   oldfile start '^[<]'
   newfile start '^[>]'
 end
+
+
+# vim:ft=lang

@@ -10,3 +10,5 @@ include "number.lang"
 variable = '\$[[:word:]]+'
 
 preproc = '%(\{?)[[:word:]]+(\}?)'
+
+# vim:ft=lang

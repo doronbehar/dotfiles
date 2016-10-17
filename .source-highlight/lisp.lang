@@ -21,3 +21,6 @@ normal = '(\b|\+|\?|\*|\-)[[:alnum:]_\-\+\*\?:]+(\+|\?|\*|\-|\b)'
 (cbracket,keyword) = `(\()(defconstant|defvar|defparameter|case|cond|in-package|deftype|list|definline|declare|when|defgeneric|defmethod|defpackage|defstruct|defclass|defun|defmacro|loop|let\*|let|progn|push|pop|cons|car|setf|getf|cdr|if|equal|eql|eq|\+|\*|\-)`
 
 cbracket = "(|)"
+
+
+# vim:ft=lang

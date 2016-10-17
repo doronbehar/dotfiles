@@ -20,3 +20,5 @@ include "symbols.lang"
 include "c_string.lang"
 include "number.lang"
 include "function.lang"
+
+# vim:ft=lang

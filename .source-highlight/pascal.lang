@@ -18,3 +18,6 @@ type = "boolean|byte|char|integer|maxint|real" nonsensitive
 include "symbols.lang"
 
 include "function.lang"
+
+
+# vim:ft=lang

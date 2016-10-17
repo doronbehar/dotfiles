@@ -3,3 +3,5 @@ comment start "#"
 keyword = "msgid","msgstr"
 
 string delim "\"" "\""
+
+# vim:ft=lang

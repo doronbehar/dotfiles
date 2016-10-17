@@ -1,2 +1,4 @@
 vardef FUNCTION = '([[:alpha:]]|_)[[:word:]]*(?=[[:blank:]]*\()'
 function = $FUNCTION
+
+# vim:ft=lang

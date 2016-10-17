@@ -41,3 +41,6 @@ symbol = '%.*%'     # Operators %foo%-like are colored by ess
 
 
 
+
+
+# vim:ft=lang

@@ -4,3 +4,6 @@ whitespace = '[ \t]+$'
 # ---+ Headings
 preproc = '^---[\+#]+(!!)?'
 include "tml_glue.lang"
+
+
+# vim:ft=lang

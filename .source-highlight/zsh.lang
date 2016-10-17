@@ -35,7 +35,7 @@ keyword = "alias|always|autoload|bg|bindkey|break|builtin",
           "unlimit|unset|unsetopt|until|vared|wait|whence",
           "where|which|while|zcompile|zformat|zftp|zle",
           "zmodload|zparseopts|zprof|zpty|zregexparse",
-          "zsocket|zstyle|ztcp|"
+          "zsocket|zstyle|ztcp"
 
 variable = '\$\{([^[:blank:]]+)\}'
 variable = '\$\(([^[:blank:]]+)\)'

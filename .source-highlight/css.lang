@@ -12,3 +12,5 @@ state cbracket delim "{" "}" multiline begin
 end
 
 include "symbols.lang"
+
+# vim:ft=lang

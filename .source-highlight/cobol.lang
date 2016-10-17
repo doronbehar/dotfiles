@@ -28,3 +28,5 @@ nonsensitive
 include "symbols.lang"
 include "c_string.lang"
 include "number.lang"
+
+# vim:ft=lang

@@ -37,3 +37,6 @@ subst keyword = "abstract|alias|align|asm|assert|auto|body",
 "typeof|union|unittest|version|void|volatile",
 "while|with|__gshared|__thread|__traits"
 
+
+
+# vim:ft=lang

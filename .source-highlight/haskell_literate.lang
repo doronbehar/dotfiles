@@ -8,3 +8,5 @@ end
 state code delim "\\begin{code}" "\\end{code}" multiline begin
   include "haskell.lang"
 end
+
+# vim:ft=lang

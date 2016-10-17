@@ -35,3 +35,6 @@ subst type = "bool|char|uchar|unichar|double|float",
  "long|ulong",
  "short|ushort|string|void",
  "var|size_t|ssize_t|time_t|va_list"
+
+
+# vim:ft=lang

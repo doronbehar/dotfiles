@@ -65,3 +65,5 @@ number = '((?:0x|0X)[0-9a-fA-F]+|\d*[\.\_]?\d+(?:[eE][\-\+]\d+)?[hHlLuU]*)'
 
 include "symbols.lang"
 include "number.lang"
+
+# vim:ft=lang

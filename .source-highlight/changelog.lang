@@ -6,3 +6,6 @@ end
 (normal,symbol,normal,file)= `(^[[:blank:]]+)(\*)([[:blank:]]+)((?:[^:]+\:)?)` 
 (normal,file)= `(^[[:blank:]]+)((?:[^:]+\:)?)` 
 
+
+
+# vim:ft=lang

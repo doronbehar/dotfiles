@@ -35,3 +35,5 @@ cbracket = "{|}"
 include "function.lang"
 
 variable = '[[:upper:]][[:word:]]*|_'
+
+# vim:ft=lang

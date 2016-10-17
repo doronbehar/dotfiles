@@ -27,3 +27,6 @@ keyword = '@end [^[:blank:]]+'
 keyword = '@[^[:blank:]{}]+'
 
 argument delim "{" "}" escape "@" multiline nested 
+
+
+# vim:ft=lang

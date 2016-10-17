@@ -1,3 +1,5 @@
 vardef TODO = '(TODO|FIXME|BUG)([:]?)'
 
 todo = $TODO
+
+# vim:ft=lang

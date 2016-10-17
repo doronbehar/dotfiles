@@ -10,3 +10,6 @@ keyword = "shared|strict|relaxed",
 type = "upc_lock_t"
 
 include "c.lang"
+
+
+# vim:ft=lang

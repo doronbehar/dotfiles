@@ -25,3 +25,6 @@ normal = '(?!' + $words +')' + '[[:alpha:]!$%&*+./:<=>?@^_~-][[:alnum:]!$%&*+./:
 number = '(\#(x|o|b|X|O|B))?[+-]?((0x[[:xdigit:]]+)|(([[:digit:]]*\.)?[[:digit:]]+([eE][+-]?[[:digit:]]+)?))'
 
 cbracket = "(|)"
+
+
+# vim:ft=lang

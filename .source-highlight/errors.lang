@@ -12,3 +12,6 @@ state (path,symbol,function,symbol,function,symbol) =
 	string delim "'" "'"
 	normal = '\z' exit
 end
+
+
+# vim:ft=lang

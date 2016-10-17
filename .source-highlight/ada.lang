@@ -36,3 +36,6 @@ type = "Integer|Float|Duration|Character|String|Wide_String|Boolean" nonsensitiv
 include "symbols.lang"
 
 include "function.lang"
+
+
+# vim:ft=lang

@@ -15,3 +15,6 @@ state keyword delim '<(/)?[[:alpha:]]([[:word:]:.-]*)' '(/)?>' multiline begin
 end
 
 preproc = '&([[:alnum:]]+);'
+
+
+# vim:ft=lang

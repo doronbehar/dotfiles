@@ -28,3 +28,6 @@ type = "int32|int64|uint32|uint64|sint32|sint64",
      "float|double|bool|string|bytes"
 
 cbracket = "{|}"
+
+
+# vim:ft=lang

@@ -29,3 +29,6 @@ environment keyword delim $MACROSTART $MACROEND multiline nested begin
         include "tml_formatting.lang"
     end
 end
+
+
+# vim:ft=lang

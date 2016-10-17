@@ -14,3 +14,5 @@ string delim "/" "/"
 
 # everything else is highlighted as type
 type = '[[:alnum:]]+'
+
+# vim:ft=lang

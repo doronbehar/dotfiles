@@ -28,8 +28,6 @@ export LESS="-X -x4 -r -i"
 export LESSHISTFILE="$HOME/.local/share/less-history"
 # make ranger not load default rc.conf so startup will be faster
 export RANGER_LOAD_DEFAULT_RC="FALSE"
-# make ranger more efficient
-export PYTHONOPTIMIZE=2
 
 # Check If a command is installed locally in /usr/local/bin/ or ~/.local/bin/ and not /usr/bin/ for example.
 _command_is_local(){

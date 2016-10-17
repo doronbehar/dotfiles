@@ -25,3 +25,5 @@ variable = '\$[[:digit:]]+'
 # comment start '#+'
 
 # include "sh.lang"
+
+# vim:ft=lang

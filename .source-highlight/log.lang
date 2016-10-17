@@ -51,3 +51,5 @@ state normal start '[[:blank:]](?=(IN|OUT)=)' begin
   number = "CWR|ECE|URG|ACK|PSH|RST|SYN|FIN"
   ip = $ip
 end
+
+# vim:ft=lang

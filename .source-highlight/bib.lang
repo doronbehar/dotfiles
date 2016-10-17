@@ -4,3 +4,5 @@ state bibtex = '@[[:alpha:]]+(?=\{)' begin
 end
 
 string = '[[:alpha:]]+(?=[[:blank:]]*=)'
+
+# vim:ft=lang

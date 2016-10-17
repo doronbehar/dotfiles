@@ -9,3 +9,6 @@ environment keyword delim $MACROSTART $MACROEND multiline nested begin
         include "tml_macrolinks.lang"
     end
 end
+
+
+# vim:ft=lang

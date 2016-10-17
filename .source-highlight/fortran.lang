@@ -55,3 +55,6 @@ type = "CHARACTER|DOUBLE|INTEGER|REAL|PRECISION",
 include "symbols.lang"
 
 include "function.lang"
+
+
+# vim:ft=lang

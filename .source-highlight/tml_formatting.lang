@@ -12,3 +12,6 @@ environment url delim "[[" "]]" begin
     include "tml_formatting_all.lang"
 end
 include "tml_formatting_all.lang"
+
+
+# vim:ft=lang
