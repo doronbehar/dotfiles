@@ -1,5 +1,5 @@
 #!/bin/zsh
-# quartus function:
+# {{{ quartus
 # The function makes it easier to call Quartus' IDE executables
 # Explanation:
 # The normal "QUIARTUS_BIN" directory is full of executables like:
@@ -38,8 +38,9 @@ quartus(){
 		command $QUARTUS_BIN/quartus_"$1" --64bit "${@:2}"
 	fi
 }
+# }}}
 
-# make man with `less` be more colorfull
+# {{{ make man with `less` be more colorfull
 # taken from wiki.archlinux.org
 man(){
 	env LESS_TERMCAP_mb=$'\E[01;31m' \
@@ -51,8 +52,9 @@ man(){
 	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 	man "$@"
 }
+# }}}
 
-# cd into git repository even if it's a submodule.
+# {{{ cd into git repository (even if it's a submodule).
 cdg(){
 	if [ -d .git ]; then
 		cd .git
@@ -62,8 +64,12 @@ cdg(){
 		echo this is not a git repository - No .git file or directory found here
 	fi
 }
+# }}}
 
-# Show fpath - list of paths for directories containing functions for zsh completion
+# {{{ Show fpath - list of paths for directories containing functions for zsh completion
 fpath(){
 	echo "$fpath" | sed -e 's/\ /\n/g'
 }
+# }}}
+
+# vim:ft=zsh:foldmethod=marker

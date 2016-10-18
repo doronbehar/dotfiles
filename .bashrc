@@ -7,8 +7,12 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# {{{ History
 # append to the history file, don't overwrite it
 shopt -s histappend
+# don't put duplicate lines in the history
+HISTCONTROL="ignoredups:ignorespace"
+# }}}
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -22,16 +26,16 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+# {{{ Looks
+
+# {{{ set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
 	xterm-color) color_prompt=yes;;
 esac
-
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
-
 if [ -n "$force_color_prompt" ]; then
 	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -42,14 +46,12 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
 	fi
 fi
-
 if [ "$color_prompt" = yes ]; then
 	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
-
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 	xterm*|rxvt*)
@@ -58,17 +60,9 @@ case "$TERM" in
 	*)
 		;;
 esac
+# }}}
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash/completion ] && ! shopt -oq posix; then
-	. /etc/bash/completion
-fi
-if [ -f ~/.tmux/bash-completion ]; then
-	source ~/.tmux/bash-completion
-fi
-
+# {{{ Powerline
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 POWERLINE_NO_SHELL_ABOVE=1
@@ -82,4 +76,20 @@ elif [ -f /usr/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh 
 else
 	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
 fi
-# vim:ft=sh
+# }}}
+
+# }}}
+
+# {{{ Completion
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash/completion ] && ! shopt -oq posix; then
+	. /etc/bash/completion
+fi
+if [ -f ~/.tmux/bash-completion ]; then
+	source ~/.tmux/bash-completion
+fi
+# }}}
+
+# vim:ft=sh:foldmethod=marker
