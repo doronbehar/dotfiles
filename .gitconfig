@@ -7,11 +7,13 @@
 	whitespace = space-before-tab,indent-with-non-tab,blank-at-eol,blank-at-eof,
 [credential]
 	helper = cache --timeout=300
+	username = doron.behar
 [credential "https://github.com"]
 	username = Doron-Behar
 [diff]
 	tool = vimdiff3
 	mnemonicprefix = true
+	submodule = log
 [difftool]
 	prompt = true
 [difftool "vimdiff3"]
@@ -33,6 +35,7 @@
 	grog = log --graph --abbrev-commit --decorate --all \n--format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
 	commend = commit --amend --no-edit
 	shorty = status --short --branch
+	cof = checkout -p
 [pager]
 	stash = false
 [push]
@@ -43,3 +46,14 @@
 	insteadOf = https://github.com/
 [url "ssh://git@bitbucket.org/"]
 	insteadOf = https://bitbucket.org/
+[status]
+	submodulesummary = true
+	showUntrackedFiles = all
+	relativePaths = false
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = doron.behar
+	from = doron.behar@gmail.com
+	smtpServerPort = 587
+	smtpsslcertpath = "/etc/ssl/certs"
