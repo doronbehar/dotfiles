@@ -27,13 +27,19 @@ setopt HIST_SAVE_NO_DUPS		# Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS		# Remove superfluous blanks before recording entry.
 # }}}
 
-# {{{ Use emacs keybindings even if our EDITOR is set to vi.
-bindkey -e
-# Enable word-movement with ctrl and arrows on command-line feed.
-bindkey "5C" forward-word
-bindkey "5D" backward-word
-bindkey ";5C" forward-word
-bindkey ";5D" backward-word
+# {{{ Vi like bindings
+bindkey -v
+# The time lapse between <Esc> and changing to insert mode.
+export KEYTIMEOUT=0
+# Word movement just like in my vim config.
+bindkey -a e vi-forward-word-end
+bindkey -a w vi-backward-word
+bindkey -a E vi-forward-blank-word-end
+bindkey -a W vi-backward-blank-word
+bindkey -a ge vi-forward-word
+bindkey -a gw vi-backward-word-end
+bindkey -a gE vi-forward-blank-word
+bindkey -a gW vi-backward-blank-word-end
 # }}}
 
 # {{{ Use modern completion system.

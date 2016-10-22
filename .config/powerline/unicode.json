@@ -12,7 +12,7 @@
 	"spaces": 1,
 	"segment_data": {
 		"branch": {
-			"before": "⎇ "
+			"before": " "
 		},
 		"stash": {
 			"before": "⌆"
@@ -38,7 +38,7 @@
 		},
 
 		"time": {
-			"before": "⌚ "
+			"before": "🕰 "
 		},
 
 		"powerline.segments.common.net.network_load": {

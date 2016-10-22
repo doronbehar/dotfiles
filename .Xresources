@@ -101,6 +101,7 @@ urxvt*font: \
 	xft:AurulentSansMono Nerd Font:size=9,\
 	xft:Arimo for Powerline:size=9,\
 	xft:Cousine for Powerline:size=9,\
+	xft:Symbola:size=8,\
 	xft:Droid Sans Mono for Powerline:size=9,\
 	xft:Fira Mono for Powerline:size=9,\
 	xft:Roboto Mono for Powerline:size=9
@@ -132,6 +133,7 @@ urxvt*color15:#EEEEEC
 !! {{{ Behaviour
 urxvt*loginShell:true
 urxvt*perl-ext-common:default,matcher,clipboard
+urxvt*cursorBlink:true
 !! }}}
 
 !! {{{ Keyboard
