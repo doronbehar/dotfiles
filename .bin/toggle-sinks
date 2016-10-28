@@ -9,15 +9,16 @@ for sink in $(pacmd list-sinks | grep index | sed "s/\(index\|*\|:\|\s\)//g"); d
 done
 #all_sinks=($(pacmd list-sinks | grep index | sed 's/\(index\|*\|:\|\s\)//g'))
 #total_number_of_sinks=${#all_sinks}
-echo the total number of sinks is "$total_number_of_sinks"
+echo the total number of sinks available is "$total_number_of_sinks"
 for not_active in $(pacmd list-sinks | grep index | grep -v '*' | sed 's/\(\s\|index\|*\|:\)//g'); do
-	echo the not active sink that is being tested is "$not_active"
+	echo the not active sink that is being tested is indexed "$not_active"
 	if [ "$not_active" = "$(expr $((active + 1)) % "$total_number_of_sinks")" ]; then
-		echo activating sink "$not_active" out of "$total_number_of_sinks"
-		echo running loop: $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g')
+		echo activating sink "$not_active" out of "$total_number_of_sinks" sinks available
+		echo setting default sink
 		pacmd set-default-sink "$not_active"
-		for i in $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g'); do
-			pacmd move-sink-input "$i" "$not_active"
+		echo running loop for sink-inputs: $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g')
+		for sink_input in $(pacmd list-sink-inputs | grep index | sed 's/\(index\|:\|\s\)//g'); do
+			pacmd move-sink-input "$sink_input" "$not_active"
 		done
 	fi
 done
