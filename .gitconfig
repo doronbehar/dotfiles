@@ -36,6 +36,7 @@
 	commend = commit --amend --no-edit
 	shorty = status --short --branch
 	cof = checkout -p
+	diffc = diff --cached
 [pager]
 	stash = false
 [push]
