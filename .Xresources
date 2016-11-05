@@ -146,6 +146,10 @@ URxvt.keysym.Control-Right:\033[1;5C
 !! Taken from http://unix.stackexchange.com/a/46376/135796
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
+!! Taken from https://wiki.gentoo.org/wiki/Rxvt-unicode#Printing
+! The string will be interpreted as if typed into the shell as-is.
+! In this example, printing will be disabled altogether.
+URxvt.print-pipe: "cat > /dev/null"
 !! }}}
 
 !! }}}
