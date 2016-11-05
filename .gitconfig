@@ -37,6 +37,7 @@
 	shorty = status --short --branch
 	cof = checkout -p
 	diffc = diff --cached
+	dc = difftool --cached
 [pager]
 	stash = false
 [push]
