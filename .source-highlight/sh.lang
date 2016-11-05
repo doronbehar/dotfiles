@@ -36,6 +36,4 @@ symbol = '(##){2}(?!#)'
 
 include "script_comment.lang"
 
-
-
 # vim:ft=lang

@@ -34,5 +34,4 @@ cbracket = "{|}"
 
 function = '([[:alpha:]]|_)[[:word:]:]*(?=\()'
 
-
 # vim:ft=lang

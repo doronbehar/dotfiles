@@ -30,5 +30,4 @@ environment keyword delim $MACROSTART $MACROEND multiline nested begin
     end
 end
 
-
 # vim:ft=lang

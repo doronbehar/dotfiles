@@ -6,5 +6,4 @@ subst keyword = "abstract|assert|break|case|cast|catch|class|continue|default|do
 
 subst type = "Bool|Dynamic|Float|Int|Void"
 
-
 # vim:ft=lang

@@ -5,5 +5,4 @@ whitespace = '[ \t]+$'
 preproc = '^---[\+#]+(!!)?'
 include "tml_glue.lang"
 
-
 # vim:ft=lang

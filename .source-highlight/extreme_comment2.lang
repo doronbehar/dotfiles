@@ -4,5 +4,4 @@ end
 
 include "cpp.lang"
 
-
 # vim:ft=lang

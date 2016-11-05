@@ -7,7 +7,4 @@ comment start "#"
 (attribute,symbol,string,symbol)=
 	`([[:alnum:]_]+)(=)([^,]+)(,?)`
 
-
-
-
 # vim:ft=lang

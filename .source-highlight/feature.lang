@@ -25,5 +25,4 @@ when = '^\s*(When)'
 then = '^\s*(Then)'
 and_but = '^\s*(And|But)'
 
-
 # vim:ft=lang

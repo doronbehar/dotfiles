@@ -16,6 +16,4 @@ state keyword delim "Section" "EndSection" multiline begin
 	(normal,type) = `(^[[:blank:]]*)([[:word:]]+)`
 end
 
-
-
 # vim:ft=lang

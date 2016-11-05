@@ -141,6 +141,4 @@ layout_property = '\b[a-z]+(-[a-z]+)+', 'indent'
 # It must be at the end, otherwise the other \command definitions are overwritten.
 function = '\\[[:alpha:]-]+'
 
-
-
 # vim:ft=lang

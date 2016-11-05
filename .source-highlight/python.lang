@@ -24,6 +24,4 @@ symbol = "{|}"
 
 include "function.lang"
 
-
-
 # vim:ft=lang

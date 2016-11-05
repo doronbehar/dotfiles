@@ -105,7 +105,7 @@ profile = sh.lang
 csh = sh.lang
 ksh = sh.lang
 tcsh = sh.lang
-
+shell = sh.lang
 zsh = zsh.lang
 
 zshrc = zsh.lang
@@ -205,6 +205,7 @@ groovy = groovy.lang
 json = json.lang
 feature = feature.lang
 
+pkgbuild = sh.lang
 vhdl = vhdl.lang
 vhd = vhdl.lang
 cmp = vhdl.lang

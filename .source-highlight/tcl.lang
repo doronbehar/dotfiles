@@ -34,5 +34,4 @@ vardef ID = '[[:word:]:-]+'
 
 variable = "$" + $ID + "|${" + $ID + "}" 
 
-
 # vim:ft=lang

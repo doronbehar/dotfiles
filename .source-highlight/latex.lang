@@ -49,7 +49,4 @@ normal = '\{[[:blank:]]*\z' # a { and then a new line
 optionalargument delim "[" "]" escape "\\"
 argument delim "{" "}" escape "\\" multiline nested 
 
-
-
-
 # vim:ft=lang

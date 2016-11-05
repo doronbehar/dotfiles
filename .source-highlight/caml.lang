@@ -15,5 +15,4 @@ include "symbols.lang"
 cbracket = "{|}"
 
 
-
 # vim:ft=lang

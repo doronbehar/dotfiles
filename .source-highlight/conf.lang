@@ -10,5 +10,4 @@ variable = '\$\(([^[:blank:]]+)\)'
 variable = '\$([[:alpha:]]|_)[[:word:]]*'
 variable = '\$([^[:blank:]]{1})'
 
-
 # vim:ft=lang

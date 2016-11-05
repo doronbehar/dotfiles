@@ -2,5 +2,4 @@
 (function, usertype, function) = `(\$[a-zA-Z0-9_]+\()([^\)]*)(\))`
 (function) = `(\$[a-zA-Z0-9_]+)`
 
-
 # vim:ft=lang

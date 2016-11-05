@@ -14,5 +14,4 @@ keyword = "class|const_cast|delete",
 
 include "c.lang"
 
-
 # vim:ft=lang

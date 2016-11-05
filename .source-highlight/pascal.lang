@@ -19,5 +19,4 @@ include "symbols.lang"
 
 include "function.lang"
 
-
 # vim:ft=lang

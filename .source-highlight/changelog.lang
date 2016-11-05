@@ -7,5 +7,4 @@ end
 (normal,file)= `(^[[:blank:]]+)((?:[^:]+\:)?)` 
 
 
-
 # vim:ft=lang

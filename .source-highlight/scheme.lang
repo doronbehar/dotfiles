@@ -26,5 +26,4 @@ number = '(\#(x|o|b|X|O|B))?[+-]?((0x[[:xdigit:]]+)|(([[:digit:]]*\.)?[[:digit:]
 
 cbracket = "(|)"
 
-
 # vim:ft=lang

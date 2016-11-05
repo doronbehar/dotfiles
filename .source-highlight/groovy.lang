@@ -34,5 +34,4 @@ include "function.lang"
 
 include "clike_vardeclaration.lang"
 
-
 # vim:ft=lang

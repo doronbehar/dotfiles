@@ -2,5 +2,4 @@
 preproc = '(^[\*~]~~)'
 comment = '(^#~~.*$)'
 
-
 # vim:ft=lang

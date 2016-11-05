@@ -16,5 +16,4 @@ end
 
 preproc = '&([[:alnum:]]+);'
 
-
 # vim:ft=lang

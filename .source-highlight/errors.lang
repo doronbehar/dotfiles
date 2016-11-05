@@ -13,5 +13,4 @@ state (path,symbol,function,symbol,function,symbol) =
 	normal = '\z' exit
 end
 
-
 # vim:ft=lang

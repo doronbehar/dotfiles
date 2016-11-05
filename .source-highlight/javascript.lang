@@ -26,5 +26,4 @@ cbracket = "{|}"
 
 include "function.lang" 
 
-
 # vim:ft=lang

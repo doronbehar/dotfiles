@@ -19,5 +19,4 @@ include "tml_macros.lang"
 include "tml_formatting.lang"
 include "html.lang"
 
-
 # vim:ft=lang

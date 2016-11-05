@@ -13,5 +13,4 @@ include "sh.lang"
 include "function.lang"
 
 
-
 # vim:ft=lang

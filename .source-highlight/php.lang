@@ -25,5 +25,4 @@ end
 
 include "html.lang"
 
-
 # vim:ft=lang

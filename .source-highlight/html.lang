@@ -18,6 +18,4 @@ end
 
 include "html_simple.lang"
 
-
-
 # vim:ft=lang

@@ -41,5 +41,4 @@ normal = '([[:word:]-]*)\.([[:word:]-]+)'
 # The statements following dependencies are for /bin/sh; so:
 include "sh.lang"
 
-
 # vim:ft=lang

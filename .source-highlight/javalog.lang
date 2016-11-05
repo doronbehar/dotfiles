@@ -11,5 +11,4 @@ number = '\b[[:digit:]]+\b'
 
 type = '[[:blank:]](?=\w*\d)\w*((_|\-)(?=\w*\d)\w*)+'
 
-
 # vim:ft=lang
