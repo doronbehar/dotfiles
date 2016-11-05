@@ -33,6 +33,7 @@ xterm*cursorOffTime: 500
 xterm*cursorOnTime: 500
 xterm*activeIcon: true
 xterm*sameName: true
+XTerm*allowWindowOps:true
 !! }}}
 
 !! {{{ Keyboard
