@@ -1,19 +1,12 @@
 #!/bin/zsh
 # {{{ Looks
-# The following line is as described in a user-guide by powerline: # source: http://powerline.readthedocs.org/en/master/usage/shell-prompts.htm#zsh-prompt
-# powerline:
-powerline-daemon -q
-if [ -f /usr/share/powerline/bindings/zsh/powerline.zsh ]; then
-	. /usr/share/powerline/bindings/zsh/powerline.zsh
-elif [ -f ~/.local/share/powerline/bindings/zsh/powerline.zsh ]; then
-	. ~/.local/share/powerline/bindings/zsh/powerline.zsh
-elif [ -f /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh ]; then
-	. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
-else
-	echo "you don't seem to have powerline installed, check your ~/.zshrc and add the correct path to the bindings in ~/.zshrc and ~/.bashrc"
-fi
 # syntax highlighting
 source ~/.zsh-syntax-highlighting/plugin
+fpath=(~/.zsh-prompts $fpath)
+autoload -Uz colors && colors
+autoload promptinit && promptinit
+setopt promptsubst
+prompt my
 # }}}
 
 # {{{ Options.
@@ -27,7 +20,7 @@ setopt HIST_SAVE_NO_DUPS		# Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS		# Remove superfluous blanks before recording entry.
 # }}}
 
-# {{{ Vi like bindings
+# {{{ Bindings
 bindkey -v
 # The time lapse between <Esc> and changing to insert mode.
 export KEYTIMEOUT=0
@@ -76,11 +69,16 @@ if [ -f /etc/zsh_command_not_found ]; then
 elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
 	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
+
 # Correction of previous command.
 eval "$(thefuck --alias)"
 # You can use whatever you want as an alias, like for Mondays
 eval "$(thefuck --alias FUCK)"
 # }}}
+
+# changing to previous directories
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
 
 # }}}
 

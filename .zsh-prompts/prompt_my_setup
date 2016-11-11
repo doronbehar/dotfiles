@@ -1,0 +1,21 @@
+prompt_my_setup(){
+	autoload -Uz vcs_info
+	zstyle ':vcs_info:*' disable bzr cdv darcs mtn svk tla
+	zstyle ':vcs_info:*' check-for-changes true
+	zstyle ':vcs_info:*' stagedstr '✚'
+	zstyle ':vcs_info:*' unstagedstr '●'
+	zstyle ':vcs_info:*' formats '%K{cyan}%F{blue}%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}'
+	zstyle ':vcs_info:*' nvcsformats '%K{green}%F{blue}'
+	add-zsh-hook precmd prompt_my_precmd
+	PS1='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b${vcs_info_msg_0_}%K{green}%F{black} %3c %(1j.%K{yellow}%F{green}%K{yellow}%F{black}%B %j %b%K{default}%F{yellow}.%K{default}%F{green})%b%u%k%f '
+	RPS1='%(?..%K{default}%F{red}%K{red}%F{black} %? )'
+	PS2='%K{blue}%F{white} %^ %K{default}%F{blue} '
+}
+
+prompt_my_precmd () {
+	vcs_info
+}
+
+prompt_my_setup
+
+# vim:ft=zsh
