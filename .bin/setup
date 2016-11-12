@@ -4,22 +4,30 @@
 #    in the csv file.
 # 2. Afterwards it load variables from the makefile located in that directory.
 # 3. Then, it prints `ls -l` && `git status`
-local SHOW="==========================================
+
+_setup_export_makefile_vars(){
+	if [ -f makefile ]; then
+		eval export "$(grep "^[a-zA-Z_]*\=" makefile | sed 's/shell //g')"
+	fi
+}
+
+_setup_git(){
+	if [ -e .git ]; then
+		echo "==========================================
 showing releavent files for the project:
 =========================================="
+	fi
+	# ment for working with directories containing files for Quartus IDE
+	ls --color=auto -ldh `ls -A --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
+	if [ -e .git ]; then
+		git status
+	fi
+}
+
 while read -r line; do
 	if [ "$1" = "$(echo "$line" | cut -d':' -f1)" ]; then
 		eval cd "$(echo "$line" | cut -d':' -f2)"
-		if [ -f makefile ]; then
-			eval export "$(grep "^[a-zA-Z_]*\=" makefile | sed 's/shell //g')"
-		fi
-		if [ -e .git ]; then
-			echo "$SHOW"
-		fi
-		# ment for working with directories containing files for Quartus IDE
-		ls --color=auto -ldh `ls -A --color=never | egrep -v "(rpt|xml|pin|mpf|jdi|mti|cr|greybox_tmp|vstf|wlf|done|smsg|summary|bak|sld|db|simulation|transcript|qar|qws|qpf)"`
-		if [ -e .git ]; then
-			git status
-		fi
+		_setup_export_makefile_vars
+		_setup_git
 	fi
-done < ~/.config/ranger/bookmarks
+done < $SETUP_BOOKMARKS_FILE

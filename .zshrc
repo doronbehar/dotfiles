@@ -9,15 +9,27 @@ setopt promptsubst
 prompt my
 # }}}
 
-# {{{ Options.
-setopt HIST_IGNORE_DUPS			# Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS		# Delete old recorded entry if new entry is a duplicate.
-setopt SHARE_HISTORY			# Share history between all sessions.
-setopt HIST_IGNORE_SPACE		# Don't record an entry starting with a space.
-setopt EXTENDED_HISTORY			# Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY		# Write to the history file immediately, not when the shell exits.
-setopt HIST_SAVE_NO_DUPS		# Don't write duplicate entries in the history file.
-setopt HIST_REDUCE_BLANKS		# Remove superfluous blanks before recording entry.
+# {{{ History.
+# Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_DUPS
+# Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Share history between all sessions.
+setopt SHARE_HISTORY
+# Don't record an entry starting with a space.
+setopt HIST_IGNORE_SPACE
+# Write the history file in the ":start:elapsed;command" format.
+setopt EXTENDED_HISTORY
+# Write to the history file immediately, not when the shell exits.
+setopt INC_APPEND_HISTORY
+# Don't write duplicate entries in the history file.
+setopt HIST_SAVE_NO_DUPS
+# Remove superfluous blanks before recording entry.
+setopt HIST_REDUCE_BLANKS
+# Keep 1000 lines of history within the shell
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE="$HOME/.local/share/zsh-history"
 # }}}
 
 # {{{ Bindings
@@ -35,9 +47,9 @@ bindkey -a gE vi-forward-blank-word
 bindkey -a gW vi-backward-blank-word-end
 # }}}
 
-# {{{ Use modern completion system.
+# {{{ Completion.
 
-# zsh-completions by zsh-users
+# Completions by zsh-users
 fpath=(~/.zsh-completions/src $fpath)
 
 # Initialize
@@ -61,6 +73,8 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# ignore completion to commands we don't have
+zstyle ':completion:*:functions'          ignored-patterns '_*'
 # }}}
 
 # {{{ Command failure

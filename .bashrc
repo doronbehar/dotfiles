@@ -11,7 +11,11 @@
 # append to the history file, don't overwrite it
 shopt -s histappend
 # don't put duplicate lines in the history
-HISTCONTROL="ignoredups:ignorespace"
+export HISTCONTROL="ignoredups:ignorespace"
+# Keep 1000 lines of history within the shell
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE="$HOME/.local/share/bash-history"
 # }}}
 
 # {{{ Genaral

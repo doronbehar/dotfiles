@@ -2,12 +2,13 @@
 
 # {{{ PATH additions
 # {{{ function to append $PATH a directory only if it doesn't exist already.
-# On my machine at home it overrides almost the same function. The difference
-# is that the system wide function appends the argument in the beginning and
-# not at the end of $PATH - It makes sense because this way a user has the
-# choice of using custom scripts with the same name as some that exist on the
-# system. When the interpretor reads $PATH it searches through the 1st
-# directories 1st. So scripts in ~/.bin will be used over /bin for example.
+# On my personal computer at home, this function exists for all users.The
+# difference is that the system-wide function appends the argument in the
+# beginning of $PATH and not at the end of $PATH - It makes sense because this
+# way a user has the choice of using custom scripts with the same name as some
+# that exist already on the system. When the interpretor reads $PATH it
+# searches through the first directories first. So scripts in ~/.bin will be
+# prefered over /bin for example.
 add2PATH(){
 	if ! echo $PATH | grep -q "$1"; then
 		PATH="$1"":""$PATH"
@@ -28,12 +29,14 @@ fi
 
 # }}}
 
-# {{{ Program's settings
+# {{{ Programs's settings
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export LESS="-X -x4 -r -i"
 export LESSHISTFILE="$HOME/.local/share/less-history"
 # make ranger not load default rc.conf so startup will be faster
 export RANGER_LOAD_DEFAULT_RC="FALSE"
+# ~/.bin/setup bookmarks file
+export SETUP_BOOKMARKS_FILE=~/.config/ranger/bookmarks
 # }}}
 
 # {{{ PAGER and VISUAL/EDITOR
@@ -69,14 +72,7 @@ fi
 export PAGER="less"
 # }}}
 
-# {{{ Shell settings
-# - Keep 1000 lines of history within the shell and save it to ~/.sh/history:
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE="$HOME/.local/share/shells-history"
-# }}}
-
-# {{{ Genreal settings
+# {{{ Genreal settings and variables
 # - I always forget this one before I parse commands outputs etc:
 IFS=$'\n'
 # - Source xdg settings from .config/user-dirs.dirs
