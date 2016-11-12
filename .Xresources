@@ -1,15 +1,5 @@
 !! {{{ Xterm
 
-!! {{{ Colors
-xterm*background: black
-xterm*foreground: white
-!! }}}
-
-!! {{{ Misc
-xterm*metaSendsEscape: true
-xterm*loginShell: true
-!! }}}
-
 !! {{{ Fonts
 xterm*reportFonts: true
 xterm*renderFont: true
@@ -24,7 +14,30 @@ xterm*utf8Title: true
 xterm*locale: true
 !! }}}
 
-!! {{{ User Interface
+!! {{{ Colors
+xterm*background: black
+xterm*foreground: white
+xterm*color0:#2E3436
+xterm*color1:#a40000
+xterm*color2:#4E9A06
+xterm*color3:#C4A000
+xterm*color4:#3465A4
+xterm*color5:#75507B
+xterm*color6:#ce5c00
+xterm*color7:#babdb9
+xterm*color8:#555753
+xterm*color9:#EF2929
+xterm*color10:#8AE234
+xterm*color11:#FCE94F
+xterm*color12:#729FCF
+xterm*color13:#AD7FA8
+xterm*color14:#fcaf3e
+xterm*color15:#EEEEEC
+!! }}}
+
+!! {{{ Behaviour
+xterm*metaSendsEscape: true
+xterm*loginShell: true
 xterm*title: xterm
 xterm*toolBar: false
 xterm*termName: xterm-256color
@@ -135,6 +148,10 @@ urxvt*color15:#EEEEEC
 urxvt*loginShell:true
 urxvt*perl-ext-common:default,matcher,clipboard
 urxvt*cursorBlink:true
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
 !! }}}
 
 !! {{{ Keyboard
