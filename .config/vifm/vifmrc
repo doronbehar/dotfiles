@@ -1,0 +1,197 @@
+" {{{1 General
+let loaded_vifm=1
+set vicmd=nvim
+set notrash
+set history=100
+set fastrun
+set sortnumbers
+set scrolloff=10
+view
+set dotdirs=rootparent
+" Show dotfile by default
+windo normal zo
+colorscheme custom
+
+" {{{1 devicons
+" file types
+set classify=' :dir:/, :exe:, :reg:,🔗 :link:'
+" various file names
+set classify+=' ::..::, ::*.sh::, ::*.[hc]pp::, ::*.[hc]::, ::/^copying|license$/::, ::.git,,*.git::, ::*.epub,,*.fb2,,*.djvu::, ::*.pdf::, ::*.htm,,*.html,,**.[sx]html,,*.xml::'
+" archives
+set classify+='🍱 ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz,,*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz,,*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz,,*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
+" images
+set classify+=' ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,*.ppm,,*.svg,,*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xcf,,*.xpm,,*.xspf,,*.xwd::'
+" office files
+set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.ppt::'
+
+" {{{1 Search
+set ignorecase
+set smartcase
+set nohlsearch
+set incsearch
+
+" {{{1 Commands
+command! df df -h %m 2> /dev/null
+command! diff vim -d %f %F
+command! zip zip -r %f.zip %f
+command! run !! ./%f
+command! make !!make %a
+command! mkcd :mkdir %a | cd %a
+command! reload :write | restart
+
+" {{{1 Files handlers
+
+" {{{2 Pdf
+filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
+fileviewer *.pdf pdftotext -nopgbrk %c -
+
+" {{{2 PostScript
+filextype *.ps,*.eps,*.ps.gz
+		\ {View in zathura}
+		\ zathura %f,
+		\ {View in gv}
+		\ gv %c %i &,
+
+" {{{2 Djvu
+filextype *.djvu
+		\ {View in zathura}
+		\ zathura %f,
+		\ {View in apvlv}
+		\ apvlv %f,
+
+" {{{2 Audio
+filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+		\ {Play using ffplay}
+		\ ffplay -nodisp %c,
+		\ {Play using MPlayer}
+		\ mplayer %f,
+fileviewer *.mp3 mp3info
+fileviewer *.flac soxi
+
+" {{{2 Video
+filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+		 \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+		 \*.as[fx]
+		\ {View using ffplay}
+		\ ffplay -fs %f,
+		\ {View using Dragon}
+		\ dragon %f:p,
+		\ {View using mplayer}
+		\ mplayer %f,
+fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+		  \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+		  \*.as[fx]
+		 \ ffprobe -pretty %c 2>&1
+
+" {{{2 Web
+filextype *.html,*.htm
+		\ {Open with dwb}
+		\ dwb %f %i &,
+		\ {Open with firefox}
+		\ firefox %f &,
+		\ {Open with uzbl}
+		\ uzbl-browser %f %i &,
+filetype *.html,*.htm links, xdg-open,
+fileviewer w3m -dump %c
+
+" {{{2 Object
+filetype *.o nm %f | less
+
+" {{{2 Man page
+filetype *.[1-8] man ./%c
+fileviewer *.[1-8] man ./%c | col -b
+
+" {{{2 Images
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+		\ imgt %px %py %pw %ph %c
+		\ %pc
+		\ imgc %px %py %pw %ph
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+		\ identify -verbose %c %m
+" {{{2 MD5
+filetype *.md5
+		\ {Check MD5 hash sum}
+		\ md5sum -c %f %S,
+
+" {{{2 SHA1
+filetype *.sha1
+		\ {Check SHA1 hash sum}
+		\ sha1sum -c %f %S,
+
+" {{{2 SHA256
+filetype *.sha256
+		\ {Check SHA256 hash sum}
+		\ sha256sum -c %f %S,
+
+" {{{2 SHA512
+filetype *.sha512
+		\ {Check SHA512 hash sum}
+		\ sha512sum -c %f %S,
+
+" {{{2 GPG signature
+filetype *.asc
+		\ {Check signature}
+		\ !!gpg --verify %c,
+
+" {{{2 Torrent
+filetype *.torrent transmission-remote --add %f &
+fileviewer *.torrent transmission-show -v %c
+
+" {{{2 FuseZipMount
+filetype *.zip,*.jar,*.war,*.ear,*.oxt,*.apkg
+		\ {Mount with fuse-zip}
+		\ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+		\ {View contents}
+		\ zip -sf %c | less,
+		\ {Extract here}
+		\ tar -xf %c,
+fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
+
+" {{{2 ArchiveMount
+filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz
+		\ {Mount with archivemount}
+		\ FUSE_MOUNT|archivemount %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.tgz,*.tar.gz tar -tzf %c
+fileviewer *.tar.bz2,*.tbz2 tar -tjf %c
+fileviewer *.tar.txz,*.txz xz --list %c
+fileviewer *.tar tar -tf %c
+
+" {{{2 Rar2FsMount and rar archives
+filetype *.rar
+		\ {Mount with rar2fs}
+		\ FUSE_MOUNT|rar2fs %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.rar unrar v %c
+
+" {{{2 IsoMount
+filetype *.iso
+		\ {Mount with fuseiso}
+		\ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
+
+" {{{2 SshMount
+filetype *.ssh
+		\ {Mount with sshfs}
+		\ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR,
+
+" {{{2 FtpMount
+filetype *.ftp
+		\ {Mount with curlftpfs}
+		\ FUSE_MOUNT2|curlftpfs -o ftp_port=-,,disable_eprt %PARAM %DESTINATION_DIR,
+
+" {{{2 Fuse7z and 7z archives
+filetype *.7z
+		\ {Mount with fuse-7z}
+		\ FUSE_MOUNT|fuse-7z %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.7z 7z l %c
+
+" {{{2 Office files
+filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
+fileviewer *.doc catdoc %c
+fileviewer *.docx, docx2txt.pl %f -
+
+" {{{2 Files for source-highlight
+fileviewer *.ada *.applescript *.asm *.awk *.bat *.bib *.bison *.caml *.c_comment *.changelog *.c *.clike_vardeclaration *.clipper *.cobol *.coffeescript *.conf *.cpp *.csharp *.css *.c_string *.default *.desktop *.diff *.d *.erlang *.errors *.extreme_comment2 *.extreme_comment3 *.extreme_comment *.feature *.fixed-fortran *.flex *.fortran *.function *.glsl *.go *.groovy *.haskell *.haskell_literate *.haxe *.html *.html_simple *.islisp *.java *.javalog *.javascript *.json *.key_string *.langdef *.latex *.ldap *.lilypond *.lisp *.log *.logtalk *.lsm *.lua *.m4 *.makefile *.manifest *.nohilite *.number *.opa *.outlang *.oz *.pascal *.pc *.perl *.php *.po *.postscript *.prolog *.properties *.proto *.python *.r *.ruby *.scala *.scheme *.script_comment *.sh *.s *.slang *.sml *.spec *.sql *.style *.symbols *.tcl *.texinfo *.tml_formatting_all *.tml_formatting *.tml_glue *.tml *.tml_macrolinks *.tml_macros1 *.tml_macros2 *.tml_macrosdelayed1 *.tml_macrosdelayed2 *.tml_macrosdelayed3 *.tml_macros *.tml_macrotokens *.todo *.upc *.url *.vala *.vbscript *.vhdl *.xml *.xorg *.zsh
+		\ source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i %c
+
+" {{{1 Modeline
+" vim:ft=vifm:foldmethod=marker
+

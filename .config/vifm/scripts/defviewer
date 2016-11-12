@@ -1,0 +1,11 @@
+#/bin/bash
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: $0 filename"
+	exit 1
+fi
+
+# upper limit of lines to display for text files
+nlines=150
+
+source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i "$1"
