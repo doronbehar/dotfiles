@@ -10,22 +10,23 @@
 # searches through the first directories first. So scripts in ~/.bin will be
 # prefered over /bin for example.
 add2PATH(){
-	if ! echo $PATH | grep -q "$1"; then
-		PATH="$1"":""$PATH"
-	fi
+	# For all strings passed to function
+	for i in "$@"; do
+		# If the directory exists
+		if [ -d "$i" ]; then
+			# If it doesn't exists already in $PATH
+			if ! echo $PATH | grep -q "$i"; then
+				PATH="$i"":""$PATH"
+			fi
+		fi
+	done
 }
 # }}}
 
-if [ -d "$HOME/bin" ]; then
-	add2PATH "$HOME/bin"
-fi
-# Include user's private bin directory if it exists
-if [ -d "$HOME/.bin" ]; then
-	add2PATH "$HOME/.bin"
-fi
-if [ -d "$HOME/.local/bin" ]; then
-	add2PATH "$HOME/.local/bin"
-fi
+add2PATH "$HOME/.gem/ruby/$(ls $HOME/.gem/ruby | sort -rn | head -n1)/bin"
+add2PATH "$HOME/.local/bin"
+add2PATH "$HOME/.bin"
+add2PATH "$HOME/bin"
 
 # }}}
 
