@@ -35,7 +35,7 @@ export HISTFILE="$HOME/.local/share/zsh-history"
 # {{{ Bindings
 bindkey -v
 # The time lapse between <Esc> and changing to insert mode.
-export KEYTIMEOUT=0
+export KEYTIMEOUT=1
 # Word movement just like in my vim config.
 bindkey -a e vi-forward-word-end
 bindkey -a w vi-backward-word

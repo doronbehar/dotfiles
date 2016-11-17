@@ -72,4 +72,10 @@ fpath(){
 }
 # }}}
 
+# {{{ Go to the directory the current song played by mpd is located in
+cdm(){
+	local _MPD_SONG_DIR="$(mpc --format "%file%" | head -n1 | cut -d'/' -f1-2)"
+	cd $MPD_MUSIC_DIR/$_MPD_SONG_DIR
+}
+
 # vim:ft=zsh:foldmethod=marker
