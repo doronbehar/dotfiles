@@ -38,6 +38,8 @@ export LESSHISTFILE="$HOME/.local/share/less-history"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
 # ~/.bin/setup bookmarks file
 export SETUP_BOOKMARKS_FILE=~/.config/ranger/bookmarks
+# xdg browser
+export BROWSER="google-chrome-stable"
 # }}}
 
 # {{{ PAGER and VISUAL/EDITOR
