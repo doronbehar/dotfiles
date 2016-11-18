@@ -5,3 +5,5 @@
 .config/ranger/history
 .xprofile
 .vifm/vifminfo
+.config/thefuck/__pycache__/*
+.config/youtube-viewer/reg.dat
