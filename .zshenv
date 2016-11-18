@@ -42,6 +42,8 @@ export SETUP_BOOKMARKS_FILE=~/.config/ranger/bookmarks
 export BROWSER="google-chrome-stable"
 # MPD music directory:
 export MPD_MUSIC_DIR="$(grep music_dir /etc/mpd.conf | cut -d'"'  -f2)"
+# YouTube Channel ID for youtube-viewer (perl application)
+export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
 # }}}
 
 # {{{ PAGER and VISUAL/EDITOR

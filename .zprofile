@@ -64,6 +64,10 @@ alias t=todo.sh
 alias ccat='source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i'
 # colored diff
 alias cdiff='colordiff'
+# YouTube-viewer perl application.
+alias ytv='youtube-viewer'
+# Show my YouTube Playlists with $YOUTUBE_CHANNEL_ID env var.
+alias my-ytv='youtube-viewer -cp "$YOUTUBE_CHANNEL_ID"'
 # }}}
 
 # {{{ quartus IDE command line interface:
