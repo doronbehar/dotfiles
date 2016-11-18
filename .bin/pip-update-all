@@ -1,2 +1,6 @@
-#!/bin/sh
-pip install -U `pip list -o | grep -v -i warning | cut -f1 -d' ' | tr  "\n|\r" " "`
+#!/usr/bin/env python
+import pip
+from subprocess import call
+
+for dist in pip.get_installed_distributions():
+    call("pip install --upgrade " + dist.project_name, shell=True)
