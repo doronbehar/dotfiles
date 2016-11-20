@@ -1,21 +1,18 @@
 [submodule "tmux"]
 	path = .tmux
 	url = https://github.com/Doron-Behar/tmuxfiles
-[submodule ".config/nvim"]
+[submodule "nvim"]
 	path = .config/nvim
 	url = https://github.com/Doron-Behar/vimfiles
-[submodule ".config/awesome"]
+[submodule "awesome"]
 	path = .config/awesome
 	url = https://github.com/Doron-Behar/awesome-files
-[submodule "zsh-syntax-highlighting"]
-	path = .zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "zsh-completions"]
 	path = .zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule ".zsh-completions"]
-	path = .zsh-completions
-	url = https://github.com/zsh-users/zsh-completions
-[submodule ".zsh-syntax-highlighting"]
+[submodule "zsh-syntax-highlighting"]
 	path = .zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "todo.txt-extensions"]
+	path = .todo.txt-ex
+	url = https://github.com/inkarkat/todo.txt-cli-ex
