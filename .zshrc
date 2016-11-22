@@ -45,6 +45,10 @@ bindkey -a ge vi-forward-word
 bindkey -a gw vi-backward-word-end
 bindkey -a gE vi-forward-blank-word
 bindkey -a gW vi-backward-blank-word-end
+# Fix bracket paste in zle for tmux only:
+if [[ $TERM =~ .*tmux.* ]]; then
+	unset zle_bracketed_paste
+fi
 # }}}
 
 # {{{ Completion.
