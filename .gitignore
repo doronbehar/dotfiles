@@ -7,3 +7,4 @@
 .vifm/vifminfo
 .config/thefuck/__pycache__/*
 .config/youtube-viewer/reg.dat
+.todo/dropbox
