@@ -13,6 +13,3 @@
 [submodule "zsh-syntax-highlighting"]
 	path = .zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "todo.txt-extensions"]
-	path = .todo/extensions@inkarkat
-	url = https://github.com/inkarkat/todo.txt-cli-ex

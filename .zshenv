@@ -85,7 +85,7 @@ IFS=$'\n'
 # - Source xdg settings from .config/user-dirs.dirs
 source "$HOME/.config/user-dirs.dirs"
 # - Source todo config for it's variables
-source "$HOME/.todo/config"
+source "$HOME/.todo/dropbox-general"
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
