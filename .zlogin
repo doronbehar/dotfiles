@@ -74,8 +74,48 @@ fpath(){
 
 # {{{ Go to the directory the current song played by mpd is located in
 cdm(){
-	local _MPD_SONG_DIR="$(mpc --format "%file%" | head -n1 | cut -d'/' -f1-2)"
-	cd $MPD_MUSIC_DIR/$_MPD_SONG_DIR
+	cd $MPD_MUSIC_DIR/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
+# }}}
 
 # vim:ft=zsh:foldmethod=marker
+
+# {{{ tls
+# function for todo.txt to change from time to time the directory the `todo.txt` and `done.txt` files are located.
+tls(){
+	if [ ! -d "$DROPBOX_TODO_DIR" ]; then
+		echo "tls needs variable \$DROPBOX_TODO_DIR to be defined.
+		\$TODO_DIR was not set because either \$DROPBOX_TODO_DIR is not set or could be the directory \$DROPBOX_TODO_DIR dosn\'t exist.">&1
+		return 1
+	else
+		if [ -z "$1" ]; then
+			echo "\$TODO_DIR is set as $TODO_DIR"
+			return 0
+		elif [[ "$1" == "-h" ]]; then
+			cat <<-ENDUSAGE
+				Usage:
+
+					tls -h          displays this help message
+					tls -l          displays all the subfolders inside \$DROPBOX_TODO_DIR
+					tls             (without any arguments) displays the current \$TODO_DIR
+					tls <dir>       exports the necessary variables for todo.sh to work in the selected dir
+					tls <dir> -q    does the same as the above but doesn\'t print what it does
+			ENDUSAGE
+		elif [[ "$1" == "-l" ]]; then
+			find "$DROPBOX_TODO_DIR" -maxdepth 1 -mindepth 1 -type d -printf '%P\n'
+		elif [ ! -d "$DROPBOX_TODO_DIR"/"$1" ]; then
+			echo "$1"/ dosn\'t exist inside "$DROPBOX_TODO_DIR", tls failed.>&1
+			return 1
+		else
+			export TODO_DIR="$DROPBOX_TODO_DIR"/"$1"
+			export TODO_FILE="$DROPBOX_TODO_DIR"/"$1"/todo.txt
+			export DONE_FILE="$DROPBOX_TODO_DIR"/"$1"/done.txt
+			export REPORT_FILE="$DROPBOX_TODO_DIR"/"$1"/report.txt
+			[[ ! "$@" =~ "-q" ]] && echo \$TODO_DIR was set as "$DROPBOX_TODO_DIR"/"$1"
+			return 0
+		fi
+	fi
+}
+
+tls general -q
+# }}}

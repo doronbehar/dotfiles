@@ -44,6 +44,8 @@ export BROWSER="google-chrome-stable"
 export MPD_MUSIC_DIR="$(grep music_dir /etc/mpd.conf | cut -d'"'  -f2)"
 # YouTube Channel ID for youtube-viewer (perl application)
 export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
+# - todo.sh
+source "$HOME/.todo/dropbox"
 # }}}
 
 # {{{ PAGER and VISUAL/EDITOR
@@ -82,10 +84,10 @@ export PAGER="less"
 # {{{ Genreal settings and variables
 # - I always forget this one before I parse commands outputs etc:
 IFS=$'\n'
+# - xdg browser
+export BROWSER="google-chrome-stable"
 # - Source xdg settings from .config/user-dirs.dirs
 source "$HOME/.config/user-dirs.dirs"
-# - Source todo config for it's variables
-source "$HOME/.todo/dropbox-general"
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
