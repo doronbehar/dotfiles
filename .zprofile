@@ -70,23 +70,4 @@ alias ytv='youtube-viewer'
 alias my-ytv='youtube-viewer -cp "$YOUTUBE_CHANNEL_ID"'
 # }}}
 
-# {{{ quartus IDE command line interface:
-if [ -z "$QUARTUS_BIN" ]; then
-	QUARTUS_BIN="/opt/altera/quartus/bin"
-fi;
-alias "altgx-diffmifgen"="$QUARTUS_BIN/altgx_diffmifgen"
-alias "altgx-mifgen"="$QUARTUS_BIN/altgx_mifgen"
-alias "dmf-ver"="$QUARTUS_BIN/dmf_ver"
-alias "fir-netlist-writer"="$QUARTUS_BIN/fir_netlist_writer"
-alias "ip-toolbench"="$QUARTUS_BIN/ip_toolbench"
-alias "mega-alt-fault-injection"="$QUARTUS_BIN/mega_alt_fault_injection"
-alias "mega-symc"="$QUARTUS_BIN/mega_symc"
-alias "mega-symcng"="$QUARTUS_BIN/mega_symcng"
-alias "pll-cmd"="$QUARTUS_BIN/pll_cmd"
-alias "qt-example-app"="$QUARTUS_BIN/qt_example_app"
-alias "tb2-install"="$QUARTUS_BIN/tb2_install"
-alias "uniphy-mcc"="$QUARTUS_BIN/uniphy_mcc"
-alias "xcvr-diffmifgen"="$QUARTUS_BIN/xcvr_diffmifgen"
-# }}}
-
 # vim:ft=zsh:foldmethod=marker
