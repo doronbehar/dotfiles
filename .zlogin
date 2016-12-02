@@ -38,8 +38,6 @@ cdm(){
 }
 # }}}
 
-# vim:ft=zsh:foldmethod=marker
-
 # {{{ tls
 # function for todo.txt to change from time to time the directory the `todo.txt` and `done.txt` files are located.
 tls(){
@@ -79,3 +77,40 @@ tls(){
 
 tls general -q
 # }}}
+
+# {{{ `p` bookmark navigator
+# Works like ranger's bookmarks manager
+p(){
+	while read -r line; do
+		if [ "$1" = "$(echo "$line" | cut -d':' -f1)" ]; then
+			eval cd "$(echo "$line" | cut -d':' -f2)"
+			if [ -f makefile ]; then
+				eval export $(awk '{ if ($0 ~ /^[a-zA-Z_]*=/) {gsub(/shell /, "", $0 ); print}}' makefile)
+			fi
+			ls --color=auto -lhA
+			if [ -e .git ]; then
+				git status
+			fi
+		fi
+	done < ~/.config/ranger/bookmarks
+}
+# }}}
+
+# {{{ `m` bookmark creator
+m(){
+	if [[ ! "$#" == 1 ]] || [[ ! "${#1}" == 1 ]] && [[ ! "$@" == "ls" ]] ; then
+		cat <<-EndUsage
+			Usage:
+				m <single-character>   create a bookmark named <single-character>
+				m ls                   show all bookmarks
+		EndUsage
+	elif [[ "$1" == "ls" ]]; then
+		cat ~/.config/ranger/bookmarks
+	else
+		echo "$1":"$PWD" >> ~/.config/ranger/bookmarks
+		echo "bookmark $1 was added to ~/.config/ranger/bookmarks for $PWD"
+	fi
+}
+# }}}
+
+# vim:ft=zsh:foldmethod=marker

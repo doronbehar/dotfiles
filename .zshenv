@@ -38,8 +38,6 @@ export LESS="-X -x4 -r -i"
 export LESSHISTFILE="$HOME/.local/share/less-history"
 # - ranger: make it not load default rc.conf from /etc so startup will be faster
 export RANGER_LOAD_DEFAULT_RC="FALSE"
-# - ~/.bin/setup bookmarks file
-export SETUP_BOOKMARKS_FILE="$HOME"/".config/ranger/bookmarks"
 # - translate-shell
 export HOME_LANG="he"
 export TARGET_LANG="he"

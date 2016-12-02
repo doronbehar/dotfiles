@@ -38,13 +38,6 @@ alias cdr='cd `cat /tmp/doron.rangerdir`'
 
 # }}}
 
-# {{{ Scripts to run inside the shell.
-# script maid to load variables and put me in a certain directory
-alias 'p'='. setup'
-# script to load all ".files" in their correct order:
-alias 'load'='. ~/.bin/load'
-# }}}
-
 # {{{ *Don't forget* Aliases
 # make the mv and cp commands interactive and therefor safer and verbose.
 alias cp='cp -vi'
