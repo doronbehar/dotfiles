@@ -1,0 +1,11 @@
+#!/bin/sh
+# A shell script to detect file type with `file` when it is executable
+export IFS=":"
+for i in $(echo "$PATH"); do
+	if [ -f "$i"/"$1" ]; then
+		file "$i"/"$1"
+		exit 0
+	fi
+done
+echo "xfile: No file was named "$1" found"
+exit 1
