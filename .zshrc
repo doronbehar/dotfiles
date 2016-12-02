@@ -101,10 +101,6 @@ add-zsh-hook chpwd chpwd_recent_dirs
 # }}}
 
 # {{{ Launch if not already running.
-# - ssh-agent if not running already.
-if ! ps x | grep -v grep | grep -q ssh-agent; then
-	eval "$(ssh-agent -s)"
-fi
 # - Startx in every start up only if it's on tty1.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && exec startx
 # }}}
