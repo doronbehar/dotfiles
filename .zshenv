@@ -23,7 +23,7 @@ add2PATH(){
 }
 # }}}
 
-add2PATH "$HOME/.gem/ruby/$(ls $HOME/.gem/ruby | sort -rn | head -n1)/bin"
+add2PATH "$HOME/.gem/ruby/$(find $HOME/.gem/ruby -maxdepth 1 -mindepth 1 -type d | sort -rn | head -n1)/bin"
 add2PATH "$HOME/.local/bin"
 add2PATH "$HOME/.bin"
 add2PATH "$HOME/bin"
