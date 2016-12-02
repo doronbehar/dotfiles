@@ -31,21 +31,26 @@ add2PATH "$HOME/bin"
 # }}}
 
 # {{{ Programs's settings
+# - gcc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# - less
 export LESS="-X -x4 -r -i"
 export LESSHISTFILE="$HOME/.local/share/less-history"
-# make ranger not load default rc.conf so startup will be faster
+# - ranger: make it not load default rc.conf from /etc so startup will be faster
 export RANGER_LOAD_DEFAULT_RC="FALSE"
-# ~/.bin/setup bookmarks file
-export SETUP_BOOKMARKS_FILE=~/.config/ranger/bookmarks
-# xdg browser
-export BROWSER="google-chrome-stable"
-# MPD music directory:
-export MPD_MUSIC_DIR="$(grep music_dir /etc/mpd.conf | cut -d'"'  -f2)"
-# YouTube Channel ID for youtube-viewer (perl application)
+# - ~/.bin/setup bookmarks file
+export SETUP_BOOKMARKS_FILE="$HOME"/".config/ranger/bookmarks"
+# - translate-shell
+export HOME_LANG="he"
+export TARGET_LANG="he"
+# - MPD music directory:
+export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
+# - YouTube Channel ID for youtube-viewer (perl application)
 export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
 # - todo.sh
 source "$HOME/.todo/dropbox"
+# - ssh
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # }}}
 
 # {{{ PAGER and VISUAL/EDITOR

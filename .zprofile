@@ -68,6 +68,8 @@ alias cdiff='colordiff'
 alias ytv='youtube-viewer'
 # Show my YouTube Playlists with $YOUTUBE_CHANNEL_ID env var.
 alias my-ytv='youtube-viewer -cp "$YOUTUBE_CHANNEL_ID"'
+# xdg-open
+alias o='xdg-open'
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
