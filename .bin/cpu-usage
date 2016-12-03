@@ -1,7 +1,0 @@
-#!/bin/bash
-ps aux | grep "$1" | awk '
-	{count+=$3}
-	END {
-		print "It uses "count"%"
-	}
-'

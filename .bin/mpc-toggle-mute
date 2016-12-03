@@ -1,12 +1,11 @@
 #!/bin/sh
 # volume for when there is no last volume set.
 #DEFAULT_VOLUME=15
-if [ "$(mpc | grep volume | sed -e 's/\(volume\|repeat\|random\|single\|consume\|off\|on\|:\|%\|\s\)//g')" -eq "0" ]; then
+if [ "$(mpc volume)" == "volume:  0%" ]; then
 	echo volume is zero
-	echo volume will be set to "$MPC_LAST_VOLUME"
-	mpc volume "$(cat /tmp/mpc-mute-toggle.last-volume)"
+	mpc volume $(cat /tmp/mpc-toggle-mute.last-volume)
 else
 	echo volume is not zero
-	mpc | grep volume | sed -e 's/\(volume\|repeat\|random\|single\|consume\|off\|on\|:\|%\|\s\)//g' > /tmp/mpc-mute-toggle.last-volume
+	mpc volume | awk -F':' '{gsub(/%/,"",$2); print $2}' > /tmp/mpc-toggle-mute.last-volume
 	mpc volume 0
 fi

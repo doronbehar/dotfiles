@@ -1,0 +1,14 @@
+#!/bin/sh
+ps aux | awk -v PROCESS="$1" '
+	{
+		if ($0 ~ PROCESS && $0 !~ /cu/ && $0 !~ /awk/){
+			count+=$4
+		}
+	}
+	END {
+		if (count == "")
+			print "No process "PROCESS" was found"
+		else
+			print count
+	}
+'
