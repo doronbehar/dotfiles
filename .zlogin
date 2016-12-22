@@ -96,21 +96,6 @@ p(){
 }
 # }}}
 
-# {{{ `m` bookmark creator
-m(){
-	if [[ ! "$#" == 1 ]] || [[ ! "${#1}" == 1 ]] && [[ ! "$@" == "ls" ]] ; then
-		cat <<-EndUsage
-			Usage:
-				m <single-character>   create a bookmark named <single-character>
-				m ls                   show all bookmarks
-		EndUsage
-	elif [[ "$1" == "ls" ]]; then
-		cat ~/.config/ranger/bookmarks
-	else
-		echo "$1":"$PWD" >> ~/.config/ranger/bookmarks
-		echo "bookmark $1 was added to ~/.config/ranger/bookmarks for $PWD"
-	fi
-}
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
