@@ -52,7 +52,7 @@ alias ..="cd .."
 alias v='nvim'
 alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"
-alias t=todo.sh
+alias t=task
 # colored cat
 alias ccat='source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i'
 # colored diff

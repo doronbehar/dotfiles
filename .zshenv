@@ -74,8 +74,6 @@ export TARGET_LANG="he"
 export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
 # - YouTube Channel ID for youtube-viewer (perl application)
 export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
-# - todo.sh
-source "$HOME/.todo/dropbox"
 # - ssh
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # - I always forget this one before I parse commands outputs etc:
@@ -87,5 +85,7 @@ source "$HOME/.config/user-dirs.dirs"
 # - GO
 export GOPATH="$HOME/.go"
 insert2PATH "$GOPATH/bin"
+# - taskwarrior
+export TASKDDATA="$HOME/google-drive/tasks"
 
 # vim:ft=zsh:foldmethod=marker
