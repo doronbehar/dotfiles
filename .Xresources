@@ -103,7 +103,7 @@ xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT
 !! {{{ URXVT
 
 !! {{{ Fonts
-urxvt*font: \
+URxvt*font: \
 	xft:DroidSansMonoForPowerline Nerd Font:size=10,\
 	xft:DejaVu Sans Mono for Powerline:size=9,\
 	xft:DejaVuSansMonoForPowerline Nerd Font:size=9,\
@@ -122,32 +122,32 @@ urxvt*font: \
 !! }}}
 
 !! {{{ Colors
-urxvt*scrollBar:false
-urxvt*saveLines:65535
-urxvt.background:#000000
-urxvt*foreground:#ffffff
-urxvt*color0:#2E3436
-urxvt*color1:#a40000
-urxvt*color2:#4E9A06
-urxvt*color3:#C4A000
-urxvt*color4:#3465A4
-urxvt*color5:#75507B
-urxvt*color6:#ce5c00
-urxvt*color7:#babdb9
-urxvt*color8:#555753
-urxvt*color9:#EF2929
-urxvt*color10:#8AE234
-urxvt*color11:#FCE94F
-urxvt*color12:#729FCF
-urxvt*color13:#AD7FA8
-urxvt*color14:#fcaf3e
-urxvt*color15:#EEEEEC
+URxvt*scrollBar:false
+URxvt*saveLines:65535
+URxvt.background:#000000
+URxvt*foreground:#ffffff
+URxvt*color0:#2E3436
+URxvt*color1:#a40000
+URxvt*color2:#4E9A06
+URxvt*color3:#C4A000
+URxvt*color4:#3465A4
+URxvt*color5:#75507B
+URxvt*color6:#ce5c00
+URxvt*color7:#babdb9
+URxvt*color8:#555753
+URxvt*color9:#EF2929
+URxvt*color10:#8AE234
+URxvt*color11:#FCE94F
+URxvt*color12:#729FCF
+URxvt*color13:#AD7FA8
+URxvt*color14:#fcaf3e
+URxvt*color15:#EEEEEC
 !! }}}
 
 !! {{{ Behaviour
-urxvt*loginShell:true
-urxvt*perl-ext-common:default,matcher,clipboard
-urxvt*cursorBlink:true
+URxvt*loginShell:true
+URxvt*perl-ext-common:default,matcher,clipboard
+URxvt*cursorBlink:true
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
 ! scroll back to the bottom on keypress
