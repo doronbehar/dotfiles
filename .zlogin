@@ -96,6 +96,8 @@ p(){
 }
 # }}}
 
+# {{{ Startx in every start up only if it's on tty1 and there isn't a DISPLAY set
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && exec startx
 # }}}
 
 # vim:ft=zsh:foldmethod=marker

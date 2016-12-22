@@ -52,14 +52,11 @@ fi
 # }}}
 
 # {{{ Completion.
-
 # Completions by zsh-users
 fpath=(~/.zsh-completions/src $fpath)
-
 # Initialize
 autoload -Uz compinit
 compinit
-
 # {{{ zstyle
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -80,7 +77,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ignore completion to commands we don't have
 zstyle ':completion:*:functions'          ignored-patterns '_*'
 # }}}
-
 # {{{ Command failure
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
@@ -93,16 +89,9 @@ eval "$(thefuck --alias)"
 # You can use whatever you want as an alias, like for Mondays
 eval "$(thefuck --alias FUCK)"
 # }}}
-
 # changing to previous directories
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
-
-# }}}
-
-# {{{ Launch if not already running.
-# - Startx in every start up only if it's on tty1.
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && exec startx
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
