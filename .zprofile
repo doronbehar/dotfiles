@@ -63,6 +63,8 @@ alias ytv='youtube-viewer'
 alias my-ytv='youtube-viewer -cp "$YOUTUBE_CHANNEL_ID"'
 # xdg-open
 alias o='xdg-open'
+# extract urls from a file or stdin
+alias urls="perl -ne 's#.*(https*://[^\"]*).*#\1# && print'"
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
