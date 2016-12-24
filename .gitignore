@@ -8,3 +8,5 @@
 .config/thefuck/__pycache__/*
 .config/youtube-viewer/reg.dat
 .todo/dropbox
+.config/newsbeuter/*
+!.config/newsbeuter/config
