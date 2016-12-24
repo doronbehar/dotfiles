@@ -35,7 +35,7 @@ insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
 insert2PATH "$HOME/bin"
 if _command_exists gem; then
-	insert2PATH "$HOME/.gem/ruby/$(find $HOME/.gem/ruby -maxdepth 1 -mindepth 1 -type d | sort -rn | head -n1)/bin"
+	insert2PATH "$(find $HOME/.gem/ruby -maxdepth 1 -mindepth 1 -type d | sort -rn | head -n1)/bin"
 fi
 # - VISUAL/EDITOR
 if _command_exists nvim; then
