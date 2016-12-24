@@ -142,11 +142,14 @@ URxvt*color12:#729FCF
 URxvt*color13:#AD7FA8
 URxvt*color14:#fcaf3e
 URxvt*color15:#EEEEEC
+URxvt.matcher.rend.0: Uline Bold fg5
 !! }}}
 
 !! {{{ Behaviour
 URxvt*loginShell:true
-URxvt*perl-ext-common:default,matcher,clipboard
+URxvt*perl-ext-common:default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+!URxvt*url-launcher:google-chrome-stable
 URxvt*cursorBlink:true
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
@@ -167,6 +170,8 @@ URxvt.keysym.Shift-Down: command:\033]721;1\007
 ! The string will be interpreted as if typed into the shell as-is.
 ! In this example, printing will be disabled altogether.
 URxvt.print-pipe: "cat > /dev/null"
+URxvt.keysym.C-Delete:perl:matcher:last
+URxvt.keysym.M-Delete:perl:matcher:list
 !! }}}
 
 !! }}}
