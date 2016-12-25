@@ -36,6 +36,6 @@ report.ls.filter=status:pending -archived
 taskd.certificate=~/.local/share/tasks/doron.cert.pem
 taskd.key=~/.local/share/tasks/doron.key.pem
 taskd.ca=~/.local/share/tasks/ca.cert.pem
-taskd.server=127.0.0.1:53589
+taskd.server=0.0.0.0:53589
 taskd.credentials=private/doron/3caecfaa-bb2c-4652-8107-6ef1eb3f77c5
 taskd.trust=ignore hostname

@@ -86,6 +86,6 @@ source "$HOME/.config/user-dirs.dirs"
 export GOPATH="$HOME/.go"
 insert2PATH "$GOPATH/bin"
 # - taskwarrior
-export TASKDDATA="$HOME/google-drive/tasks"
+export TASKDDATA="/var/lib/taskd"
 
 # vim:ft=zsh:foldmethod=marker
