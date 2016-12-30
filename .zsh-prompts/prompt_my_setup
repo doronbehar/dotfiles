@@ -7,14 +7,25 @@ prompt_my_setup(){
 	zstyle ':vcs_info:*' formats '%K{cyan}%F{blue}%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}'
 	zstyle ':vcs_info:*' nvcsformats '%K{green}%F{blue}'
 	add-zsh-hook precmd prompt_my_precmd
-	PS1='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b${vcs_info_msg_0_}%K{green}%F{black} %3c %(1j.%K{yellow}%F{green}%K{yellow}%F{black}%B %j %b%K{default}%F{yellow}.%K{default}%F{green})%b%u%k%f '
+	PS1_base='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b${vcs_info_msg_0_}%K{green}%F{black} %3c %(1j.%K{yellow}%F{green}%K{yellow}%F{black}%B %j %b%K{default}%F{yellow}.%K{default}%F{green})%b%u%k%f '
 	RPS1='%(?..%K{default}%F{red}%K{red}%F{black} %? )'
 	PS2='%K{blue}%F{white} %^ %K{default}%F{blue} '
+	zle -N zle-line-init
+	zle -N zle-keymap-select
+	terminfo_down_sc=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
 }
 
 prompt_my_precmd () {
 	vcs_info
 }
+
+# Inspired/shamlessly-taken from: http://stackoverflow.com/questions/3622943/zsh-vi-mode-status-line
+function zle-line-init zle-keymap-select {
+	PS1_2="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+	PS1="%{$terminfo_down_sc$PS1_2$terminfo[rc]%}$PS1_base"
+	zle reset-prompt
+}
+preexec () { print -rn -- $terminfo[el]; }
 
 prompt_my_setup
 
