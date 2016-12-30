@@ -125,9 +125,6 @@ txt = nohilite.lang
 sql = sql.lang
 bib = bib.lang
 
-markdown = markdown.lang
-md = markdown.lang
-
 makefile = makefile.lang
 am = makefile.lang
 in = makefile.lang

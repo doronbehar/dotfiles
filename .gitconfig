@@ -38,6 +38,7 @@
 	cof = checkout -p
 	diffc = diff --cached
 	dc = difftool --cached
+	rst = reset
 [pager]
 	stash = false
 [push]
