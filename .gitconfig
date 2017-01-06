@@ -9,7 +9,7 @@
 	helper = cache --timeout=300
 	username = doron.behar
 [credential "https://github.com"]
-	username = Doron-Behar
+	username = doronbehar
 [diff]
 	tool = vimdiff3
 	mnemonicprefix = true

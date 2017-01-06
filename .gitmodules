@@ -1,15 +1,15 @@
 [submodule "tmux"]
 	path = .tmux
-	url = https://github.com/Doron-Behar/tmuxfiles
+	url = https://github.com/doronbehar/tmuxfiles
 [submodule "nvim"]
 	path = .config/nvim
-	url = https://github.com/Doron-Behar/vimfiles
+	url = https://github.com/doronbehar/vimfiles
 [submodule "awesome"]
 	path = .config/awesome
-	url = https://github.com/Doron-Behar/awesome-files
+	url = https://github.com/doronbehar/awesome-files
 [submodule "zsh-completions"]
 	path = .zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "zsh-syntax-highlighting"]
-	path = .zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "collected-zsh-completions"]
+	path = .zsh-collected-completions
+	url = https://github.com/doronbehar/collected-zsh-completions
