@@ -1,0 +1,1 @@
+text/html; w3m -I %{charsed} -T text/html; copiousoutput
