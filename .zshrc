@@ -99,7 +99,7 @@ fi
 
 # {{{ Looks
 # syntax highlighting
-source ~/.zsh-syntax-highlighting/plugin
+source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 fpath=(~/.zsh-prompts $fpath)
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit

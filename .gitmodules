@@ -13,3 +13,6 @@
 [submodule "collected-zsh-completions"]
 	path = .zsh-collected-completions
 	url = https://github.com/doronbehar/collected-zsh-completions
+[submodule "zsh-syntax-highlighting"]
+	path = .zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
