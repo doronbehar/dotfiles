@@ -42,8 +42,8 @@ xterm*title: xterm
 xterm*toolBar: false
 xterm*termName: xterm-256color
 xterm*cursorBlink: true
-xterm*cursorOffTime: 500
-xterm*cursorOnTime: 500
+xterm*cursorOffTime: 400
+xterm*cursorOnTime: 400
 xterm*activeIcon: true
 xterm*sameName: true
 XTerm*allowWindowOps:true
@@ -151,6 +151,8 @@ URxvt*perl-ext-common:default,matcher
 URxvt.url-launcher: /usr/bin/xdg-open
 !URxvt*url-launcher:google-chrome-stable
 URxvt*cursorBlink:true
+URxvt*cursorOffTime: 400
+URxvt*cursorOnTime: 400
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
 ! scroll back to the bottom on keypress

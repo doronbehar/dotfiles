@@ -5,7 +5,7 @@
 fpath=(~/.zsh-completions/src $fpath)
 fpath=(~/.zsh-collected-completions/src $fpath)
 autoload -Uz compinit && compinit -D
-# {{{ zstyle
+# zstyle
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -24,17 +24,12 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ignore completion to commands we don't have
 zstyle ':completion:*:functions'          ignored-patterns '_*'
-# }}}
-# {{{ Command failure
+# Command failure
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
 elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
 	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
-# }}}
-# changing to previous directories
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
 # }}}
 
 # {{{ History.
@@ -95,6 +90,13 @@ fi
 # {{{ Looks
 # syntax highlighting
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root line)
+ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red' '\*' 'fg=magneta,bold,bg=black')
+ZSH_HIGHLIGHT_STYLES[root]='fg=white,bg=red'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 fpath=(~/.zsh-prompts $fpath)
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
