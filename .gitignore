@@ -10,3 +10,4 @@
 .todo/dropbox
 .config/newsbeuter/*
 !.config/newsbeuter/config
+.config/vifm/vifminfo

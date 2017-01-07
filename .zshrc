@@ -31,11 +31,6 @@ if [ -f /etc/zsh_command_not_found ]; then
 elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
 	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
-
-# Correction of previous command.
-eval "$(thefuck --alias)"
-# You can use whatever you want as an alias, like for Mondays
-eval "$(thefuck --alias FUCK)"
 # }}}
 # changing to previous directories
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
