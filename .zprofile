@@ -17,8 +17,6 @@ if [ -x /usr/bin/dircolors ]; then
 	alias cgrep='grep --color=always'
 	alias cfgrep='fgrep --color=always'
 	alias cegrep='egrep --color=always'
-	# ack
-	alias cack='ack --color=always'
 fi
 
 # {{{1 *Don't forget* Aliases

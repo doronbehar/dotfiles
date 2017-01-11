@@ -1,17 +1,18 @@
 # My dotfiles
-> Many people have a repo like this, but this is mine.
 
-* I use `zsh` but I can work with bash and not feel the difference at all.
-* I use `Neovim` but I'm flexible with Vim.
-* I use `powerline` the python powerline from https://github.com/powerline/powerline. I use it in the shell **but not in Vim/Neovim**. From some reason it takes a shit load of my CPU.
-* I don't use 'Oh-My-zsh' -- I just don't like it because I'm not sure it's stable as the python based powerline I do use.
+* I use `Neovim`.
+* I use `zsh`.
+* I don't use 'Oh-My-zsh' - It's too robust in my opinion.
+* I have a 'powerlineish' prompt but I tried to make it's setup simple as possible - using the `autoload promptinit`
+* I use `zsh-syntax-highlighting`.
 
-## scripts and functions:
+## selected scripts and functions:
 ### `p` (function)
-`p` synonymies for 'project', Does the following:
+`p` is synonymies for 'project', the function does the following:
 * Reads `.config/ranger/bookmarks`.
 * Brings you to the directory specified by the bookmarks.
-* If you have a makefile in that directory, any variables in that file will be sourced to the shell.
+* If the directory is a git repository, you will see `git`'s `status`.
+* If you have a `makefile` in that directory, any variables in that file will be sourced to the shell.
 
 ##### Usage
 You need to use/create a bookmarks file in `.config/ranger/bookmarks` which will looks like that:
@@ -21,9 +22,10 @@ O:/opt
 a:/home/doron/repos/dotfiles/.config/awesome
 x:/home/doron/repos/dotfiles/.tmux
 ```
+As for this bookmarks as an example, running `p v` for instance will bring you straight to Neovim's configuration directory.
 
 ### `m`
-Bookmarks writer for `.config/ranger/bookmarks`. Reads $PWD and adds the character which is added as an argument to the bookmarks file.
+Bookmarks writer for `.config/ranger/bookmarks`. Reads $PWD and adds the character which is added as an argument to the bookmarks file - the companion of `p`.
 
 ### `capscr`
 Used for the window manager [awesome](https://github.com/Doron-Behar/awesome-files/blob/46012e655b3cb62cce8568eeaac20de41b527f08/rc.lua#L513) to capture the screen contents and save it to `~/pictures/screenshots`.
@@ -38,28 +40,25 @@ As you can see in my [Awesome-files](https://github.com/Doron-Behar/awesome-file
 I created the script with help from an [Archinux wiki](https://wiki.archlinux.org/index.php/taking_a_screenshot#ImageMagick.2FGraphicsMagick) and a question in one of the stackexchange sites I shamelessly can't find the link to..
 
 ### `mpc-toggle-mute`
-A simple script to mute the MPD server you are connecting to with `mpc` in the script. Essentially the script toggles the volume between zero and the previously used volume.
+A simple script to mute the output of an MPD server you are connected to. It uses `mpc` and essentially it toggles the volume between zero and the previously used volume while storing the previous value of the volume in a `/tmp` file.
 
-### `show-term-colors`
-Very useful python script to tell the terminal to show the 256 available colors. Taken from [https://bbs.archlinux.org/viewtopic.php?id=101509](https://bbs.archlinux.org/viewtopic.php?id=101509)
+### `show256term-colors`
+Useful python script to show 256 colors in the terminal. Shamelessly copied from an [archlinux thread](https://bbs.archlinux.org/viewtopic.php?id=101509).
 
 ### `mu` and `cu`
-Synonymies for memory-usage and cpu-usage, These use `awk` to calculate the amount of RAM/CPU used by a certain program is using. The 1st and last argument is the name of the program you will perform the test.
+Synonymies for memory-usage and cpu-usage, These use `awk` to calculate the amount of RAM/CPU used by a certain program is using. The first, last and only argument to these programs is the name of the program you will perform the test to.
 
 ### `toggle-sinks`
-Script for toggling PulseAudio sinks.
+Script for cycling between PulseAudio sinks.
 
 ### `gi`
-gitignore generator from using "gitigore.io".
-
-### `screencast`
-Script to start a screen cast in the background using `ffmpeg -f x11grab`.
+A `.gitignore` generator from using [gitigore.io](https://gitignore.io).
 
 ### `path`
-Small script which shows your `$PATH` with $'\n' substituted with ':' and thus makes the variable's content more readable on the shell.
+Small script which shows your `$PATH` with a newline substituted with ':' thus it makes the variable's value more readable on the shell.
 
 ### `online`
-Inspired by a [stack overflow answer](http://stackoverflow.com/a/14939373/4935114). A simple script that returns true or false if the computer is currently online.
+Inspired by a [stack overflow answer](http://stackoverflow.com/a/14939373/4935114), is a simple script that returns true or false if the computer is currently online.
 
 ### `xfile`
 Shows the type of file according to `file` of the executable found in `$PATH` which is given as argument.
