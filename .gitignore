@@ -5,9 +5,10 @@
 .config/ranger/history
 .xprofile
 .vifm/vifminfo
-.config/thefuck/__pycache__/*
 .config/youtube-viewer/reg.dat
 .todo/dropbox
 .config/newsbeuter/*
 !.config/newsbeuter/config
 .config/vifm/vifminfo
+# xdg
+.local/share/applications/chrome-*

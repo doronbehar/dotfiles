@@ -1,0 +1,4 @@
+[MIME Cache]
+application/x-bittorrent=transmission-remote.desktop;
+text/plain=nvim.desktop;
+x-scheme-handler/magnet=transmission-remote.desktop;

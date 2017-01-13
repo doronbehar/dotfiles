@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ncmpcpp
+Exec=urxvt -e ncmpcpp
+Comment=Ncurses based MPD client for the cli
+Terminal=false
+Categories=Utility;
+MimeType=

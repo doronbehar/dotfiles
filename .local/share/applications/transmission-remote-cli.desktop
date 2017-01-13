@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Transmission Remote Cli
+Comment=Magnet Links Handler
+Icon=utilities-terminal
+Terminal=true
+Exec=transmission-remote-cli --netrc
+Categories=ConsoleOnly;System;FileTools
+MimeType=
