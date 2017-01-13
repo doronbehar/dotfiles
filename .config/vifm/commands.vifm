@@ -1,0 +1,3 @@
+command! df df -h %m 2> /dev/null
+command! diff nvim -d %f %F
+command! run !! ./%f

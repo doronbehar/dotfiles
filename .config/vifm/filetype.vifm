@@ -1,0 +1,144 @@
+" {{{1 Pdf
+filextype *.pdf
+		\ xdg-open
+fileviewer *.pdf
+		\ pdftotext -nopgbrk %c -
+
+" {{{1 Djvu
+filextype *.djvu
+		\ xdg-open
+
+" {{{1 Audio
+filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+		\ {Play using MPlayer}
+		\ mplayer %f,
+		\ {Play using ffplay}
+		\ ffplay -nodisp %c,
+fileviewer *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+		\ mediainfo %f
+
+" {{{1 Video
+filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx]
+		\ {View using mplayer}
+		\ mplayer %f,
+		\ {View using ffplay}
+		\ ffplay -fs %f,
+		\ {View using Dragon}
+		\ dragon %f:p,
+fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx]
+		\ mediainfo %f
+
+" {{{1 Web
+filextype *.html,*.htm
+		\ {Open with xdg}
+		\ xdg-open
+		\ {Open in google-chrome}
+		\ google-chrome-stable %f,
+		\ {Open with firefox}
+		\ firefox %f &,
+		\ {Open with dwb}
+		\ dwb %f %i &,
+		\ {Open with uzbl}
+		\ uzbl-browser %f %i &,
+fileviewer *.html,*.htm
+		\ w3m -dump -T text/html %c
+
+" {{{1 Object
+filetype *.o
+		\ nm %f | less
+
+" {{{1 Man page
+filetype *.[1-8]
+		\ man ./%c
+fileviewer *.[1-8]
+		\ man ./%c | col -b
+
+" {{{1 Images
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+		\ sxiv %f %d/*.(bmp|jpg|jpeg|png|gif|xpm)
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+		\ mediainfo %f
+" {{{1 MD5
+filetype *.md5
+		\ {Check MD5 hash sum}
+		\ md5sum -c %f %S,
+
+" {{{1 SHA1
+filetype *.sha1
+		\ {Check SHA1 hash sum}
+		\ sha1sum -c %f %S,
+
+" {{{1 SHA256
+filetype *.sha256
+		\ {Check SHA256 hash sum}
+		\ sha256sum -c %f %S,
+
+" {{{1 SHA512
+filetype *.sha512
+		\ {Check SHA512 hash sum}
+		\ sha512sum -c %f %S,
+
+" {{{1 GPG signature
+filetype *.asc
+		\ {Check signature}
+		\ !!gpg --verify %c,
+
+" {{{1 Torrent
+filetype *.torrent transmission-remote --add %f &
+fileviewer *.torrent transmission-show -v %c
+
+" {{{1 FuseZipMount
+filetype *.zip,*.jar,*.war,*.ear,*.oxt,*.apkg
+		\ {Mount with fuse-zip}
+		\ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+		\ {View contents}
+		\ zip -sf %c | less,
+		\ {Extract here}
+		\ tar -xf %c,
+fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
+
+" {{{1 ArchiveMount
+filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz
+		\ {Mount with archivemount}
+		\ FUSE_MOUNT|archivemount %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.tgz,*.tar.gz tar -tzf %c
+fileviewer *.tar.bz2,*.tbz2 tar -tjf %c
+fileviewer *.tar.txz,*.txz xz --list %c
+fileviewer *.tar tar -tf %c
+
+" {{{1 Rar2FsMount and rar archives
+filetype *.rar
+		\ {Mount with rar2fs}
+		\ FUSE_MOUNT|rar2fs %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.rar unrar v %c
+
+" {{{1 IsoMount
+filetype *.iso
+		\ {Mount with fuseiso}
+		\ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
+
+" {{{1 SshMount
+filetype *.ssh
+		\ {Mount with sshfs}
+		\ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR,
+
+" {{{1 FtpMount
+filetype *.ftp
+		\ {Mount with curlftpfs}
+		\ FUSE_MOUNT2|curlftpfs -o ftp_port=-,,disable_eprt %PARAM %DESTINATION_DIR,
+
+" {{{1 Fuse7z and 7z archives
+filetype *.7z
+		\ {Mount with fuse-7z}
+		\ FUSE_MOUNT|fuse-7z %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.7z
+		\ 7z l %c
+
+" {{{1 Office files
+filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx
+		\ libreoffice %f &
+fileviewer *.doc
+		\ catdoc %c
+fileviewer *.docx
+		\ docx2txt.pl %f -
+
