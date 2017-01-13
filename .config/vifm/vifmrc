@@ -12,17 +12,28 @@ set dotdirs=rootparent
 windo normal zo
 colorscheme custom
 
-" {{{1 devicons
-" file types
-set classify=' :dir:/, :exe:, :reg:,🔗 :link:'
-" various file names
-set classify+=' ::..::, ::*.sh::, ::*.[hc]pp::, ::*.[hc]::, ::/^copying|license$/::, ::.git,,*.git::, ::*.epub,,*.fb2,,*.djvu::, ::*.pdf::, ::*.htm,,*.html,,**.[sx]html,,*.xml::'
-" archives
+" {{{1 Looks
+" devicons
+set classify=' :dir:/'
+set classify+=' :exe:'
+set classify+=' :reg:'
+set classify+='🔗 :link:'
+set classify+=' ::..::'
+set classify+=' ::*.sh::'
+set classify+=' ::*.[hc]pp::'
+set classify+=' ::*.[hc]::'
+set classify+=' ::/^copying|license$/::'
+set classify+=' ::\.git,,*.git::'
+set classify+=' ::*.epub,,*.fb2,,*.djvu::'
+set classify+=' ::*.pdf::'
+set classify+='☍ ::*.htm,,*.html,,**.[sx]html,,*.xml::'
 set classify+='🍱 ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz,,*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz,,*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz,,*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
-" images
 set classify+=' ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,*.ppm,,*.svg,,*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xcf,,*.xpm,,*.xspf,,*.xwd::'
-" office files
-set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.ppt::'
+set classify+=' ::*.doc,,*.docx::'
+set classify+=' ::*.xls,,*.xls[mx]::'
+set classify+=' ::*.pptx,,*.ppt::'
+" status line
+set statusline=' %t  %=  %A    %u:%g    %s  '
 
 " {{{1 Search
 set ignorecase
