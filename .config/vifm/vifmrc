@@ -42,72 +42,65 @@ command! reload :write | restart
 " {{{1 Files handlers
 
 " {{{2 Pdf
-filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
-fileviewer *.pdf pdftotext -nopgbrk %c -
-
-" {{{2 PostScript
-filextype *.ps,*.eps,*.ps.gz
-		\ {View in zathura}
-		\ zathura %f,
-		\ {View in gv}
-		\ gv %c %i &,
+filextype *.pdf
+		\ xdg-open
+fileviewer *.pdf
+		\ pdftotext -nopgbrk %c -
 
 " {{{2 Djvu
 filextype *.djvu
-		\ {View in zathura}
-		\ zathura %f,
-		\ {View in apvlv}
-		\ apvlv %f,
+		\ xdg-open
 
 " {{{2 Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
-		\ {Play using ffplay}
-		\ ffplay -nodisp %c,
 		\ {Play using MPlayer}
 		\ mplayer %f,
-fileviewer *.mp3 mp3info
-fileviewer *.flac soxi
+		\ {Play using ffplay}
+		\ ffplay -nodisp %c,
+fileviewer *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+		\ mediainfo %f
 
 " {{{2 Video
-filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-		 \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-		 \*.as[fx]
+filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx]
+		\ {View using mplayer}
+		\ mplayer %f,
 		\ {View using ffplay}
 		\ ffplay -fs %f,
 		\ {View using Dragon}
 		\ dragon %f:p,
-		\ {View using mplayer}
-		\ mplayer %f,
-fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-		  \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-		  \*.as[fx]
-		 \ ffprobe -pretty %c 2>&1
+fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx]
+		\ mediainfo %f
 
 " {{{2 Web
 filextype *.html,*.htm
-		\ {Open with dwb}
-		\ dwb %f %i &,
+		\ {Open with xdg}
+		\ xdg-open
+		\ {Open in google-chrome}
+		\ google-chrome-stable %f,
 		\ {Open with firefox}
 		\ firefox %f &,
+		\ {Open with dwb}
+		\ dwb %f %i &,
 		\ {Open with uzbl}
 		\ uzbl-browser %f %i &,
-filetype *.html,*.htm links, xdg-open,
-fileviewer w3m -dump %c
+fileviewer *.html,*.htm
+		\ w3m -dump -T text/html %c
 
 " {{{2 Object
-filetype *.o nm %f | less
+filetype *.o
+		\ nm %f | less
 
 " {{{2 Man page
-filetype *.[1-8] man ./%c
-fileviewer *.[1-8] man ./%c | col -b
+filetype *.[1-8]
+		\ man ./%c
+fileviewer *.[1-8]
+		\ man ./%c | col -b
 
 " {{{2 Images
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-		\ imgt %px %py %pw %ph %c
-		\ %pc
-		\ imgc %px %py %pw %ph
+		\ sxiv %f %d/*.(bmp|jpg|jpeg|png|gif|xpm)
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-		\ identify -verbose %c %m
+		\ mediainfo %f
 " {{{2 MD5
 filetype *.md5
 		\ {Check MD5 hash sum}
@@ -181,16 +174,17 @@ filetype *.ftp
 filetype *.7z
 		\ {Mount with fuse-7z}
 		\ FUSE_MOUNT|fuse-7z %SOURCE_FILE %DESTINATION_DIR,
-fileviewer *.7z 7z l %c
+fileviewer *.7z
+		\ 7z l %c
 
 " {{{2 Office files
-filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
-fileviewer *.doc catdoc %c
-fileviewer *.docx, docx2txt.pl %f -
+filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx
+		\ libreoffice %f &
+fileviewer *.doc
+		\ catdoc %c
+fileviewer *.docx
+		\ docx2txt.pl %f -
 
-" {{{2 Files for source-highlight
-fileviewer *.ada *.applescript *.asm *.awk *.bat *.bib *.bison *.caml *.c_comment *.changelog *.c *.clike_vardeclaration *.clipper *.cobol *.coffeescript *.conf *.cpp *.csharp *.css *.c_string *.default *.desktop *.diff *.d *.erlang *.errors *.extreme_comment2 *.extreme_comment3 *.extreme_comment *.feature *.fixed-fortran *.flex *.fortran *.function *.glsl *.go *.groovy *.haskell *.haskell_literate *.haxe *.html *.html_simple *.islisp *.java *.javalog *.javascript *.json *.key_string *.langdef *.latex *.ldap *.lilypond *.lisp *.log *.logtalk *.lsm *.lua *.m4 *.makefile *.manifest *.nohilite *.number *.opa *.outlang *.oz *.pascal *.pc *.perl *.php *.po *.postscript *.prolog *.properties *.proto *.python *.r *.ruby *.scala *.scheme *.script_comment *.sh *.s *.slang *.sml *.spec *.sql *.style *.symbols *.tcl *.texinfo *.tml_formatting_all *.tml_formatting *.tml_glue *.tml *.tml_macrolinks *.tml_macros1 *.tml_macros2 *.tml_macrosdelayed1 *.tml_macrosdelayed2 *.tml_macrosdelayed3 *.tml_macros *.tml_macrotokens *.todo *.upc *.url *.vala *.vbscript *.vhdl *.xml *.xorg *.zsh
-		\ source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i %c
 
 " {{{1 Modeline
 " vim:ft=vifm:foldmethod=marker
