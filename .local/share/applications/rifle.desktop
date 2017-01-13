@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Rifle
-Comment=General utility for opening files in terminal
-Icon=utilities-terminal
-Terminal=true
-Exec=urxvt -e rifle %F
-Categories=ConsoleOnly;System;FileTools;
