@@ -27,15 +27,6 @@ As for this bookmarks as an example, running `p v` for instance will bring you s
 ### `m`
 Bookmarks writer for `.config/ranger/bookmarks`. Reads $PWD and adds the character which is added as an argument to the bookmarks file - the companion of `p`.
 
-### `capscr`
-Used for the window manager [awesome](https://github.com/Doron-Behar/awesome-files/blob/46012e655b3cb62cce8568eeaac20de41b527f08/rc.lua#L513) to capture the screen contents and save it to `~/pictures/screenshots`.
-- Depends on `import` from `imagemagick` packages.
-##### Usage
-As you can see in my [Awesome-files](https://github.com/Doron-Behar/awesome-files) located in [`.config/`](https://github.com/Doron-Behar/dotfiles/tree/master/.config), You can use different arguments to `capscr` in order to choose from capturing a certain area with the mouse vs capturing the whole window of the current application and the whole screen.
-* `capscr all` - used to capture the whole screen, include both monitors.
-* `capscr window` - used to capture the window of the current application.
-* `capscr frame` - used to capture a certain area with the mouse.
-
 ##### Credits
 I created the script with help from an [Archinux wiki](https://wiki.archlinux.org/index.php/taking_a_screenshot#ImageMagick.2FGraphicsMagick) and a question in one of the stackexchange sites I shamelessly can't find the link to..
 
