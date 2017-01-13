@@ -1,14 +1,14 @@
-.local/share/shells-history
+# ncmpcpp
 .ncmpcpp/error.log
-.config/ranger/tagged
-.config/ranger/bookmarks
-.config/ranger/history
+# xorg
 .xprofile
-.vifm/vifminfo
+# youtube-viewer
 .config/youtube-viewer/reg.dat
-.todo/dropbox
+# newsbeuter
 .config/newsbeuter/*
 !.config/newsbeuter/config
+# vifm
 .config/vifm/vifminfo
+.vifm/vifminfo
 # xdg
 .local/share/applications/chrome-*
