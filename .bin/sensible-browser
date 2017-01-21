@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# This code is released in public domain by Andrea Scarpino
+# <me@andreascarpino.it>.
+#
+# This script is inspired by i3-sensible-terminal by i3 Han Boetes
+# <han@mijncomputer.nl>.
+# This one tries to exec a browser by trying some known browsers.
+for browser in $BROWSER firefox chromium google-chrome google-chrome-stable opera vivaldi qupzilla iceweasel konqueror firefox-aurora google-chrome-beta opera-beta vivaldi-beta google-chrome-dev opera-developer vivaldi-snapshot luakit midori epiphany lynx w3m dillo elinks vimb; do
+	if command -v $browser > /dev/null 2>&1; then
+		exec $browser "$@"
+	fi
+done
+
+echo 'i3-sensible-browser could not find a browser. Please install one.'
