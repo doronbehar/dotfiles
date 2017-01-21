@@ -1,0 +1,44 @@
+pid_file "/run/user/1000/mpd.pid"
+db_file "~/.cache/mpd.db"
+state_file "~/.local/share/mpd/state"
+playlist_directory "~/.config/playlists"
+music_directory "/var/lib/mpd/music"
+sticker_file "~/.local/share/mpd/sticker.sql"
+log_file "~/.local/share/mpd/log"
+
+follow_outside_symlinks "yes"
+follow_inside_symlinks "yes"
+
+zeroconf_enabled "yes"
+zeroconf_name "MPD@NUC"
+
+input {
+        plugin "curl"
+}
+audio_output {
+	type			"httpd"
+	name			"My HTTP Stream"
+	encoder			"vorbis"
+	port			"8000"
+	bitrate			"128"
+	format			"44100:16:1"
+	max_clients		"0"
+}
+
+audio_output {
+	type			"pulse"
+	name			"PulseAudio Output"
+	server			"127.0.0.1"
+}
+
+## FIFO output for ncmpcpp
+audio_output {
+	type			"fifo"
+	name			"Visualizer feed"
+	path			"~/.cache/mpd.fifo"
+	format			"4100:16:2"
+}
+
+id3v1_encoding			"UTF-8"
+
+filesystem_charset		"UTF-8"
