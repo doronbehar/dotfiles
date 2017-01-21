@@ -39,10 +39,10 @@ alias ytv='youtube-viewer'
 alias o='xdg-open'
 # Add an "alert" alias for long running commands.  Use like so: `sleep 10; alert`
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-# vifm with cd into last directory
-alias vicd='vifm --choose-dir=/tmp/doron.vifmdir; cd `cat /tmp/doron.vifmdir`'
-alias vifm='vifm --choose-dir=/tmp/doron.vifmdir'
-alias cdv='cd `cat /tmp/doron.vifmdir`'
+# ranger with cd into last directory
+alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
+alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
+alias cdr='cd `cat /tmp/doron.rangerdir`'
 # show all shell history
 alias hist="history 1"
 # search history
