@@ -16,3 +16,7 @@
 .config/ranger/bookmarks
 .config/ranger/tagged
 .config/ranger/history
+# pulse
+.config/pulse/*.tdb
+.config/pulse/*default*
+.config/pulse/cookie
