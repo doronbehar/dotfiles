@@ -33,6 +33,10 @@ alias trc=transmission-remote-cli
 alias t=task
 # colored diff
 alias cdiff='colordiff'
+# always colored ack
+alias cack='ack --color=always'
+# always colored pacman
+alias cpacman='pacman --color=always'
 # YouTube-viewer perl application.
 alias ytv='youtube-viewer'
 # xdg-open
