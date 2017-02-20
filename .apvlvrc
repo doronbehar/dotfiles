@@ -1,0 +1,4 @@
+set content = no
+set inverted = yes
+set continuous = yes
+set zoom = fitwidth
