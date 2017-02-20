@@ -51,6 +51,9 @@ p(){
 			if [ -e .git ]; then
 				git status
 			fi
+			if [ -e .taskwarrior ]; then
+				task project:$(cat .taskwarrior) ls
+			fi
 		fi
 	done < ~/.config/ranger/bookmarks
 }
