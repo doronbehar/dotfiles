@@ -53,3 +53,6 @@ Inspired by a [stack overflow answer](http://stackoverflow.com/a/14939373/493511
 
 ### `xfile`
 Shows the type of file according to `file` of the executable found in `$PATH` which is given as argument.
+
+### `ifind`
+Works like `find` but it discards all "Permission Denied" Errors. You have to give it a path as the 1st argument (unlike original `find`).
