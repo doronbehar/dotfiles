@@ -1,16 +1,26 @@
-set imap_user="doron.behar@gmail.com"
+# Identity
+set imap_user = "doron.behar@gmail.com"
 source ~/.muttrc.imap_pass
-set folder="imaps://doron.behar@imap.gmail.com/"
+set folder = "imaps://doron.behar@imap.gmail.com/"
+set from = "Doron Behar <doron.behar@gmail.com>"
+set realname = "Doron Behar"
+
+# Folders
 set spoolfile = +INBOX
-mailboxes = +INBOX
-set header_cache=~/.cache/mutt
-set record = +Sent
-set realname="Doron Behar"
-set postponed=+drafts
-set sendmail="/usr/bin/msmtp"
-set message_cachedir=~/.cache/mutt/messages
+set record = "+[Gmail]/Sent Mail"
+set postponed = "+[Gmail]/Drafts"
+set trash = "imaps://imap.gmail.com/[Gmail]/Trash"
+set copy = no
+set mbox = "imaps://doron.behar@imap.gmail.com/[Gmail]/All Mail"
+
+# General Settings:
+set message_cachedir = ~/.cache/mutt/messages
+set header_cache = ~/.cache/mutt
+set sendmail = "/usr/bin/msmtp"
+set send_charset = "utf-8"
 auto_view text/html
 alternative_order text/plain text/enriched text/html
+set pager_stop = yes
 
 bind pager j next-line
 bind pager k previous-line
@@ -20,28 +30,35 @@ bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
-set pager_stop=yes
+bind editor <space> noop
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gt "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to sent mail"
+# macro for converting markdown to html using pandoc and webtex
+macro compose \e5 "F pandoc -s --webtex -f markdown -t html \ny^T^Utext/html; charset=utf-8\n"
+set wait_key=no
 
-set send_charset="utf-8"
-
-# Palette for use with the Linux console.  Black background.
+# Palette for use with the Linux console. Black background.
 
 color hdrdefault blue black
 color quoted blue black
 color signature blue black
-color attachment red black
+color attachment brightred black
 color prompt brightmagenta black
 color message brightred black
 color error brightred black
-color indicator black red
+color indicator black brightred
 color status brightgreen blue
 color tree white black
 color normal white black
-color markers red black
+color markers brightred black
 color search white black
 color tilde brightmagenta black
 color index blue black ~F
-color index red black "~N|~O"
 
 # color body brightwhite black '\*+[^*]+\*+'
 # color body brightwhite black '_+[^_]+_+'
