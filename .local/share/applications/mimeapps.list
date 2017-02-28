@@ -9,3 +9,4 @@ x-scheme-handler/mailto=google-chrome.desktop
 text/plain=nvim.desktop
 x-scheme-handler/magnet=transmission-remote.desktop
 x-scheme-handler/webcal=google-chrome.desktop
+application/pdf=zathura.desktop
