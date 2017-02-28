@@ -52,7 +52,7 @@
 [status]
 	submodulesummary = true
 	showUntrackedFiles = all
-	relativePaths = false
+	relativePaths = true
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = smtp.gmail.com
