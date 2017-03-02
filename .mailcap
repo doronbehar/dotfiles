@@ -1,1 +1,1 @@
-text/html; w3m -I %{charsed} -T text/html; copiousoutput
+text/html; google-chrome-stable %s; copiousoutput

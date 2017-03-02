@@ -22,6 +22,7 @@ auto_view text/html
 alternative_order text/plain text/enriched text/html
 set pager_stop = yes
 
+# Keyboard
 bind pager j next-line
 bind pager k previous-line
 bind attach,index,pager \CD next-page
@@ -42,8 +43,7 @@ macro index gt "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to sent mail"
 macro compose \e5 "F pandoc -s --webtex -f markdown -t html \ny^T^Utext/html; charset=utf-8\n"
 set wait_key=no
 
-# Palette for use with the Linux console. Black background.
-
+# Colors
 color hdrdefault blue black
 color quoted blue black
 color signature blue black
