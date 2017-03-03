@@ -18,9 +18,11 @@ set message_cachedir = ~/.cache/mutt/messages
 set header_cache = ~/.cache/mutt
 set sendmail = "/usr/bin/msmtp"
 set send_charset = "utf-8"
+set charset = "utf-8"
 auto_view text/html
 alternative_order text/plain text/enriched text/html
 set pager_stop = yes
+set display_filter="/usr/bin/fribidi"
 
 # Keyboard
 bind pager j next-line
