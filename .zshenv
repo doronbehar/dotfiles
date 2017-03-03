@@ -79,7 +79,7 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # - I always forget this one before I parse commands outputs etc:
 export IFS=$'\n'
 # - xdg browser
-export BROWSER="google-chrome-stable"
+export BROWSER="firefox"
 # - xdg settings
 source "$HOME/.config/user-dirs.dirs"
 # - GO
