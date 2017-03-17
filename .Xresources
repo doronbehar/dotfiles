@@ -147,7 +147,8 @@ URxvt.matcher.rend.0:Uline Bold fg5
 
 !! {{{ Behaviour
 URxvt*loginShell:true
-URxvt*perl-ext-common:default,matcher
+URxvt*perl-ext-common:default,matcher,bidi
+Urxvt.bidi.FieldSep: \x{2502}
 URxvt.url-launcher:/usr/bin/xdg-open
 URxvt*cursorBlink:true
 URxvt*cursorOffTime:400
