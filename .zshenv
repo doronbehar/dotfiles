@@ -87,5 +87,6 @@ export GOPATH="$HOME/.go"
 insert2PATH "$GOPATH/bin"
 # - taskwarrior
 export TASKDDATA="/var/lib/taskd"
+export TASKDATA="$HOME/.local/share/tasks"
 
 # vim:ft=zsh:foldmethod=marker
