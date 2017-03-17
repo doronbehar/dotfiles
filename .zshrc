@@ -70,8 +70,8 @@ bindkey -a gE vi-forward-blank-word
 bindkey -a gW vi-backward-blank-word-end
 autoload zkbd;
 # source zkbd files according to the $TERMinal
-if [[ -f ~/.zkbd/$TERM-:0 ]]; then
-	source ~/.zkbd/$TERM-:0
+if [[ -f "${ZDOTDIR:-$HOME}/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}" ]]; then
+	source "${ZDOTDIR:-$HOME}/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}"
 	bindkey "${key[Home]}" beginning-of-line
 	bindkey -a "${key[Home]}" beginning-of-line
 	bindkey "${key[End]}" end-of-line
