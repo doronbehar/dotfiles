@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# {{{ make man with `less` be more colorfull
+# {{{ `man` - make man with `less` be more colorfull
 # taken from wiki.archlinux.org
 man(){
 	env LESS_TERMCAP_mb=$'\E[01;31m' \
@@ -14,7 +14,7 @@ man(){
 }
 # }}}
 
-# {{{ cd into git repository (even if it's a submodule).
+# {{{ `cdg` - cd into git repository (even if it's a submodule).
 cdg(){
 	if [ -d .git ]; then
 		cd .git
@@ -26,19 +26,19 @@ cdg(){
 }
 # }}}
 
-# {{{ Show fpath - list of paths for directories containing functions for zsh completion
+# {{{ `fpath` - list of paths for directories containing functions for zsh completion
 fpath(){
 	echo "$fpath" | sed -e 's/\ /\n/g'
 }
 # }}}
 
-# {{{ Go to the directory the current song played by mpd is located in
+# {{{ `cdm` - Go to the directory the current song played by mpd is located in
 cdm(){
 	cd $MPD_MUSIC_DIR/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
 # }}}
 
-# {{{ `p` bookmark navigator
+# {{{ `p` - bookmark navigator
 # Works like ranger's bookmarks manager
 p(){
 	while read -r line; do
@@ -52,15 +52,17 @@ p(){
 				git status
 			fi
 			if [ -e .taskwarrior ]; then
-				task project:$(cat .taskwarrior) ls
+				task $(cat .taskwarrior) ls
 			fi
 		fi
 	done < ~/.config/ranger/bookmarks
 }
 # }}}
 
-# {{{ Startx in every start up only if it's on tty1 and there isn't a DISPLAY set
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]] && exec startx
+# {{{ **last actions** - Startx at start up only if it's on tty1 and there isn't a DISPLAY set already
+if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]];then
+	exec startx
+fi
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
