@@ -46,6 +46,9 @@ if _command_exists nvim; then
 	else
 		export VIMRUNTIME="/usr/share/nvim/runtime"
 	fi
+	if _command_exists nvr; then
+		export NVIM_LISTEN_ADDRESS="/run/user/1000/nvim.socket"
+	fi
 elif _command_exists vim; then
 	export EDITOR="vim"
 	export VISUAL="vim"
