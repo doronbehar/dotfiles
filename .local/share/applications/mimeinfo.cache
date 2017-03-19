@@ -2,3 +2,4 @@
 application/x-bittorrent=transmission-remote.desktop;
 text/plain=nvim.desktop;
 x-scheme-handler/magnet=transmission-remote.desktop;
+x-scheme-handler/mailto=mutt.desktop;
