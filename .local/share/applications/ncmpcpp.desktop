@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=ncmpcpp
-Exec=urxvt -e ncmpcpp
+Exec=urxvt -pe bidi -e ncmpcpp
 Comment=Ncurses based MPD client for the cli
 Icon=multimedia-audio-player
 Terminal=false

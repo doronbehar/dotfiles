@@ -22,7 +22,8 @@ set charset = "utf-8"
 auto_view text/html
 alternative_order text/plain text/enriched text/html
 set pager_stop = yes
-set display_filter="/usr/bin/fribidi"
+set display_filter = "/usr/bin/fribidi"
+set query_command = "goobook query '%s'"
 
 # Keyboard
 bind pager j next-line
@@ -34,6 +35,7 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 bind editor <space> noop
+bind editor <Tab> complete-query
 macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
 macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
 macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
