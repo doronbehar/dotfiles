@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# {{{ `_command_is_local`: Checks If a command is installed locally in /usr/local/bin/ or ~/.local/bin/ and not /usr/bin/ for example.
+# {{{1 `_command_is_local`: Checks If a command is installed locally in /usr/local/bin/ or ~/.local/bin/ and not /usr/bin/ for example.
 _command_is_local(){
 	if type "$1" | grep -q local; then
 		return 0
@@ -8,14 +8,12 @@ _command_is_local(){
 		return 1
 	fi
 }
-# }}}
-# {{{ `_command_exists`: Show if a command exists
+# {{{1 `_command_exists`: Show if a command exists
 # Taken from http://stackoverflow.com/a/592649/4935114
 _command_exists () {
 	type "$1" &> /dev/null ;
 }
-# }}}
-# {{{ `insert2PATH`: function to insert (in the beginning) $PATH a directory only if it doesn't exist already.
+# {{{1 `insert2PATH`: function to insert (in the beginning) of $PATH a directory only if it doesn't exist already.
 insert2PATH(){
 	# For all strings passed to function
 	for i in "$@"; do
@@ -28,16 +26,16 @@ insert2PATH(){
 		fi
 	done
 }
-# }}}
 
-# - PATH
+# - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
 insert2PATH "$HOME/bin"
 if _command_exists gem; then
 	insert2PATH "$(find $HOME/.gem/ruby -maxdepth 1 -mindepth 1 -type d | sort -rn | head -n1)/bin"
 fi
-# - VISUAL/EDITOR
+
+# - {{{1 VISUAL/EDITOR
 if _command_exists nvim; then
 	export EDITOR="nvim"
 	export VISUAL="nvim"
@@ -60,35 +58,47 @@ else
 		echo Oh, It seems like you really need a "\$HOME/.local/share/zsh" and it doesn\'t even exists.. >2
 	fi
 fi
-# - PAGER
+
+# - {{{1 PAGER
 if _command_exists less; then
 	export PAGER="less"
 	export LESS="-X -x4 -r -i"
 	export LESSHISTFILE="$HOME/.local/share/less-history"
 fi
-# - gcc
+
+# - {{{1 gcc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-# - ranger: make it not load default rc.conf from /etc so startup will be faster
+
+# - {{{1 ranger: make it not load default rc.conf from /etc so startup will be faster
 export RANGER_LOAD_DEFAULT_RC="FALSE"
-# - translate-shell
+
+# - {{{1 translate-shell
 export HOME_LANG="he"
 export TARGET_LANG="he"
-# - MPD music directory:
+
+# - {{{1 MPD music directory:
 export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
-# - YouTube Channel ID for youtube-viewer (perl application)
+
+# - {{{1 YouTube Channel ID for youtube-viewer (perl application)
 export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
-# - ssh
+
+# - {{{1 ssh
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-# - I always forget this one before I parse commands outputs etc:
+
+# - {{{1 I always forget this one before I parse commands outputs etc:
 export IFS=$'\n'
-# - xdg browser
+
+# - {{{1 xdg browser
 export BROWSER="firefox"
-# - xdg settings
+
+# - {{{1 xdg settings
 source "$HOME/.config/user-dirs.dirs"
-# - GO
+
+# - {{{1 GO
 export GOPATH="$HOME/.go"
 insert2PATH "$GOPATH/bin"
-# - taskwarrior
+
+# - {{{1 taskwarrior
 export TASKDDATA="/var/lib/taskd"
 export TASKDATA="$HOME/.local/share/tasks"
 
