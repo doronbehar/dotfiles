@@ -23,16 +23,41 @@ insert2PATH(){
 			if ! echo $PATH | grep -q "$i"; then
 				export PATH="$i"":""$PATH"
 			fi
+		else
+			echo \'error at: .zshenv\': you have tried to insert "$i" to PATH but it\'s not a directory or it doesn\'t exist
 		fi
 	done
 }
+# {{{1 `insert2MANPATH`: function to insert (in the beginning) of $MANPATH a directory only if it doesn't exist already.
+insert2MANPATH(){
+	# For all strings passed to function
+	for i in "$@"; do
+		# If the directory exists
+		if [ -d "$i" ]; then
+			# If it doesn't exists already in $PATH
+			if ! echo $MANMANPATH | grep -q "$i"; then
+				export MANMANPATH="$i"":""$MANPATH"
+			fi
+		else
+			echo \'error at: .zshenv\': you have tried to insert "$i" to MANPATH but it\'s not a directory or it doesn\'t exist
+		fi
+	done
+}
+# }}}1
 
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
-insert2PATH "$HOME/bin"
+if [ -d "$HOME/bin" ]; then
+	insert2PATH "$HOME/bin"
+fi
 if _command_exists gem; then
 	insert2PATH "$(find $HOME/.gem/ruby -maxdepth 1 -mindepth 1 -type d | sort -rn | head -n1)/bin"
+fi
+
+# - {{{1 MANPATH
+if [ -d "$HOME/.virtualenv" ]; then
+	insert2MANPATH "$(find $HOME/.virtualenv -type d -name man)"
 fi
 
 # - {{{1 VISUAL/EDITOR
@@ -85,18 +110,19 @@ export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
 # - {{{1 ssh
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-# - {{{1 I always forget this one before I parse commands outputs etc:
+# - {{{1 IFS
+# I always forget this one before I parse commands outputs etc:
 export IFS=$'\n'
 
-# - {{{1 xdg browser
+# - {{{1 xdg
 export BROWSER="firefox"
-
-# - {{{1 xdg settings
 source "$HOME/.config/user-dirs.dirs"
 
 # - {{{1 GO
 export GOPATH="$HOME/.go"
-insert2PATH "$GOPATH/bin"
+if [ -d "$GOPATH/bin" ]; then
+	insert2PATH "$GOPATH/bin"
+fi
 
 # - {{{1 taskwarrior
 export TASKDDATA="/var/lib/taskd"
