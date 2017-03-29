@@ -20,3 +20,5 @@
 .config/pulse/*.tdb
 .config/pulse/*default*
 .config/pulse/cookie
+# TeX
+.texlive/texmf-var/*
