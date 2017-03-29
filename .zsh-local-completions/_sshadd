@@ -1,0 +1,3 @@
+#compdef sshadd
+
+_files -W "$HOME/.ssh/"
