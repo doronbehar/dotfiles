@@ -16,3 +16,21 @@
 [submodule "zsh-syntax-highlighting"]
 	path = .zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "gitfiles"]
+	path = .config/git
+	url = git@github.com:doronbehar/gitfiles
+[submodule "texlivefiles"]
+	path = .texlive
+	url = git@github.com:doronbehar/texlivefiles
+[submodule ".config/pulse"]
+	path = .config/pulse
+	url = git@github.com:doronbehar/pulseaudiofiles
+[submodule ".config/ranger"]
+	path = .config/ranger
+	url = git@github.com:doronbehar/rangerfiles
+[submodule ".config/vimfx"]
+	path = .config/vimfx
+	url = git@github.com:doronbehar/vimfxfiles
+[submodule ".config/git"]
+	path = .config/git
+	url = https://github.com/doronbehar/gitfiles
