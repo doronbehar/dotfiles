@@ -34,3 +34,6 @@
 [submodule ".config/git"]
 	path = .config/git
 	url = https://github.com/doronbehar/gitfiles
+[submodule ".texlive"]
+	path = .texlive
+	url = https://github.com/doronbehar/texlivefiles
