@@ -30,7 +30,7 @@
 	url = https://github.com/doronbehar/rangerfiles
 [submodule ".config/vimfx"]
 	path = .config/vimfx
-	url = git@github.com:doronbehar/vimfxfiles
+	url = https://github.com/doronbehar/vimfxfiles
 [submodule ".config/git"]
 	path = .config/git
 	url = https://github.com/doronbehar/gitfiles
