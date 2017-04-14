@@ -1,7 +1,7 @@
 #!/bin/sh
 ps aux | awk -v PROCESS="$1" '
 	{
-		if ($0 ~ PROCESS && $0 !~ /cu/ && $0 !~ /awk/){
+		if ($0 ~ PROCESS && $0 !~ /cpusage/ && $0 !~ /awk/){
 			count+=$3
 		}
 	}
