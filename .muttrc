@@ -23,7 +23,7 @@ auto_view text/html
 alternative_order text/plain text/enriched text/html
 set pager_stop = yes
 set display_filter = "/usr/bin/fribidi"
-set query_command = "goobook query '%s'"
+set query_command = "khard email -p %s"
 
 # Keyboard
 bind pager j next-line
