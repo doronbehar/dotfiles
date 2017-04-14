@@ -40,3 +40,9 @@
 [submodule ".config/vifm"]
 	path = .config/vifm
 	url = https://github.com/doronbehar/vifmfiles
+[submodule ".ncmpc"]
+	path = .ncmpc
+	url = git@github.com:doronbehar/ncmpcfiles
+[submodule ".ncmpcpp"]
+	path = .ncmpcpp
+	url = git@github.com:doronbehar/ncmpcppfiles
