@@ -37,3 +37,6 @@
 [submodule ".texlive"]
 	path = .texlive
 	url = https://github.com/doronbehar/texlivefiles
+[submodule ".config/vifm"]
+	path = .config/vifm
+	url = https://github.com/doronbehar/vifmfiles

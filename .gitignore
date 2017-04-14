@@ -7,10 +7,5 @@
 # newsbeuter
 .config/newsbeuter/*
 !.config/newsbeuter/config
-# vifm
-.config/vifm/vifminfo
-.vifm/vifminfo
 # xdg
 .local/share/applications/chrome-*
-# TeX
-.texlive/texmf-var/*
