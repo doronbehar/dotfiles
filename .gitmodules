@@ -46,3 +46,15 @@
 [submodule ".ncmpcpp"]
 	path = .ncmpcpp
 	url = git@github.com:doronbehar/ncmpcppfiles
+[submodule ".config/khal"]
+	path = .config/khal
+	url = git@github.com:doronbehar/khalfiles
+[submodule ".config/khard"]
+	path = .config/khard
+	url = git@github.com:doronbehar/khardfiles
+[submodule ".config/todoman"]
+	path = .config/todoman
+	url = git@github.com:doronbehar/todomanfiles
+[submodule ".config/vdirsyncer"]
+	path = .config/vdirsyncer
+	url = https://github.com/doronbehar/vdirsyncerfiles
