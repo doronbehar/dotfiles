@@ -47,14 +47,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
 alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
 alias cdr='cd `cat /tmp/doron.rangerdir`'
-# show all shell history
-alias hist="history 1"
 # search history
 alias gh="history 1 | grep --color=auto"
-alias cgh="history 1 | grep --color=always"
-# search processes
-alias gps="ps aux | grep --color=never -v grep | grep --color=auto"
-alias cgps="ps aux | grep --color=never -v grep | grep --color=always"
 # extract urls from a file or stdin
 alias urls="perl -ne 's#.*(https*://[^\"]*).*#\1# && print'"
 # Show my YouTube Playlists with $YOUTUBE_CHANNEL_ID env var.

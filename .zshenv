@@ -128,4 +128,8 @@ fi
 export TASKDDATA="/var/lib/taskd"
 export TASKDATA="$HOME/.local/share/tasks"
 
+# - {{{1 COLUMNS
+export COLUMNS=
+
+# - {{{1
 # vim:ft=zsh:foldmethod=marker
