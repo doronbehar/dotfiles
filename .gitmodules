@@ -27,7 +27,7 @@
 	url = git@github.com:doronbehar/pulseaudiofiles
 [submodule ".config/ranger"]
 	path = .config/ranger
-	url = git@github.com:doronbehar/rangerfiles
+	url = https://github.com/doronbehar/rangerfiles
 [submodule ".config/vimfx"]
 	path = .config/vimfx
 	url = git@github.com:doronbehar/vimfxfiles

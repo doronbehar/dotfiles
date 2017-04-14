@@ -12,10 +12,6 @@
 .vifm/vifminfo
 # xdg
 .local/share/applications/chrome-*
-# ranger
-.config/ranger/bookmarks
-.config/ranger/tagged
-.config/ranger/history
 # pulse
 .config/pulse/*.tdb
 .config/pulse/*default*
