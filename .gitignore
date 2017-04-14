@@ -3,7 +3,6 @@
 # youtube-viewer
 .config/youtube-viewer/reg.dat
 # newsbeuter
-.config/newsbeuter/*
-!.config/newsbeuter/config
+.config/newsbeuter/urls
 # xdg
 .local/share/applications/chrome-*
