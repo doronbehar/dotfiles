@@ -12,9 +12,5 @@
 .vifm/vifminfo
 # xdg
 .local/share/applications/chrome-*
-# pulse
-.config/pulse/*.tdb
-.config/pulse/*default*
-.config/pulse/cookie
 # TeX
 .texlive/texmf-var/*

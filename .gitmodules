@@ -24,7 +24,7 @@
 	url = git@github.com:doronbehar/texlivefiles
 [submodule ".config/pulse"]
 	path = .config/pulse
-	url = git@github.com:doronbehar/pulseaudiofiles
+	url = https://github.com/doronbehar/pulseaudiofiles
 [submodule ".config/ranger"]
 	path = .config/ranger
 	url = https://github.com/doronbehar/rangerfiles
