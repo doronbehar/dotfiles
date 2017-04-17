@@ -1,7 +1,0 @@
-[MIME Cache]
-application/x-bittorrent=transmission-remote.desktop;
-inode/directory=ranger-bidi.desktop;
-text/plain=nvim.desktop;
-x-scheme-handler/magnet=transmission-remote.desktop;
-x-scheme-handler/mailto=mutt-bidi.desktop;
-x-scheme-handler/tox=toxic-bidi.desktop;

@@ -6,3 +6,5 @@
 .config/newsbeuter/urls
 # xdg
 .local/share/applications/chrome-*
+.local/share/applications/mimeapps.list
+.local/share/applications/mimeinfo.cache
