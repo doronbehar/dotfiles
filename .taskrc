@@ -30,9 +30,13 @@ include /usr/share/doc/task/rc/dark-yellow-green.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
 color=on
+
 report.list.sort=project+,tags+
 report.ls.sort=project+,tags+
 report.ls.filter=status:pending -archived
+
+verbose=blank,footnote,label,new-id,affected,edit,special,project,unwait
+
 taskd.certificate=~/.local/share/tasks/doron.cert.pem
 taskd.key=~/.local/share/tasks/doron.key.pem
 taskd.ca=~/.local/share/tasks/ca.cert.pem
