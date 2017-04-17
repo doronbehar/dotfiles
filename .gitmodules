@@ -58,3 +58,6 @@
 [submodule ".config/vdirsyncer"]
 	path = .config/vdirsyncer
 	url = https://github.com/doronbehar/vdirsyncerfiles
+[submodule ".config/tox"]
+	path = .config/tox
+	url = git@github.com:doronbehar/toxfiles
