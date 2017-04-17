@@ -2,7 +2,7 @@
 Categories=ConsoleOnly;Network;Email
 Encoding=UTF-8
 Exec=urxvt -pe bidi -e mutt %u
-Icon=mutt
+Icon=utilities-terminal
 Type=Application
 Name=Mutt-bidi
 GenericName=Mail Client
