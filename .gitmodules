@@ -61,3 +61,6 @@
 [submodule ".config/tox"]
 	path = .config/tox
 	url = git@github.com:doronbehar/toxfiles
+[submodule ".gnupg"]
+	path = .gnupg
+	url = git@github.com:doronbehar/gpgfiles
