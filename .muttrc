@@ -1,17 +1,15 @@
 # Identity
-set imap_user = "doron.behar@gmail.com"
-source ~/.muttrc.imap_pass
-set folder = "imaps://doron.behar@imap.gmail.com/"
 set from = "Doron Behar <doron.behar@gmail.com>"
 set realname = "Doron Behar"
 
 # Folders
-set spoolfile = +INBOX
+set folder = "~/.local/share/mail"
+source ~/.mutt/mailboxes
+set spoolfile = "+INBOX"
 set record = "+[Gmail]/Sent Mail"
 set postponed = "+[Gmail]/Drafts"
-set trash = "imaps://imap.gmail.com/[Gmail]/Trash"
 set copy = no
-set mbox = "imaps://doron.behar@imap.gmail.com/[Gmail]/All Mail"
+set mbox = "+[Gmail]/All Mail"
 
 # General Settings:
 set message_cachedir = ~/.cache/mutt/messages
@@ -37,7 +35,7 @@ bind attach,index G last-entry
 bind editor <space> noop
 bind editor <Tab> complete-query
 macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
-macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index,pager d "<save-message>=[Gmail].Trash<enter><enter>" "Trash"
 macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"

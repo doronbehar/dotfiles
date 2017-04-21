@@ -64,3 +64,6 @@
 [submodule ".gnupg"]
 	path = .gnupg
 	url = git@github.com:doronbehar/gpgfiles
+[submodule ".config/offlineimap"]
+	path = .config/offlineimap
+	url = git@github.com:doronbehar/offlineimapfiles
