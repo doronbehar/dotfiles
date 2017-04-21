@@ -130,6 +130,8 @@ export TASKDATA="$HOME/.local/share/tasks"
 
 # - {{{1 COLUMNS
 export COLUMNS=
+# - {{{1 GITHUB_TOKEN
+source ~/.local/share/zsh/github
 
 # - {{{1
 # vim:ft=zsh:foldmethod=marker

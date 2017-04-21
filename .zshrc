@@ -53,7 +53,7 @@ setopt HIST_REDUCE_BLANKS
 # Keep 1000 lines of history within the shell
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTFILE="$HOME/.local/share/zsh-history"
+export HISTFILE="$HOME/.local/share/zsh/history"
 # }}}
 
 # {{{ Bindings
