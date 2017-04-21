@@ -67,3 +67,6 @@
 [submodule ".config/offlineimap"]
 	path = .config/offlineimap
 	url = git@github.com:doronbehar/offlineimapfiles
+[submodule ".calcurse"]
+	path = .calcurse
+	url = git@github.com:doronbehar/calcursefiles
