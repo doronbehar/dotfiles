@@ -17,6 +17,9 @@ if [ -x /usr/bin/dircolors ]; then
 	alias cgrep='grep --color=always'
 	alias cfgrep='fgrep --color=always'
 	alias cegrep='egrep --color=always'
+	# diff
+	alias diff='diff --color=auto'
+	alias cdiff='diff --color=always'
 fi
 
 # {{{1 *Don't forget* Aliases
@@ -31,8 +34,6 @@ alias git-l='git --no-pager log'
 alias trc=transmission-remote-cli
 # taskwarrior
 alias t=task
-# colored diff
-alias cdiff='colordiff'
 # always colored ack
 alias cack='ack --color=always'
 # always colored pacman
