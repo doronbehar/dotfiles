@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Tmux
+Exec=urxvt -e tmux
+Keywords=shell;prompt;commandline;
+Comment=urxvt terminal with tmux
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
+MimeType=
