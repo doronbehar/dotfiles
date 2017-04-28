@@ -1,10 +1,10 @@
 [Desktop Entry]
 Categories=ConsoleOnly;Network;Email
 Encoding=UTF-8
-Exec=urxvt -pe bidi -e mutt %u
+Exec=urxvt -pe bidi -e mutt -e 'set display_filter = ' %u
 Icon=utilities-terminal
 Type=Application
 Name=Mutt-bidi
 GenericName=Mail Client
-Terminal=true
+Terminal=false
 MimeType=x-scheme-handler/mailto;
