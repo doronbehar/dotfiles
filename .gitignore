@@ -1,10 +1,4 @@
-# xorg
-.xprofile
 # youtube-viewer
 .config/youtube-viewer/reg.dat
 # newsbeuter
 .config/newsbeuter/urls
-# xdg
-.local/share/applications/chrome-*
-.local/share/applications/mimeapps.list
-.local/share/applications/mimeinfo.cache

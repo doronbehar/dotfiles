@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=NeoVim
-Exec=urxvt -e nvim %F
-Categories=Utility;TextEditor;
-MimeType=text/plain;
-Terminal=false
-Icon=nvim

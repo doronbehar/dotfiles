@@ -73,3 +73,6 @@
 [submodule ".config/lyvi"]
 	path = .config/lyvi
 	url = git@gitlab.com:doronbehar/lyvifiles
+[submodule ".local/share/applications"]
+	path = .local/share/applications
+	url = git@github.com:doronbehar/desktopfiles

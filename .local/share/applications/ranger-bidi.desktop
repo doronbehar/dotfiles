@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=ranger-bidi
-Comment=Launches the ranger file manager
-Icon=utilities-terminal
-Terminal=false
-Exec=urxvt -pe bidi -e ranger
-Categories=ConsoleOnly;System;FileTools;FileManager
-MimeType=inode/directory;

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Add To Transmission Remote Server
-Comment=Magnet Links Handler
-Icon=utilities-terminal
-Terminal=true
-Exec=transmission-remote --add %F
-Categories=ConsoleOnly;System;FileTools
-MimeType=application/x-bittorrent;x-scheme-handler/magnet;
