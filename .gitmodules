@@ -79,3 +79,6 @@
 [submodule ".config/newsbeuter"]
 	path = .config/newsbeuter
 	url = https://github.com/doronbehar/newsbeuterfiles
+[submodule ".config/youtube-viewer"]
+	path = .config/youtube-viewer
+	url = git@github.com:doronbehar/youtube-viewerfiles
