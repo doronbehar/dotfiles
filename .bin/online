@@ -1,4 +1,8 @@
 #!/bin/sh
+# Inspired by a [stack overflow answer](http://stackoverflow.com/a/14939373/4935114).
+# it's a simple script that returns true or false if the computer is currently online
+# according to kernel files in /sys/
+
 for interface in $(find /sys/class/net/ -maxdepth 1 -mindepth 1 ! -name "*lo*"); do
 	if [[ $(cat $interface/carrier) = 1 ]]; then
 		exit 0

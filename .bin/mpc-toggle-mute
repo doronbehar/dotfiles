@@ -1,6 +1,10 @@
 #!/bin/sh
+# A simple script to mute the output of an MPD server you connect to.
+# It uses `mpc` and essentially it toggles the volume between zero and
+# the previously used volume while storing the previous value of the
+# volume in a `/tmp` file.
 # volume for when there is no last volume set.
-#DEFAULT_VOLUME=15
+
 if [ "$(mpc volume)" == "volume:  0%" ]; then
 	echo volume is zero
 	mpc volume $(cat /tmp/mpc-toggle-mute.last-volume)

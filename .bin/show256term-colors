@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# Credit - This script is taken from https://bbs.archlinux.org/viewtopic.php?id=101509.
+# Credit - This script is shamelessly taken from https://bbs.archlinux.org/viewtopic.php?id=101509.
+
 fg = '\033[38;5;'
 bg = '\033[48;5;'
 

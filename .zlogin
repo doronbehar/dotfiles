@@ -39,7 +39,17 @@ cdm(){
 # }}}
 
 # {{{ `p` - bookmark navigator
-# Works like ranger's bookmarks manager
+# Works like ranger's bookmarks
+# Usage:
+# You need to use/create a bookmarks file in `.config/ranger/bookmarks` which will looks like that:
+# ```
+# v:/home/doron/repos/dotfiles/.config/nvim
+# O:/opt
+# a:/home/doron/repos/dotfiles/.config/awesome
+# x:/home/doron/repos/dotfiles/.tmux
+# ```
+# As for this bookmarks as an example, running `p v` for instance will bring you straight to Neovim's configuration directory.
+
 p(){
 	while read -r line; do
 		if [ "$1" = "$(echo "$line" | cut -d':' -f1)" ]; then

@@ -1,5 +1,6 @@
 #!/bin/sh
 # A shell script to detect file type with `file` when it is executable
+
 export IFS=":"
 for i in $(echo "$PATH"); do
 	if [ -f "$i"/"$1" ]; then

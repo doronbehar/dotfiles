@@ -1,4 +1,8 @@
 #/bin/sh
+# Bookmarks writer for `.config/ranger/bookmarks`. Reads $PWD and adds the
+# character which is added as an argument to the bookmarks file - it's the
+# companion of `p` function.
+
 if [[ ! "$#" == 1 ]] || [[ ! "${#1}" == 1 ]] && [[ ! "$@" == "ls" ]] ; then
 	cat <<-EndUsage
 		Usage:
