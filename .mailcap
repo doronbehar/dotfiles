@@ -1,3 +1,4 @@
 text/html; w3m %s -I %{charsed} -T text/html -dump | fribidi; copiousoutput
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; cat %s | docx2txt.pl | fribidi; copiousoutput
 application/msword; antiword %s | fribidi; copiousoutput
+image/*; sxiv %s;
