@@ -44,16 +44,6 @@ p(){
 	while read -r line; do
 		if [ "$1" = "$(echo "$line" | cut -d':' -f1)" ]; then
 			eval cd "$(echo "$line" | cut -d':' -f2)"
-			if [ -f makefile ]; then
-				eval export $(awk '{ if ($0 ~ /^[a-zA-Z_]*=/) {gsub(/shell /, "", $0 ); print}}' makefile)
-			fi
-			ls --color=auto -lhA
-			if [ -e .git ]; then
-				git status
-			fi
-			if [ -e .taskwarrior ]; then
-				task $(cat .taskwarrior) ls
-			fi
 		fi
 	done < ~/.config/ranger/bookmarks
 }
