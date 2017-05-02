@@ -76,3 +76,6 @@
 [submodule ".local/share/applications"]
 	path = .local/share/applications
 	url = git@github.com:doronbehar/desktopfiles
+[submodule ".config/newsbeuter"]
+	path = .config/newsbeuter
+	url = https://github.com/doronbehar/newsbeuterfiles
