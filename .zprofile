@@ -38,8 +38,6 @@ alias t=task
 alias cack='ack --color=always'
 # always colored pacman
 alias cpacman='pacman --color=always'
-# YouTube-viewer perl application.
-alias ytv='youtube-viewer'
 # xdg-open
 alias o='xdg-open'
 # Add an "alert" alias for long running commands.  Use like so: `sleep 10; alert`
@@ -52,8 +50,6 @@ alias cdr='cd `cat /tmp/doron.rangerdir`'
 alias gh="history 1 | grep --color=auto"
 # extract urls from a file or stdin
 alias urls="perl -ne 's#.*(https*://[^\"]*).*#\1# && print'"
-# Show my YouTube Playlists with $YOUTUBE_CHANNEL_ID env var.
-alias my-ytv='youtube-viewer -cp "$YOUTUBE_CHANNEL_ID"'
 # xclip
 alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"
