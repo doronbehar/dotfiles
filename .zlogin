@@ -61,7 +61,7 @@ p(){
 
 # {{{ **last actions** - Startx at start up only if it's on tty1 and there isn't a DISPLAY set already
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && $USER == "doron" ]];then
-	exec startx
+	startx && unset DISPLAY && exit
 fi
 # }}}
 
