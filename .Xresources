@@ -105,20 +105,14 @@ xterm*VT100.translations:#override <Btn1Up>:select-end(PRIMARY, CLIPBOARD, CUT_B
 !! {{{ Fonts
 URxvt*font:\
 	xft:DroidSansMonoForPowerline Nerd Font:size=10,\
-	xft:DejaVu Sans Mono for Powerline:size=9,\
 	xft:DejaVuSansMonoForPowerline Nerd Font:size=9,\
-	xft:Hack:size=9,\
-	xft:Sauce Code Powerline:size=9,\
-	xft:Source Code Pro for Powerline:size=9,\
-	xft:SauceCodePro Nerd Font:size=9,\
-	xft:AnonymicePowerline Nerd Font:size=9,\
-	xft:AurulentSansMono Nerd Font:size=9,\
-	xft:Arimo for Powerline:size=9,\
-	xft:Cousine for Powerline:size=9,\
+	xft:DejaVuSansMonoForPowerline Nerd Font:size=8,\
+	xft:Miriam Mono CLM:size=11,\
+	xft:Miriam Mono CLM:size=10,\
+	xft:Miriam Mono CLM:size=9,\
+	xft:Symbola:size=9,\
 	xft:Symbola:size=8,\
-	xft:Droid Sans Mono for Powerline:size=9,\
-	xft:Fira Mono for Powerline:size=9,\
-	xft:Roboto Mono for Powerline:size=9
+	xft:Symbola:size=7
 !! }}}
 
 !! {{{ Colors
