@@ -5,3 +5,4 @@
 * I don't use 'Oh-My-zsh' - It's too robust in my opinion.
 * I have a 'powerlineish' prompt but I tried to make it's setup simple yet modular as possible - using the `autoload promptinit`
 * I use `zsh-syntax-highlighting`.
+* I hate reinventing the wheel.
