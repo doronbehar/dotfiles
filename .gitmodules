@@ -82,3 +82,6 @@
 [submodule ".config/youtube-viewer"]
 	path = .config/youtube-viewer
 	url = git@github.com:doronbehar/youtube-viewerfiles
+[submodule ".mutt"]
+	path = .mutt
+	url = git@github.com:doronbehar/muttfiles
