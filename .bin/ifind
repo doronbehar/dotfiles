@@ -1,3 +1,0 @@
-#!/bin/bash
-# Credit: stackoverflow.com/questions/762348/how-can-i-exclude-all-permission-denied-messages-from-find/25234419#25234419
-find "$1" ! -readable -prune -o "${@:2}" -print
