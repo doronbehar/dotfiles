@@ -85,3 +85,6 @@
 [submodule ".mutt"]
 	path = .mutt
 	url = git@github.com:doronbehar/muttfiles
+[submodule ".config/rtv"]
+	path = .config/rtv
+	url = git@github.com:doronbehar/rtvfiles
