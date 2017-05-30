@@ -1,3 +1,0 @@
-report.ls.filter=status:pending project:dotfiles
-include ~/.taskrc.default
-# vim:ft=conf
