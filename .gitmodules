@@ -88,3 +88,6 @@
 [submodule ".config/rtv"]
 	path = .config/rtv
 	url = git@github.com:doronbehar/rtvfiles
+[submodule ".cpan/CPAN"]
+	path = .cpan/CPAN
+	url = git@github.com:doronbehar/cpanfiles
