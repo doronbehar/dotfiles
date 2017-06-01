@@ -3,9 +3,4 @@
 # it's a simple script that returns true or false if the computer is currently online
 # according to kernel files in /sys/
 
-for interface in $(find /sys/class/net/ -maxdepth 1 -mindepth 1 ! -name "*lo*"); do
-	if [[ $(cat $interface/carrier) = 1 ]]; then
-		exit 0
-	fi
-	exit 1
-done
+find /sys/class/net/ -maxdepth 1 -mindepth 1 ! -name "*lo*" -exec sh -c 'cat "$0"/carrier 2>&1 > /dev/null | grep -q "1" && exit 0' {} \;
