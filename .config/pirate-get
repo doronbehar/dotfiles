@@ -1,0 +1,34 @@
+[Save]
+; directory where to save files
+directory = /var/lib/transmission/watchdir
+
+; save each selected magnet link in a .magnet file
+magnets = false
+
+; save each selected torrent in a .torrent file
+torrents = true
+
+[LocalDB]
+; use a local copy of the pirate bay database
+enabled = false
+
+; path of the database
+path = ~/.local/share/pirate-get/db
+
+[Misc]
+; specify a custom command for opening the magnet
+; ex. myprogram --open %s
+; %s represent the magnet uri
+openCommand =
+
+; open magnets with transmission-remote client
+transmission = true
+
+; use colored output
+colors = true
+
+; the pirate bay mirror(s) to use:
+; one or more space separated URLs
+mirror = http://thepiratebay.org
+
+# vim:ft=cfg
