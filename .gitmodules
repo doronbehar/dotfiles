@@ -94,3 +94,6 @@
 [submodule ".config/beets"]
 	path = .config/beets
 	url = git@github.com:doronbehar/beetsfiles
+[submodule ".w3m"]
+	path = .w3m
+	url = git@github.com:doronbehar/w3mfiles
