@@ -1,0 +1,6 @@
+click=urxvt -e mutt
+
+[gmail]
+hostname=imap.gmail.com:993
+username=doron.behar@gmail.com
+password=pass gmail
