@@ -127,7 +127,7 @@ function chpwd_profiles() {
 }
 # Add the chpwd_profiles() function to the list called by chpwd()
 chpwd_functions=( ${chpwd_functions} chpwd_profiles )
-source <(zsh-chpwd-profiles-maker.awk ~/.zsh-chpwd-profiles)
+source <(zsh-chpwd-profiles-maker.sh)
 chpwd_profiles
 # }}}
 
