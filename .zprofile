@@ -59,5 +59,8 @@ alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"
 # colored cat: src-highlite
 alias ccat='source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i'
+# systemctl poweroff/reboot
+alias poweroff='systemctl poweroff'
+alias reboot='systemctl reboot'
 
 # vim:ft=zsh:foldmethod=marker
