@@ -19,10 +19,12 @@ while read profile; do
 	else
 		TASKRC_FILE="$XDG_RUNTIME_DIR""/zsh-chpwd-profiles/"$profile_name".taskrc"
 		echo "	export TASKRC="$TASKRC_FILE
-		cat <<-EOF > $TASKRC_FILE
-		include ~/.taskrc.default
-		report.ls.filter=status:pending project:$profile_name
-		EOF
+		if [[ ! -s $TASKRC_FILE ]]; then
+			cat <<-EOF > $TASKRC_FILE
+			include ~/.taskrc.default
+			report.ls.filter=status:pending project:$profile_name -BLOCKED
+			EOF
+		fi
 	fi
 	echo "}"
 	echo "chpwd_leave_profile_"$profile_name"() {"
