@@ -97,3 +97,6 @@
 [submodule ".w3m"]
 	path = .w3m
 	url = git@github.com:doronbehar/w3mfiles
+[submodule ".config/bugwarrior"]
+	path = .config/bugwarrior
+	url = git@github.com:doronbehar/bugwarriorfiles
