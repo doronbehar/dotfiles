@@ -130,8 +130,15 @@ export TASKDATA="$HOME/.local/share/tasks"
 
 # - {{{1 COLUMNS
 export COLUMNS=
-# - {{{1 GITHUB_TOKEN
-source ~/.local/share/zsh/github
+# - {{{1 GitHub token
+export GITHUB_TOKEN=$(pass github-token)
+export PRIVATE_KEY_GITHUB=$(pass github-token)
+# - {{{1 GitLab token
+export GITLAB_API_PRIVATE_TOKEN=$(pass gitlab-token)
+export PRIVATE_KEY_GITLAB=$(pass gitlab-token)
+export GITLAB_NAMESPACE=doronbehar
+# - {{{1 PINENTRY_USER_DATA
+export PINENTRY_USER_DATA=tty
 
 # - {{{1
 # vim:ft=zsh:foldmethod=marker

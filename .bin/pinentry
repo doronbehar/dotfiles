@@ -1,0 +1,30 @@
+#!/bin/bash
+# TAKEN FROM https://unix.stackexchange.com/a/236747/135796
+# choose pinentry depending on PINENTRY_USER_DATA
+# requires pinentry-curses and pinentry-gtk2
+# this *only works* with gpg 2
+# see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=802020
+
+case $PINENTRY_USER_DATA in
+	curses)
+		exec /usr/bin/pinentry-curses "$@"
+		;;
+	emacs)
+		exec /usr/bin/pinentry-emacs "$@"
+		;;
+	gnome3)
+		exec /usr/bin/pinentry-gnome3 "$@"
+		;;
+	gtk)
+		exec /usr/bin/pinentry-gtk-2 "$@"
+		;;
+	qt)
+		exec /usr/bin/pinentry-qt "$@"
+		;;
+	tty)
+		exec /usr/bin/pinentry-tty "$@"
+		;;
+	*)
+		exec /usr/bin/pinentry "$@"
+		;;
+esac
