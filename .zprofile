@@ -27,30 +27,17 @@ if [ -x /usr/bin/dircolors ]; then
 	alias cack='ack --color=always'
 fi
 
-# {{{1 *Don't forget* Aliases
-# make the mv and cp commands interactive and therefor safer and verbose.
-alias cp='cp -vi'
-alias mv='mv -vi'
-
 # {{{1 Other aliases
-# make git to easily print log commits with --no-pager
-alias git-l='git --no-pager log'
-# transmission remote ncurses client
-alias trc=transmission-remote-cli
 # taskwarrior
 alias t=task
 # YouTube-viewer perl application.
 alias ytv='youtube-viewer'
 # xdg-open
 alias o='xdg-open'
-# Add an "alert" alias for long running commands.  Use like so: `sleep 10; alert`
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 # ranger with cd into last directory
 alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
 alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
 alias cdr='cd `cat /tmp/doron.rangerdir`'
-# search history
-alias gh="history 1 | grep --color=auto"
 # extract urls from a file or stdin
 alias urls="perl -ne 's#.*(https*://[^\"]*).*#\1# && print'"
 # Show my YouTube Playlists with $YOUTUBE_CHANNEL_ID env var.
