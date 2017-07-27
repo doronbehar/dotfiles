@@ -106,3 +106,6 @@
 [submodule ".config/profanity"]
 	path = .config/profanity
 	url = git@github.com:doronbehar/profanityfiles
+[submodule ".config/htop"]
+	path = .config/htop
+	url = git@github.com:doronbehar@htopfiles
