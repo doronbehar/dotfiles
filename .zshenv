@@ -104,6 +104,8 @@ export TARGET_LANG="he"
 # - {{{1 MPD music directory:
 export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
 
+# - {{{1 TRANSMISSION_REMOTE_SERVER
+export TRANSMISSION_REMOTE_SERVER="0.0.0.0"
 # - {{{1 YouTube Channel ID for youtube-viewer (perl application)
 export YOUTUBE_CHANNEL_ID="UCRymTwOOJEx-BEqfQRp5T5Q"
 

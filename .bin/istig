@@ -1,0 +1,2 @@
+#!/bin/sh
+stig set srv.url transmission:"$(pass transmission)"@"$TRANSMISSION_REMOTE_SERVER"
