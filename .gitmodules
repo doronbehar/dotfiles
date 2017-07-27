@@ -103,3 +103,6 @@
 [submodule ".config/transmission-remote-cli"]
 	path = .config/transmission-remote-cli
 	url = git@github.com:doronbehar/transmission-remote-cli-files
+[submodule ".config/profanity"]
+	path = .config/profanity
+	url = git@github.com:doronbehar/profanityfiles
