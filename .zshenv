@@ -131,6 +131,7 @@ export TASKDATA="$HOME/.local/share/tasks"
 # - {{{1 COLUMNS
 export COLUMNS=
 # - {{{1 GitHub token
+export GITHUB_NAMESPACE=doronbehar
 export GITHUB_TOKEN=$(pass github-token)
 export PRIVATE_KEY_GITHUB=$(pass github-token)
 # - {{{1 GitLab token
