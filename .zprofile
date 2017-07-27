@@ -20,6 +20,11 @@ if [ -x /usr/bin/dircolors ]; then
 	# diff
 	alias diff='diff --color=auto'
 	alias cdiff='diff --color=always'
+	# always colored pacman and yay
+	alias cpacman='pacman --color=always'
+	alias cyay='yay --color=always'
+	# always colored ack
+	alias cack='ack --color=always'
 fi
 
 # {{{1 *Don't forget* Aliases
@@ -34,10 +39,6 @@ alias git-l='git --no-pager log'
 alias trc=transmission-remote-cli
 # taskwarrior
 alias t=task
-# always colored ack
-alias cack='ack --color=always'
-# always colored pacman
-alias cpacman='pacman --color=always'
 # YouTube-viewer perl application.
 alias ytv='youtube-viewer'
 # xdg-open
