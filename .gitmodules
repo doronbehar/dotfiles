@@ -109,3 +109,6 @@
 [submodule ".config/htop"]
 	path = .config/htop
 	url = git@github.com:doronbehar@htopfiles
+[submodule ".config/stig"]
+	path = .config/stig
+	url = git@github.com:doronbehar/stigfiles
