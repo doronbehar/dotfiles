@@ -100,3 +100,6 @@
 [submodule ".config/bugwarrior"]
 	path = .config/bugwarrior
 	url = git@github.com:doronbehar/bugwarriorfiles
+[submodule ".config/transmission-remote-cli"]
+	path = .config/transmission-remote-cli
+	url = git@github.com:doronbehar/transmission-remote-cli-files
