@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # TAKEN FROM https://unix.stackexchange.com/a/236747/135796
 # choose pinentry depending on PINENTRY_USER_DATA
 # requires pinentry-curses and pinentry-gtk2

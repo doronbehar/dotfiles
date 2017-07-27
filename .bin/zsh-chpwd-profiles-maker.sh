@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [[ -z $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR ]]; then
 	UID="$(id -u)"

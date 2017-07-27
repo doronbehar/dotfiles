@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 # Script for cycling between PulseAudio sinks.
 
 active="$(pacmd list-sinks | grep '*' | sed 's/\(\s\|index\|*\|:\)//g')"
