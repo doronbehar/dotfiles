@@ -134,11 +134,11 @@ export TASKDATA="$HOME/.local/share/tasks"
 export COLUMNS=
 # - {{{1 GitHub token
 export GITHUB_NAMESPACE=doronbehar
-export GITHUB_TOKEN=$(pass github-token)
-export PRIVATE_KEY_GITHUB=$(pass github-token)
+export GITHUB_TOKEN=$(pass api/github)
+export PRIVATE_KEY_GITHUB=$(pass api/github)
 # - {{{1 GitLab token
-export GITLAB_API_PRIVATE_TOKEN=$(pass gitlab-token)
-export PRIVATE_KEY_GITLAB=$(pass gitlab-token)
+export GITLAB_API_PRIVATE_TOKEN=$(pass api/gitlab)
+export PRIVATE_KEY_GITLAB=$(pass api/gitlab)
 export GITLAB_NAMESPACE=doronbehar
 # - {{{1 PINENTRY_USER_DATA
 export PINENTRY_USER_DATA=tty
