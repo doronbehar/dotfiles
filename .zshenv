@@ -26,9 +26,9 @@ insert2MANPATH(){
 	for i in "$@"; do
 		# If the directory exists
 		if [ -d "$i" ]; then
-			# If it doesn't exists already in $PATH
-			if ! echo $MANMANPATH | grep -q "$i"; then
-				export MANMANPATH="$i"":""$MANPATH"
+			# If it doesn't exists already in $MANPATH
+			if ! echo $MANPATH | grep -q "$i"; then
+				export MANPATH="$i"":""$MANPATH"
 			fi
 		else
 			echo \'error at: .zshenv\': you have tried to insert "$i" to MANPATH but it\'s not a directory or it doesn\'t exist
