@@ -103,6 +103,7 @@ export TARGET_LANG="he"
 
 # - {{{1 MPD music directory:
 export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
+export MPD_HOST="$(pass software/mpd)@localhost"
 
 # - {{{1 TRANSMISSION_REMOTE_SERVER
 export TRANSMISSION_REMOTE_SERVER="0.0.0.0"
