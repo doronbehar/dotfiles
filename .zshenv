@@ -56,11 +56,6 @@ if _command_exists nvim; then
 elif _command_exists vim; then
 	export EDITOR="vim"
 	export VISUAL="vim"
-# - {{{1 PAGER
-if _command_exists less; then
-	export PAGER="less"
-	export LESS="-X -x4 -r -i"
-	export LESSHISTFILE="$HOME/.local/share/less-history"
 fi
 
 # - {{{1 gcc
@@ -77,21 +72,8 @@ export TARGET_LANG="he"
 export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
 export MPD_HOST="$(pass software/mpd)@localhost"
 
-# - {{{1 ssh
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-
-# - {{{1 IFS
-# I always forget this one before I parse commands outputs etc:
-export IFS=$'\n'
-
 # - {{{1 xdg
-export BROWSER="firefox"
 source "$HOME/.config/user-dirs.dirs"
-
-# - {{{1 GO
-export GOPATH="$HOME/.go"
-# - {{{1 taskwarrior
-export TASKDATA="$HOME/.local/share/tasks"
 
 # - {{{1 COLUMNS
 export COLUMNS=
@@ -103,8 +85,5 @@ export PRIVATE_KEY_GITHUB=$(pass api/github)
 export GITLAB_API_PRIVATE_TOKEN=$(pass api/gitlab)
 export PRIVATE_KEY_GITLAB=$(pass api/gitlab)
 export GITLAB_NAMESPACE=doronbehar
-# - {{{1 PINENTRY_USER_DATA
-export PINENTRY_USER_DATA=tty
-
 # - {{{1
 # vim:ft=zsh:foldmethod=marker
