@@ -1,2 +1,2 @@
 #!/bin/sh
-stig set srv.url transmission:"$(pass software/transmission)"@"$TRANSMISSION_REMOTE_SERVER"
+stig set srv.url "${TR_AUTH}"@localhost

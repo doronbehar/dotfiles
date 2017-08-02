@@ -72,6 +72,9 @@ export TARGET_LANG="he"
 export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
 export MPD_HOST="$(pass software/mpd)@localhost"
 
+# - {{{1 transmission server
+export TR_AUTH="transmission:$(pass software/transmission)"
+
 # - {{{1 xdg
 source "$HOME/.config/user-dirs.dirs"
 
