@@ -118,3 +118,6 @@
 [submodule ".config/conky"]
 	path = .config/conky
 	url = git@github.com:doronbehar/.config_conky
+[submodule ".config/mpDris2"]
+	path = .config/mpDris2
+	url = git@github.com:doronbehar/.config_mpDris2
