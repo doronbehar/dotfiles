@@ -3,7 +3,7 @@
 !! {{{ Fonts
 xterm*reportFonts:true
 xterm*renderFont:true
-xterm*faceName:UbuntuMonoDerivativePowerline Nerd Font
+xterm*faceName:DroidSansMono Nerd Font
 xterm*faceNameDoublesize:PowerlineSymbols
 xterm*cacheDoublesize:1
 xterm*faceSize:12
@@ -104,12 +104,8 @@ xterm*VT100.translations:#override <Btn1Up>:select-end(PRIMARY, CLIPBOARD, CUT_B
 
 !! {{{ Fonts
 URxvt*font:\
-	xft:DroidSansMonoForPowerline Nerd Font:size=10,\
-	xft:DejaVuSansMonoForPowerline Nerd Font:size=9,\
-	xft:DejaVuSansMonoForPowerline Nerd Font:size=8,\
-	xft:Miriam Mono CLM:size=11,\
-	xft:Miriam Mono CLM:size=10,\
-	xft:Miriam Mono CLM:size=9,\
+	xft:DroidSansMono Nerd Font:size=10,\
+	xft:DejaVuSansMono Nerd Font:size=9,\
 	xft:Symbola:size=9,\
 	xft:Symbola:size=8,\
 	xft:Symbola:size=7
