@@ -5,6 +5,7 @@
 fpath=(~/.zsh-completions/src $fpath)
 fpath=(~/.zsh-collected-completions/src $fpath)
 fpath=(~/.zsh-local-completions $fpath)
+fpath=(~/.zsh-untracked-completions $fpath)
 autoload -Uz compinit && compinit -D
 # zstyle
 zstyle ':completion:*' auto-description 'specify: %d'
