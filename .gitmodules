@@ -121,3 +121,6 @@
 [submodule ".config/mpDris2"]
 	path = .config/mpDris2
 	url = git@github.com:doronbehar/.config_mpDris2
+[submodule ".pandoc"]
+	path = .pandoc
+	url = https://github.com/doronbehar/.pandoc
