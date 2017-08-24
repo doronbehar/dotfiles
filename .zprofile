@@ -29,7 +29,7 @@ fi
 
 # {{{1 Other aliases
 # taskwarrior
-alias t=task
+alias tw=task
 # YouTube-viewer perl application.
 alias ytv='youtube-viewer'
 # Show my YouTube Playlists with $YOUTUBE_CHANNEL_ID env var.
