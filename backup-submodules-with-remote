@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# This script is used to push into certain defined remote the submodules which have this remote - just as a backup.
+
+IFS=$'\n'
+REMOTE2PUSH="$1"
+if [[ -z "$@" ]]; then
+	echo please specify a name of a remote to push to as a single argument to this script
+	exit 2
+fi
+for i in `git submodule status --recursive | sed -e 's/[\ \+\-][a-f0-9]\{40\}\s\+//g' -e 's/\([^\ ]\{1,\}\)\( [^\ ]\{1,\}\)/\1/g'`; do
+	if git -C "$i" remote -v | grep -q "$REMOTE2PUSH"; then
+		git -C "$i" push "$REMOTE2PUSH"
+	fi
+done
