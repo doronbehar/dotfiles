@@ -9,14 +9,9 @@ _command_exists () {
 insert2PATH(){
 	# For all strings passed to function
 	for i in "$@"; do
-		# If the directory exists
-		if [ -d "$i" ]; then
-			# If it doesn't exists already in $PATH
-			if ! echo $PATH | grep -q "$i"; then
-				export PATH="$i"":""$PATH"
-			fi
-		else
-			echo \'error at: .zshenv\': you have tried to insert "$i" to PATH but it\'s not a directory or it doesn\'t exist
+		# If the directory exists and it doesn't exists already in $PATH
+		if [[ -d "$i" ]] && ! echo $PATH | grep -q "$i"; then
+			export PATH="$i"":""$PATH"
 		fi
 	done
 }
@@ -68,15 +63,15 @@ export RANGER_LOAD_DEFAULT_RC="FALSE"
 export HOME_LANG="he"
 export TARGET_LANG="he"
 
-# - {{{1 MPD music directory:
-export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
+# - {{{1 MPD
+[[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
 export MPD_HOST="$(pass software/mpd)@localhost"
 
 # - {{{1 transmission server
 export TR_AUTH="transmission:$(pass software/transmission)"
 
 # - {{{1 xdg
-source "$HOME/.config/user-dirs.dirs"
+[[ -f "$HOME/.config/user-dirs.dirs" ]] && source "$HOME/.config/user-dirs.dirs"
 
 # - {{{1 COLUMNS
 export COLUMNS=
