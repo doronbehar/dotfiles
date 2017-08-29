@@ -61,7 +61,7 @@ p(){
 
 # {{{ **last actions**
 # - Load local environmental variables or file
-source ~/.local.sh
+[[ -f ~/.local.sh ]] && source ~/.local.sh
 # - Startx at start up only if it's on tty1 and there isn't a DISPLAY set already
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && -z $TMUX ]];then
 	exec startx
