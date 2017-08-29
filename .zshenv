@@ -65,11 +65,23 @@ export TARGET_LANG="he"
 
 # - {{{1 MPD
 [[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
+export MPD_HOST="$(pass software/mpd)@localhost"
+
+# - {{{1 transmission server
+export TR_AUTH="transmission:$(pass software/transmission)"
 
 # - {{{1 xdg
 [[ -f "$HOME/.config/user-dirs.dirs" ]] && source "$HOME/.config/user-dirs.dirs"
 
 # - {{{1 COLUMNS
 export COLUMNS=
+# - {{{1 GitHub token
+export GITHUB_NAMESPACE=doronbehar
+export GITHUB_TOKEN=$(pass api/github)
+export PRIVATE_KEY_GITHUB=$(pass api/github)
+# - {{{1 GitLab token
+export GITLAB_API_PRIVATE_TOKEN=$(pass api/gitlab)
+export PRIVATE_KEY_GITLAB=$(pass api/gitlab)
+export GITLAB_NAMESPACE=doronbehar
 # - {{{1
 # vim:ft=zsh:foldmethod=marker
