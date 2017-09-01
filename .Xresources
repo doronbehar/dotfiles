@@ -140,7 +140,7 @@ URxvt.underlineURLs:False
 
 !! {{{ Behaviour
 URxvt*loginShell:true
-URxvt.perl-ext:url-select,keyboard-select,font-size
+URxvt.perl-ext:url-select,keyboard-select
 Urxvt.bidi.FieldSep:\x{2502}
 URxvt.url-launcher:/usr/bin/xdg-open
 URxvt.url-select.launcher:/usr/bin/xdg-open
@@ -169,9 +169,6 @@ URxvt.print-pipe:"cat > /dev/null"
 URxvt.keysym.C-Delete:perl:url-select:select_next
 URxvt.keysym.M-Delete:perl:keyboard-select:activate
 URxvt.keysym.M-Escape:perl:keyboard-select:search
-URxvt.keysym.M-Tab:perl:font-size:increase
-URxvt.keysym.M-Home:perl:font-size:reset
-URxvt.keysym.M-End:perl:font-size:show
 !! }}}
 
 !! }}}
