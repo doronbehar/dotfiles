@@ -39,7 +39,7 @@ alias o='xdg-open'
 # ranger with cd into last directory
 alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
 alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
-alias cdr='cd `cat /tmp/doron.rangerdir`'
+alias cdr='cd "$(cat /tmp/doron.rangerdir)"'
 # extract urls from a file or stdin
 alias urls="perl -ne 's#.*(https*://[^\"]*).*#\1# && print'"
 # xclip
