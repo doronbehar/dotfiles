@@ -107,7 +107,7 @@ prompt my
 # }}}
 
 # {{{ directories profiles
-source "$HOME"/.zsh-chpwd-profiles
+source "$HOME"/.local/share/zsh/chpwd-profiles
 chpwd
 function t() {
 	if [[ -z "$TASKFILTER" ]]; then
