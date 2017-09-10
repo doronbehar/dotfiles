@@ -62,6 +62,8 @@ p(){
 # {{{ **last actions**
 # - Load local environmental variables or file
 [[ -f ~/.local.sh ]] && source ~/.local.sh
+# - Load credentials only when the shell is a login and interactive shell
+[[ -f ~/.zsh-credentials ]] && source ~/.zsh-credentials
 # - Startx at start up only if it's on tty1 and there isn't a DISPLAY set already
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && -z $TMUX ]];then
 	exec startx
