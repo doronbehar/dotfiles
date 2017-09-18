@@ -169,9 +169,8 @@ URxvt.print-pipe:"cat > /dev/null"
 URxvt.keysym.C-Delete:perl:url-select:select_next
 URxvt.keysym.M-Delete:perl:keyboard-select:activate
 URxvt.keysym.M-Escape:perl:keyboard-select:search
-URxvt.keysym.M-Tab:perl:font-size:increase
-URxvt.keysym.M-Home:perl:font-size:reset
-URxvt.keysym.M-End:perl:font-size:show
+URxvt.keysym.M-Home:perl:font-size:decrease
+URxvt.keysym.M-End:perl:font-size:increase
 !! }}}
 
 !! }}}
