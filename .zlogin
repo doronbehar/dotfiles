@@ -38,6 +38,16 @@ cdm(){
 }
 # }}}
 
+# {{{ `t` - Taskwarrior shortcut with evaluation of overriding runtime variables using environmental variables.
+function t() {
+	if [[ -z "$TASK_OVERRIDE" ]]; then
+		task "$@"
+	else
+		eval task $TASK_OVERRIDE "$@"
+	fi
+}
+# }}}
+
 # {{{ `p` - bookmark navigator
 # Works like ranger's bookmarks
 # Usage:

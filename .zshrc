@@ -109,13 +109,6 @@ prompt my
 # {{{ directories profiles
 source "$HOME"/.local/share/zsh/chpwd-profiles
 chpwd
-function t() {
-	if [[ -z "$TASKFILTER" ]]; then
-		task "$@"
-	else
-		eval task $TASKFILTER "$@"
-	fi
-}
 # }}}
 
 # vim:ft=zsh:foldmethod=marker

@@ -34,11 +34,6 @@ color=on
 report.list.sort=project+,tags+
 report.ls.sort=project+,tags+
 
-verbose=blank,footnote,label,new-id,affected,edit,special,project,unwait
-
-taskd.certificate=~/.local/share/tasks/doron.cert.pem
-taskd.key=~/.local/share/tasks/doron.key.pem
-taskd.ca=~/.local/share/tasks/ca.cert.pem
-taskd.server=0.0.0.0:53589
-taskd.credentials=private/doron/3caecfaa-bb2c-4652-8107-6ef1eb3f77c5
-taskd.trust=ignore hostname
+include ~/.local/share/tasks/reports.txt
+include ~/.local/share/tasks/credentials.shared.txt
+include ~/.local/share/tasks/credentials.PC.txt
