@@ -12,6 +12,7 @@ export HISTCONTROL="ignoredups:ignorespace"
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE="$HOME/.local/share/bash-history"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 # }}}
 
 # check the window size after each command and, if necessary,
