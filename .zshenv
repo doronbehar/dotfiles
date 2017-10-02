@@ -63,6 +63,9 @@ export RANGER_LOAD_DEFAULT_RC="FALSE"
 export HOME_LANG="he"
 export TARGET_LANG="he"
 
+# - {{{1 local environmental variables
+[[ -f ~/.local/share/zsh/env ]] && source ~/.local/share/zsh/env
+
 # - {{{1 MPD
 [[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
 
