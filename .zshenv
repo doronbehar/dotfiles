@@ -35,6 +35,7 @@ insert2MANPATH(){
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
+insert2PATH "$HOME/.luarocks/bin"
 
 # - {{{1 MANPATH
 if [ -d "$HOME/.virtualenv" ]; then
