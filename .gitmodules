@@ -121,3 +121,6 @@
 [submodule ".texmf"]
 	path = .texmf
 	url = https://github.com/doronbehar/.texmf
+[submodule ".mplayer"]
+	path = .mplayer
+	url = ssh://git@github.com/doronbehar/.mplayer
