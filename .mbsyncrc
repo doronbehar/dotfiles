@@ -1,0 +1,24 @@
+IMAPAccount gmail
+Host imap.gmail.com
+User doron.behar@gmail.com
+PassCmd "pass software/gmail-mutt"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+# The trailing "/" is important
+Path ~/.local/share/mail/gmail/
+Inbox ~/.local/share/mail/gmail/INBOX
+SubFolders Verbatim
+
+Channel gmail
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
