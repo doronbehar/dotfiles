@@ -31,9 +31,12 @@ include /usr/share/doc/task/rc/dark-yellow-green.theme
 
 color=on
 
+dateformat = d/m/y-h:n
+
 report.list.sort=project+,tags+
 report.ls.sort=project+,tags+
 
 include ~/.local/share/tasks/reports.txt
+include ~/.local/share/tasks/udas.txt
 include ~/.local/share/tasks/credentials.shared.txt
 include ~/.local/share/tasks/credentials.PC.txt
