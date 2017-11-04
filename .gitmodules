@@ -124,3 +124,6 @@
 [submodule ".mplayer"]
 	path = .mplayer
 	url = ssh://git@github.com/doronbehar/.mplayer
+[submodule ".config/octave"]
+	path = .config/octave
+	url = git@github.com:doronbehar/.config_octave
