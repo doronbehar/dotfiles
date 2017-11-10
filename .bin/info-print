@@ -1,0 +1,39 @@
+#!/bin/sh
+me="$(basename "$0")"
+
+# {{{ Getting the text from /dev/stdin
+if [[ -d "${XDG_RUNTIME_DIR}" ]]; then
+	CONFIGURED_RUNTIME_DIR="${XDG_RUNTIME_DIR}"
+else
+	CONFIGURED_RUNTIME_DIR="/tmp"
+fi
+export STDIN=$(mktemp --tmpdir="${CONFIGURED_RUNTIME_DIR}" ${me}.XXXXXXXX)
+cat /dev/stdin > "${STDIN}"
+# }}}
+# {{{ Evaluating the file name of the counter and initializing it
+export COUNTER="${CONFIGURED_RUNTIME_DIR}/counter"
+if [[ ! -f "${COUNTER}" ]]; then
+	touch "${COUNTER}"
+	chmod go-rwx,u=rw "${COUNTER}"
+	export COUNT=1
+	echo "${COUNT}" > "${COUNTER}"
+	
+fi
+# }}}
+
+# {{{ saving the file or displaying it in an appropriate program according to the environment.
+if [[ -z "$TMUX" ]]; then
+	if [[ -d ${INFO_PRINT_PRINTED_FILES_FALLBACK_DIR} ]]; then
+		CONFIGURED_FALLBACK_FILE="${INFO_PRINT_PRINTED_FILES_FALLBACK_DIR}/${COUNT}"
+	else
+		CONFIGURED_FALLBACK_FILE="${HOME}/${me}__${COUNT}"
+	fi
+	cat "${STDIN}" > "${CONFIGURED_FALLBACK_FILE}"
+	COUNT="$(cat ${COUNTER})"
+	export COUNT=$((COUNT + 1))
+	echo "${COUNT}" > "${COUNTER}"
+else
+	CONFIGURED_EDITOR=${INFO_PRINT_EDITOR:-${EDITOR:-${VISUAL:-vi}}}
+	tmux new-window -n "info-print" "${CONFIGURED_EDITOR} ${STDIN}"
+fi
+# }}}
