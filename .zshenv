@@ -39,10 +39,6 @@ insert2PATH "$HOME/.luarocks/bin"
 
 # - {{{1 CPAN
 insert2PATH "$HOME/.perl5/bin"
-export PERL5LIB="$HOME/.perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
-export PERL_LOCAL_LIB_ROOT="$HOME/.perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
-export PERL_MB_OPT="--install_base \"$HOME/.perl5\""
-export PERL_MM_OPT="INSTALL_BASE=$HOME/.perl5"
 
 # - {{{1 MANPATH
 if [ -d "$HOME/.virtualenv" ]; then
@@ -63,13 +59,6 @@ fi
 
 # - {{{1 gcc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# - {{{1 ranger: make it not load default rc.conf from /etc so startup will be faster
-export RANGER_LOAD_DEFAULT_RC="FALSE"
-
-# - {{{1 translate-shell
-export HOME_LANG="he"
-export TARGET_LANG="he"
 
 # - {{{1 local environmental variables
 [[ -f ~/.local/share/zsh/env ]] && source ~/.local/share/zsh/env
