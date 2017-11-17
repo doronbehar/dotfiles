@@ -36,6 +36,9 @@ insert2MANPATH(){
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
 insert2PATH "$HOME/.luarocks/bin"
+if _command_exists ccache; then
+	insert2PATH "/usr/lib/ccache/bin"
+fi
 
 # - {{{1 CPAN
 insert2PATH "$HOME/.perl5/bin"
