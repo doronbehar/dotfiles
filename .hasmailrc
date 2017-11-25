@@ -1,4 +1,4 @@
-click=urxvt -e mutt
+click=launch-hasmail-mail-client
 
 [gmail]
 hostname=imap.gmail.com:993
