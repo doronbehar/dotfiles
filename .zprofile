@@ -47,5 +47,7 @@ alias poweroff='systemctl poweroff'
 alias reboot='systemctl reboot'
 # lua interpreter with luarocks loaded in package.path
 alias luar='lua -e pcall\(require,\"luarocks.loader\"\) -i'
+# visual/editor with GhostStart for quick launch
+alias gvi="${VISUAL} +GhostStart"
 
 # vim:ft=zsh:foldmethod=marker
