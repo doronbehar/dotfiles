@@ -70,14 +70,10 @@ p(){
 # }}}
 
 # {{{ **last actions**
-# - Load local environmental variables for login interactive sessions
-[[ -f ~/.local/share/zsh/login ]] && source ~/.local/share/zsh/login
 # - Load credentials only when the shell is a login and interactive shell
 [[ -f ~/.zsh-credentials ]] && source ~/.zsh-credentials
-# - Startx at start up only if it's on tty1 and there isn't a DISPLAY set already
-if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && -z $TMUX ]];then
-	exec startx
-fi
+# - Load local environmental variables for login interactive sessions
+[[ -f ~/.local/share/zsh/login ]] && source ~/.local/share/zsh/login
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
