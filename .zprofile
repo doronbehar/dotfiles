@@ -49,5 +49,7 @@ alias reboot='systemctl reboot'
 alias luar='lua -e pcall\(require,\"luarocks.loader\"\) -i'
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
+# shortcut for launching GNU Octave with --no-gui
+alias oct='octave --no-gui'
 
 # vim:ft=zsh:foldmethod=marker
