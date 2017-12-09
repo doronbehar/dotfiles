@@ -1,2 +1,2 @@
 #!/bin/sh
-stig set srv.url "${TR_AUTH}"@localhost
+stig set srv.url "${TR_AUTH}"@localhost \; "$@"
