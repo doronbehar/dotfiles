@@ -13,10 +13,10 @@ INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
 ## perl variables
 PERL5LIB DEFAULT="@{HOME}/.perl5/lib/perl5"
 PERL_LOCAL_LIB_ROOT DEFAULT="@{HOME}/.perl5/local/perl5/lib/perl5"
-PERL_MB_OPT DEFAULT="--install_base \"$HOME/.perl5\""
-PERL_MM_OPT DEFUALT="INSTALL_BASE=$HOME/.perl5"
+PERL_MB_OPT DEFAULT="--install_base ${HOME}/.perl5"
+PERL_MM_OPT DEFAULT="INSTALL_BASE=${HOME}/.perl5"
 ## ranger: make it not load default rc.conf from /etc so startup will be faster
-RANGER_LOAD_DEFAULT_RC DEFUALT="FALSE"
+RANGER_LOAD_DEFAULT_RC DEFAULT=FALSE
 ## translate-shell
-HOME_LANG DEFUALT="he"
-TARGET_LANG DEFUALT="he"
+HOME_LANG DEFAULT=he
+TARGET_LANG DEFAULT=he
