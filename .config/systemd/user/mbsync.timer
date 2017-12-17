@@ -1,0 +1,10 @@
+[Unit]
+Description=mbsync GMail every 4 minutes
+
+[Timer]
+OnActiveSec=4min
+OnUnitActiveSec=4min
+
+
+[Install]
+WantedBy=timers.target

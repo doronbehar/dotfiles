@@ -1,0 +1,9 @@
+[Unit]
+Description=mbsync for GMail
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync gmail
+
+[Install]
+WantedBy=default.target
