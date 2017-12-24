@@ -70,10 +70,9 @@ p(){
 # }}}
 
 # {{{ **last actions**
-# - Load credentials only when the shell is a login and interactive shell
-[[ -f ~/.zsh-credentials ]] && source ~/.zsh-credentials
-# - Load local environmental variables for login interactive sessions
-[[ -f ~/.local/share/zsh/login ]] && source ~/.local/share/zsh/login
+# - Load local environmental variables for login interactive sessions according to the $DISPLAY and various other variables
+[[ -f ~/.local/share/zsh/login-"${_CURRENT_SHELL_ENVIRONMENT}-${HOST}" ]] && \
+	source ~/.local/share/zsh/login-"${_CURRENT_SHELL_ENVIRONMENT}-${HOST}"
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
