@@ -36,6 +36,7 @@ insert2MANPATH(){
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
 insert2PATH "$HOME/.luarocks/bin"
+insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
 if _command_exists ccache; then
 	insert2PATH "/usr/lib/ccache/bin"
 fi
