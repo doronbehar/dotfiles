@@ -53,7 +53,7 @@ if _command_exists nvim; then
 	export EDITOR="nvim"
 	export VISUAL="nvim"
 	if _command_exists nvr; then
-		export NVIM_LISTEN_ADDRESS="/run/user/1000/nvim.socket"
+		export NVIM_LISTEN_ADDRESS="${XDG_RUNTIME_DIR}/nvim.socket"
 	fi
 elif _command_exists vim; then
 	export EDITOR="vim"
