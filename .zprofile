@@ -113,6 +113,9 @@ p(){
 		fi
 	done < ~/.config/ranger/bookmarks
 }
+
+# {{{1 rvm
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 # }}}
 
 # vim:ft=zsh:foldmethod=marker
