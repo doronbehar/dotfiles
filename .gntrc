@@ -1,0 +1,4 @@
+[general]
+mouse = 1
+# use a custom window manager
+wm = /usr/lib64/gnt/irssi.so
