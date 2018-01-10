@@ -1,0 +1,9 @@
+[Unit]
+Description=Sync notmuch database
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/vdirsyncer sync
+
+[Install]
+WantedBy=default.target

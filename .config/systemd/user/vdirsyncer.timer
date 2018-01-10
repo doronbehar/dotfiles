@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync calendar and contacts with vdirsyncer every 6 hours
+
+[Timer]
+OnActiveSec=6hours
+OnUnitActiveSec=6hours
+
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync RSS feeds to mail every half a day
+
+[Timer]
+OnActiveSec=12hours
+OnUnitActiveSec=12hours
+
+
+[Install]
+WantedBy=timers.target
