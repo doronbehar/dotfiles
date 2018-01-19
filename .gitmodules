@@ -130,3 +130,6 @@
 [submodule ".config/trizen"]
 	path = .config/trizen
 	url = https://github.com/doronbehar/.config_trizen
+[submodule ".nyx"]
+	path = .nyx
+	url = https://github.com/doronbehar/.nyx
