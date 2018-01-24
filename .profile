@@ -14,8 +14,11 @@ if [ -n "$BASH_VERSION" ]; then
 	if [ -f "$HOME/.zshenv" ]; then
 		. "$HOME/.zshenv"
 	fi
-	if [ -f "$HOME/.zprofile" ]; then
-		. "$HOME/.zprofile"
+	if [ -f "$HOME/.aliases" ]; then
+		. "$HOME/.aliases"
+	fi
+	if [ -f "$HOME/.functions" ]; then
+		. "$HOME/.functions"
 	fi
 	# include .bashrc if it exists
 	if [ -f "$HOME/.bashrc" ]; then

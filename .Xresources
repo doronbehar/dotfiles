@@ -37,7 +37,7 @@ xterm*color15:#EEEEEC
 
 !! {{{ Behaviour
 xterm*metaSendsEscape:true
-xterm*loginShell:true
+xterm*loginShell:false
 xterm*title:xterm
 xterm*toolBar:false
 xterm*termName:xterm-256color
@@ -139,7 +139,7 @@ URxvt.underlineURLs:False
 !! }}}
 
 !! {{{ Behaviour
-URxvt*loginShell:true
+URxvt*loginShell:false
 URxvt.perl-ext:url-select,keyboard-select,font-size
 Urxvt.bidi.FieldSep:\x{2502}
 URxvt.url-launcher:/usr/bin/xdg-open

@@ -103,6 +103,10 @@ autoload -Uz promptinit && promptinit
 setopt promptsubst
 prompt my
 
+# {{{1 aliases and functions
+source ~/.aliases || echo you don\'t have aliases installed in your home directory
+source ~/.functions || echo you don\'t have functions installed in your home directory
+
 # {{{1 directories profiles
 source "$HOME"/.local/share/zsh/chpwd-profiles
 chpwd
