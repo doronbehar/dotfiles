@@ -32,9 +32,8 @@ if [ -f /etc/zsh_command_not_found ]; then
 elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
 	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
-# }}}
 
-# {{{ History.
+# {{{1 History.
 # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_DUPS
 # Delete old recorded entry if new entry is a duplicate.
@@ -55,9 +54,8 @@ setopt HIST_REDUCE_BLANKS
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE="$HOME/.local/share/zsh/history"
-# }}}
 
-# {{{ Bindings
+# {{{1 Bindings
 bindkey -v
 # The time lapse between <Esc> and changing to insert mode.
 export KEYTIMEOUT=1
@@ -88,9 +86,8 @@ fi
 if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
 fi
-# }}}
 
-# {{{ Looks
+# {{{1 Looks
 # syntax highlighting
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root line)
@@ -105,11 +102,10 @@ autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
 setopt promptsubst
 prompt my
-# }}}
 
-# {{{ directories profiles
+# {{{1 directories profiles
 source "$HOME"/.local/share/zsh/chpwd-profiles
 chpwd
-# }}}
 
+# {{{1 modeline
 # vim:ft=zsh:foldmethod=marker
