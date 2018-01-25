@@ -1,2 +1,0 @@
-#!/bin/sh
-stig set srv.url "${TR_AUTH}"@localhost \; "$@"
