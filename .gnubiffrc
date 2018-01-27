@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <configuration-file>
   <mailbox>
-    <parameter name="address"                 value="/home/doron/.local/share/mail/gmail/INBOX/tmp"/>
+    <parameter name="address"                 value="/home/doron/.local/share/mail/gmail/INBOX"/>
     <parameter name="authentication"          value="autodetect"/>
     <parameter name="certificate"             value=""/>
     <parameter name="delay"                   value="180"/>
