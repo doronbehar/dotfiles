@@ -19,9 +19,6 @@
 [submodule ".config/vimfx"]
 	path = .config/vimfx
 	url = git@github.com:doronbehar/.config_vimfx
-[submodule ".config/git"]
-	path = .config/git
-	url = git@github.com:doronbehar/.config_git
 [submodule ".config/vifm"]
 	path = .config/vifm
 	url = git@github.com:doronbehar/.config_vifm
@@ -57,7 +54,7 @@
 	url = git@github.com:doronbehar/.calcurse
 [submodule ".config/lyvi"]
 	path = .config/lyvi
-	url = git@gitlab.com:doronbehar/.config_lyvi
+	url = git@github.com:doronbehar/.config_lyvi
 [submodule ".local/share/applications"]
 	path = .local/share/applications
 	url = git@github.com:doronbehar/.local_share_applications
@@ -117,10 +114,10 @@
 	url = git@github.com:doronbehar/.config_mpDris2
 [submodule ".pandoc"]
 	path = .pandoc
-	url = https://github.com/doronbehar/.pandoc
+	url = git@github.com:doronbehar/.pandoc
 [submodule ".texmf"]
 	path = .texmf
-	url = https://github.com/doronbehar/.texmf
+	url = git@github.com:doronbehar/.texmf
 [submodule ".mplayer"]
 	path = .mplayer
 	url = ssh://git@github.com/doronbehar/.mplayer
@@ -129,7 +126,7 @@
 	url = git@github.com:doronbehar/.config_octave
 [submodule ".config/trizen"]
 	path = .config/trizen
-	url = https://github.com/doronbehar/.config_trizen
+	url = git@github.com:doronbehar/.config_trizen
 [submodule ".nyx"]
 	path = .nyx
-	url = https://github.com/doronbehar/.nyx
+	url = git@github.com:doronbehar/.nyx
