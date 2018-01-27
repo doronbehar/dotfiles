@@ -57,22 +57,22 @@
   </applet>
   <popup>
     <parameter name="applet_taskbar"          value="true"/>
-    <parameter name="popup_be_sticky"         value="false"/>
+    <parameter name="popup_be_sticky"         value="true"/>
     <parameter name="popup_body_lines"        value="10"/>
     <parameter name="popup_convert_retries"   value="5"/>
     <parameter name="popup_delay"             value="5"/>
     <parameter name="popup_font"              value="sans 10"/>
     <parameter name="popup_format"            value="50:50:50"/>
     <parameter name="popup_geometry"          value="-0+0"/>
-    <parameter name="popup_keep_above"        value="false"/>
-    <parameter name="popup_pager"             value="false"/>
+    <parameter name="popup_keep_above"        value="true"/>
+    <parameter name="popup_pager"             value="true"/>
     <parameter name="popup_size"              value="40"/>
     <parameter name="popup_sort_by"           value="!position mailbox"/>
     <parameter name="popup_taskbar"           value="true"/>
     <parameter name="popup_use_decoration"    value="false"/>
-    <parameter name="popup_use_format"        value="true"/>
-    <parameter name="popup_use_geometry"      value="true"/>
-    <parameter name="popup_use_size"          value="true"/>
+    <parameter name="popup_use_format"        value="false"/>
+    <parameter name="popup_use_geometry"      value="false"/>
+    <parameter name="popup_use_size"          value="false"/>
     <parameter name="use_popup"               value="true"/>
   </popup>
   <information>
