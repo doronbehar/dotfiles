@@ -31,10 +31,6 @@ alias tw=task
 alias ytv='youtube-viewer'
 # xdg-open
 alias o='xdg-open'
-# ranger with cd into last directory
-alias cranger='ranger --choosedir=/tmp/doron.rangerdir; cd `cat /tmp/doron.rangerdir`'
-alias ranger='ranger --choosedir=/tmp/doron.rangerdir'
-alias cdr='cd "$(cat /tmp/doron.rangerdir)"'
 # xclip
 alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"

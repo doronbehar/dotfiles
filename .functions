@@ -41,6 +41,22 @@ function t() {
 	fi
 }
 
+# {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
+ranger(){
+	ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory"
+}
+
+# {{{1 `cdr` - cd to ranger's last visited directory
+cdr(){
+	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
+}
+
+# {{{1 `cranger` - launch ranger && cd to ranger's last visited directory
+cranger(){
+	ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory"
+	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
+}
+
 # {{{1 `p` - bookmark navigator
 # Works like ranger's bookmarks
 # Usage:
