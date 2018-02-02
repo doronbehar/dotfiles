@@ -130,3 +130,6 @@
 [submodule ".nyx"]
 	path = .nyx
 	url = git@github.com:doronbehar/.nyx
+[submodule ".config/polybar"]
+	path = .config/polybar
+	url = ssh://git@github.com/doronbehar/.config_polybar
