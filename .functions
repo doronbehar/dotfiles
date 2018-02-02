@@ -43,7 +43,7 @@ function t() {
 
 # {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
 ranger(){
-	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory"
+	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
 }
 
 # {{{1 `cdr` - cd to ranger's last visited directory
@@ -53,7 +53,7 @@ cdr(){
 
 # {{{1 `cranger` - launch ranger && cd to ranger's last visited directory
 cranger(){
-	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory"
+	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
 	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
 }
 
