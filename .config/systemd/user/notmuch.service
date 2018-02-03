@@ -1,9 +1,9 @@
 [Unit]
-Description=mbsync for GMail
+Description=Sync notmuch database
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/mbsync gmail
+ExecStart=/usr/bin/notmuch new
 
 [Install]
 WantedBy=default.target
