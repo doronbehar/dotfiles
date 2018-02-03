@@ -40,7 +40,7 @@
   </general>
   <applet>
     <parameter name="applet_be_sticky"        value="false"/>
-    <parameter name="applet_font"             value="sans 10"/>
+    <parameter name="applet_font"             value="sans 12"/>
     <parameter name="applet_geometry"         value="+0+0"/>
     <parameter name="applet_keep_above"       value="false"/>
     <parameter name="applet_pager"            value="false"/>
@@ -49,11 +49,11 @@
     <parameter name="newmail_image"           value="/usr/share/gnubiff/envelopes.png"/>
     <parameter name="newmail_text"            value="%d"/>
     <parameter name="nomail_image"            value="/usr/share/gnubiff/tux-sleep.png"/>
-    <parameter name="nomail_text"             value="no mail"/>
+    <parameter name="nomail_text"             value="📧"/>
     <parameter name="use_newmail_image"       value="true"/>
     <parameter name="use_newmail_text"        value="false"/>
-    <parameter name="use_nomail_image"        value="true"/>
-    <parameter name="use_nomail_text"         value="false"/>
+    <parameter name="use_nomail_image"        value="false"/>
+    <parameter name="use_nomail_text"         value="true"/>
   </applet>
   <popup>
     <parameter name="applet_taskbar"          value="true"/>
