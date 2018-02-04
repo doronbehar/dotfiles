@@ -35,9 +35,9 @@ cdm(){
 # {{{1 `t` - Taskwarrior shortcut with evaluation of overriding runtime variables using environmental variables.
 function t() {
 	if [[ -z "$TASK_OVERRIDE" ]]; then
-		task "$@"
+		eval task "${TASK_OVERRIDE_EXTRA}" "${@}"
 	else
-		eval task $TASK_OVERRIDE "$@"
+		eval task ${TASK_OVERRIDE} "${@}"
 	fi
 }
 
