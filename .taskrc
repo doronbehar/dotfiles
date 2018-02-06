@@ -40,3 +40,6 @@ include ~/.local/share/tasks/reports.txt
 include ~/.local/share/tasks/udas.txt
 include ~/.local/share/tasks/credentials.shared.txt
 include ~/.local/share/tasks/credentials.PC.txt
+include ~/.local/share/tasks/contexts.txt
+
+# vim:ft=taskrc

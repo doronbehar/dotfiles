@@ -32,14 +32,8 @@ cdm(){
 	cd $MPD_MUSIC_DIR/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
 
-# {{{1 `t` - Taskwarrior shortcut with evaluation of overriding runtime variables using environmental variables.
-function t() {
-	if [[ -z "$TASK_OVERRIDE" ]]; then
-		eval task "${TASK_OVERRIDE_EXTRA}" "${@}"
-	else
-		eval task ${TASK_OVERRIDE} "${@}"
-	fi
-}
+# {{{1 `t` - Taskwarrior shortcut
+alias t=task
 
 # {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
 ranger(){

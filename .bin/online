@@ -1,6 +1,0 @@
-#!/bin/sh
-# Inspired by a [stack overflow answer](http://stackoverflow.com/a/14939373/4935114).
-# it's a simple script that returns true or false if the computer is currently online
-# according to kernel files in /sys/
-
-find /sys/class/net/ -maxdepth 1 -mindepth 1 ! -name "*lo*" -exec sh -c 'cat "$0"/carrier 2>&1' {} \; | grep -q '1'
