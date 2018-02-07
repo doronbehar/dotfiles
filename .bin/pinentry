@@ -6,25 +6,13 @@
 # see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=802020
 
 case $PINENTRY_USER_DATA in
-	curses)
-		exec /usr/bin/pinentry-curses "$@"
-		;;
-	emacs)
-		exec /usr/bin/pinentry-emacs "$@"
-		;;
-	gnome3)
-		exec /usr/bin/pinentry-gnome3 "$@"
-		;;
-	gtk)
-		exec /usr/bin/pinentry-gtk-2 "$@"
-		;;
-	qt)
-		exec /usr/bin/pinentry-qt "$@"
-		;;
-	tty)
-		exec /usr/bin/pinentry-tty "$@"
-		;;
-	*)
+	"")
 		exec /usr/bin/pinentry "$@"
 		;;
+	curses|emacs|gnome3|gtk-2|qt|tty)
+		exec /usr/bin/pinentry-${PINENTRY_USER_DATA} "$@"
+		;;
+	*)
+		echo there is no such pinentry program: /usr/bin/pinentry-"${PINENTRY_USER_DATA}" >&2
+		exit 1
 esac
