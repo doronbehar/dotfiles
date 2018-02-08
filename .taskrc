@@ -41,5 +41,6 @@ include ~/.local/share/tasks/udas.txt
 include ~/.local/share/tasks/credentials.shared.txt
 include ~/.local/share/tasks/credentials.PC.txt
 include ~/.local/share/tasks/contexts.txt
+context=dotfiles
 
 # vim:ft=taskrc
