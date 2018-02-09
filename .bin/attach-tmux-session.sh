@@ -1,0 +1,1 @@
+../.local/share/applications/attach-tmux-session.sh
