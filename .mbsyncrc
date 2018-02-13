@@ -1,7 +1,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User doron.behar@gmail.com
-PassCmd "pass software/gmail-mutt"
+PassCmd "pass software/desktop/gmail-hasmail"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 

@@ -3,4 +3,4 @@ click=launch-hasmail-mail-client
 [gmail]
 hostname=imap.gmail.com:993
 username=doron.behar@gmail.com
-password=pass software/gmail-mutt
+password=pass software/desktop/gmail-hasmail
