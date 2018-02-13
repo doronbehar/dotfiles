@@ -1,1 +1,12 @@
-.mutt/mailcap
+text/html; w3m %s -I %{charsed} -T text/html -dump | fribidi; copiousoutput
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; cat %s | docx2txt.pl | less
+application/msword; antiword %s | less;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; xlsx2csv -d tab %s | less;
+application/pdf; xdg-open %s
+image/*; curl -s %s -o $XDG_RUNTIME_DIR/rtv-img && sxiv $XDG_RUNTIME_DIR/rtv-img; test=test -n "$DISPLAY"
+image/x-imgur-album; curl -s %s $XDG_RUNTIME_DIR/rtv-img && sxiv $XDG_RUNTIME_DIR/rtv-img; test=test -n "$DISPLAY"
+video/x-youtube; youtube-viewer --download '%s'; test=test -n "$DISPLAY"
+video/*; mplayer '%s'; test=test -n "$DISPLAY"
+# Ascii videos
+video/x-youtube; youtube-dl -q -o - '%s' | mplayer -cache 8192 -vo caca -quiet -; needsterminal
+video/*; wget '%s' -O - | mplayer -cache 8192 -vo caca -quiet -; needsterminal
