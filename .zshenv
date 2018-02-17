@@ -32,6 +32,8 @@ insert2MANPATH(){
 }
 # }}}1
 
+# - {{{1 _CURRENT_SHELL_ENVIRONMENT
+export _CURRENT_SHELL_ENVIRONMENT="${TERM}-${DISPLAY:-$VENDOR-$OSTYPE}"
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
@@ -67,7 +69,7 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # - {{{1 local environmental variables
-[[ -f ~/.local/share/zsh/env ]] && source ~/.local/share/zsh/env
+[[ -f "~/.local/share/zsh/env-${_CURRENT_SHELL_ENVIRONMENT}" ]] && source "~/.local/share/zsh/env-${_CURRENT_SHELL_ENVIRONMENT}"
 
 # - {{{1 MPD
 [[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"

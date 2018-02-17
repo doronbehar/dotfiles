@@ -70,7 +70,6 @@ bindkey -a gE vi-forward-blank-word
 bindkey -a gW vi-backward-blank-word-end
 autoload zkbd;
 # source zkbd files according to the $TERMinal
-export _CURRENT_SHELL_ENVIRONMENT="${TERM}-${DISPLAY:-$VENDOR-$OSTYPE}"
 if [[ -f "${ZDOTDIR:-$HOME}/.zkbd/${_CURRENT_SHELL_ENVIRONMENT}" ]]; then
 	source "${ZDOTDIR:-$HOME}/.zkbd/${_CURRENT_SHELL_ENVIRONMENT}"
 	bindkey "${key[Home]}" beginning-of-line
