@@ -34,12 +34,14 @@ color=on
 dateformat = d/m/y-h:n
 
 report.list.sort=project+,tags+
+report.list.filter=+UNBLOCKED +PENDING
 report.ls.sort=project+,tags+
+report.ls.filter=+UNBLOCKED +PENDING
 
-include ~/.local/share/tasks/reports.txt
-include ~/.local/share/tasks/udas.txt
-include ~/.local/share/tasks/credentials.shared.txt
-include ~/.local/share/tasks/credentials.PC.txt
+include ~/.local/share/tasks/udas/bugwarrior.txt
+include ~/.local/share/tasks/udas/personal.txt
+include ~/.local/share/tasks/credentials/shared.txt
+include ~/.local/share/tasks/credentials/PC.txt
 include ~/.local/share/tasks/contexts.txt
 context=dotfiles
 
