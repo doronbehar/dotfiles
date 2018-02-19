@@ -10,30 +10,35 @@ fi
 export STDIN=$(mktemp --tmpdir="${CONFIGURED_RUNTIME_DIR}" ${me}.XXXXXXXX)
 cat /dev/stdin > "${STDIN}"
 # }}}
-# {{{ Evaluating the file name of the counter and initializing it
-export COUNTER="${CONFIGURED_RUNTIME_DIR}/counter"
-if [[ ! -f "${COUNTER}" ]]; then
-	touch "${COUNTER}"
-	chmod go-rwx,u=rw "${COUNTER}"
-	export COUNT=1
-	echo "${COUNT}" > "${COUNTER}"
-	
-fi
+
+# {{{ Editor
+CONFIGURED_EDITOR=${INFO_PRINT_EDITOR:-${EDITOR:-${VISUAL:-vi}}}
 # }}}
 
 # {{{ saving the file or displaying it in an appropriate program according to the environment.
 if [[ -z "$TMUX" ]]; then
-	if [[ -d ${INFO_PRINT_PRINTED_FILES_FALLBACK_DIR} ]]; then
-		CONFIGURED_FALLBACK_FILE="${INFO_PRINT_PRINTED_FILES_FALLBACK_DIR}/${COUNT}"
+	if [[ -z ${XAUTHORITY} ]]; then
+		export COUNTER="${CONFIGURED_RUNTIME_DIR}/counter"
+		if [[ ! -f "${COUNTER}" ]]; then
+			export COUNT=1
+			echo "${COUNT}" > "${COUNTER}"
+			chmod go-rwx,u=rw "${COUNTER}"
+		fi
+		cat "${STDIN}" > "${CONFIGURED_FALLBACK_FILE}"
+		COUNT="$(cat ${COUNTER})"
+		export COUNT=$((COUNT + 1))
+		echo "${COUNT}" > "${COUNTER}"
 	else
-		CONFIGURED_FALLBACK_FILE="${HOME}/${me}__${COUNT}"
+		XTERM="$(which xterm)"
+		URXVT="$(which urxvt)"
+		CONFIGURED_X_TERMINAL_EMULATOR=${INFO_PRINT_X_TERMINAL_EMULATOR:-${URXVT:-${XTERM}}}
+		if [[ -z ${CONFIGURED_X_TERMINAL_EMULATOR} ]]; then
+			echo "Error: \`info-print\` is running inside an X session but no terminal emulator is installed on this machine. set the environmental variable \`INFO_PRINT_X_TERMINAL_EMULATOR\` to your favorite terminal emulator to fix this." > "${CONFIGURED_FALLBACK_FILE}"
+			exit 2
+		fi
+		"${CONFIGURED_X_TERMINAL_EMULATOR}" -e "${CONFIGURED_EDITOR}" "${STDIN}"
 	fi
-	cat "${STDIN}" > "${CONFIGURED_FALLBACK_FILE}"
-	COUNT="$(cat ${COUNTER})"
-	export COUNT=$((COUNT + 1))
-	echo "${COUNT}" > "${COUNTER}"
 else
-	CONFIGURED_EDITOR=${INFO_PRINT_EDITOR:-${EDITOR:-${VISUAL:-vi}}}
 	tmux new-window -n "info-print" "${CONFIGURED_EDITOR} ${STDIN}"
 fi
 # }}}
