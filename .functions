@@ -70,6 +70,11 @@ p(){
 	done < ~/.config/ranger/bookmarks
 }
 
+# {{{1 `awesome-spawn` launch any program in the current awesome window
+awesome-spawn(){
+	awesome-client "require('awful').util.spawn_with_shell(\""$@"\")"
+}
+
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
