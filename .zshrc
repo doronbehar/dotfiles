@@ -107,7 +107,16 @@ source ~/.aliases || echo you don\'t have aliases installed in your home directo
 source ~/.functions || echo you don\'t have functions installed in your home directory
 
 # {{{1 directories profiles
-source "$HOME"/.local/share/zsh/chpwd-profiles
+function chpwd() {
+	chpwd.awk ~/.local/share/tasks/contexts.txt
+	if [ $? -eq 1 ]; then
+		if [[ "${_HACKING_FROM_HOME}" == "true" ]]; then
+			task context home
+		else
+			task context default
+		fi
+	fi
+}
 chpwd
 
 # {{{1 modeline
