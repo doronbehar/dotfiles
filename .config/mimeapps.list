@@ -1,0 +1,29 @@
+[Default Applications]
+x-scheme-handler/http=userapp-Firefox-WKOCWY.desktop
+x-scheme-handler/https=userapp-Firefox-WKOCWY.desktop
+x-scheme-handler/ftp=userapp-Firefox-WKOCWY.desktop
+x-scheme-handler/chrome=userapp-Firefox-WKOCWY.desktop
+text/html=userapp-Firefox-WKOCWY.desktop
+application/x-extension-htm=userapp-Firefox-WKOCWY.desktop
+application/x-extension-html=userapp-Firefox-WKOCWY.desktop
+application/x-extension-shtml=userapp-Firefox-WKOCWY.desktop
+application/xhtml+xml=userapp-Firefox-WKOCWY.desktop
+application/x-extension-xhtml=userapp-Firefox-WKOCWY.desktop
+application/x-extension-xht=userapp-Firefox-WKOCWY.desktop
+application/pdf=zathura.desktop
+
+[Added Associations]
+x-scheme-handler/http=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+x-scheme-handler/https=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+x-scheme-handler/ftp=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+x-scheme-handler/chrome=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+text/html=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/x-extension-htm=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/x-extension-html=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/x-extension-shtml=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/xhtml+xml=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/x-extension-xhtml=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/x-extension-xht=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
+application/pdf=YACReader.desktop;
+application/x-sh=nvim.desktop;
+application/json=nvim.desktop;
