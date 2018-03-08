@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <configuration-file>
   <mailbox>
-    <parameter name="address"                 value="/home/doron/.local/share/mail/gmail/INBOX"/>
+    <parameter name="address"                 value="/home/doron/.local/share/mail/gmail/INBOX/new"/>
     <parameter name="authentication"          value="autodetect"/>
     <parameter name="certificate"             value=""/>
     <parameter name="delay"                   value="180"/>
@@ -11,8 +11,8 @@
     <parameter name="name"                    value="gmail"/>
     <parameter name="other_folder"            value="INBOX"/>
     <parameter name="other_port"              value="0"/>
-    <parameter name="password_aes"            value="487D2D99816BD3D848792C93B8AAE1BB"/>
-    <parameter name="protocol"                value="-"/>
+    <parameter name="password_aes"            value="BF3234DEE906BBCDDEFB2242EDC68ABB"/>
+    <parameter name="protocol"                value="maildir"/>
     <parameter name="seen"                    value=""/>
     <parameter name="use_idle"                value="true"/>
     <parameter name="use_other_folder"        value="false"/>
@@ -40,7 +40,7 @@
   </general>
   <applet>
     <parameter name="applet_be_sticky"        value="false"/>
-    <parameter name="applet_font"             value="sans 12"/>
+    <parameter name="applet_font"             value="Sans 14"/>
     <parameter name="applet_geometry"         value="+0+0"/>
     <parameter name="applet_keep_above"       value="false"/>
     <parameter name="applet_pager"            value="false"/>
