@@ -5,10 +5,11 @@ BEGIN{
 }
 {
 	if ($0 ~ /^context./ && $4 != "") {
+		CONTEXT=$2
 		for (i = 4; i <= NF; i++) {
 			sub(/\~/, ENVIRON["HOME"],$i)
 			if (ENVIRON["PWD"] == $i) {
-				system("task context "$2)
+				system("task context "CONTEXT)
 				exit_invoked=1
 				exit(0)
 			}
