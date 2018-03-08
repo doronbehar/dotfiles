@@ -72,7 +72,8 @@ p(){
 
 # {{{1 `awesome-spawn` launch any program in the current awesome window
 awesome-spawn(){
-	awesome-client "require('awful').util.spawn_with_shell(\""$@"\")"
+	_arguments="$@"
+	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
 }
 
 # {{{1 rvm
