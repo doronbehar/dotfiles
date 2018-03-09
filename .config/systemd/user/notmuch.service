@@ -1,9 +1,0 @@
-[Unit]
-Description=Sync notmuch database
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/notmuch new
-
-[Install]
-WantedBy=default.target

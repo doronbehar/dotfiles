@@ -1,9 +1,0 @@
-[Unit]
-Description=Sync notmuch database
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/r2e run
-
-[Install]
-WantedBy=default.target
