@@ -106,5 +106,8 @@ prompt my
 source ~/.aliases || echo you don\'t have aliases installed in your home directory
 source ~/.functions || echo you don\'t have functions installed in your home directory
 
+# {{{1 chpwd
+source ~/.zsh-chpwd
+
 # {{{1 modeline
 # vim:ft=zsh:foldmethod=marker
