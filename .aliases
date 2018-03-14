@@ -41,10 +41,14 @@ alias poweroff='systemctl poweroff'
 alias reboot='systemctl reboot'
 # lua interpreter with luarocks loaded in package.path
 alias luar='lua -e pcall\(require,\"luarocks.loader\"\) -e package.path=package.path\ ..\ \"\;/usr/share/awesome/lib/\?/init.lua\;/usr/share/awesome/lib/\?.lua\" -i'
+# lua interpreter with luarocks loaded in package.path including inspect for viewing tables
+alias luari='lua -e pcall\(require,\"luarocks.loader\"\) -e package.path=package.path\ ..\ \"\;/usr/share/awesome/lib/\?/init.lua\;/usr/share/awesome/lib/\?.lua\" -e i\ =\ require\(\"inspect\"\) -i'
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
 # shortcut for launching GNU Octave with --no-gui
 alias oct='octave --no-gui'
+# Shortcut for python debugger
+alias pdb='python -m pdb '
 
 # {{{1 modeline
 # vim:ft=sh:foldmethod=marker
