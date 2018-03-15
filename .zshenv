@@ -79,5 +79,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # - {{{1 COLUMNS
 export COLUMNS=
+# - }}}1
+
 # - {{{1
 # vim:ft=zsh:foldmethod=marker
