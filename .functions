@@ -76,6 +76,7 @@ awesome-spawn(){
 	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
 }
 
+
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then

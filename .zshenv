@@ -69,7 +69,7 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # - {{{1 local environmental variables
-[[ -f "~/.local/share/zsh/env-${_CURRENT_SHELL_ENVIRONMENT}" ]] && source "~/.local/share/zsh/env-${_CURRENT_SHELL_ENVIRONMENT}"
+[[ -f "$HOME/.local/share/zsh/${_CURRENT_SHELL_ENVIRONMENT}-${HOST}/env" ]] && source "$HOME/.local/share/zsh/${_CURRENT_SHELL_ENVIRONMENT}-${HOST}/env"
 
 # - {{{1 MPD
 [[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"

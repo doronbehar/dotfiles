@@ -6,3 +6,5 @@ msmtp-runqueue.sh
 if [ "$SHLVL" = 1 ]; then
     [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
 fi
+
+[[ -f "$HOME/.local/share/zsh/${_CURRENT_SHELL_ENVIRONMENT}-${HOST}/logout" ]] && source "$HOME/.local/share/zsh/${_CURRENT_SHELL_ENVIRONMENT}-${HOST}/logout"
