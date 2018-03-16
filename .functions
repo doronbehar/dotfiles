@@ -88,7 +88,7 @@ if _command_exists fzf; then
 fi
 
 # {{{1 `cf` cd into a `dzfz` selection
-cf(){
+cdf(){
 	cd "$(dfzf)"
 }
 
