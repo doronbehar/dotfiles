@@ -76,20 +76,11 @@ awesome-spawn(){
 	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
 }
 
-# {{{1 `dzfz` - fzf searching withing a configured list of directories
-if _command_exists fzf; then
-	dfzf(){
-		if [[ -z ${_DFZF_DEFAULT_COMMAND} ]]; then
-			echo Please set _DFZF_DEFAULT_COMMAND before using the function dfzf
-		else
-			env FZF_DEFAULT_COMMAND=$_DFZF_DEFAULT_COMMAND fzf
-		fi
-	}
-fi
-
-# {{{1 `cf` cd into a `dzfz` selection
+# {{{1 `cdf` cd into a directory chosen with a fzf selection
 cdf(){
-	cd "$(dfzf)"
+	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _DFZF_DEFAULT_COMMAND"
+	_dir="$(env FZF_DEFAULT_COMMAND=$_DFZF_DEFAULT_COMMAND fzf || echo $_err_message > /dev/stderr && break)"
+	cd "$_dir" || echo $_err_message > /dev/stderr
 }
 
 # {{{1 rvm
