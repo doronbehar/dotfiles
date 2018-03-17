@@ -79,7 +79,11 @@ awesome-spawn(){
 # {{{1 `cdf` cd into a directory chosen with a fzf selection
 cdf(){
 	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _DFZF_DEFAULT_COMMAND"
-	_dir="$(env FZF_DEFAULT_COMMAND=$_DFZF_DEFAULT_COMMAND fzf || echo $_err_message > /dev/stderr && break)"
+	_dir="$(env FZF_DEFAULT_COMMAND=$_DFZF_DEFAULT_COMMAND fzf)"
+	if [[ -z $_dir ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
 	cd "$_dir" || echo $_err_message > /dev/stderr
 }
 
@@ -100,7 +104,7 @@ kdec(){
 	dev_list="$(kdeconnect-cli --list-devices | grep "${_KDECONNECT_DEFAULT_DEVICE}")"
 	if [[ -z "${dev_list}" ]]; then
 		echo It seems the default device configured with the env variable _KDECONNECT_DEFAULT_DEVICE has never been paired > /dev/stderr
-		break
+		return
 	else
 		echo Using device: ${dev_list}
 	fi
