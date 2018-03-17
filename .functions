@@ -83,6 +83,36 @@ cdf(){
 	cd "$_dir" || echo $_err_message > /dev/stderr
 }
 
+# {{{1 `khardp` print a phone number of khard contact using fzf
+khardp(){
+	_KFZF_DEFAULT_COMMAND='khard phone --parsable'
+	env FZF_DEFAULT_COMMAND="${_KFZF_DEFAULT_COMMAND}" fzf | awk -F$'\t' '{print $1}'
+}
+
+# {{{1 `kharde` print an email of a khard contact using fzf
+kharde(){
+	_EFZF_DEFAULT_COMMAND='khard email --parsable'
+	env FZF_DEFAULT_COMMAND="${_EFZF_DEFAULT_COMMAND}" fzf | awk -F$'\t' '{print $1}'
+}
+
+# {{{1 `kdec` kdeconnect-cli with default device as first argument
+kdec(){
+	dev_list="$(kdeconnect-cli --list-devices | grep "${_KDECONNECT_DEFAULT_DEVICE}")"
+	if [[ -z "${dev_list}" ]]; then
+		echo It seems the default device configured with the env variable _KDECONNECT_DEFAULT_DEVICE has never been paired > /dev/stderr
+		break
+	else
+		echo Using device: ${dev_list}
+	fi
+	kdeconnect-cli --device ${_KDECONNECT_DEFAULT_DEVICE} $@
+}
+
+# {{{1 `sms` Send a text message through kdeconnect-cli
+sms(){
+	_arguments="$@"
+	kdec --send-sms "${_arguments}" --destination "$(khardp)"
+}
+
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
