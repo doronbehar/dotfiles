@@ -101,12 +101,12 @@ kharde(){
 
 # {{{1 `kdec` kdeconnect-cli with default device as first argument
 kdec(){
-	dev_list="$(kdeconnect-cli --list-devices | grep "${_KDECONNECT_DEFAULT_DEVICE}")"
-	if [[ -z "${dev_list}" ]]; then
-		echo It seems the default device configured with the env variable _KDECONNECT_DEFAULT_DEVICE has never been paired > /dev/stderr
+	device_name="$(kdeconnect-cli --list-devices | awk --assign dev_id="${_KDECONNECT_DEFAULT_DEVICE}" -F'[-|:|(|)]' '$(NF - 1) == "paired and reachable" && $(NF - 2) ~ dev_id {print $2}')"
+	if [[ -z "${device_name}" ]]; then
+		echo It seems the default device configured with the env variable _KDECONNECT_DEFAULT_DEVICE \(${_KDECONNECT_DEFAULT_DEVICE}\) is not reachable or not paired > /dev/stderr
 		return
 	else
-		echo Using device: ${dev_list}
+		echo Using device:${device_name}
 	fi
 	kdeconnect-cli --device ${_KDECONNECT_DEFAULT_DEVICE} $@
 }
