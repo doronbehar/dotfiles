@@ -1,2 +1,3 @@
-indent yes
-output-xhtml yes
+indent: yes
+output-xhtml: yes
+quiet: yes
