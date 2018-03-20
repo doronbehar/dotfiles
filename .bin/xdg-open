@@ -1,0 +1,41 @@
+#!/usr/bin/python
+"""
+Parse the given command line argument and launch xdg-open or launch a
+specific program configured with ~/.config/xdg-open.json
+"""
+
+from urllib.parse import urlparse
+import sys
+import os
+import json
+import subprocess
+
+def main():
+    """
+    main
+    """
+    if 'XDG_OPEN_WRAPPER_CONFIG' in os.environ:
+        config_file = os.environ.get['XDG_OPEN_WRAPPER_CONFIG']
+    else:
+        config_file = (os.environ.get('XDG_CONFIG_HOME') or os.path.expanduser('~/.config')) \
+            + '/xdg-open.json'
+    try:
+        conf = json.load(open(config_file))
+    except json.decoder.JSONDecodeError:
+        print("There seems to be a problem with the configuration file, here is the error:\n")
+        raise
+    for arg in sys.argv[1:]:
+        url = urlparse(arg)
+        for i, config in enumerate(conf, start=0):
+            cmd = conf[i]['exe']
+            if not url.scheme in config['url']['scheme']:
+                sys.exit(1)
+            if not url.netloc in config['url']['netloc']:
+                sys.exit(1)
+            if not url.path in config['url']['path']:
+                sys.exit(1)
+            cmd.append(arg)
+            subprocess.call(cmd)
+
+if __name__ == '__main__':
+    main()
