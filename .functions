@@ -114,7 +114,30 @@ kdec(){
 # {{{1 `sms` Send a text message through kdeconnect-cli
 sms(){
 	_arguments="$@"
-	kdec --send-sms "${_arguments}" --destination "$(khardp)"
+	_reciepent="$(khardp)"
+	if [[ -z "${_reciepent}" ]]; then
+		echo No reciepent was chosen > /dev/stderr
+		return
+	else
+		echo "${_reciepent}" > /tmp/kdeconnect_doron/sms-last-reciepent
+		kdec --send-sms "${_arguments}" --destination "${_reciepent}"
+	fi
+}
+
+# {{{1 `smsl` Send a text message through kdeconnect-cli to the last reciepent used with sms
+smsl(){
+	_arguments="$@"
+	_reciepent="$(cat /tmp/kdeconnect_doron/sms-last-reciepent)"
+	if [[ -z "${_reciepent}" ]]; then
+		_reciepent="$(khardp)"
+		echo "${_reciepent}" > /tmp/kdeconnect_doron/sms-last-reciepent
+	fi
+	if [[ -z "${_reciepent}" ]]; then
+		echo No reciepent was chosen > /dev/stderr
+		return
+	else
+		kdec --send-sms "${_arguments}" --destination "${_reciepent}"
+	fi
 }
 
 # {{{1 rvm
