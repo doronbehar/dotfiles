@@ -22,3 +22,28 @@ Patterns *
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+
+IMAPAccount vps
+Host imap.doronbehar.com
+User doron
+PassCmd "pass hosts/vps/users/doron"
+SSLType IMAPS
+CertificateFile ~/.local/share/certificates/imap.doronbehar.com
+
+IMAPStore vps-remote
+Account vps
+
+MaildirStore vps-local
+# The trailing "/" is important
+Path ~/.local/share/mail/vps/
+Inbox ~/.local/share/mail/vps/INBOX
+SubFolders Verbatim
+
+Channel vps
+Master :vps-remote:
+Slave :vps-local:
+Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *

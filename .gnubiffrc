@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <configuration-file>
   <mailbox>
+    <parameter name="address"                 value="/home/doron/.local/share/mail/vps/INBOX/new"/>
+    <parameter name="authentication"          value="autodetect"/>
+    <parameter name="certificate"             value=""/>
+    <parameter name="delay"                   value="180"/>
+    <parameter name="error_reset_msgs"        value="false"/>
+    <parameter name="file_restore_atime"      value="false"/>
+    <parameter name="local_fam_enable"        value="true"/>
+    <parameter name="name"                    value="vps"/>
+    <parameter name="other_folder"            value="INBOX"/>
+    <parameter name="other_port"              value="0"/>
+    <parameter name="password_aes"            value="BF3234DEE906BBCDDEFB2242EDC68ABB"/>
+    <parameter name="protocol"                value="maildir"/>
+    <parameter name="seen"                    value=""/>
+    <parameter name="use_idle"                value="true"/>
+    <parameter name="use_other_folder"        value="false"/>
+    <parameter name="use_other_port"          value="false"/>
+    <parameter name="username"                value="doron"/>
+  </mailbox>
+  <mailbox>
     <parameter name="address"                 value="/home/doron/.local/share/mail/gmail/INBOX/new"/>
     <parameter name="authentication"          value="autodetect"/>
     <parameter name="certificate"             value=""/>
