@@ -29,10 +29,13 @@ def main():
         for i, config in enumerate(conf, start=0):
             cmd = conf[i]['exe']
             if not url.scheme in config['url']['scheme']:
+                subprocess.call(['/usr/bin/xdg-open', arg])
                 sys.exit(1)
             if not url.netloc in config['url']['netloc']:
+                subprocess.call(['/usr/bin/xdg-open', arg])
                 sys.exit(1)
             if not url.path in config['url']['path']:
+                subprocess.call(['/usr/bin/xdg-open', arg])
                 sys.exit(1)
             cmd.append(arg)
             subprocess.call(cmd)
