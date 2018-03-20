@@ -11,6 +11,8 @@ TEXMFHOME DEFAULT="@{HOME}/.texmf"
 TEXMFVAR DEFAULT="@{HOME}/.texmf-var"
 TEXMFCONFIG DEFAULT="@{HOME}/.texmf-config"
 INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
+## XDG_UTILS
+XDG_UTILS_DEBUG_LEVEL DEFAULT="1"
 ## perl variables
 PERL5LIB DEFAULT="@{HOME}/.perl5/lib/perl5"
 PERL_LOCAL_LIB_ROOT DEFAULT="@{HOME}/.perl5/local/perl5/lib/perl5"
