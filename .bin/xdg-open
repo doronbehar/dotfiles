@@ -39,6 +39,7 @@ def main():
                 sys.exit(1)
             cmd.append(arg)
             subprocess.call(cmd)
+            sys.exit(0)
 
 if __name__ == '__main__':
     main()
