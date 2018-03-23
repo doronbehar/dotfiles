@@ -28,7 +28,6 @@ Host imap.doronbehar.com
 User doron
 PassCmd "pass hosts/vps/users/doron"
 SSLType IMAPS
-CertificateFile ~/.local/share/certificates/imap.doronbehar.com
 
 IMAPStore vps-remote
 Account vps
