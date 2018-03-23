@@ -12,7 +12,7 @@
 #
 
 [database]
-path=/home/doron/.local/share/mail/gmail
+path=/home/doron/.local/share/mail
 
 # User configuration
 #
