@@ -32,8 +32,8 @@ insert2MANPATH(){
 }
 # }}}1
 
-# - {{{1 _CURRENT_SHELL_ENVIRONMENT
-export _CURRENT_SHELL_ENVIRONMENT="${TERM}-${DISPLAY:-$VENDOR-$OSTYPE}"
+export DOMAIN="$(hostname --domain)"
+export FQDN="$(hostname --fqdn)"
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
@@ -71,7 +71,13 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # - {{{1 local environmental variables
+[[ -f "$HOME/.local/share/zsh/${TERM}/env" ]] && source "$HOME/.local/share/zsh/${TERM}/env"
+[[ -f "$HOME/.local/share/zsh/${DISPLAY}/env" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/env"
+[[ -f "$HOME/.local/share/zsh/${VENDOR}/env" ]] && source "$HOME/.local/share/zsh/${VENDOR}/env"
+[[ -f "$HOME/.local/share/zsh/${OSTYPE}/env" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/env"
 [[ -f "$HOME/.local/share/zsh/${HOST}/env" ]] && source "$HOME/.local/share/zsh/${HOST}/env"
+[[ -f "$HOME/.local/share/zsh/${FQDN}/env" ]] && source "$HOME/.local/share/zsh/${FQDN}/env"
+[[ -f "$HOME/.local/share/zsh/${DOMAIN}/env" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/env"
 
 # - {{{1 MPD
 [[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
