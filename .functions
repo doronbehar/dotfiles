@@ -27,6 +27,11 @@ fpath(){
 	echo "$fpath" | sed -e 's/\ /\n/g'
 }
 
+# {{{1 `path` - list all directories included in $PATH, with \n between them.
+path(){
+	echo "${PATH//:/\n}"
+}
+
 # {{{1 `cdm` - Go to the directory the current song played by mpd is located in
 cdm(){
 	cd $MPD_MUSIC_DIR/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"

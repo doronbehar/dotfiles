@@ -1,4 +1,0 @@
-#!/bin/sh
-# Show PATH
-
-echo "${PATH//:/$'\n'}"
