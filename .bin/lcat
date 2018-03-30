@@ -1,3 +1,0 @@
-#!/bin/sh
-[ $# -eq 3 -a -f "$3" ] && INPUT="$3" || INPUT="-"
-tail -n +$1 "$INPUT" | head -n $((${2}-${1}+1))
