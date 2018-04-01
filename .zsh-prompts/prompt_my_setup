@@ -15,6 +15,7 @@ prompt_my_setup(){
 		zstyle ':vcs_info:*' unstagedstr '●'
 	fi
 	add-zsh-hook precmd prompt_my_precmd
+	add-zsh-hook preexec prompt_my_preexec
 	if [ -z $DISPLAY ]; then
 		PS1_base='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b${vcs_info_msg_0_}%K{green}%F{black} %3c %(1j.%K{yellow}%F{green}>%K{yellow}%F{black}%B %j %b%K{default}%F{yellow}>.%K{default}%F{green}>)%b%u%k%f '
 		PS2='%K{blue}%F{white} %^ %K{default}%F{blue}> '
@@ -40,7 +41,7 @@ function zle-line-init zle-keymap-select {
 	zle reset-prompt
 }
 
-preexec () {
+prompt_my_preexec () {
 	print -rn -- $terminfo[el];
 }
 
