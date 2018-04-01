@@ -1,4 +1,5 @@
 prompt_my_setup(){
+	prompt_opts=(subst percent)
 	autoload -Uz vcs_info
 	zstyle ':vcs_info:*' disable bzr cdv darcs mtn svk tla
 	zstyle ':vcs_info:*' check-for-changes true
@@ -38,7 +39,10 @@ function zle-line-init zle-keymap-select {
 	PS1="%{$terminfo_down_sc$PS1_2$terminfo[rc]%}$PS1_base"
 	zle reset-prompt
 }
-preexec () { print -rn -- $terminfo[el]; }
+
+preexec () {
+	print -rn -- $terminfo[el];
+}
 
 prompt_my_setup
 

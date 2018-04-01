@@ -99,7 +99,6 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 fpath=(~/.zsh-prompts $fpath)
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
-setopt promptsubst
 prompt my
 
 # {{{1 aliases and functions
