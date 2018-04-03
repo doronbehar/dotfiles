@@ -2,21 +2,27 @@ j		next-line
 k		prev-line
 l		forward-char
 h		backward-char
+e		forward-word
+w		backward-word
 ^e		down-line
 ^y		up-line
 \kD		scroll-forward-page-only # PgDown
 \kU		scroll-backward-page-only # PgUp
 g		beginning-of-node
 G		end-of-node
+:		goto-node
 \kh		beginning-of-node # Home
 \ke		end-of-node # End
 \t		select-reference-this-line
 -		history-node
-n		next-node
-p		prev-node
+}		next-node
+{		prev-node
+n		search-next
+N		search-previous
+^O		select-visited-node
 t		top-node
 d		dir-node
-\mu		clear-search
+\v		clear-search
 
 #var
 highlight-searches=On
