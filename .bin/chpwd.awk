@@ -11,7 +11,7 @@ BEGIN{
 			split($i, directories, " ")
 			for (d in directories) {
 				if (ENVIRON["PWD"] ~ directories[d]) {
-					system("task context "CONTEXT)
+					print CONTEXT
 					exit_invoked=1
 					exit(0)
 				}

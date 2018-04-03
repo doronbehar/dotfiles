@@ -1,11 +1,13 @@
 function chpwd() {
-	chpwd.awk ~/.local/share/tasks/contexts.txt
-	if [ $? -eq 1 ]; then
+	CONTEXT="$(chpwd.awk ~/.local/share/tasks/contexts.txt)"
+	if [[ -z ${CONTEXT} ]]; then
 		if [[ "${_HACKING_FROM_HOME}" == "true" ]]; then
 			task context home
 		else
 			task context default
 		fi
+	else
+		task context ${CONTEXT}
 	fi
 }
 chpwd
