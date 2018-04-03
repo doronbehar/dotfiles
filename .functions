@@ -37,9 +37,6 @@ cdm(){
 	cd $MPD_MUSIC_DIR/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
 
-# {{{1 `t` - Taskwarrior shortcut
-alias t=task
-
 # {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
 ranger(){
 	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"

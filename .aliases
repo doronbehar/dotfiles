@@ -27,6 +27,7 @@ fi
 # {{{1 Other aliases
 # taskwarrior
 alias tw=task
+alias t=task
 # YouTube-viewer perl application.
 alias ytv='youtube-viewer'
 # xdg-open
