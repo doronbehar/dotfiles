@@ -41,9 +41,9 @@ alias ccat='source-highlight --failsafe --infer-lang --out-format=esc --style-fi
 alias poweroff='systemctl poweroff'
 alias reboot='systemctl reboot'
 # lua interpreter with luarocks loaded in package.path
-alias luar='lua -e pcall\(require,\"luarocks.loader\"\) -e package.path=package.path\ ..\ \"\;/usr/share/awesome/lib/\?/init.lua\;/usr/share/awesome/lib/\?.lua\" -i'
+alias luar='lua -e package.path=package.path\ ..\ \"\;/usr/share/awesome/lib/\?/init.lua\;/usr/share/awesome/lib/\?.lua\" -i'
 # lua interpreter with luarocks loaded in package.path including inspect for viewing tables
-alias luari='lua -e pcall\(require,\"luarocks.loader\"\) -e package.path=package.path\ ..\ \"\;/usr/share/awesome/lib/\?/init.lua\;/usr/share/awesome/lib/\?.lua\" -e i\ =\ require\(\"inspect\"\) -i'
+alias luari='lua -e package.path=package.path\ ..\ \"\;/usr/share/awesome/lib/\?/init.lua\;/usr/share/awesome/lib/\?.lua\" -e i\ =\ require\(\"inspect\"\) -i'
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
 # shortcut for launching GNU Octave with --no-gui

@@ -31,9 +31,22 @@ insert2MANPATH(){
 	done
 }
 # }}}1
+# {{{1 `insert2LUA_PATH`: function to insert (in the beginning) of $LUA_PATH a directory only if it doesn't exist already.
+insert2LUA_PATH(){
+	# For all strings passed to function
+	for i in "$@"; do
+		# If it doesn't exists already in $LUA_PATH
+		if ! echo $LUA_PATH | grep -q "$i"; then
+			export LUA_PATH="$i"";""$LUA_PATH"
+		fi
+	done
+}
+# }}}1
 
+# {{{1 DOMAIN and FQDN
 export DOMAIN="$(hostname --domain)"
 export FQDN="$(hostname --fqdn)"
+
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
@@ -52,6 +65,14 @@ insert2PATH "$HOME/.perl5/bin"
 if [ -d "$HOME/.virtualenv" ]; then
 	insert2MANPATH "$(find $HOME/.virtualenv -type d -name man)"
 fi
+
+# - {{{1 LUA_PATH
+if _command_exists lua; then
+	LUA_PATH="$(lua -e 'print(package.path)')"
+	insert2LUA_PATH  "$HOME/.luarocks/share/lua/5.3/?.lua" "$HOME/.luarocks/share/lua/5.3/?/init.lua"
+	export LUA_PATH="./?.lua;./?/init.lua;./src/?.lua;./src/?/init.lua;$LUA_PATH"
+fi
+
 
 # - {{{1 VISUAL/EDITOR
 if _command_exists nvim; then
