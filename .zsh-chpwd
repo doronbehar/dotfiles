@@ -4,15 +4,13 @@ _task_context(){
 		task context "$@"
 	elif [[ $TCS == 1 ]]; then
 		task context "$@" > /dev/null
-		echo context "$@" > /dev/null
 	else
 		task context "$@" &> /dev/null
-		echo context "$@" &> /dev/null
 	fi
 }
 
 function chpwd() {
-	CONTEXT="$(chpwd.awk ~/.local/share/tasks/contexts.txt)"
+	CONTEXT="$(context.awk ~/.local/share/tasks/contexts.txt)"
 	if [[ -z ${CONTEXT} ]]; then
 		if [[ "${_HACKING_FROM_HOME}" == "true" ]]; then
 			_task_context home
