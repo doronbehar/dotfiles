@@ -10,10 +10,18 @@ BEGIN{
 			gsub(/\~/, ENVIRON["HOME"], $i)
 			split($i, directories, " ")
 			for (d in directories) {
-				if (ENVIRON["PWD"] ~ directories[d]) {
-					print CONTEXT
-					exit_invoked=1
-					exit(0)
+				if (directories[d] ~ /\*/) {
+					if (ENVIRON["PWD"] ~ directories[d]) {
+						print CONTEXT
+						exit_invoked=1
+						exit(0)
+					}
+				} else {
+					if (ENVIRON["PWD"] == directories[d]) {
+						print CONTEXT
+						exit_invoked=1
+						exit(0)
+					}
 				}
 			}
 		}
