@@ -33,6 +33,7 @@ path=/home/doron/.local/share/mail
 [user]
 name=Doron Behar
 primary_email=doron.behar@gmail.com
+other_email=me@doronbehar.com
 
 # Configuration for "notmuch new"
 #
@@ -90,16 +91,3 @@ exclude_tags=deleted;spam;
 
 [maildir]
 synchronize_flags=true
-
-# Cryptography related configuration
-#
-# The following *deprecated* option is currently supported:
-#
-#	gpg_path
-#		binary name or full path to invoke gpg.
-#		NOTE: In a future build, this option will be ignored.
-#		Setting $PATH is a better approach.
-#
-
-[crypto]
-gpg_path=gpg
