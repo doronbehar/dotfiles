@@ -78,7 +78,7 @@ awesome-spawn(){
 	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
 }
 
-# {{{1 `cdf` cd into a directory chosen with a fzf selection
+# {{{1 `cdf` cd into a directory chosen with a fzf selection for _FZF_DEFAULT_COMMAND_CDF
 cdf(){
 	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _FZF_DEFAULT_COMMAND_CDF"
 	_dir="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_CDF fzf)"
@@ -89,6 +89,48 @@ cdf(){
 	cd "$_dir" || echo $_err_message > /dev/stderr
 }
 
+# {{{1 `cdh` cd into a directory chosen with a fzf selection for _FZF_DEFAULT_COMMAND_CDH
+cdh(){
+	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _FZF_DEFAULT_COMMAND_CDH"
+	_dir="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_CDH fzf)"
+	if [[ -z $_dir ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
+	cd "$_dir" || echo $_err_message > /dev/stderr
+}
+# {{{1 `cdhs` cd into a directory chosen with a fzf selection for _FZF_DEFAULT_COMMAND_CDHS
+cdhs(){
+	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _FZF_DEFAULT_COMMAND_CDHS"
+	_dir="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_CDHS fzf)"
+	if [[ -z $_dir ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
+	cd "$_dir" || echo $_err_message > /dev/stderr
+}
+# {{{1 `vif` edit with $EDITOR a file chosen with a fzf selection for _FZF_DEFAULT_COMMAND_VIF
+vif(){
+	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _FZF_DEFAULT_COMMAND_VIF"
+	local _file
+	_file="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_VIF fzf)"
+	if [[ -z $_file ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
+	eval ${EDITOR-:${VISUAL}} "$_file" || echo $_err_message > /dev/stderr
+}
+# {{{1 `vifs` edit with $EDITOR a file chosen with a fzf selection for _FZF_DEFAULT_COMMAND_VIFS
+vifs(){
+	_err_message="If you where not satisfied from fzf\'s output, checkout the env variable _FZF_DEFAULT_COMMAND_VIFS"
+	local _file
+	_file="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_VIFS fzf)"
+	if [[ -z $_file ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
+	eval ${EDITOR-:${VISUAL}} "$_file" || echo $_err_message > /dev/stderr
+}
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
 	_KFZF_DEFAULT_COMMAND='khard phone --parsable'
