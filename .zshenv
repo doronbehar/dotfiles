@@ -44,8 +44,8 @@ insert2LUA_PATH(){
 # }}}1
 
 # {{{1 DOMAIN and FQDN
-export DOMAIN="$(hostname --domain)"
-export FQDN="$(hostname --fqdn)"
+export DOMAIN="$(hostname -d)"
+export FQDN="$(hostname -f)"
 
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
