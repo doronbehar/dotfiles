@@ -67,10 +67,8 @@ if [ -d "$HOME/.virtualenv" ]; then
 fi
 
 # - {{{1 LUA_PATH
-if _command_exists lua; then
-	LUA_PATH="$(lua -e 'print(package.path)')"
-	insert2LUA_PATH  "$HOME/.luarocks/share/lua/5.3/?.lua" "$HOME/.luarocks/share/lua/5.3/?/init.lua"
-	export LUA_PATH="./?.lua;./?/init.lua;./src/?.lua;./src/?/init.lua;$LUA_PATH"
+if _command_exists luarocks; then
+	eval $(luarocks path)
 fi
 
 
