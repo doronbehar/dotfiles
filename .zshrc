@@ -26,6 +26,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ignore completion to commands we don't have
 zstyle ':completion:*:functions' ignored-patterns '_*'
+# Use completion cache
+zstyle ':completion::complete:*' use-cache true
 # Command failure
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found

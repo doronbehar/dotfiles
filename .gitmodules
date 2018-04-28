@@ -97,9 +97,6 @@
 [submodule "zsh-completions"]
 	path = .zsh-completions
 	url = git@github.com:zsh-users/zsh-completions
-[submodule "collected-zsh-completions"]
-	path = .zsh-collected-completions
-	url = git@github.com:doronbehar/collected-zsh-completions
 [submodule "zsh-syntax-highlighting"]
 	path = .zsh-syntax-highlighting
 	url = git@github.com:zsh-users/zsh-syntax-highlighting
