@@ -133,3 +133,6 @@
 [submodule ".config/systemd/user"]
 	path = .config/systemd/user
 	url = ssh://git@github.com/doronbehar/.config_systemd_user
+[submodule ".config/pip"]
+	path = .config/pip
+	url = ssh://git@github.com/doronbehar/.config_pip
