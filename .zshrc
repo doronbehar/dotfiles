@@ -8,23 +8,28 @@ fpath=(~/.zsh-local-completions $fpath)
 fpath=(~/.zsh-untracked-completions $fpath)
 autoload -Uz compinit && compinit -D
 # zstyle
-zstyle ':completion:*' auto-description 'specify: %d'
+# the names of the completer functions to use
 zstyle ':completion:*' completer _expand _complete _correct _approximate
+# various formats
+zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+# menu selection is started only when there are at least 2 matches
+zstyle ':completion:*' menu select=2
+# menu selection with a curson will be used when the number of possible matches doesn't fit the screen
+zstyle ':completion:*' menu select=long
+# setup colors for ls
+eval "$(dircolors -b)"
+# make files matches use colors from LS_COLORS
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# don't use the old compctl completion system
 zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
+# Use better completion for the kill command
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-# ignore completion to commands we don't have
+# ignore completion to functions starting with _
 zstyle ':completion:*:functions' ignored-patterns '_*'
 # Use completion cache
 zstyle ':completion::complete:*' use-cache true
