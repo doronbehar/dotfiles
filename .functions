@@ -131,6 +131,28 @@ vifs(){
 	fi
 	eval ${EDITOR-:${VISUAL}} "$_file" || echo $_err_message > /dev/stderr
 }
+# {{{1 `of` open with `xdg-open` a file chosen with a fzf selection for _FZF_DEFAULT_COMMAND_VIF
+of(){
+	_err_message="If you where not satisfied from fzf's output, checkout the env variable _FZF_DEFAULT_COMMAND_VIF"
+	local _file
+	_file="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_VIF fzf)"
+	if [[ -z $_file ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
+	xdg-open "$_file" || echo $_err_message > /dev/stderr
+}
+# {{{1 `ofs` open with `xdg-open` a file chosen with a fzf selection for _FZF_DEFAULT_COMMAND_VIFS
+ofs(){
+	_err_message="If you where not satisfied from fzf's output, checkout the env variable _FZF_DEFAULT_COMMAND_VIFS"
+	local _file
+	_file="$(env FZF_DEFAULT_COMMAND=$_FZF_DEFAULT_COMMAND_VIFS fzf)"
+	if [[ -z $_file ]]; then
+		echo $_err_message > /dev/stderr
+		return
+	fi
+	xdg-open "$_file" || echo $_err_message > /dev/stderr
+}
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
 	_KFZF_DEFAULT_COMMAND='khard phone --parsable'
