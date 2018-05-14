@@ -50,10 +50,7 @@ alias gvi="${VISUAL} +GhostStart"
 alias oct='octave --no-gui'
 # Shortcut for python debugger
 alias pdb='python -m pdb '
-# Workaround for https://bugzilla.mindrot.org/show_bug.cgi?id=2824
-alias ssh='gpg-connect-agent UPDATESTARTUPTTY /bye && ssh'
-# }}}
-# {{{ Load local configuration files based on hostname
+# Load local configuration files based on hostname
 [[ -f "$HOME/.local/share/zsh/${TERM}/aliases" ]] && source "$HOME/.local/share/zsh/${TERM}/aliases"
 [[ -f "$HOME/.local/share/zsh/${DISPLAY}/aliases" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/aliases"
 [[ -f "$HOME/.local/share/zsh/${VENDOR}/aliases" ]] && source "$HOME/.local/share/zsh/${VENDOR}/aliases"
@@ -61,7 +58,6 @@ alias ssh='gpg-connect-agent UPDATESTARTUPTTY /bye && ssh'
 [[ -f "$HOME/.local/share/zsh/${HOST}/aliases" ]] && source "$HOME/.local/share/zsh/${HOST}/aliases"
 [[ -f "$HOME/.local/share/zsh/${FQDN}/aliases" ]] && source "$HOME/.local/share/zsh/${FQDN}/aliases"
 [[ -f "$HOME/.local/share/zsh/${DOMAIN}/aliases" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/aliases"
-# }}}
 
 # {{{1 modeline
 # vim:ft=sh:foldmethod=marker
