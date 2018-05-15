@@ -136,3 +136,6 @@
 [submodule ".config/pip"]
 	path = .config/pip
 	url = ssh://git@github.com/doronbehar/.config_pip
+[submodule ".zsh-system-clipboard"]
+	path = .zsh-system-clipboard
+	url = https://github.com/kutsan/zsh-system-clipboard

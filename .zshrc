@@ -93,6 +93,9 @@ if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
 fi
 
+# {{{1 ZLE clipboard 
+source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
+
 # {{{1 Looks
 # syntax highlighting
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
