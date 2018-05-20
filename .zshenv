@@ -71,7 +71,6 @@ if _command_exists luarocks; then
 	eval $(luarocks path)
 fi
 
-
 # - {{{1 VISUAL/EDITOR
 if _command_exists nvim; then
 	export EDITOR="nvim"
@@ -89,14 +88,6 @@ fi
 # - {{{1 gcc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# - {{{1 local environmental variables
-[[ -f "$HOME/.local/share/zsh/${TERM}/env" ]] && source "$HOME/.local/share/zsh/${TERM}/env"
-[[ -f "$HOME/.local/share/zsh/${DISPLAY}/env" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/env"
-[[ -f "$HOME/.local/share/zsh/${VENDOR}/env" ]] && source "$HOME/.local/share/zsh/${VENDOR}/env"
-[[ -f "$HOME/.local/share/zsh/${OSTYPE}/env" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/env"
-[[ -f "$HOME/.local/share/zsh/${HOST}/env" ]] && source "$HOME/.local/share/zsh/${HOST}/env"
-[[ -f "$HOME/.local/share/zsh/${FQDN}/env" ]] && source "$HOME/.local/share/zsh/${FQDN}/env"
-[[ -f "$HOME/.local/share/zsh/${DOMAIN}/env" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/env"
 
 # - {{{1 MPD
 [[ -f /etc/mpd.conf ]] && export MPD_MUSIC_DIR="$(awk -F'"' '{if ($0 ~ /music_dir/) print $2}' /etc/mpd.conf)"
@@ -106,7 +97,15 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # - {{{1 COLUMNS
 export COLUMNS=
-# - }}}1
+
+# - {{{1 local environmental variables
+[[ -f "$HOME/.local/share/zsh/${TERM}/env" ]] && source "$HOME/.local/share/zsh/${TERM}/env"
+[[ -f "$HOME/.local/share/zsh/${DISPLAY}/env" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/env"
+[[ -f "$HOME/.local/share/zsh/${VENDOR}/env" ]] && source "$HOME/.local/share/zsh/${VENDOR}/env"
+[[ -f "$HOME/.local/share/zsh/${OSTYPE}/env" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/env"
+[[ -f "$HOME/.local/share/zsh/${HOST}/env" ]] && source "$HOME/.local/share/zsh/${HOST}/env"
+[[ -f "$HOME/.local/share/zsh/${FQDN}/env" ]] && source "$HOME/.local/share/zsh/${FQDN}/env"
+[[ -f "$HOME/.local/share/zsh/${DOMAIN}/env" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/env"
 
 # - {{{1
 # vim:ft=zsh:foldmethod=marker
