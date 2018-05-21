@@ -1,6 +1,6 @@
 [
 	{
-		"exe": ["mpsyt", "playurl"],
+		"exe": ["urxvt", "-e", "mpsyt", "playurl"],
 		"url": {
 			"scheme": ["https", "http"],
 			"netloc": ["www.youtube.com", "youtube.com", "www.youtu.be", "youtu.be"],
