@@ -6,6 +6,7 @@ fpath=(~/.zsh-completions/src $fpath)
 fpath=(~/.zsh-collected-completions/src $fpath)
 fpath=(~/.zsh-local-completions $fpath)
 fpath=(~/.zsh-untracked-completions $fpath)
+fpath=(~/.zsh-tested-completions $fpath)
 autoload -Uz compinit && compinit -D
 # zstyle
 # the names of the completer functions to use
