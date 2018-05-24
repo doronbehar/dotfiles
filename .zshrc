@@ -17,10 +17,12 @@ zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-# menu selection is started only when there are at least 2 matches
-zstyle ':completion:*' menu select=2
-# menu selection with a curson will be used when the number of possible matches doesn't fit the screen
+# menu selection with a cursor will be used when the number of possible matches doesn't fit the screen
 zstyle ':completion:*' menu select=long
+# menu selection with a cursor will be used for gpg commands
+zstyle ':completion:*:gpg:*' menu select=2
+# menu selection with a cursor will be used for git commands
+zstyle ':completion:*:git*:*' menu select=2
 # setup colors for ls
 eval "$(dircolors -b)"
 # make files matches use colors from LS_COLORS
