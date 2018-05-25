@@ -1,0 +1,5 @@
+#!/bin/bash
+# {{{1 for explanation, see ~/.functions (section `_create_fzf_function`)
+for key in "${!_FZF_DEFAULT_COMMAND[@]}"; do
+	eval $(_create_fzf_function "${key}" "${_FZF_DEFAULT_COMMAND[${key}]}" "${key,,}")
+done
