@@ -11,6 +11,32 @@ man(){
 	man "$@"
 }
 
+# {{{1 `fpath` - list of paths for directories containing functions for zsh completion
+fpath(){
+	echo "$fpath" | sed -e 's/\ /\n/g'
+}
+
+# {{{1 `path` - list all directories included in $PATH, with \n between them.
+path(){
+	echo "${PATH//:/\n}"
+}
+
+# {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
+ranger(){
+	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
+}
+
+# {{{1 `cranger` - launch ranger && cd to ranger's last visited directory
+cranger(){
+	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
+	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
+}
+
+# {{{1 `cdr` - cd to ranger's last visited directory
+cdr(){
+	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
+}
+
 # {{{1 `cdg` - cd into git repository (even if it's a submodule).
 cdg(){
 	if [ -d .git ]; then
@@ -22,60 +48,9 @@ cdg(){
 	fi
 }
 
-# {{{1 `fpath` - list of paths for directories containing functions for zsh completion
-fpath(){
-	echo "$fpath" | sed -e 's/\ /\n/g'
-}
-
-# {{{1 `path` - list all directories included in $PATH, with \n between them.
-path(){
-	echo "${PATH//:/\n}"
-}
-
 # {{{1 `cdmn` - Go to the directory the current song played by mpd is located in
 cdmn(){
 	cd ${MPD_MUSIC_DIR}/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
-}
-
-# {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
-ranger(){
-	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
-}
-
-# {{{1 `cdr` - cd to ranger's last visited directory
-cdr(){
-	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
-}
-
-# {{{1 `cranger` - launch ranger && cd to ranger's last visited directory
-cranger(){
-	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
-	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
-}
-
-# {{{1 `p` - bookmark navigator
-# Works like ranger's bookmarks
-# Usage:
-# You need to use/create a bookmarks file in `.config/ranger/bookmarks` which will looks like that:
-# ```
-# v:/home/doron/repos/dotfiles/.config/nvim
-# O:/opt
-# a:/home/doron/repos/dotfiles/.config/awesome
-# x:/home/doron/repos/dotfiles/.tmux
-# ```
-# As for this bookmarks as an example, running `p v` for instance will bring you straight to Neovim's configuration directory.
-p(){
-	while read -r line; do
-		if [ "$1" = "$(echo "$line" | cut -d':' -f1)" ]; then
-			eval cd "$(echo "$line" | cut -d':' -f2)"
-		fi
-	done < ~/.config/ranger/bookmarks
-}
-
-# {{{1 `awesome-spawn` launch any program in the current awesome window
-awesome-spawn(){
-	_arguments="$@"
-	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
 }
 
 # {{{1 `_create_fzf_function`: create fzf shortcut function for common operations:
@@ -110,6 +85,31 @@ ${funcname}(){
 }
 EOF
 }
+# {{{1 `p` - bookmark navigator
+# Works like ranger's bookmarks
+# Usage:
+# You need to use/create a bookmarks file in `.config/ranger/bookmarks` which will looks like that:
+# ```
+# v:/home/doron/repos/dotfiles/.config/nvim
+# O:/opt
+# a:/home/doron/repos/dotfiles/.config/awesome
+# x:/home/doron/repos/dotfiles/.tmux
+# ```
+# As for this bookmarks as an example, running `p v` for instance will bring you straight to Neovim's configuration directory.
+p(){
+	while read -r line; do
+		if [ "$1" = "$(echo "$line" | cut -d':' -f1)" ]; then
+			eval cd "$(echo "$line" | cut -d':' -f2)"
+		fi
+	done < ~/.config/ranger/bookmarks
+}
+
+# {{{1 `awesome-spawn` launch any program in the current awesome window
+awesome-spawn(){
+	_arguments="$@"
+	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
+}
+
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
 	_KFZF_DEFAULT_COMMAND='khard phone --parsable'
