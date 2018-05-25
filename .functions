@@ -32,9 +32,9 @@ path(){
 	echo "${PATH//:/\n}"
 }
 
-# {{{1 `cdm` - Go to the directory the current song played by mpd is located in
-cdm(){
-	cd $MPD_MUSIC_DIR/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
+# {{{1 `cdmn` - Go to the directory the current song played by mpd is located in
+cdmn(){
+	cd ${MPD_MUSIC_DIR}/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
 
 # {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
@@ -198,5 +198,5 @@ fi
 [[ -f "$HOME/.local/share/zsh/${FQDN}/functions" ]] && source "$HOME/.local/share/zsh/${FQDN}/functions"
 [[ -f "$HOME/.local/share/zsh/${DOMAIN}/functions" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/functions"
 
-# {{{1 modeline
+# {{{1
 # vim:ft=sh:foldmethod=marker
