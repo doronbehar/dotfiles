@@ -96,8 +96,11 @@ if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
 fi
 
-# {{{1 ZLE clipboard 
+# {{{1 ZLE
+# sync with system clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
+# enable inline comments
+setopt interactivecomments
 
 # {{{1 Looks
 # syntax highlighting
