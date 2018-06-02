@@ -139,3 +139,6 @@
 [submodule ".zsh-system-clipboard"]
 	path = .zsh-system-clipboard
 	url = https://github.com/kutsan/zsh-system-clipboard
+[submodule ".luarocks"]
+	path = .luarocks
+	url = ssh://git@github.com/doronbehar/.luarocks
