@@ -4,13 +4,13 @@ prompt_my_setup(){
 	zstyle ':vcs_info:*' disable bzr cdv darcs mtn svk tla
 	zstyle ':vcs_info:*' check-for-changes true
 	if [ -z $DISPLAY ]; then
-		zstyle ':vcs_info:*' formats '%K{cyan}%F{blue}>%K{cyan}%F{black} > %b%c%u %K{green}%F{cyan}>'
-		zstyle ':vcs_info:*' nvcsformats '%K{green}%F{blue}>'
+		zstyle ':vcs_info:*' formats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}>%F\{white\}PE%K\{cyan\}%F\{54\}>}:-%K\{cyan\}%F\{blue\}>}'%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}>'
+		zstyle ':vcs_info:*' nvcsformats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}>%F\{white\}PE%K\{green\}%F\{54\}>}:-%K\{green\}%F\{blue\}>}
 		zstyle ':vcs_info:*' stagedstr '+'
 		zstyle ':vcs_info:*' unstagedstr '-'
 	else
-		zstyle ':vcs_info:*' formats '%K{cyan}%F{blue}%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}'
-		zstyle ':vcs_info:*' nvcsformats '%K{green}%F{blue}'
+		zstyle ':vcs_info:*' formats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}%F\{white\}🌴%K\{cyan\}%F\{54\}}:-%K\{cyan\}%F\{blue\}}'%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}'
+		zstyle ':vcs_info:*' nvcsformats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}%F\{white\}🌴%K\{green\}%F\{54\}}:-%K\{green\}%F\{blue\}}
 		zstyle ':vcs_info:*' stagedstr '✚'
 		zstyle ':vcs_info:*' unstagedstr '●'
 	fi
