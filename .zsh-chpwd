@@ -14,7 +14,7 @@ _task_context(){
 }
 
 function chpwd() {
-	CONTEXT="$(context.awk ~/.local/share/tasks/contexts.txt)"
+	CONTEXT="$(context.awk -v CWD="$(pwd -P)" ~/.local/share/tasks/contexts.txt)"
 	if [[ -z ${CONTEXT} ]]; then
 		_task_context
 	else

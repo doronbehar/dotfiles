@@ -11,13 +11,13 @@ BEGIN{
 			split($i, directories, " ")
 			for (d in directories) {
 				if (directories[d] ~ /\*/) {
-					if (ENVIRON["PWD"] ~ directories[d]) {
+					if (CWD ~ directories[d]) {
 						print CONTEXT
 						exit_invoked=1
 						exit(0)
 					}
 				} else {
-					if (ENVIRON["PWD"] == directories[d]) {
+					if (CWD == directories[d]) {
 						print CONTEXT
 						exit_invoked=1
 						exit(0)
