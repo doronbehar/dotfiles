@@ -82,6 +82,9 @@ _create_fzf_function(){
 ${funcname}(){
 	local _arg="\$(env FZF_DEFAULT_COMMAND='${fzf_cmd}' fzf)";
 	[[ -z "\${_arg}" ]] || ${cmd} "\${_arg}"
+};
+fzf_${funcname}(){
+	env FZF_DEFAULT_COMMAND='${fzf_cmd}' fzf;
 }
 EOF
 }
