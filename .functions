@@ -60,13 +60,14 @@ cdmn(){
 # This function is needed because zsh and bash have different way of handling associative
 # arrays and this procedure can be shared between the two
 _create_fzf_function(){
-	if [[ $# != 3 ]]; then
-		echo please use this function with 3 arguments > /dev/stderr
+	if [[ $# != 4 ]]; then
+		echo please use this function with 4 arguments > /dev/stderr
 		return 2
 	fi
 	local key="$1"
 	local fzf_cmd="$2"
 	local funcname="$3"
+	local fzf_opts="$4"
 	local cmd
 	if [[ "${key}" =~ "^CD" ]]; then
 		cmd="cd"
@@ -80,11 +81,13 @@ _create_fzf_function(){
 	fi
 	cat << EOF
 ${funcname}(){
-	local _arg="\$(env FZF_DEFAULT_COMMAND='${fzf_cmd}' fzf)";
+	start_query="\$@";
+	local _arg="\$(env FZF_DEFAULT_COMMAND='${fzf_cmd}' FZF_DEFAULT_OPTS='${fzf_opts}' fzf --query="\$start_query")";
 	[[ -z "\${_arg}" ]] || ${cmd} "\${_arg}"
 };
 fzf_${funcname}(){
-	env FZF_DEFAULT_COMMAND='${fzf_cmd}' fzf;
+	start_query="\$@";
+	env FZF_DEFAULT_COMMAND='${fzf_cmd}' FZF_DEFAULT_OPTS='${fzf_opts}' fzf --query="\$start_query"
 }
 EOF
 }
