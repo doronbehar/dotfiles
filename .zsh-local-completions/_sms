@@ -1,0 +1,5 @@
+#compdef sms
+
+used_words=(${words[2,${#words}]})
+local total=${(c)#used_words}
+_message -r "$(( 63 - (${total} % 63) )) / $(( ${total} / 63 + 1 )) characters used already"
