@@ -1,3 +1,185 @@
 #!/bin/sh
 
-curl --silent ipinfo.io/ip
+
+function _usage {
+    local options=(
+        '-l,--local'
+        '-f,--family <FAMILY>'
+        '-d,--dev <INTERFACE>'
+        '-a,--all'
+        '-h,--help'
+    )
+    local descriptions=(
+        "evaluate the local ip address using \`ip addr show\`"
+        "Implies --local, use the provided protocol family (see man:ip)"
+        "Implies --local, use the provided network interface"
+        "Implies --local, show ip addresses of all interfaces"
+        "display help"
+    )
+    # The offset options will get
+    local options_offset=3
+    # The offset descriptions will get after the longest option
+    local descriptions_offset_after_longest_option=5
+    # The maximum length of descriptions spanning
+    local maximum_descriptions_length=80
+    # First we print the classic Usage message
+    echo "Usage: $(basename "$0") [OPTION]..."
+    # In the next loop, we put in ${max_option_length} the length of the
+    # longest option. This way, we'll be able to calculate the offset when
+    # printing long descriptions that should span over several lines.
+    local max_option_length=1
+    for (( i = 0; i < ${#options[@]}; i++)); do
+        if [[ $max_option_length -lt ${#options[$i]} ]]; then
+            max_option_length=${#options[$i]}
+        fi
+    done
+    # We put in the following variable the total offset of descriptions
+    # after new-lines.
+    local descriptions_new_line_offset=$((${max_option_length} + ${options_offset} + ${descriptions_offset_after_longest_option}))
+    # The next loop is the main loop where we actually print the options with
+    # the corresponding descriptions.
+    for (( i = 0; i < ${#options[@]}; i++)); do
+        # First, we print the option and the offset we chose above right before it
+        printf -- '%*s' ${options_offset}
+        printf -- '%s' "${options[$i]}"
+        # Here we start tracking through out this loop the current index of the
+        # char on the terminal window. This is necessary because in the process
+        # of printing the descriptions' words we'll be able to know how not to
+        # span over the defined maximum length or not to split words when
+        # hitting ${COLUMNS}
+        local current_char_index=$((${options_offset} + ${#options[$i]}))
+        # We calculate the offset which should be given between the current
+        # option and the start of it's description. This is different for every
+        # option because every option has a different length but they all must
+        # be aligned according to the longest option's length and the offsets
+        # we chose above
+        local current_description_offset=$((${max_option_length} - ${#options[$i]} + ${descriptions_offset_after_longest_option}))
+        # We print this offset before printing the description
+        printf -- '%*s' ${current_description_offset}
+        # Updating the current_char_index
+        current_char_index=$((${current_char_index} + ${current_description_offset}))
+        # We put in a temporary variable the current description from the array
+        local current_description="${descriptions[$i]}"
+        # We divide the current_description to an array with the description's
+        # words as the array's elements. This is necessary so we can print the
+        # description without spliting words
+        IFS=' ' read -r -a description_words <<< "${current_description}"
+        # We start a loop for every word in the descriptions words array
+        for (( j = 0; j < ${#description_words[@]}; j++)); do
+            # We update the current char index before actually printing the
+            # next word in the description because of the condition right
+            # afterwards
+            current_char_index=$((${current_char_index} + ${#description_words[$j]} + 1))
+            # We check if the index we will reach will hit the maximum limit we
+            # chose in the beginning or the number of ${COLUMNS} our terminal
+            # gives us
+            if [[ ${current_char_index} -le ${COLUMNS} ]] && [[ ${current_char_index} -le ${maximum_descriptions_length} ]]; then
+                # If we don't hit our limit, print the current word
+                printf -- '%s ' ${description_words[$j]}
+            else
+                # If we've hit our limit, print a new line
+                printf -- '\n'
+                # Print a number of spaces equals to the offset we need to give
+                # according to longest option we have and the other offsets we
+                # defined above
+                printf -- '%*s' ${descriptions_new_line_offset}
+                # print the next word in the new line
+                printf -- '%s ' ${description_words[$j]}
+                # Update the current char index
+                current_char_index=$((${descriptions_new_line_offset} + ${#description_words[$j]}))
+            fi
+        done
+        # print a new line between every option and it's description
+        printf '\n'
+    done
+}
+
+function _local {
+    local awk_script
+    read -d '' awk_script << EOF
+{
+	split(\$4,a,"/")
+	if (network_interfaces != "all") {
+		if (a[1] != "127.0.0.1" && a[1] != "::1"){
+			print a[1]
+			exit
+		}
+	} else {
+		print a[1]
+	}
+}
+EOF
+    ip -family "${family}" -o addr show | awk -v network_interfaces="${network_interfaces}" "$awk_script"
+}
+
+function _remote {
+    curl --silent ipinfo.io/ip
+}
+
+family=inet
+action=remote
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+        "--family"|"-f")
+            action=local
+            family=unspecified
+            for f in inet inet6 bridge decnet ipx mpls link; do
+                if [[ "$2" == "$f" ]]; then
+                    family="$2"
+                fi
+            done
+            if [[ "${family}" == "unspecified" ]]; then
+                echo Please choose a valid protocol family - inet inet6 bridge decnet ipx mpls link >> /dev/stderr
+                exit 3
+            fi
+            shift 2
+            continue
+            ;;
+        "--local"|"-l")
+            action=local
+            shift
+            continue
+            ;;
+        "--all"|"-a")
+            network_interfaces=all
+            shift
+            continue
+            ;;
+        "--dev"|"-d")
+            action=local
+            if [[ -z "$2" ]]; then
+                echo no network interface argument was given to -d > /dev/stderr
+                exit 1
+            else
+                network_interfaces="$2"
+            fi
+            shift 2
+            continue
+            ;;
+        "--help"|"-h")
+            action=usage
+            exit_code=0
+            shift
+            break
+            ;;
+        *)
+            action=usage
+            exit_code=2
+            break
+            ;;
+    esac
+done
+
+case "${action}" in
+    usage)
+        _usage
+        exit ${exit_code}
+        ;;
+    local)
+        _local
+        ;;
+    remote)
+        _remote
+        ;;
+esac
