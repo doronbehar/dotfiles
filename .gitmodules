@@ -142,3 +142,6 @@
 [submodule ".luarocks"]
 	path = .luarocks
 	url = ssh://git@github.com/doronbehar/.luarocks
+[submodule ".config/letsencrypt"]
+	path = .config/letsencrypt
+	url = git@github.com:doronbehar/.config_letsencrypt
