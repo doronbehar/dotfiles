@@ -91,6 +91,24 @@ fzf_${funcname}(){
 }
 EOF
 }
+cdh(){
+	fzf_cmd="$(echo ${_FZF_DEFAULT_MANUAL_COMMAND[CDH]} | sed 's/%arg%/'"$1"'/g')"
+	fzf_opts="${_FZF_DEFAULT_MANUAL_OPTS[CDH]}"
+	local _arg="$(env FZF_DEFAULT_COMMAND="${fzf_cmd}" FZF_DEFAULT_OPTS="${fzf_opts}" fzf)"
+	[[ -z "${_arg}" ]] || cd "${_arg}"
+}
+vih(){
+	fzf_cmd="$(echo ${_FZF_DEFAULT_MANUAL_COMMAND[VIH]} | sed 's/%arg%/'"$1"'/g')"
+	fzf_opts="${_FZF_DEFAULT_MANUAL_OPTS[VIH]}"
+	local _arg="$(env FZF_DEFAULT_COMMAND="${fzf_cmd}" FZF_DEFAULT_OPTS="${fzf_opts}" fzf)"
+	[[ -z "${_arg}" ]] || cd "${_arg}"
+}
+oh(){
+	fzf_cmd="$(echo ${_FZF_DEFAULT_MANUAL_COMMAND[OH]} | sed 's/%arg%/'"$1"'/g')"
+	fzf_opts="${_FZF_DEFAULT_MANUAL_OPTS[OH]}"
+	local _arg="$(env FZF_DEFAULT_COMMAND="${fzf_cmd}" FZF_DEFAULT_OPTS="${fzf_opts}" fzf)"
+	[[ -z "${_arg}" ]] || cd "${_arg}"
+}
 # {{{1 `p` - bookmark navigator
 # Works like ranger's bookmarks
 # Usage:
