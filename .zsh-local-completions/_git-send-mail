@@ -1,0 +1,3 @@
+#compdef git-send-mail
+
+_git-send-email
