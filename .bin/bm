@@ -71,6 +71,12 @@ def main():
         help='Bookmark the current directory for key <key>'
     )
     argp.add_argument(
+        '-d', '--delete',
+        metavar='<key>',
+        nargs=1,
+        help='Delete the Bookmark for key <key>'
+    )
+    argp.add_argument(
         'key',
         default="'",
         metavar='<key>',
@@ -96,6 +102,15 @@ def main():
     if args.list:
         for bookmark in list(bmarks.dct.items()):
             print(bookmark[0] + "\t" + bookmark[1])
+    elif args.delete:
+        key = args.delete[0]
+        try:
+            exists = bmarks.__getitem__(key)
+            if confirm('remove bookmark for {}?'.format(exists), 'y'):
+                bmarks.__delitem__(key)
+                bmarks.save()
+        except KeyError:
+            print('no such bookmark for key {}'.format(key), file=sys.stderr)
     elif args.set:
         key = args.set[0]
         try:
