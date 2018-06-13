@@ -1,7 +1,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User doron.behar@gmail.com
-PassCmd "pass software/desktop/gmail-hasmail"
+PassCmd "gkeyring --id 11 --output secret"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -26,7 +26,7 @@ SyncState *
 IMAPAccount vps
 Host imap.doronbehar.com
 User doron
-PassCmd "pass hosts/vps/users/doron"
+PassCmd "gkeyring --id 12 --output secret"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
