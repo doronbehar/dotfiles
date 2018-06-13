@@ -61,10 +61,6 @@ insert2PATH "$HOME/.rvm/bin"
 # - {{{1 CPAN
 insert2PATH "$HOME/.perl5/bin"
 
-# - {{{1 MANPATH
-if [ -d "$HOME/.virtualenv" ]; then
-	insert2MANPATH "$(find $HOME/.virtualenv -type d -name man)"
-fi
 
 # - {{{1 LUA_PATH
 if _command_exists luarocks; then
