@@ -55,7 +55,7 @@ insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
 if _command_exists ccache; then
 	insert2PATH "/usr/lib/ccache/bin"
 fi
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# - {{{1 Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 insert2PATH "$HOME/.rvm/bin"
 
 # - {{{1 CPAN
