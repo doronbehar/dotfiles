@@ -97,9 +97,6 @@
 [submodule "zsh-completions"]
 	path = .zsh-completions
 	url = git@github.com:zsh-users/zsh-completions
-[submodule "zsh-syntax-highlighting"]
-	path = .zsh-syntax-highlighting
-	url = git@github.com:zsh-users/zsh-syntax-highlighting
 [submodule ".ssh"]
 	path = .ssh
 	url = git@github.com:doronbehar/.ssh
@@ -145,3 +142,6 @@
 [submodule ".config/letsencrypt"]
 	path = .config/letsencrypt
 	url = git@github.com:doronbehar/.config_letsencrypt
+[submodule ".zsh-fast-syntax-highlighting"]
+	path = .zsh-fast-syntax-highlighting
+	url = https://github.com/zdharma/fast-syntax-highlighting

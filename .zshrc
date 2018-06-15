@@ -104,14 +104,7 @@ setopt interactivecomments
 
 # {{{1 Looks
 # syntax highlighting
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root line)
-ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red' '\*' 'fg=magneta,bold,bg=black')
-ZSH_HIGHLIGHT_STYLES[root]='fg=white,bg=red'
-ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=red,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
+source ~/.zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fpath=(~/.zsh-prompts $fpath)
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
