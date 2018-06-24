@@ -4,7 +4,6 @@ xset s noblank
 xset s off
 xset r rate 250 27
 [ -f /etc/X11/xinit/xinitrc.d/50-systemd-user.sh ] && . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
-/usr/bin/gkeyring --unlock --password="$(/usr/bin/env PINENTRY_USER_DATA= /usr/bin/pass software/desktop/seahorse)"
 export HOST="$(hostname)"
 export FQDN="$(hostname -f)"
 export DOMAIN="$(hostname -d)"
