@@ -75,10 +75,12 @@ if _command_exists nvim; then
 		export NVIM_LISTEN_ADDRESS="${XDG_RUNTIME_DIR}/nvim.socket"
 	fi
 	export MANPAGER="nvim -c 'set ft=man' -"
+	export SUDO_EDITOR="env XDG_CONFIG_HOME=${HOME}/.config nvim"
 elif _command_exists vim; then
 	export EDITOR="vim"
 	export VISUAL="vim"
 	export MANPAGER="vim -c 'set ft=man' -"
+	export SUDO_EDITOR="env VIM=${HOME}/.vim vim"
 fi
 
 # - {{{1 gcc
