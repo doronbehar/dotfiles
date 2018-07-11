@@ -28,18 +28,6 @@
 [submodule ".ncmpcpp"]
 	path = .ncmpcpp
 	url = git@github.com:doronbehar/.ncmpcpp
-[submodule ".config/khal"]
-	path = .config/khal
-	url = git@github.com:doronbehar/.config_khal
-[submodule ".config/khard"]
-	path = .config/khard
-	url = git@github.com:doronbehar/.config_khard
-[submodule ".config/todoman"]
-	path = .config/todoman
-	url = git@github.com:doronbehar/.config_todoman
-[submodule ".config/vdirsyncer"]
-	path = .config/vdirsyncer
-	url = git@github.com:doronbehar/.config_vdirsyncer
 [submodule ".config/tox"]
 	path = .config/tox
 	url = git@github.com:doronbehar/.config_tox
