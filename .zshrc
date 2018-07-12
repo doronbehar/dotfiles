@@ -104,7 +104,7 @@ setopt interactivecomments
 
 # {{{1 Looks
 # syntax highlighting
-source ~/.zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 fpath=(~/.zsh-prompts $fpath)
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
