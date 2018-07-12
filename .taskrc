@@ -34,9 +34,9 @@ color=on
 dateformat = d/m/y-h:n
 
 report.list.sort=project+,tags+
-report.list.filter=+UNBLOCKED +PENDING
+report.list.filter=+UNBLOCKED +PENDING relevant.isnt:false
 report.ls.sort=project+,tags+
-report.ls.filter=+UNBLOCKED +PENDING effort.isnt:H priority.isnt:L (projectdescription.isnt:true or +BLOCKING or priority.isnt:'') (postponed.isnt:true or +BLOCKING or priority.isnt:'')
+report.ls.filter=+UNBLOCKED +PENDING effort.isnt:H priority.isnt:L relevant.isnt:false (projectdescription.isnt:true or +BLOCKING or priority.isnt:'') (postponed.isnt:true or +BLOCKING or priority.isnt:'')
 report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
 report._reviewed.columns=uuid
 report._reviewed.sort=reviewed+,modified+
