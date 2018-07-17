@@ -11,6 +11,11 @@ man(){
 	man "$@"
 }
 
+# {{{1 `info` - make info use the $EDITOR
+info(){
+	$EDITOR "info://$1/$2"
+}
+
 # {{{1 `fpath` - list of paths for directories containing functions for zsh completion
 fpath(){
 	echo "$fpath" | sed -e 's/\ /\n/g'
