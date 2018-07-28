@@ -11,8 +11,8 @@ man(){
 	man "$@"
 }
 
-# {{{1 `info` - make info use the $EDITOR
-info(){
+# {{{1 `vinfo` - $EDITOR viewing info files
+vinfo(){
 	$EDITOR "info://$1/$2"
 }
 
