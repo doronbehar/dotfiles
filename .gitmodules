@@ -136,3 +136,6 @@
 [submodule ".config/msmtp"]
 	path = .config/msmtp
 	url = ssh://git@github.com/doronbehar/.config_msmtp
+[submodule ".config/mpv"]
+	path = .config/mpv
+	url = ssh://git@github.com/doronbehar/.config_mpv
