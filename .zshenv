@@ -69,13 +69,15 @@ fi
 
 # - {{{1 VISUAL/EDITOR
 if _command_exists nvim; then
-	export EDITOR="nvim"
-	export VISUAL="nvim"
-	if _command_exists nvr; then
-		export NVIM_LISTEN_ADDRESS="${XDG_RUNTIME_DIR}/nvim.socket"
+	if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
+		export EDITOR="nvim"
+		export VISUAL="nvim"
+	else
+		export EDITOR="nvr"
+		export VISUAL="nvr"
 	fi
-	export MANPAGER="nvim -c 'set ft=man' -"
-	export SUDO_EDITOR="env XDG_CONFIG_HOME=${HOME}/.config nvim"
+	export MANPAGER="$EDITOR -c 'set ft=man' -"
+	export SUDO_EDITOR="env XDG_CONFIG_HOME=${HOME}/.config $EDITOR"
 elif _command_exists vim; then
 	export EDITOR="vim"
 	export VISUAL="vim"
