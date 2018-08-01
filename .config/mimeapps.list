@@ -10,7 +10,7 @@ application/x-extension-shtml=userapp-Firefox-WKOCWY.desktop
 application/xhtml+xml=userapp-Firefox-WKOCWY.desktop
 application/x-extension-xhtml=userapp-Firefox-WKOCWY.desktop
 application/x-extension-xht=userapp-Firefox-WKOCWY.desktop
-application/pdf=zathura.desktop
+application/pdf=org.pwmt.zathura.desktop
 
 [Added Associations]
 x-scheme-handler/http=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
@@ -24,6 +24,6 @@ application/x-extension-shtml=google-chrome.desktop;userapp-Firefox-DHUKWY.deskt
 application/xhtml+xml=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
 application/x-extension-xhtml=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
 application/x-extension-xht=google-chrome.desktop;userapp-Firefox-DHUKWY.desktop;userapp-Firefox-WKOCWY.desktop;
-application/pdf=YACReader.desktop;
+application/pdf=org.pwmt.zathura.desktop;
 application/x-sh=nvim.desktop;
 application/json=nvim.desktop;
