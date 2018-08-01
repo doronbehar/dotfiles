@@ -53,6 +53,9 @@ alias gvi="${VISUAL} +GhostStart"
 alias oct='octave --no-gui'
 # Shortcut for python debugger
 alias pdb='python -m pdb '
+# Shortcut for transmission-remote with authentication through environment
+alias trc='transmission-remote --authenv'
+
 # Load local configuration files based on hostname
 [[ -f "$HOME/.local/share/zsh/${TERM}/aliases" ]] && source "$HOME/.local/share/zsh/${TERM}/aliases"
 [[ -f "$HOME/.local/share/zsh/${DISPLAY}/aliases" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/aliases"
