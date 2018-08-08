@@ -1,4 +1,10 @@
 #!/bin/zsh
+
+# {{{1 `fpath` - list of paths for directories containing functions for zsh completion
+fpath(){
+	echo "$fpath" | sed -e 's/\ /\n/g'
+}
+
 # {{{1 `zrc` reload zsh completion for a given command
 zrc(){
 	if [[ ! -z "$1" ]]; then

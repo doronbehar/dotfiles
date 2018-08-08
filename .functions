@@ -16,11 +16,6 @@ vinfo(){
 	$EDITOR "info://$1/$2"
 }
 
-# {{{1 `fpath` - list of paths for directories containing functions for zsh completion
-fpath(){
-	echo "$fpath" | sed -e 's/\ /\n/g'
-}
-
 # {{{1 `path` - list all directories included in $PATH, with \n between them.
 path(){
 	echo "${PATH//:/\n}"
