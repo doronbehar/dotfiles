@@ -32,9 +32,6 @@ alias t=task
 alias ytv='youtube-viewer'
 # xdg-open
 alias o='xdg-open'
-# $EDITOR
-alias v="$EDITOR"
-alias e="$EDITOR"
 # xclip
 alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"

@@ -16,6 +16,28 @@ vinfo(){
 	$EDITOR "info://$1/$2"
 }
 
+# {{{1 `v` - launch $EDITOR smartly
+if [[ $EDITOR =~ "nvim" ]]; then
+	v(){
+		local POSITIONAL=()
+		while [[ $# -gt 0 ]]; do
+			if [[ "$1" =~ "^-" ]]; then
+				shift
+			else
+				POSITIONAL+=("$1")
+				shift
+			fi
+		done
+		for (( i=1; i < ${#POSITIONAL[@]} + 1; i++ )); do
+			if [[ -f ${POSITIONAL[$i]} && ! -w ${POSITIONAL[$i]} ]]; then
+				POSITIONAL[$i]="suda://${POSITIONAL[$i]}"
+			fi
+		done
+		set -- "${POSITIONAL[@]}" # restore positional parameters
+		$EDITOR ${POSITIONAL}
+	}
+fi
+
 # {{{1 `path` - list all directories included in $PATH, with \n between them.
 path(){
 	echo "${PATH//:/\n}"
