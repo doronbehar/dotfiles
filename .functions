@@ -19,23 +19,23 @@ vinfo(){
 # {{{1 `v` - launch $EDITOR smartly
 if [[ $EDITOR =~ "nvim" ]]; then
 	v(){
-		local POSITIONAL=()
+		local args=()
 		while [[ $# -gt 0 ]]; do
-			if [[ "$1" =~ "^-" ]]; then
-				shift
-			else
-				POSITIONAL+=("$1")
-				shift
+			args+=("$1")
+			shift
+		done
+		for (( i=1; i < ${#args[@]} + 1; i++ )); do
+			if [[ ${args[$i]} =~ "^-" ]]; then
+				if [[ -f ${args[$i]} && ! -w ${args[$i]} ]]; then
+					args[$i]="suda://${args[$i]}"
+				fi
 			fi
 		done
-		for (( i=1; i < ${#POSITIONAL[@]} + 1; i++ )); do
-			if [[ -f ${POSITIONAL[$i]} && ! -w ${POSITIONAL[$i]} ]]; then
-				POSITIONAL[$i]="suda://${POSITIONAL[$i]}"
-			fi
-		done
-		set -- "${POSITIONAL[@]}" # restore positional parameters
-		$EDITOR ${POSITIONAL}
+		set -- "${args[@]}"
+		$EDITOR ${args}
 	}
+else
+	alias v=$EDITOR
 fi
 
 # {{{1 `path` - list all directories included in $PATH, with \n between them.
