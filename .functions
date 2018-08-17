@@ -25,8 +25,8 @@ if [[ $EDITOR =~ "nvim" ]]; then
 			shift
 		done
 		for (( i=1; i < ${#args[@]} + 1; i++ )); do
-			if [[ ${args[$i]} =~ "^-" ]]; then
-				if [[ -f ${args[$i]} && ! -w ${args[$i]} ]]; then
+			if [[ ! ${args[$i]} =~ "^-" ]]; then
+				if [[ ! -w ${args[$i]} ]]; then
 					args[$i]="suda://${args[$i]}"
 				fi
 			fi
