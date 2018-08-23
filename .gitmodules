@@ -34,9 +34,6 @@
 [submodule ".gnupg"]
 	path = .gnupg
 	url = git@github.com:doronbehar/.gnupg
-[submodule ".config/offlineimap"]
-	path = .config/offlineimap
-	url = git@github.com:doronbehar/.config_offlineimap
 [submodule ".calcurse"]
 	path = .calcurse
 	url = git@github.com:doronbehar/.calcurse
@@ -88,9 +85,6 @@
 [submodule ".ssh"]
 	path = .ssh
 	url = git@github.com:doronbehar/.ssh
-[submodule ".config/conky"]
-	path = .config/conky
-	url = git@github.com:doronbehar/.config_conky
 [submodule ".config/mpDris2"]
 	path = .config/mpDris2
 	url = git@github.com:doronbehar/.config_mpDris2
