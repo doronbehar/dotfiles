@@ -163,14 +163,12 @@ awesome-spawn(){
 
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
-	_KFZF_DEFAULT_COMMAND='khard phone --parsable'
-	env FZF_DEFAULT_COMMAND="${_KFZF_DEFAULT_COMMAND}" fzf | awk -F$'\t' '{print $1}'
+	khard phone --parsable | fzf | awk -F$'\t' '{print $1}'
 }
 
 # {{{1 `kharde` print an email of a khard contact using fzf
 kharde(){
-	_EFZF_DEFAULT_COMMAND='khard email --parsable'
-	env FZF_DEFAULT_COMMAND="${_EFZF_DEFAULT_COMMAND}" fzf | awk -F$'\t' '{print $1}'
+	khard email --parsable | fzf | awk -F$'\t' '{print $1}'
 }
 
 # {{{1 `kdec` kdeconnect-cli with default device as first argument
