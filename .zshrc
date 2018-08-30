@@ -78,6 +78,7 @@ bindkey -a ge vi-forward-word
 bindkey -a gw vi-backward-word-end
 bindkey -a gE vi-forward-blank-word
 bindkey -a gW vi-backward-blank-word-end
+# zkbd for special keys which their code changes often
 autoload zkbd;
 # source zkbd files according to the $TERMinal
 if [[ -f "${ZDOTDIR:-$HOME}/.zkbd/${TERM}-${DISPLAY:-$VENDOR-$OSTYPE}" ]]; then

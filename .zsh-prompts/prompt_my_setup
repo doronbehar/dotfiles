@@ -36,7 +36,17 @@ prompt_my_precmd () {
 
 # Inspired/shamlessly-taken from: http://stackoverflow.com/questions/3622943/zsh-vi-mode-status-line
 function zle-line-init zle-keymap-select {
-	PS1_2="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+	case ${KEYMAP} in
+		"vicmd")
+			PS1_2="-- NORMAL --"
+			;;
+		"viins"|"main")
+			PS1_2="-- INSERT --"
+			;;
+		"visual")
+			PS1_2="-- VISUAL --"
+			;;
+	esac
 	PS1="%{$terminfo_down_sc$PS1_2$terminfo[rc]%}$PS1_base"
 	zle reset-prompt
 }
