@@ -36,7 +36,7 @@ alias o='xdg-open'
 alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"
 # colored cat: src-highlite
-alias ccat='source-highlight --failsafe --infer-lang --out-format=esc --style-file=esc.style -i'
+alias ccat='highlight --out-format=ansi'
 # systemctl poweroff/reboot
 alias poweroff='systemctl poweroff'
 alias reboot='systemctl reboot'
