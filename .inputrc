@@ -1,0 +1,6 @@
+set editing-mode vi
+set colored-completion-prefix on
+set colored-stats on
+set expand-tilde on
+set history-size 1000
+set show-mode-in-prompt on
