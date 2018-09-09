@@ -163,7 +163,7 @@ awesome-spawn(){
 
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
-	khard phone --parsable | fzf | awk -F$'\t' '{print $1}'
+	khard phone --parsable | uniq | fzf | awk -F$'\t' '{print $1}'
 }
 
 # {{{1 `kharde` print an email of a khard contact using fzf
