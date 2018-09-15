@@ -11,7 +11,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=~/.local/share/tasks
+data.location=~/.local/share/tasks/data
 
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme
@@ -33,15 +33,7 @@ color=on
 
 dateformat = d/m/y-h:n
 
-report.list.sort=project+,tags+
-report.list.filter=+UNBLOCKED +PENDING relevant.isnt:false
-report.ls.sort=project+,tags+
-report.ls.filter=+UNBLOCKED +PENDING effort.isnt:H priority.isnt:L relevant.isnt:false (projectdescription.isnt:true or +BLOCKING or priority.isnt:'') (postponed.isnt:true or +BLOCKING or priority.isnt:'')
-report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
-report._reviewed.columns=uuid
-report._reviewed.sort=reviewed+,modified+
-report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
-
+include ~/.local/share/tasks/reports.txt
 include ~/.local/share/tasks/udas/bugwarrior.txt
 include ~/.local/share/tasks/udas/personal.txt
 include ~/.local/share/tasks/credentials/shared.txt
