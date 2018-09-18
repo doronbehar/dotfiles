@@ -136,3 +136,6 @@
 [submodule ".ipython"]
 	path = .ipython
 	url = ssh://git@github.com/doronbehar/.ipython
+[submodule ".urxvt"]
+	path = .urxvt
+	url = https://github.com/doronbehar/.urxvt
