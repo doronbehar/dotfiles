@@ -76,15 +76,19 @@ if _command_exists nvim; then
 		export EDITOR="nvr"
 		export VISUAL="nvr"
 	fi
-	export MANPAGER="$EDITOR -c 'set ft=man' -"
 	export SUDO_EDITOR="env XDG_CONFIG_HOME=${HOME}/.config $EDITOR"
 elif _command_exists vim; then
 	export EDITOR="vim"
 	export VISUAL="vim"
-	export MANPAGER="vim -c 'set ft=man' -"
 	export SUDO_EDITOR="env VIM=${HOME}/.vim vim"
 fi
 export GIT_EDITOR="$VISUAL"
+if [[ $EDITOR =~ vim ]]; then
+	export MANPAGER="$EDITOR -c 'set ft=man' -"
+else
+	# taken from wiki.archlinux.org
+	export MANPAGER=env\ LESS_TERMCAP_mb=$'\E[01;31m'\ LESS_TERMCAP_md=$'\E[01;38;5;74m'\ LESS_TERMCAP_me=$'\E[0m'\ LESS_TERMCAP_se=$'\E[0m'\ LESS_TERMCAP_so=$'\E[38;5;246m'\ LESS_TERMCAP_ue=$'\E[0m'\ LESS_TERMCAP_us=$'\E[04;38;5;146m'\ less
+fi
 
 # - {{{1 gcc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
