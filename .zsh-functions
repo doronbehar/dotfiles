@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# {{{1 `fpath` - list of paths for directories containing functions for zsh completion
+# {{{1 `fpath` list of paths for directories containing functions for zsh completion
 fpath(){
 	echo "$fpath" | sed -e 's/\ /\n/g'
 }
@@ -14,4 +14,20 @@ zrc(){
 		echo please use this command with an argument > /dev/stderr
 		return 1
 	fi
+}
+
+# {{{1 `histrun` run a command from history
+histrun(){
+	local awk_history_append_cmd='{
+			"date +%s" | getline secs
+			close("date +%s")
+			$1=""
+			print ": "secs":0;"$0
+		}'
+	local awk_prepare_command_cmd='{
+			$1=""
+			$2=""
+			print $0
+		}'
+	history 1 | fzf | awk "$awk_history_append_cmd" | tee -a "$HISTFILE" | awk "$awk_prepare_command_cmd" | zsh
 }

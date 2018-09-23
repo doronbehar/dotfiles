@@ -56,6 +56,7 @@ setopt HIST_IGNORE_SPACE
 setopt EXTENDED_HISTORY
 # Write to the history file immediately, not when the shell exits.
 setopt INC_APPEND_HISTORY
+setopt APPEND_HISTORY
 # Don't write duplicate entries in the history file.
 setopt HIST_SAVE_NO_DUPS
 # Remove superfluous blanks before recording entry.
