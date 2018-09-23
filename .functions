@@ -211,6 +211,41 @@ call(){
 	fi
 }
 
+# {{{1 `lua` wrapper with support for alternative `LUA_PATH`s and inspect
+lua(){
+	LUA=$(which -p lua)
+	local shortopts=ALI
+	local longopts=awesome,local,inspect
+	local parsed=$(getopt --options=$shortopts --longoptions=$longopts --name "$0" -- "$@")
+	# read getopt’s output this way to handle the quoting right:
+	eval set -- "$parsed"
+	local inspect
+	while [[ "$#" -gt 0 ]]; do
+		key="$1"
+		case "$key" in
+			"-A"|"--awesome")
+				LUA_PATH="/usr/share/awesome/lib/?/init.lua;/usr/share/awesome/lib/?.lua;$LUA_PATH"
+				shift
+				;;
+			"-L"|"--local")
+				LUA_PATH="./?/init.lua;./?.lua;$LUA_PATH"
+				shift
+				;;
+			"-I"|"--inspect")
+				inspect=true
+				shift
+				;;
+			*)
+				break
+				;;
+		esac
+	done
+	if [[ "$inspect" == "true" ]]; then
+		$LUA -e "i=require('inspect')" -i "$@"
+	else
+		$LUA "$@"
+	fi
+}
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then

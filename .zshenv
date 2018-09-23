@@ -62,7 +62,7 @@ insert2PATH "$HOME/.rvm/bin"
 insert2PATH "$HOME/.perl5/bin"
 
 
-# - {{{1 LUA_PATH
+# - {{{1 LUA_PATH and LUA_CPATH
 if _command_exists luarocks; then
 	eval $(luarocks path)
 fi
