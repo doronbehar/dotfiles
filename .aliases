@@ -37,9 +37,23 @@ alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"
 # colored cat: src-highlite
 alias ccat='highlight --out-format=ansi'
-# systemctl poweroff/reboot
+# systemd related
 alias poweroff='systemctl poweroff'
 alias reboot='systemctl reboot'
+alias syu='systemctl --user'
+alias syut='systemctl --user start'
+alias syup='systemctl --user stop'
+alias syur='systemctl --user restart'
+alias syus='systemctl --user status'
+alias sys='sudo systemctl'
+alias syst='sudo systemctl start'
+alias sysp='sudo systemctl stop'
+alias sysr='sudo systemctl restart'
+alias syss='sudo systemctl status'
+alias jou='journalctl --user'
+alias jouu='journalctl --user --unit'
+alias jos='sudo journalctl'
+alias josu='sudo journalctl --unit'
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
 # shortcut for launching GNU Octave with --no-gui
