@@ -67,9 +67,6 @@
 [submodule ".config/bugwarrior"]
 	path = .config/bugwarrior
 	url = git@github.com:doronbehar/.config_bugwarrior
-[submodule ".config/transmission-remote-cli"]
-	path = .config/transmission-remote-cli
-	url = git@github.com:doronbehar/.config_transmission-remote-cli
 [submodule ".config/profanity"]
 	path = .config/profanity
 	url = git@github.com:doronbehar/.config_profanity
