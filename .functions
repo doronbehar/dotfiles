@@ -3,28 +3,6 @@ vinfo(){
 	$EDITOR "info://$1/$2"
 }
 
-# {{{1 `v` - launch $EDITOR smartly
-if [[ $EDITOR =~ "nvim" ]]; then
-	v(){
-		local args=()
-		while [[ $# -gt 0 ]]; do
-			args+=("$1")
-			shift
-		done
-		for (( i=1; i < ${#args[@]} + 1; i++ )); do
-			if [[ ! ${args[$i]} =~ "^-" ]]; then
-				if [[ ! -w ${args[$i]} ]]; then
-					args[$i]="suda://${args[$i]}"
-				fi
-			fi
-		done
-		set -- "${args[@]}"
-		$EDITOR ${args}
-	}
-else
-	alias v=$EDITOR
-fi
-
 # {{{1 `path` - list all directories included in $PATH, with \n between them.
 path(){
 	echo "${PATH//:/\n}"
