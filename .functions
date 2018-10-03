@@ -193,6 +193,9 @@ call(){
 lua(){
 	LUA=$(which -p lua)
 	local shortopts=ALI
+	if _command_exists luarocks; then
+		eval $(luarocks path)
+	fi
 	local longopts=awesome,local,inspect
 	local parsed=$(getopt --options=$shortopts --longoptions=$longopts --name "$0" -- "$@")
 	# read getopt’s output this way to handle the quoting right:
@@ -213,15 +216,16 @@ lua(){
 				inspect=true
 				shift
 				;;
-			*)
+			'--')
+				shift
 				break
 				;;
 		esac
 	done
 	if [[ "$inspect" == "true" ]]; then
-		$LUA -e "i=require('inspect')" -i "$@"
+		$LUA -e "i=require('inspect')" -i
 	else
-		$LUA "$@"
+		$LUA
 	fi
 }
 # {{{1 rvm
