@@ -110,10 +110,7 @@ URxvt*font:\
 	xft:FreeMono:size=9,\
 	xft:Symbola:size=9,\
 	xft:Symbola:size=8,\
-	xft:Symbola:size=7,\
-	xft:Font Awesome 5 Free:size=9,\
-	xft:Font Awesome 5 Free:size=8,\
-	xft:Font Awesome 5 Free:size=7
+	xft:Symbola:size=7
 !! }}}
 
 !! {{{ Colors
