@@ -158,7 +158,8 @@ sms(){
 		return
 	else
 		echo "${recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
-		kdec --send-sms "${args}" --destination "${recipient}"
+		kdec --send-sms "${args}" --destination "${recipient}" && \
+		echo sent sms message to ${recipient}
 	fi
 }
 
@@ -174,7 +175,8 @@ smsl(){
 		echo No recipient was chosen >&2
 		return
 	else
-		kdec --send-sms "${args}" --destination "${recipient}"
+		kdec --send-sms "${args}" --destination "${recipient}" && \
+		echo sent sms message to ${recipient}
 	fi
 }
 
