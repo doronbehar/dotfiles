@@ -136,3 +136,6 @@
 [submodule ".urxvt"]
 	path = .urxvt
 	url = https://github.com/doronbehar/.urxvt
+[submodule ".zsh-interactive-cd"]
+	path = .zsh-interactive-cd
+	url = https://github.com/changyuheng/zsh-interactive-cd

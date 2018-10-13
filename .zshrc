@@ -97,6 +97,11 @@ fi
 if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
 fi
+# interactive cd using fzf
+source ~/.zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+# Use non default bindings for it
+bindkey '^I' expand-or-complete
+bindkey '^F' zic-completion
 
 # {{{1 ZLE
 # sync with system clipboard
