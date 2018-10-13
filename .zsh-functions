@@ -11,7 +11,7 @@ zrc(){
 		unfunction "_$1"
 		autoload "_$1" && return 0
 	else
-		echo please use this command with an argument > /dev/stderr
+		echo please use this command with an argument >&2
 		return 1
 	fi
 }

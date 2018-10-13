@@ -53,15 +53,16 @@ cdgo(){
 	fi
 	#
 	# resolve $GOPATH in case it is by it-self sym-link as well
-	gopath_src="$(readlink -f "$GOPATH")/src"
+	local gopath_src="$(readlink -f "$GOPATH")/src"
 	#
 	# cache management of $gopath_src symlinks
 	# cache prefix
-	cache_dir="${HOME}/.cache/functions"
+	local cache_dir="${HOME}/.cache/functions"
 	mkdir -p ${cache_dir}
-	cache_prefix="${cache_dir}/cdgo."
-	cache_last_modification_date="$(date +%s -r ${cache_prefix}gopath_src_links 2> /dev/null)"
-	gopath_src_last_modification_date=$(date +%s -r "$gopath_src")
+	local cache_prefix="${cache_dir}/cdgo."
+	local cache_last_modification_date="$(date +%s -r ${cache_prefix}gopath_src_links 2> /dev/null)"
+	local gopath_src_last_modification_date=$(date +%s -r "$gopath_src")
+	local renewing_cache symlinks readlink
 	# if cache is old
 	if [ -z ${cache_last_modification_date} ]; then
 		renewing_cache="true"
@@ -112,7 +113,7 @@ cdgo(){
 # {{{1 `p` - bookmark navigator
 # interact with the command line bm ranger's compatible bookmarks manager
 p(){
-	dir="$(bm "$@")"
+	local dir="$(bm "$@")"
 	if [[ -d "$dir" ]]; then
 		cd "$dir"
 	else
@@ -122,8 +123,8 @@ p(){
 
 # {{{1 `awesome-spawn` launch any program in the current awesome window
 awesome-spawn(){
-	_arguments="$@"
-	awesome-client "require('awful').util.spawn_with_shell('"${_arguments}"')"
+	local args="$@"
+	awesome-client "require('awful').util.spawn_with_shell('"${args}"')"
 }
 
 # {{{1 `khardp` print a phone number of khard contact using fzf
@@ -138,7 +139,7 @@ kharde(){
 
 # {{{1 `kdec` kdeconnect-cli with default device as first argument
 kdec(){
-	device_name="$(kdeconnect-cli --list-devices | awk --assign dev_id="${_KDECONNECT_DEFAULT_DEVICE}" -F'[-|:|(|)]' '$(NF - 1) == "paired and reachable" && $(NF - 2) ~ dev_id {print $2}')"
+	local device_name="$(kdeconnect-cli --list-devices | awk --assign dev_id="${_KDECONNECT_DEFAULT_DEVICE}" -F'[-|:|(|)]' '$(NF - 1) == "paired and reachable" && $(NF - 2) ~ dev_id {print $2}')"
 	if [[ -z "${device_name}" ]]; then
 		echo It seems the default device configured with the env variable _KDECONNECT_DEFAULT_DEVICE \(${_KDECONNECT_DEFAULT_DEVICE}\) is not reachable or not paired > /dev/stderr
 		return
@@ -150,48 +151,48 @@ kdec(){
 
 # {{{1 `sms` Send a text message through kdeconnect-cli
 sms(){
-	_arguments="$@"
-	_recipient="$(khardp)"
-	if [[ -z "${_recipient}" ]]; then
-		echo No reciepent was chosen > /dev/stderr
+	local args="$@"
+	local recipient="$(khardp)"
+	if [[ -z "${recipient}" ]]; then
+		echo No recipient was chosen >&2
 		return
 	else
-		echo "${_recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
-		kdec --send-sms "${_arguments}" --destination "${_recipient}"
+		echo "${recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
+		kdec --send-sms "${args}" --destination "${recipient}"
 	fi
 }
 
-# {{{1 `smsl` Send a text message through kdeconnect-cli to the last reciepent used with sms
+# {{{1 `smsl` Send a text message through kdeconnect-cli to the last recipient used with sms
 smsl(){
-	_arguments="$@"
-	_recipient="$(cat ${_KDECONNECT_SMS_LAST_RECIPIENT})"
-	if [[ -z "${_recipient}" ]]; then
-		_recipient="$(khardp)"
-		echo "${_recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
+	local args="$@"
+	local recipient="$(cat ${_KDECONNECT_SMS_LAST_RECIPIENT})"
+	if [[ -z "${recipient}" ]]; then
+		recipient="$(khardp)"
+		echo "${recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
 	fi
-	if [[ -z "${_recipient}" ]]; then
-		echo No reciepent was chosen > /dev/stderr
+	if [[ -z "${recipient}" ]]; then
+		echo No recipient was chosen >&2
 		return
 	else
-		kdec --send-sms "${_arguments}" --destination "${_recipient}"
+		kdec --send-sms "${args}" --destination "${recipient}"
 	fi
 }
 
 # {{{1 `call` initiate a phone call with ssh to a termux machine with termux's command `termux-telephony-call`
 call(){
-	_recipient="$(khardp)"
-	if [[ -z "${_recipient}" ]]; then
-		echo No reciepent was chosen > /dev/stderr
+	local recipient="$(khardp)"
+	if [[ -z "${recipient}" ]]; then
+		echo No recipient was chosen >&2
 		return
 	else
-		echo dialing: "${_recipient}"
-		ssh-phone termux-telephony-call \""${_recipient}"\"
+		echo dialing: "${recipient}"
+		ssh-phone termux-telephony-call \""${recipient}"\"
 	fi
 }
 
 # {{{1 `lua` wrapper with support for alternative `LUA_PATH`s and inspect
 lua(){
-	LUA=$(which -p lua)
+	local LUA=$(which -p lua)
 	local shortopts=ALI
 	if _command_exists luarocks; then
 		eval $(luarocks path)
