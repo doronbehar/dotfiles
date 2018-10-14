@@ -1,7 +1,6 @@
 git submodule init -- \
 	.config/git \
 	.config/pip \
-	.config/pulse \
 	.config/ranger \
 	.cpan/CPAN \
 	.gnupg \
@@ -68,3 +67,4 @@ git -C .config/nvim submodule init -- \
 	bundle/visualrepeat \
 	bundle/window-swap
 git -C .config/nvim submodule update --recursive --checkout
+
