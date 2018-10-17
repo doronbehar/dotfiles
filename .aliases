@@ -37,6 +37,8 @@ alias cxclip="xclip -selection clipboard"
 alias pxclip="xclip -selection primary"
 # colored cat: src-highlite
 alias ccat='highlight --out-format=ansi --force'
+# always colored taskwarrior
+alias ct='task rc._forcecolor=on'
 # systemd related
 alias poweroff='systemctl poweroff'
 alias reboot='systemctl reboot'
