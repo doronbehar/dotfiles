@@ -199,44 +199,61 @@ call(){
 	fi
 }
 
-# {{{1 `lua` wrapper with support for alternative `LUA_PATH`s and inspect
-lua(){
-	local LUA=$(which -p lua)
-	local shortopts=ALI
-	if _command_exists luarocks; then
-		eval $(luarocks path)
-	fi
-	local longopts=awesome,local,inspect
-	local parsed=$(getopt --options=$shortopts --longoptions=$longopts --name "$0" -- "$@")
-	# read getopt’s output this way to handle the quoting right:
-	eval set -- "$parsed"
-	local inspect
-	while [[ "$#" -gt 0 ]]; do
-		key="$1"
-		case "$key" in
-			"-A"|"--awesome")
-				LUA_PATH="/usr/share/awesome/lib/?/init.lua;/usr/share/awesome/lib/?.lua;$LUA_PATH"
-				shift
-				;;
-			"-L"|"--local")
-				LUA_PATH="./?/init.lua;./?.lua;$LUA_PATH"
-				shift
-				;;
-			"-I"|"--inspect")
-				inspect=true
-				shift
-				;;
-			'--')
-				shift
-				break
-				;;
-		esac
-	done
-	if [[ "$inspect" == "true" ]]; then
-		$LUA -e "i=require('inspect')" -i
+# {{{1 `lual` toggle the presedence of local paths in $LUA_PATH
+lual(){
+	local lua_path=()
+	IFS=";" read -A lua_path <<<"${LUA_PATH}"
+	local modified_lua_path=()
+	local concatenated_lua_path pth
+	if [[ "${lua_path[1]}" == "./?.lua" && "${lua_path[2]}" == "./?/init.lua" ]]; then
+		for pth_index in {3..${#lua_path[@]}}; do
+			modified_lua_path+=("${lua_path[$pth_index]}")
+		done
+		modified_lua_path+=("./?.lua")
+		modified_lua_path+=("./?/init.lua")
 	else
-		$LUA
+		modified_lua_path+=("./?.lua")
+		modified_lua_path+=("./?/init.lua")
+		for pth_index in {1..$((${#lua_path[@]} - 2))}; do
+			modified_lua_path+=("${lua_path[$pth_index]}")
+		done
 	fi
+	concatenated_lua_path="${modified_lua_path[1]}"
+	for pth in "${modified_lua_path[@]:1}"; do
+		concatenated_lua_path="$concatenated_lua_path;$pth"
+	done
+	LUA_PATH="$concatenated_lua_path"
+	echo LUA_PATH=$LUA_PATH
+}
+# {{{1 `luaa` toggle the presence of Awesome WM paths in $LUA_PATH
+luaa(){
+	local lua_path=()
+	IFS=";" read -A lua_path <<<"${LUA_PATH}"
+	local modified_lua_path=()
+	local concatenated_lua_path pth
+	if [[ "$LUA_PATH" =~ "awesome" ]]; then
+		for pth in "${lua_path[@]}"; do
+			if [[ ! "$pth" =~ "awesome" ]]; then
+				modified_lua_path+=("$pth")
+			fi
+		done
+	else
+		modified_lua_path+=("/usr/share/awesome/lib/?.lua")
+		modified_lua_path+=("/usr/share/awesome/lib/?/init.lua")
+		for pth in "${lua_path[@]}"; do
+			modified_lua_path+=("$pth")
+		done
+	fi
+	concatenated_lua_path="${modified_lua_path[1]}"
+	for pth in "${modified_lua_path[@]:1}"; do
+		concatenated_lua_path="$concatenated_lua_path;$pth"
+	done
+	LUA_PATH="$concatenated_lua_path"
+	echo LUA_PATH=$LUA_PATH
+}
+# {{{1 `luai` lua wrapper with inspect library callable by var `i`
+luai(){
+	lua -e "i=require('inspect')" -i "$@"
 }
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
