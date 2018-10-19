@@ -129,12 +129,16 @@ awesome-spawn(){
 
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
-	khard phone --parsable | uniq | fzf | awk -F$'\t' '{print $1}'
+	local phone_number name phone_type
+	khard phone --parsable | fzf | IFS=$'\t' read -r phone_number name phone_type
+	echo $phone_number
 }
 
 # {{{1 `kharde` print an email of a khard contact using fzf
 kharde(){
-	khard email --parsable | fzf | awk -F$'\t' '{print $1}'
+	local email_address name email_type
+	khard email --parsable | fzf | IFS=$'\t' read -r email_address name email_type
+	echo $email_address
 }
 
 # {{{1 `kdec` kdeconnect-cli with default device as first argument
@@ -152,21 +156,23 @@ kdec(){
 # {{{1 `sms` Send a text message through kdeconnect-cli
 sms(){
 	local args="$@"
-	local recipient="$(khardp)"
-	if [[ -z "${recipient}" ]]; then
+	local phone_number name phone_type
+	khard phone --parsable | fzf | IFS=$'\t' read -r phone_number name phone_type
+	if [[ -z "${phone_number}" ]]; then
 		echo No recipient was chosen >&2
 		return
 	else
-		echo "${recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
-		kdec --send-sms "${args}" --destination "${recipient}" && \
-		echo sent sms message to ${recipient}
+		echo "${name}"$'\t'"${phone_number}"$'\t'"${phone_type}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
+		kdec --send-sms "${args}" --destination "${phone_number}" && \
+		echo sent sms message to ${name} | fribidi
 	fi
 }
 
 # {{{1 `smsl` Send a text message through kdeconnect-cli to the last recipient used with sms
 smsl(){
 	local args="$@"
-	local recipient="$(cat ${_KDECONNECT_SMS_LAST_RECIPIENT})"
+	local phone_number name phone_type
+	IFS=$'\t' read -r phone_number name phone_type < ${_KDECONNECT_SMS_LAST_RECIPIENT}
 	if [[ -z "${recipient}" ]]; then
 		recipient="$(khardp)"
 		echo "${recipient}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
@@ -176,19 +182,20 @@ smsl(){
 		return
 	else
 		kdec --send-sms "${args}" --destination "${recipient}" && \
-		echo sent sms message to ${recipient}
+		echo sent sms message to ${name} | fribidi
 	fi
 }
 
 # {{{1 `call` initiate a phone call with ssh to a termux machine with termux's command `termux-telephony-call`
 call(){
-	local recipient="$(khardp)"
-	if [[ -z "${recipient}" ]]; then
+	local phone_number name phone_type
+	khard phone --parsable | fzf | IFS=$'\t' read -r phone_number name phone_type
+	if [[ -z "${phone_number}" ]]; then
 		echo No recipient was chosen >&2
 		return
 	else
-		echo dialing: "${recipient}"
-		ssh-phone termux-telephony-call \""${recipient}"\"
+		echo dialing: "${name}" | fribidi
+		ssh-phone termux-telephony-call \""${phone_number}"\"
 	fi
 }
 
