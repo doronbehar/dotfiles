@@ -130,7 +130,7 @@ awesome-spawn(){
 # {{{1 `khardp` print a phone number of khard contact using fzf
 khardp(){
 	local phone_number name phone_type
-	khard phone --parsable | fzf | IFS=$'\t' read -r phone_number name phone_type
+	khard phone --parsable | sort -u | fzf | IFS=$'\t' read -r phone_number name phone_type
 	echo $phone_number
 }
 
@@ -157,7 +157,7 @@ kdec(){
 sms(){
 	local args="$@"
 	local phone_number name phone_type
-	khard phone --parsable | fzf | IFS=$'\t' read -r phone_number name phone_type
+	khard phone --parsable | sort -u | fzf | IFS=$'\t' read -r phone_number name phone_type
 	if [[ -z "${phone_number}" ]]; then
 		echo No recipient was chosen >&2
 		return
@@ -189,7 +189,7 @@ smsl(){
 # {{{1 `call` initiate a phone call with ssh to a termux machine with termux's command `termux-telephony-call`
 call(){
 	local phone_number name phone_type
-	khard phone --parsable | fzf | IFS=$'\t' read -r phone_number name phone_type
+	khard phone --parsable | sort -u | fzf | IFS=$'\t' read -r phone_number name phone_type
 	if [[ -z "${phone_number}" ]]; then
 		echo No recipient was chosen >&2
 		return
