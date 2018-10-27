@@ -50,6 +50,7 @@ export FQDN="$(hostname -f)"
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
+insert2PATH "$HOME/.go/bin"
 insert2PATH "$HOME/.luarocks/bin"
 insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
 if _command_exists ccache; then
