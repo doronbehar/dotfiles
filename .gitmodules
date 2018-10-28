@@ -139,3 +139,6 @@
 [submodule ".zsh-interactive-cd"]
 	path = .zsh-interactive-cd
 	url = https://github.com/changyuheng/zsh-interactive-cd
+[submodule ".config/lf"]
+	path = .config/lf
+	url = ssh://git@github.com/doronbehar/.config_lf
