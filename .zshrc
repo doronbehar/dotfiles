@@ -104,6 +104,22 @@ bindkey '^I' expand-or-complete
 bindkey '^F' zic-completion
 
 # {{{1 ZLE
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+	for c in {a,i}{\',\",\`}; do
+		bindkey -M $m $c select-quoted
+	done
+done
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+		bindkey -M $m $c select-bracketed
+	done
+done
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
 # sync with system clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
 # enable inline comments
