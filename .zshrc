@@ -97,11 +97,6 @@ fi
 if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
 fi
-# interactive cd using fzf
-source ~/.zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
-# Use non default bindings for it
-bindkey '^I' expand-or-complete
-bindkey '^F' zic-completion
 
 # {{{1 ZLE
 autoload -U select-quoted
@@ -120,14 +115,19 @@ for m in visual viopp; do
 done
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-# `fcf` - run a command from history
-function fc-fzf() {
-	local match
-	fc -ln 1 | fzf | read -r -d '' match
-	BUFFER="$(echo $match)"
-}
-zle -N fc-fzf
-bindkey -M vicmd "^Z" fc-fzf
+# bind fzf shell functions
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+	source /usr/share/fzf/key-bindings.zsh
+fi
+if [[ -f /usr/share/fzf/completion.zsh ]]; then
+	source /usr/share/fzf/completion.zsh
+fi
+# remove bindings hardcoded in key-bindings.zsh
+bindkey -M viins -r "^R"
+bindkey -M viins -r '\ec'
+bindkey -M viins -r '^T'
+# use only the most useful widget from there
+bindkey -M vicmd "^Z" fzf-history-widget
 # sync with system clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
 # enable inline comments
