@@ -120,6 +120,14 @@ for m in visual viopp; do
 done
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+# `fcf` - run a command from history
+function fc-fzf() {
+	local match
+	fc -ln 1 | fzf | read -r -d '' match
+	BUFFER="$(echo $match)"
+}
+zle -N fc-fzf
+bindkey -M vicmd "^Z" fc-fzf
 # sync with system clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
 # enable inline comments

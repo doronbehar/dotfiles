@@ -15,22 +15,3 @@ zrc(){
 		return 1
 	fi
 }
-
-# {{{1 `histrun` run a command from history
-histrun(){
-	local awk_history_append_cmd='{
-			"date +%s" | getline secs
-			close("date +%s")
-			$1=""
-			gsub(/^ +/, "", $0)
-			print ": "secs":0;"$0
-		}'
-	local awk_prepare_command_cmd='BEGIN{
-			FS=";"
-		}
-		{
-			$1=""
-			print $0
-		}'
-	history 1 | fzf | awk "$awk_history_append_cmd" | tee -a "$HISTFILE" | awk "$awk_prepare_command_cmd" | zsh
-}
