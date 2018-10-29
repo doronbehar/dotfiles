@@ -99,6 +99,7 @@ if [[ $TERM =~ .*tmux.* ]]; then
 fi
 
 # {{{1 ZLE
+# create quotes text objects
 autoload -U select-quoted
 zle -N select-quoted
 for m in visual viopp; do
@@ -106,6 +107,7 @@ for m in visual viopp; do
 		bindkey -M $m $c select-quoted
 	done
 done
+# create brackets text objects
 autoload -U select-bracketed
 zle -N select-bracketed
 for m in visual viopp; do
@@ -113,6 +115,7 @@ for m in visual viopp; do
 		bindkey -M $m $c select-bracketed
 	done
 done
+# automatically escape URLs
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 # bind fzf shell functions
@@ -128,14 +131,20 @@ bindkey -M viins -r '\ec'
 bindkey -M viins -r '^T'
 # use only the most useful widget from there
 bindkey -M vicmd "^Z" fzf-history-widget
+# use a different trigger and binding to launch a fzf completion
+export FZF_COMPLETION_TRIGGER=''
+bindkey -M viins "^I" $fzf_default_completion
+bindkey -M viins "^F" fzf-completion
+# source all completions based on _fzf_completion for the various commands
+source ~/.zsh-fzf-completions
 # sync with system clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
 # enable inline comments
 setopt interactivecomments
-
-# {{{1 Looks
 # syntax highlighting
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+
+# {{{1 Looks
 fpath=(~/.zsh-prompts $fpath)
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit

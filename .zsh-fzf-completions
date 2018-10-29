@@ -1,0 +1,31 @@
+# create a simpler and lighter cd fzf completion
+_fzf_complete_cd() {
+	local real_prefix="${prefix#[^/]*}"
+	local dirs=("${real_prefix}"*(-/)) 2> /dev/null
+	[ ! -z "${dirs}" ] && \
+	_fzf_complete +m "$@" < <(
+		printf '%s\n' "${dirs[@]}"
+	)
+}
+
+# this will remove trailing whitespaces and add instead a /
+_fzf_complete_cd_post() {
+	match="$(cat -)"
+	printf '%s' "${match#[[:space:]]*}"/
+}
+
+# use the same completion of cd for lf the file manager
+_fzf_complete_lf() {
+	local real_prefix="${prefix#[^/]*}"
+	local dirs=("${real_prefix}"*(-/)) 2> /dev/null
+	[ ! -z "${dirs}" ] && \
+	_fzf_complete +m "$@" < <(
+		printf '%s\n' "${dirs[@]}"
+	)
+}
+
+# this will remove trailing whitespaces and add instead a /
+_fzf_complete_lf_post() {
+	match="$(cat -)"
+	printf '%s' "${match#[[:space:]]*}"/
+}
