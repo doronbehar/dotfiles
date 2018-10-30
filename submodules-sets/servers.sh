@@ -3,6 +3,7 @@ git submodule init -- \
 	.config/pip \
 	.config/pulse \
 	.config/ranger \
+	.config/lf \
 	.cpan/CPAN \
 	.gnupg \
 	.ssh \
