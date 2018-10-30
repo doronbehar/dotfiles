@@ -95,7 +95,8 @@ export GIT_EDITOR="$VISUAL"
 # - {{{1 gcc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-
+# - {{{1 git
+export EMPTY_COMMIT_HASH=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
 # - {{{1 xdg
 [[ -f "$HOME/.config/user-dirs.dirs" ]] && source "$HOME/.config/user-dirs.dirs"
