@@ -1,2 +1,2 @@
--passwdfile cmd:'pass software/common/vnc'
+-passwdfile cmd:'gopass show -f software/common/vnc'
 -avahi
