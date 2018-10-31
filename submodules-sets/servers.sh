@@ -10,8 +10,7 @@ git submodule init -- \
 	.tmux \
 	.zsh-completions \
 	.zsh-syntax-highlighting \
-	.zsh-system-clipboard \
-	.zsh-interactive-cd
+	.zsh-system-clipboard
 git submodule update --recursive --checkout
 
 git submodule init -- .config/nvim
