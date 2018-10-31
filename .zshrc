@@ -100,6 +100,7 @@ fi
 
 # {{{1 ZLE
 # create quotes text objects
+# /usr/share/zsh/functions/Zle/select-quoted
 autoload -U select-quoted
 zle -N select-quoted
 for m in visual viopp; do
@@ -108,6 +109,7 @@ for m in visual viopp; do
 	done
 done
 # create brackets text objects
+# /usr/share/zsh/functions/Zle/select-bracketed
 autoload -U select-bracketed
 zle -N select-bracketed
 for m in visual viopp; do
@@ -116,6 +118,7 @@ for m in visual viopp; do
 	done
 done
 # automatically escape URLs
+# /usr/share/zsh/functions/Zle/url-quote-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 # bind fzf shell functions
@@ -136,12 +139,15 @@ export FZF_COMPLETION_TRIGGER=''
 bindkey -M viins "^I" $fzf_default_completion
 bindkey -M viins "^F" fzf-completion
 # source all completions based on _fzf_completion for the various commands
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)
 source ~/.zsh-fzf-completions
 # sync with system clipboard
+# https://github.com/kutsan/zsh-system-clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
 # enable inline comments
 setopt interactivecomments
 # syntax highlighting
+# https://github.com/zsh-users/zsh-syntax-highlighting
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # {{{1 Looks
