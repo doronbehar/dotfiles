@@ -64,6 +64,8 @@ alias oct='octave --no-gui'
 alias pdb='python -m pdb '
 # Shortcut for transmission-remote with authentication through environment
 alias trc='transmission-remote --authenv'
+# replace shell script pass with gopass
+alias pass=gopass
 
 # Load local configuration files based on hostname
 [[ -f "$HOME/.local/share/zsh/${TERM}/aliases" ]] && source "$HOME/.local/share/zsh/${TERM}/aliases"
