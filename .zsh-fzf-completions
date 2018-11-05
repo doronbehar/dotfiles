@@ -1,10 +1,12 @@
 # create a simpler and lighter cd fzf completion
 _fzf_complete_cd() {
-	local real_prefix="${prefix#[^/]*}"
-	local dirs=("${real_prefix}"*(-/)) 2> /dev/null
+	if [[ -z "${prefix}" ]]; then
+		prefix="./"
+	fi
+	local dirs=(${prefix}*(-/)) 2> /dev/null
 	[ ! -z "${dirs}" ] && \
 	_fzf_complete +m "$@" < <(
-		printf '%s\n' "${dirs[@]}"
+		IFS=$'\n'; printf '%s\n' "${dirs[*]}"
 	)
 }
 
