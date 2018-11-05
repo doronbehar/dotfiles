@@ -11,7 +11,9 @@ _fzf_complete_cd() {
 # this will remove trailing whitespaces and add instead a /
 _fzf_complete_cd_post() {
 	match="$(cat -)"
-	printf '%s' "${match#[[:space:]]*}"/
+	if [[ ! -z "$match" ]]; then
+		printf '%q' "${match#[[:space:]]*}"/
+	fi
 }
 
 # use the same completion of cd for lf the file manager
