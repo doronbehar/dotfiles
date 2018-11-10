@@ -66,5 +66,7 @@ git -C .config/nvim submodule init -- \
 	bundle/transpose \
 	bundle/unicode \
 	bundle/visualrepeat \
-	bundle/window-swap
+	bundle/window-swap \
+	bundle/fugitive \
+	bundle/nftables
 git -C .config/nvim submodule update --recursive --checkout
