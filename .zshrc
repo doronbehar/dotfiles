@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# {{{1 Uncategorized
+# Why would I want to exclude hiddne files?
+setopt GLOB_DOTS
+
 # {{{ Completion.
 # Completions by zsh-users
 fpath=(~/.zsh-completions/src $fpath)
