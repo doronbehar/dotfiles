@@ -37,10 +37,12 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 # Use completion cache
 zstyle ':completion::complete:*' use-cache true
 # Command failure
-if [ -f /etc/zsh_command_not_found ]; then
-	source /etc/zsh_command_not_found
-elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
-	source /usr/share/doc/pkgfile/command-not-found.zsh
+if [[ -z ${functions[command_not_found_handler]} ]]; then
+	if [ -f /etc/zsh_command_not_found ]; then
+		source /etc/zsh_command_not_found
+	elif [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+		source /usr/share/doc/pkgfile/command-not-found.zsh
+	fi
 fi
 
 # {{{1 History.
