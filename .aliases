@@ -23,6 +23,9 @@ if [ -x /usr/bin/dircolors ]; then
 	alias cpacman='pacman --color=always'
 	# always colored ack
 	alias cack='ack --color=always'
+	# colored and always colored cower
+	alias cower='cower --color'
+	alias ccower='cower --color=always'
 fi
 # {{{1 Other aliases
 # taskwarrior
