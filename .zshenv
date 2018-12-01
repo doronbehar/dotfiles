@@ -53,6 +53,8 @@ insert2PATH "$HOME/.bin"
 insert2PATH "$HOME/.go/bin"
 insert2PATH "$HOME/.luarocks/bin"
 insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
+insert2PATH "$HOME/.yarn/bin"
+insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
 if _command_exists ccache; then
 	insert2PATH "/usr/lib/ccache/bin"
 fi
@@ -61,7 +63,6 @@ insert2PATH "$HOME/.rvm/bin"
 
 # - {{{1 CPAN
 insert2PATH "$HOME/.perl5/bin"
-
 
 # - {{{1 LUA_PATH and LUA_CPATH
 if _command_exists luarocks; then
