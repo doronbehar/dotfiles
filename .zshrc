@@ -140,6 +140,7 @@ bindkey -M viins -r '\ec'
 bindkey -M viins -r '^T'
 # use only the most useful widget from there
 bindkey -M vicmd "^Z" fzf-history-widget
+bindkey -M viins "^Z" fzf-history-widget
 # use a different trigger and binding to launch a fzf completion
 export FZF_COMPLETION_TRIGGER=''
 bindkey -M viins "^I" $fzf_default_completion
