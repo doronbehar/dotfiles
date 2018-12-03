@@ -27,6 +27,6 @@ this_repo=$(cd $(dirname $0)/.. && pwd -P)
 for sm in $update_selectively; do
 	git submodule init -- $this_repo/$sm
 	cd $this_repo/$sm
-	./submodules-sets/$(basename $0)
+	source ./submodules-sets/$(basename $0)
 	cd $this_repo
 done
