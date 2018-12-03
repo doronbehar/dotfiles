@@ -1,39 +1,86 @@
-# create a simpler and lighter cd fzf completion
-_fzf_complete_cd() {
-	if [[ -z "${prefix}" ]]; then
-		prefix="./"
+# history widget
+fzf-history-widget() {
+	local selected num
+	setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+	selected=($(fc -rl 1 | fzf +m \
+		--height "40%" \
+		-n2..,.. \
+		--tiebreak=index \
+		--bind=ctrl-r:toggle-sort \
+		--query=${(qqq)LBUFFER} \
+	))
+	local ret=$?
+	if [ -n "$selected" ]; then
+		num=$selected[1]
+		if [ -n "$num" ]; then
+			zle vi-fetch-history -n $num
+		fi
 	fi
-	local dirs=(${prefix}*(-/)) 2> /dev/null
-	[ ! -z "${dirs}" ] && \
-	_fzf_complete +m "$@" < <(
-		IFS=$'\n'; printf '%s\n' "${dirs[*]}"
+	zle reset-prompt
+	return $ret
+}
+zle -N fzf-history-widget
+
+_fzf_feed_fifo() (
+	command rm -f "$1"
+	mkfifo "$1"
+	cat <&0 > "$1" &
+)
+_fzf_complete() {
+	local fifo fzf_opts lbuf fzf matches post
+	fifo="${TMPDIR:-/tmp}/fzf-complete-fifo-$$"
+	fzf_opts=$1
+	lbuf=$2
+	post="${funcstack[2]}_post"
+	type $post > /dev/null 2>&1 || post=cat
+
+	_fzf_feed_fifo "$fifo"
+	matches=$(cat "$fifo" | \
+		fzf --height "40%" --reverse ${=fzf_opts} -q "${(Q)prefix}" | \
+		$post | \
+		tr '\n' ' ' \
 	)
+	if [ -n "$matches" ]; then
+		LBUFFER="$lbuf$matches"
+	fi
+	zle reset-prompt
+	command rm -f "$fifo"
 }
 
-# this will remove trailing whitespaces and add instead a /
-_fzf_complete_cd_post() {
-	match="$(cat -)"
-	if [[ ! -z "$match" ]]; then
-		printf '%q' "${match#[[:space:]]*}"/
+# fzf-dir-completion widget
+fzf-dir-completion() {
+	local prefix
+	prefix="${prefix}" _fzf_complete_dir "$@"
+}
+zle -N fzf-dir-completion
+
+# fzf-completion widget
+fzf-completion() {
+	local tokens cmd prefix trigger tail lbuf
+	setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
+	# http://zsh.sourceforge.net/FAQ/zshfaq03.html
+	# http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
+	tokens=(${(z)LBUFFER})
+	if [ ${#tokens} -lt 1 ]; then
+		zle expand-or-complete
+		return
+	fi
+	cmd=${tokens[1]}
+	# Explicitly allow for empty trigger.
+	trigger=${FZF_COMPLETION_TRIGGER-'**'}
+	[ -z "$trigger" -a ${LBUFFER[-1]} = ' ' ] && tokens+=("")
+	tail=${LBUFFER:$(( ${#LBUFFER} - ${#trigger} ))}
+	if [ ${#tokens} -gt 1 -a "$tail" = "$trigger" ]; then
+		[ -z "$trigger"      ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
+		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER        || lbuf=${LBUFFER:0:-${#tokens[-1]}}
+		if type _fzf_complete_${cmd} > /dev/null; then
+			prefix="${prefix}" _fzf_complete_${cmd} "${lbuf}"
+		else
+			prefix="${prefix}" _fzf_complete_file "${lbuf}"
+		fi
+	# Fall back to default completion
+	else
+		zle expand-or-complete
 	fi
 }
-
-# use the same completion of cd for lf the file manager
-_fzf_complete_lf() {
-	_fzf_complete_cd "$@"
-}
-_fzf_complete_lf_post() {
-	_fzf_complete_cd_post "$@"
-}
-
-# gopass or pass passwords
-_fzf_complete_gopass() {
-	_fzf_complete "--query '$prefix'" "$@" < <(
-		find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//'
-	)
-}
-_fzf_complete_pass() {
-	_fzf_complete "--query '$prefix'" "$@" < <(
-		find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//'
-	)
-}
+zle -N fzf-completion

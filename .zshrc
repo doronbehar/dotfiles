@@ -127,27 +127,17 @@ done
 # /usr/share/zsh/functions/Zle/url-quote-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-# bind fzf shell functions
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-	source /usr/share/fzf/key-bindings.zsh
-fi
-if [[ -f /usr/share/fzf/completion.zsh ]]; then
-	source /usr/share/fzf/completion.zsh
-fi
-# remove bindings hardcoded in key-bindings.zsh
-bindkey -M viins -r "^R"
-bindkey -M viins -r '\ec'
-bindkey -M viins -r '^T'
+# Zle widgets based on examples distributed with fzf
+export FZF_COMPLETION_TRIGGER=''
+source ~/.zsh-fzf-completions
+source ~/.zsh-fzf-command-completions
 # use only the most useful widget from there
 bindkey -M vicmd "^Z" fzf-history-widget
 bindkey -M viins "^Z" fzf-history-widget
-# use a different trigger and binding to launch a fzf completion
-export FZF_COMPLETION_TRIGGER=''
-bindkey -M viins "^I" $fzf_default_completion
-bindkey -M viins "^F" fzf-completion
 # source all completions based on _fzf_completion for the various commands
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
-source ~/.zsh-fzf-completions
+bindkey -M viins "^F" fzf-completion
+bindkey -M viins "^D" fzf-dir-completion
 # sync with system clipboard
 # https://github.com/kutsan/zsh-system-clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh

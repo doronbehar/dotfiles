@@ -1,0 +1,89 @@
+# create a simpler and lighter directory fzf completion
+_fzf_complete_dir() {
+	if [[ -z "${prefix}" ]]; then
+		prefix="./"
+	fi
+	local dirs=(${prefix}*(-/)) 2> /dev/null
+	[ ! -z "${dirs}" ] && \
+	_fzf_complete +m "$@" < <(
+		IFS=$'\n'; printf '%s\n' "${dirs[*]}"
+	)
+}
+# this will remove trailing whitespaces and add instead a /
+_fzf_complete_dir_post() {
+	match="$(cat -)"
+	if [[ ! -z "$match" ]]; then
+		printf '%q' "${match#[[:space:]]*}"/
+	fi
+}
+
+# create a simpler and lighter file fzf completion
+_fzf_complete_file() {
+	if [[ -z "${prefix}" ]]; then
+		prefix="./"
+	fi
+	local dirs=(${prefix}*) 2> /dev/null
+	[ ! -z "${dirs}" ] && \
+	_fzf_complete +m "$@" < <(
+		IFS=$'\n'; printf '%s\n' "${dirs[*]}"
+	)
+}
+
+# make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
+_fzf_complete_cd() {
+	_fzf_complete_dir "$@"
+}
+_fzf_complete_cd_post() {
+	_fzf_complete_dir_post "$@"
+}
+
+# gopass and pass passwords
+_fzf_complete_gopass() {
+	_fzf_complete "--query '$prefix'" "$@" < <(
+		find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//'
+	)
+}
+_fzf_complete_pass() {
+	_fzf_complete "--query '$prefix'" "$@" < <(
+		find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//'
+	)
+}
+
+# telnet
+_fzf_complete_telnet() {
+	_fzf_complete '+m' "$@" < <(
+		command grep -v '^\s*\(#\|$\)' /etc/hosts | command grep -Fv '0.0.0.0' |
+				awk '{if (length($2) > 0) {print $2}}' | sort -u
+	)
+}
+
+# ssh
+_fzf_complete_ssh() {
+	_fzf_complete '+m' "$@" < <(
+		command cat <(cat ~/.ssh/config /etc/ssh/ssh_config 2> /dev/null | command grep -i '^host ' | command grep -v '[*?]' | awk '{for (i = 2; i <= NF; i++) print $1 " " $i}') \
+				<(command grep -oE '^[[a-z0-9.,:-]+' ~/.ssh/known_hosts | tr ',' '\n' | tr -d '[' | awk '{ print $1 " " $1 }') \
+				<(command grep -v '^\s*\(#\|$\)' /etc/hosts | command grep -Fv '0.0.0.0') |
+				awk '{if (length($2) > 0) {print $2}}' | sort -u
+	)
+}
+
+# export (zsh's built-in)
+_fzf_complete_export() {
+	_fzf_complete '-m' "$@" < <(
+		declare -xp | sed -e 's/=.*//' -e 's/.* //'
+	)
+}
+
+# unset (zsh's built-in)
+_fzf_complete_unset() {
+	_fzf_complete '-m' "$@" < <(
+		declare -xp | sed 's/=.*//' | sed 's/.* //'
+	)
+}
+
+# unalias (zsh's built-in)
+_fzf_complete_unalias() {
+	_fzf_complete '+m' "$@" < <(
+		alias | sed 's/=.*//'
+	)
+}
