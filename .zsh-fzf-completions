@@ -7,7 +7,7 @@ fzf-history-widget() {
 		-n2..,.. \
 		--tiebreak=index \
 		--bind=ctrl-r:toggle-sort \
-		--query=${(qqq)LBUFFER} \
+		--query="${LBUFFER}" \
 	))
 	local ret=$?
 	if [ -n "$selected" ]; then
