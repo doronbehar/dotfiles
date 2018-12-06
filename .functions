@@ -255,6 +255,18 @@ luaa(){
 luai(){
 	lua -e "i=require('inspect')" -i "$@"
 }
+
+# {{{1 `wegolu` wego location updater - for caching purposes
+wegolu(){
+	ssh phone termux-location | jq --raw-output '. | "\(.latitude)" + "," + "\(.longitude)"' > ~/.cache/location.txt
+	cat ~/.cache/location.txt
+}
+
+# {{{1 `wegol` wego wrapper with location retrived from Android device
+wegol(){
+	wego -location "$(cat ~/.cache/location.txt)"
+}
+
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
