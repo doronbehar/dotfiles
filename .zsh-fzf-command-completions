@@ -1,40 +1,35 @@
 # create a simpler and lighter directory fzf completion
-_fzf_complete_dir() {
-	if [[ -z "${prefix}" ]]; then
-		prefix="./"
+_fzf_complete_path() {
+	local lbuf="$1"
+	local prefix="$2"
+	local mode="$3"  # string - `files` or `directories`
+	local path_prefix
+	if [[ "${prefix}" =~ "/" ]]; then
+		path_prefix="${prefix%/*}/"
+		prefix="${prefix##*/}"
+	else
+		path_prefix="./"
 	fi
-	local dirs=(${prefix}*(-/)) 2> /dev/null
-	[ ! -z "${dirs}" ] && \
-	_fzf_complete +m "$@" < <(
-		IFS=$'\n'; printf '%s\n' "${dirs[*]}"
-	)
-}
-# this will remove trailing whitespaces and add instead a /
-_fzf_complete_dir_post() {
-	match="$(cat -)"
-	if [[ ! -z "$match" ]]; then
-		printf '%q' "${match#[[:space:]]*}"/
+	local query="${prefix//*\//}"
+	local options
+	if [[ "$mode" == "directories" ]]; then
+		options=(${path_prefix}*(-/)) 2> /dev/null
+	elif [[ "$mode" == "files" ]]; then
+		options=(${path_prefix}*) 2> /dev/null
 	fi
-}
-
-# create a simpler and lighter file fzf completion
-_fzf_complete_file() {
-	if [[ -z "${prefix}" ]]; then
-		prefix="./"
+	[ -z "${options}" ] && return 1
+	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" +m --preview='[[ -d {} ]] && ls --color {} || highlight --out-format=ansi --force | head -$LINES {}')"
+	[ -z "$matches" ] && return 1
+	if [[ -d "${matches}" ]]; then
+		LBUFFER="$lbuf${(q)matches}/"
+	else
+		LBUFFER="$lbuf${(q)matches}"
 	fi
-	local dirs=(${prefix}*) 2> /dev/null
-	[ ! -z "${dirs}" ] && \
-	_fzf_complete +m "$@" < <(
-		IFS=$'\n'; printf '%s\n' "${dirs[*]}"
-	)
 }
 
 # make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
 _fzf_complete_cd() {
-	_fzf_complete_dir "$@"
-}
-_fzf_complete_cd_post() {
-	_fzf_complete_dir_post "$@"
+	_fzf_complete_path "$@" "directories"
 }
 
 # gopass and pass passwords
@@ -49,52 +44,44 @@ _fzf_complete_pass() {
 	)
 }
 
-# telnet
-_fzf_complete_telnet() {
-	_fzf_complete '+m' "$@" < <(
-		command grep -v '^\s*\(#\|$\)' /etc/hosts | command grep -Fv '0.0.0.0' |
-				awk '{if (length($2) > 0) {print $2}}' | sort -u
-	)
-}
-
-# ssh
-_fzf_complete_ssh() {
-	_fzf_complete '+m' "$@" < <(
-		command cat <(cat ~/.ssh/config /etc/ssh/ssh_config 2> /dev/null | command grep -i '^host ' | command grep -v '[*?]' | awk '{for (i = 2; i <= NF; i++) print $1 " " $i}') \
-				<(command grep -oE '^[[a-z0-9.,:-]+' ~/.ssh/known_hosts | tr ',' '\n' | tr -d '[' | awk '{ print $1 " " $1 }') \
-				<(command grep -v '^\s*\(#\|$\)' /etc/hosts | command grep -Fv '0.0.0.0') |
-				awk '{if (length($2) > 0) {print $2}}' | sort -u
-	)
-}
-
 # export (zsh's built-in)
 _fzf_complete_export() {
-	_fzf_complete '-m' "$@" < <(
-		declare -xp | sed -e 's/=.*//' -e 's/.* //'
-	)
+	local lbuf="$1"
+	local prefix="$2"
+	local var value vars values
+	declare -x | while IFS="=" read var value; do
+		vars+=($var)
+	done
+	local match="$(printf '%s\n' "${vars[@]}" | fzf --query="${prefix}" --preview='eval echo \${}')"
+	[ -z "$match" ] && return 1
+	LBUFFER="$lbuf${match}"
 }
 
 # unset (zsh's built-in)
 _fzf_complete_unset() {
-	_fzf_complete '-m' "$@" < <(
-		declare -xp | sed 's/=.*//' | sed 's/.* //'
-	)
+	_fzf_complete_export "$@"
 }
 
 # unalias (zsh's built-in)
 _fzf_complete_unalias() {
-	_fzf_complete '+m' "$@" < <(
-		alias | sed 's/=.*//'
-	)
+	local lbuf="$1"
+	local prefix="$2"
+	local var value vars values
+	alias | while IFS="=" read var value; do
+		vars+=($var)
+	done
+	local match="$(printf '%s\n' "${vars[@]}" | fzf --query="${prefix}")"
+	[ -z "$match" ] && return 1
+	LBUFFER="$lbuf${match}"
 }
 
 # kill
 _fzf_complete_kill() {
-	local lbuf matches user pid rest_of_line
-	lbuf=$1
-	pid=$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | read user pid rest_of_line; echo "$pid")
+    local lbuf matches user pid rest_of_line
+    lbuf=$1
+    pid=$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | read user pid rest_of_line; echo "$pid")
     if [ -n "$matches" ]; then
       LBUFFER="$LBUFFER$matches"
     fi
-	zle reset-prompt
+    zle reset-prompt
 }
