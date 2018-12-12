@@ -34,14 +34,13 @@ _fzf_complete_cd() {
 
 # gopass and pass passwords
 _fzf_complete_gopass() {
-	_fzf_complete "--query '$prefix'" "$@" < <(
-		find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//'
-	)
+	local prefix="$2"
+	local match="$(find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//' | fzf --query="${prefix}")"
+	[ -z "$match" ] && return 1
+	LBUFFER="$lbuf${match}"
 }
 _fzf_complete_pass() {
-	_fzf_complete "--query '$prefix'" "$@" < <(
-		find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//'
-	)
+	_fzf_complete_gopass "$@"
 }
 
 # export (zsh's built-in)
