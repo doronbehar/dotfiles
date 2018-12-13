@@ -76,11 +76,13 @@ _fzf_complete_unalias() {
 
 # kill
 _fzf_complete_kill() {
-	local lbuf matches user pid rest_of_line
-	lbuf=$1
-	pid=$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | read user pid rest_of_line; echo "$pid")
-	if [ -n "$matches" ]; then
-		LBUFFER="$LBUFFER$matches"
-	fi
+	local lbuf="$1"
+	local prefix="$2"
+	local user pid rest_of_line
+	local pids=($(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | while read user pid rest_of_line; do
+		echo "$pid"
+	done))
+	[ -z "$pids" ] && return 1
+	LBUFFER="$lbuf${pids[@]}"
 	zle reset-prompt
 }
