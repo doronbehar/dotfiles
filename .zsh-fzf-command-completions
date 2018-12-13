@@ -18,7 +18,7 @@ _fzf_complete_path() {
 		options=(${path_prefix}*) 2> /dev/null
 	fi
 	[ -z "${options}" ] && return 1
-	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" +m --preview='[[ -d {} ]] && ls --color {} || highlight --out-format=ansi --force | head -$LINES {}')"
+	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || highlight --out-format=ansi --force | head -$LINES {}')"
 	[ -z "$matches" ] && return 1
 	if [[ -d "${matches}" ]]; then
 		LBUFFER="$lbuf${(q)matches}/"
@@ -76,11 +76,11 @@ _fzf_complete_unalias() {
 
 # kill
 _fzf_complete_kill() {
-    local lbuf matches user pid rest_of_line
-    lbuf=$1
-    pid=$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | read user pid rest_of_line; echo "$pid")
-    if [ -n "$matches" ]; then
-      LBUFFER="$LBUFFER$matches"
-    fi
-    zle reset-prompt
+	local lbuf matches user pid rest_of_line
+	lbuf=$1
+	pid=$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | read user pid rest_of_line; echo "$pid")
+	if [ -n "$matches" ]; then
+		LBUFFER="$LBUFFER$matches"
+	fi
+	zle reset-prompt
 }
