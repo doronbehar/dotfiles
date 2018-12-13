@@ -86,3 +86,47 @@ _fzf_complete_kill() {
 	LBUFFER="$lbuf${pids[@]}"
 	zle reset-prompt
 }
+
+# juf and jsf shell functions
+_fzf_complete_journal(){
+	local lbuf="$1"
+	local prefix="$2"
+	local mode="$3"  # string - `user` or `system`
+	local systemctl_cmd
+	if [[ "$mode" == "user" ]]; then
+		systemctl_cmd='systemctl --user'
+	else
+		systemctl_cmd='systemctl'
+	fi
+	local unit load active sub description
+	local units
+	local first_iteration=1 break_larger_loop=0
+	eval $systemctl_cmd list-units --plain | while read unit load active sub description; do
+		if (($first_iteration)); then
+			first_iteration=0
+			continue
+		fi
+		for field in "$unit" "$load" "$active" "$sub" "$description"; do
+			if [[ ! -z "$field" ]]; then
+				units+=("$unit")
+				break
+			else
+				if [[ "$description" == "$field" ]]; then
+					break_larger_loop=1
+				fi
+			fi
+		done
+		if (($break_larger_loop)); then
+			break
+		fi
+	done
+	local matches=($(printf '%s\n' "${units[@]}" | fzf -m --preview="$systemctl_cmd status {}"))
+	[ -z "$matches" ] && return 1
+	LBUFFER="$LBUFFER${matches[@]}"
+}
+_fzf_complete_juf(){
+	_fzf_complete_journal "$@" user
+}
+_fzf_complete_jsf(){
+	_fzf_complete_journal "$@" system
+}
