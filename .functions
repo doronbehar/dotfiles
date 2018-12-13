@@ -267,6 +267,16 @@ wegol(){
 	wego -location "$(cat ~/.cache/location.txt)"
 }
 
+# {{{1 `juf` shows journalctl of all given systemd units
+juf(){
+	eval journalctl --user --follow ${@/#/--unit }
+}
+
+# {{{1 `jsf` shows journalctl of all given systemd units
+jsf(){
+	eval sudo journalctl --follow ${@/#/--unit }
+}
+
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then

@@ -55,10 +55,6 @@ alias syst='sudo systemctl start'
 alias sysp='sudo systemctl stop'
 alias sysr='sudo systemctl restart'
 alias syss='sudo systemctl status'
-alias jou='journalctl --user'
-alias jouu='journalctl --user --unit'
-alias jos='sudo journalctl'
-alias josu='sudo journalctl --unit'
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
 # shortcut for launching GNU Octave with --no-gui
