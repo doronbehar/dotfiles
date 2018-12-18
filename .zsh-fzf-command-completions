@@ -18,7 +18,7 @@ _fzf_complete_path() {
 		options=(${path_prefix}*) 2> /dev/null
 	fi
 	[ -z "${options}" ] && return 1
-	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || highlight --out-format=ansi --force | head -$LINES {}')"
+	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"
 	[ -z "$matches" ] && return 1
 	if [[ -d "${matches}" ]]; then
 		LBUFFER="$lbuf${(q)matches}/"
