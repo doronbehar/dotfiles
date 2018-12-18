@@ -10,6 +10,7 @@ _fzf_complete_path() {
 	else
 		path_prefix="./"
 	fi
+	path_prefix="${path_prefix/#\~/$HOME}"
 	local query="${prefix//*\//}"
 	local options
 	if [[ "$mode" == "directories" ]]; then
@@ -20,7 +21,7 @@ _fzf_complete_path() {
 	[ -z "${options}" ] && return 1
 	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"
 	[ -z "$matches" ] && return 1
-	if [[ -d "${matches}" ]]; then
+	if [[ -e "${matches}" ]]; then
 		LBUFFER="$lbuf${(q)matches}/"
 	else
 		LBUFFER="$lbuf${(q)matches}"
