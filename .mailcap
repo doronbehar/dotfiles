@@ -1,5 +1,5 @@
 text/html; w3m %s -I %{charsed} -T text/html -dump | fribidi; copiousoutput
-application/vnd.openxmlformats-officedocument.wordprocessingml.document; cat %s | docx2txt.pl | less
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; cat %s | docx2txt | less
 application/msword; antiword %s | less;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; xlsx2csv -d tab %s | less;
 application/pdf; xdg-open %s
