@@ -10,21 +10,24 @@ _fzf_complete_path() {
 	else
 		path_prefix="./"
 	fi
+	# substiture ~ to $HOME in path_prefix
 	path_prefix="${path_prefix/#\~/$HOME}"
+	# remove \ when it is intended to quote special characters
+	path_prefix="${path_prefix//\\/}"
 	local query="${prefix//*\//}"
-	local options
+	local opts
 	if [[ "$mode" == "directories" ]]; then
-		options=(${path_prefix}*(-/)) 2> /dev/null
+		opts=("${path_prefix}"*(-/)) 2> /dev/null
 	elif [[ "$mode" == "files" ]]; then
-		options=(${path_prefix}*) 2> /dev/null
+		opts=("${path_prefix}"*) 2> /dev/null
 	fi
-	[ -z "${options}" ] && return 1
-	local matches="$(printf '%s\n' "${options[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"
-	[ -z "$matches" ] && return 1
+	#[ -z "${opts}" ] && return 1
+	local matches=(${(f)"$(printf '%s\n' "${opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
+	#[ -z "$matches" ] && return 1
 	if [[ -e "${matches}" ]]; then
-		LBUFFER="$lbuf${(q)matches}/"
+		LBUFFER="$lbuf${(@q)matches}/"
 	else
-		LBUFFER="$lbuf${(q)matches}"
+		LBUFFER="$lbuf${(@q)matches}"
 	fi
 }
 
