@@ -46,6 +46,9 @@ insert2LUA_PATH(){
 # {{{1 DOMAIN and FQDN
 export DOMAIN="$(hostname -d)"
 export FQDN="$(hostname -f)"
+if [[ "$FQDN" == "$HOST" ]]; then
+	FQDN='same as host'
+fi
 
 # - {{{1 PATH
 insert2PATH "$HOME/.local/bin"
