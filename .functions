@@ -298,16 +298,32 @@ if [[ ${SHELL} =~ "zsh" ]]; then
 elif [[ ${SHELL} =~ "bash" ]]; then
 	shell_functions="${HOME}/.bash-functions"
 fi
-[[ -f "${shell_functions}" ]] && source "${shell_functions}"
+if [[ -f "${shell_functions}" ]]; then
+	source "${shell_functions}"
+fi
 
 # {{{1 local functions
-[[ -f "$HOME/.local/share/zsh/${TERM}/functions" ]] && source "$HOME/.local/share/zsh/${TERM}/functions"
-[[ -f "$HOME/.local/share/zsh/${DISPLAY}/functions" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/functions"
-[[ -f "$HOME/.local/share/zsh/${VENDOR}/functions" ]] && source "$HOME/.local/share/zsh/${VENDOR}/functions"
-[[ -f "$HOME/.local/share/zsh/${OSTYPE}/functions" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/functions"
-[[ -f "$HOME/.local/share/zsh/${HOST}/functions" ]] && source "$HOME/.local/share/zsh/${HOST}/functions"
-[[ -f "$HOME/.local/share/zsh/${FQDN}/functions" ]] && source "$HOME/.local/share/zsh/${FQDN}/functions"
-[[ -f "$HOME/.local/share/zsh/${DOMAIN}/functions" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/functions"
+if [[ -f "$HOME/.local/share/zsh/${TERM}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${TERM}/functions"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${DISPLAY}/functions"
+fi
+if [[ -f "$HOME/.local/share/zsh/${VENDOR}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${VENDOR}/functions"
+fi
+if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${OSTYPE}/functions"
+fi
+if [[ -f "$HOME/.local/share/zsh/${HOST}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${HOST}/functions"
+fi
+if [[ -f "$HOME/.local/share/zsh/${FQDN}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${FQDN}/functions"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/functions" ]]; then
+	source "$HOME/.local/share/zsh/${DOMAIN}/functions"
+fi
 
 # {{{1
 # vim:ft=sh:foldmethod=marker

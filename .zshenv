@@ -100,19 +100,35 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export EMPTY_COMMIT_HASH=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 
 # - {{{1 xdg
-[[ -f "$HOME/.config/user-dirs.dirs" ]] && source "$HOME/.config/user-dirs.dirs"
+if [[ -f "$HOME/.config/user-dirs.dirs" ]]; then
+	source "$HOME/.config/user-dirs.dirs"
+fi
 
 # - {{{1 COLUMNS
 export COLUMNS=
 
 # - {{{1 local environmental variables
-[[ -f "$HOME/.local/share/zsh/${TERM}/env" ]] && source "$HOME/.local/share/zsh/${TERM}/env"
-[[ -f "$HOME/.local/share/zsh/${DISPLAY}/env" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/env"
-[[ -f "$HOME/.local/share/zsh/${VENDOR}/env" ]] && source "$HOME/.local/share/zsh/${VENDOR}/env"
-[[ -f "$HOME/.local/share/zsh/${OSTYPE}/env" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/env"
-[[ -f "$HOME/.local/share/zsh/${HOST}/env" ]] && source "$HOME/.local/share/zsh/${HOST}/env"
-[[ -f "$HOME/.local/share/zsh/${FQDN}/env" ]] && source "$HOME/.local/share/zsh/${FQDN}/env"
-[[ -f "$HOME/.local/share/zsh/${DOMAIN}/env" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/env"
+if [[ -f "$HOME/.local/share/zsh/${TERM}/env" ]]; then
+	source "$HOME/.local/share/zsh/${TERM}/env"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/env" ]]; then
+	source "$HOME/.local/share/zsh/${DISPLAY}/env"
+fi
+if [[ -f "$HOME/.local/share/zsh/${VENDOR}/env" ]]; then
+	source "$HOME/.local/share/zsh/${VENDOR}/env"
+fi
+if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/env" ]]; then
+	source "$HOME/.local/share/zsh/${OSTYPE}/env"
+fi
+if [[ -f "$HOME/.local/share/zsh/${HOST}/env" ]]; then
+	source "$HOME/.local/share/zsh/${HOST}/env"
+fi
+if [[ -f "$HOME/.local/share/zsh/${FQDN}/env" ]]; then
+	source "$HOME/.local/share/zsh/${FQDN}/env"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/env" ]]; then
+	source "$HOME/.local/share/zsh/${DOMAIN}/env"
+fi
 
 # - {{{1
 # vim:ft=zsh:foldmethod=marker

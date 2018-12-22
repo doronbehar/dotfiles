@@ -158,7 +158,9 @@ source ~/.aliases
 source ~/.functions
 
 # {{{1 chpwd
-[[ -f ~/.zsh-chpwd ]] && source ~/.zsh-chpwd
+if [[ -f ~/.zsh-chpwd ]]; then
+	source ~/.zsh-chpwd
+fi
 
 # {{{1 modeline
 # vim:ft=zsh:foldmethod=marker

@@ -8,11 +8,23 @@ export HOST="$(hostname)"
 export FQDN="$(hostname -f)"
 export DOMAIN="$(hostname -d)"
 # - local x profiles
-[[ -f "$HOME/.local/share/xorg/${DISPLAY}" ]] && source "$HOME/.local/share/xorg/${DISPLAY}"
-[[ -f "$HOME/.local/share/xorg/${VENDOR}" ]] && source "$HOME/.local/share/xorg/${VENDOR}"
-[[ -f "$HOME/.local/share/xorg/${OSTYPE}" ]] && source "$HOME/.local/share/xorg/${OSTYPE}"
-[[ -f "$HOME/.local/share/xorg/${HOST}" ]] && source "$HOME/.local/share/xorg/${HOST}"
-[[ -f "$HOME/.local/share/xorg/${FQDN}" ]] && source "$HOME/.local/share/xorg/${FQDN}"
-[[ -f "$HOME/.local/share/xorg/${DOMAIN}" ]] && source "$HOME/.local/share/xorg/${DOMAIN}"
+if [[ -f "$HOME/.local/share/xorg/${DISPLAY}" ]]; then
+	source "$HOME/.local/share/xorg/${DISPLAY}"
+fi
+if [[ -f "$HOME/.local/share/xorg/${VENDOR}" ]]; then
+	source "$HOME/.local/share/xorg/${VENDOR}"
+fi
+if [[ -f "$HOME/.local/share/xorg/${OSTYPE}" ]]; then
+	source "$HOME/.local/share/xorg/${OSTYPE}"
+fi
+if [[ -f "$HOME/.local/share/xorg/${HOST}" ]]; then
+	source "$HOME/.local/share/xorg/${HOST}"
+fi
+if [[ -f "$HOME/.local/share/xorg/${FQDN}" ]]; then
+	source "$HOME/.local/share/xorg/${FQDN}"
+fi
+if [[ -f "$HOME/.local/share/xorg/${DOMAIN}" ]]; then
+	source "$HOME/.local/share/xorg/${DOMAIN}"
+fi
 awesome && killall redshift
 exit 0

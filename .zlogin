@@ -2,12 +2,26 @@
 
 # **last actions**
 # - Load local environmental variables for login interactive sessions according to the $DISPLAY and various other variables
-[[ -f "$HOME/.local/share/zsh/${TERM}/login" ]] && source "$HOME/.local/share/zsh/${TERM}/login"
-[[ -f "$HOME/.local/share/zsh/${DISPLAY}/login" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/login"
-[[ -f "$HOME/.local/share/zsh/${VENDOR}/login" ]] && source "$HOME/.local/share/zsh/${VENDOR}/login"
-[[ -f "$HOME/.local/share/zsh/${OSTYPE}/login" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/login"
-[[ -f "$HOME/.local/share/zsh/${HOST}/login" ]] && source "$HOME/.local/share/zsh/${HOST}/login"
-[[ -f "$HOME/.local/share/zsh/${FQDN}/login" ]] && source "$HOME/.local/share/zsh/${FQDN}/login"
-[[ -f "$HOME/.local/share/zsh/${DOMAIN}/login" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/login"
+if [[ -f "$HOME/.local/share/zsh/${TERM}/login" ]]; then
+	source "$HOME/.local/share/zsh/${TERM}/login"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/login" ]]; then
+	source "$HOME/.local/share/zsh/${DISPLAY}/login"
+fi
+if [[ -f "$HOME/.local/share/zsh/${VENDOR}/login" ]]; then
+	source "$HOME/.local/share/zsh/${VENDOR}/login"
+fi
+if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/login" ]]; then
+	source "$HOME/.local/share/zsh/${OSTYPE}/login"
+fi
+if [[ -f "$HOME/.local/share/zsh/${HOST}/login" ]]; then
+	source "$HOME/.local/share/zsh/${HOST}/login"
+fi
+if [[ -f "$HOME/.local/share/zsh/${FQDN}/login" ]]; then
+	source "$HOME/.local/share/zsh/${FQDN}/login"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/login" ]]; then
+	source "$HOME/.local/share/zsh/${DOMAIN}/login"
+fi
 
 # vim:ft=zsh:foldmethod=marker

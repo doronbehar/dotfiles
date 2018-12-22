@@ -67,13 +67,27 @@ alias trc='transmission-remote --authenv'
 alias pass=gopass
 
 # Load local configuration files based on hostname
-[[ -f "$HOME/.local/share/zsh/${TERM}/aliases" ]] && source "$HOME/.local/share/zsh/${TERM}/aliases"
-[[ -f "$HOME/.local/share/zsh/${DISPLAY}/aliases" ]] && source "$HOME/.local/share/zsh/${DISPLAY}/aliases"
-[[ -f "$HOME/.local/share/zsh/${VENDOR}/aliases" ]] && source "$HOME/.local/share/zsh/${VENDOR}/aliases"
-[[ -f "$HOME/.local/share/zsh/${OSTYPE}/aliases" ]] && source "$HOME/.local/share/zsh/${OSTYPE}/aliases"
-[[ -f "$HOME/.local/share/zsh/${HOST}/aliases" ]] && source "$HOME/.local/share/zsh/${HOST}/aliases"
-[[ -f "$HOME/.local/share/zsh/${FQDN}/aliases" ]] && source "$HOME/.local/share/zsh/${FQDN}/aliases"
-[[ -f "$HOME/.local/share/zsh/${DOMAIN}/aliases" ]] && source "$HOME/.local/share/zsh/${DOMAIN}/aliases"
+if [[ -f "$HOME/.local/share/zsh/${TERM}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${TERM}/aliases"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${DISPLAY}/aliases"
+fi
+if [[ -f "$HOME/.local/share/zsh/${VENDOR}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${VENDOR}/aliases"
+fi
+if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${OSTYPE}/aliases"
+fi
+if [[ -f "$HOME/.local/share/zsh/${HOST}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${HOST}/aliases"
+fi
+if [[ -f "$HOME/.local/share/zsh/${FQDN}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${FQDN}/aliases"
+fi
+if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/aliases" ]]; then
+	source "$HOME/.local/share/zsh/${DOMAIN}/aliases"
+fi
 
 # {{{1 modeline
 # vim:ft=sh:foldmethod=marker
