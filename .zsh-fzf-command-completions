@@ -24,10 +24,18 @@ _fzf_complete_path() {
 	#[ -z "${opts}" ] && return 1
 	local matches=(${(f)"$(printf '%s\n' "${opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
 	#[ -z "$matches" ] && return 1
-	if [[ -e "${matches}" ]]; then
-		LBUFFER="$lbuf${(@q)matches}/"
+	local all_matches
+	for match in "${matches[@]}"; do
+		if [[ -d "${match}" ]]; then
+			all_matches+=("${(q)match}/")
+		else
+			all_matches+=("${(q)match}")
+		fi
+	done
+	if [[ -d "${all_matches}" ]]; then
+		LBUFFER="$lbuf${(@)all_matches}/"
 	else
-		LBUFFER="$lbuf${(@q)matches}"
+		LBUFFER="$lbuf${(@)all_matches}"
 	fi
 }
 
