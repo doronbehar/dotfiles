@@ -132,9 +132,9 @@ _fzf_complete_journal(){
 			break
 		fi
 	done
-	local matches=($(printf '%s\n' "${units[@]}" | fzf -m --preview="$systemctl_cmd status {}"))
+	local matches=($(printf '%s\n' "${units[@]}" | fzf -m --query="${prefix}" --preview="$systemctl_cmd status {}"))
 	[ -z "$matches" ] && return 1
-	LBUFFER="$LBUFFER${matches[@]}"
+	LBUFFER="$lbuf${matches[@]}"
 }
 _fzf_complete_juf(){
 	_fzf_complete_journal "$@" user
@@ -148,9 +148,9 @@ _fzf_complete_man(){
 	local lbuf="$1"
 	local prefix="$2"
 	local name section dash description
-	local matches=($(man -k . | fzf -m | while read -r name section dash description; do
+	local matches=($(man -k . | fzf -m --query="${prefix}" | while read -r name section dash description; do
 		echo "$name.${${section#\(}%\)}"
 	done))
 	[ -z "$matches" ] && return 1
-	LBUFFER="$LBUFFER${matches[@]}"
+	LBUFFER="$lbuf${matches[@]}"
 }
