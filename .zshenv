@@ -77,7 +77,7 @@ if _command_exists nvim; then
 	if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
 		export EDITOR="nvim"
 		export VISUAL="nvim"
-		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' -c 'set ft=man' -"
+		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -c 'set ft=man' -"
 	else
 		export EDITOR="nvr --remote-silent --remote-wait"
 		export VISUAL="nvr --remote-silent --remote-wait"
@@ -89,7 +89,7 @@ elif _command_exists vim; then
 	export VISUAL="vim"
 	export SUDO_EDITOR="env VIM=${HOME}/.vim vim"
 	export MAN_PN=1 
-	export MANPAGER="$EDITOR --remote-silent --remote-wait --cmd 'let g:loaded_youcompleteme = 1' -M +MANPAGER -"
+	export MANPAGER="$EDITOR --remote-silent --remote-wait 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -M +MANPAGER -"
 else
 	# taken from wiki.archlinux.org
 	export MANPAGER=env\ LESS_TERMCAP_mb=$'\E[01;31m'\ LESS_TERMCAP_md=$'\E[01;38;5;74m'\ LESS_TERMCAP_me=$'\E[0m'\ LESS_TERMCAP_se=$'\E[0m'\ LESS_TERMCAP_so=$'\E[38;5;246m'\ LESS_TERMCAP_ue=$'\E[0m'\ LESS_TERMCAP_us=$'\E[04;38;5;146m'\ less
