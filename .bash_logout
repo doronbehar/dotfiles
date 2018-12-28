@@ -1,25 +1,25 @@
 #!/bin/bash
 
-if [[ -f "$HOME/.local/share/zsh/${TERM}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${TERM}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${TERM}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${TERM}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${DISPLAY}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${DISPLAY}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${DISPLAY}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${VENDOR}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${VENDOR}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${VENDOR}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${VENDOR}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${OSTYPE}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${OSTYPE}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${OSTYPE}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${HOST}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${HOST}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${HOST}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${HOST}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${FQDN}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${FQDN}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${FQDN}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${FQDN}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/logout" ]]; then
-	source "$HOME/.local/share/zsh/${DOMAIN}/logout"
+if [[ -f "$HOME/.local/share/zsh/logout/${DOMAIN}" ]]; then
+	source "$HOME/.local/share/zsh/logout/${DOMAIN}"
 fi
 
 # when leaving the console clear the screen to increase privacy

@@ -111,26 +111,26 @@ fi
 export COLUMNS=
 
 # - {{{1 local environmental variables
-if [[ -f "$HOME/.local/share/zsh/${TERM}/env" ]]; then
-	source "$HOME/.local/share/zsh/${TERM}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${TERM}" ]]; then
+	source "$HOME/.local/share/zsh/env/${TERM}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/env" ]]; then
-	source "$HOME/.local/share/zsh/${DISPLAY}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${DISPLAY}" ]]; then
+	source "$HOME/.local/share/zsh/env/${DISPLAY}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${VENDOR}/env" ]]; then
-	source "$HOME/.local/share/zsh/${VENDOR}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${VENDOR}" ]]; then
+	source "$HOME/.local/share/zsh/env/${VENDOR}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/env" ]]; then
-	source "$HOME/.local/share/zsh/${OSTYPE}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${OSTYPE}" ]]; then
+	source "$HOME/.local/share/zsh/env/${OSTYPE}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${HOST}/env" ]]; then
-	source "$HOME/.local/share/zsh/${HOST}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${HOST}" ]]; then
+	source "$HOME/.local/share/zsh/env/${HOST}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${FQDN}/env" ]]; then
-	source "$HOME/.local/share/zsh/${FQDN}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${FQDN}" ]]; then
+	source "$HOME/.local/share/zsh/env/${FQDN}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/env" ]]; then
-	source "$HOME/.local/share/zsh/${DOMAIN}/env"
+if [[ -f "$HOME/.local/share/zsh/env/${DOMAIN}" ]]; then
+	source "$HOME/.local/share/zsh/env/${DOMAIN}"
 fi
 
 # - {{{1

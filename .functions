@@ -303,26 +303,26 @@ if [[ -f "${shell_functions}" ]]; then
 fi
 
 # {{{1 local functions
-if [[ -f "$HOME/.local/share/zsh/${TERM}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${TERM}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${TERM}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${TERM}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${DISPLAY}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${DISPLAY}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${DISPLAY}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${DISPLAY}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${VENDOR}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${VENDOR}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${VENDOR}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${VENDOR}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${OSTYPE}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${OSTYPE}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${OSTYPE}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${OSTYPE}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${HOST}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${HOST}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${HOST}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${HOST}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${FQDN}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${FQDN}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${FQDN}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${FQDN}"
 fi
-if [[ -f "$HOME/.local/share/zsh/${DOMAIN}/functions" ]]; then
-	source "$HOME/.local/share/zsh/${DOMAIN}/functions"
+if [[ -f "$HOME/.local/share/zsh/functions/${DOMAIN}" ]]; then
+	source "$HOME/.local/share/zsh/functions/${DOMAIN}"
 fi
 
 # {{{1
