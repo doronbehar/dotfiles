@@ -113,7 +113,7 @@ _fzf_complete_journal(){
 	local unit load active sub description
 	local units
 	local first_iteration=1 break_larger_loop=0
-	eval $systemctl_cmd list-units --plain | while read unit load active sub description; do
+	eval $systemctl_cmd list-units --plain --all | while read unit load active sub description; do
 		if (($first_iteration)); then
 			first_iteration=0
 			continue
