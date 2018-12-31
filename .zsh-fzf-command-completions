@@ -32,11 +32,7 @@ _fzf_complete_path() {
 			all_matches+=("${(q)match}")
 		fi
 	done
-	if [[ -d "${all_matches}" ]]; then
-		LBUFFER="$lbuf${(@)all_matches}/"
-	else
-		LBUFFER="$lbuf${(@)all_matches}"
-	fi
+	LBUFFER="$lbuf${(@)all_matches}"
 }
 
 # make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
@@ -59,13 +55,9 @@ _fzf_complete_pass() {
 _fzf_complete_export() {
 	local lbuf="$1"
 	local prefix="$2"
-	local var value vars values
-	declare -x | while IFS="=" read var value; do
-		vars+=($var)
-	done
-	local match="$(printf '%s\n' "${vars[@]}" | fzf --query="${prefix}" --preview='eval echo \${}')"
-	[ -z "$match" ] && return 1
-	LBUFFER="$lbuf${match}"
+	local matches=(${(f)"$(declare -x | fzf --query="${prefix}" --preview='eval echo \${}')"})
+	[ -z "$matches" ] && return 1
+	LBUFFER="$lbuf${matches[@]//=*/}"
 }
 
 # unset (zsh's built-in)
@@ -77,24 +69,23 @@ _fzf_complete_unset() {
 _fzf_complete_unalias() {
 	local lbuf="$1"
 	local prefix="$2"
-	local var value vars values
-	alias | while IFS="=" read var value; do
-		vars+=($var)
-	done
-	local match="$(printf '%s\n' "${vars[@]}" | fzf --query="${prefix}")"
-	[ -z "$match" ] && return 1
-	LBUFFER="$lbuf${match}"
+	local aliases=(${(f)"$(alias)"})
+	local matches=($(printf '%s\n' ${aliases[@]//=*/} | fzf --query="${prefix}"))
+	[ -z "$matches" ] && return 1
+	LBUFFER="$lbuf${matches[@]//=*/}"
 }
 
 # kill
 _fzf_complete_kill() {
 	local lbuf="$1"
 	local prefix="$2"
-	local user pid rest_of_line
-	local pids=($(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap | while read user pid rest_of_line; do
-		echo "$pid"
-	done))
-	[ -z "$pids" ] && return 1
+	local matches=(${(f)"$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap)"})
+	[ -z "$matches" ] && return 1
+	local match_line line_parts pids
+	for match_line in ${matches[@]}; do
+		line_parts=(${(s: :)match_line})
+		pids+=(${line_parts[2]})
+	done
 	LBUFFER="$lbuf${pids[@]}"
 	zle reset-prompt
 }
@@ -153,4 +144,38 @@ _fzf_complete_man(){
 	done))
 	[ -z "$matches" ] && return 1
 	LBUFFER="$lbuf${matches[@]}"
+}
+
+# taskwarrior
+_fzf_complete_task(){
+	local lbuf="$1"
+	local prefix="$2"
+	if [[ "$prefix" =~ "^[-+]" ]]; then
+		# complete tags
+		local matches=($(command task _tags | fzf -m --query="${${prefix#+}#-}"))
+		[ -z "$matches" ] && return 1
+		local common_prefix="${prefix//[^-+]*/}"
+		LBUFFER="$lbuf${matches[@]/#/${common_prefix}}"
+		zle reset-prompt
+		return 0
+	elif [[ "$prefix" =~ "^project:" ]]; then
+		# complete project
+		local match=$(command task _project | fzf --query="${prefix#project:}")
+		[ -z "$match" ] && return 1
+		local common_prefix="project:"
+		LBUFFER="$lbuf${match/#/${common_prefix}}"
+		zle reset-prompt
+		return 0
+	else
+		# complete task
+		local matches=(${(f)"$(eval $lbuf _zshids | fzf -m --query="${prefix}")"})
+		[ -z "$matches" ] && return 1
+		LBUFFER="$lbuf${matches[@]//:*/}"
+		zle reset-prompt
+		return 0
+	fi
+}
+
+_fzf_complete_t(){
+	_fzf_complete_task "$@"
 }
