@@ -1,70 +1,93 @@
 # {{{1 enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	# ls
-	alias ls='ls --color=auto'
-	alias cls='ls --color=always'
-	# dir
-	alias dir='dir --color=auto'
-	alias vdir='vdir --color=auto'
-	alias cdir='dir --color=always'
-	alias cvdir='vdir --color=always'
-	# grep
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
-	alias cgrep='grep --color=always'
-	alias cfgrep='fgrep --color=always'
-	alias cegrep='egrep --color=always'
-	# diff
-	alias diff='diff --color=auto'
-	alias cdiff='diff --color=always'
-	# always colored pacman and yay
-	alias cpacman='pacman --color=always'
-	# always colored ack
-	alias cack='ack --color=always'
-	# colored and always colored cower
-	alias cower='cower --color'
-	alias ccower='cower --color=always'
+	if _command_exists ls; then
+		alias ls='ls --color=auto'
+		alias cls='ls --color=always'
+	fi
+	if _command_exists dir; then
+		alias dir='dir --color=auto'
+		alias vdir='vdir --color=auto'
+		alias cdir='dir --color=always'
+		alias cvdir='vdir --color=always'
+	fi
+	if _command_exists grep; then
+		alias grep='grep --color=auto'
+		alias fgrep='fgrep --color=auto'
+		alias egrep='egrep --color=auto'
+		alias cgrep='grep --color=always'
+		alias cfgrep='fgrep --color=always'
+		alias cegrep='egrep --color=always'
+	fi
+	if _command_exists diff; then
+		alias diff='diff --color=auto'
+		alias cdiff='diff --color=always'
+	fi
+	if _command_exists pacman; then
+		alias cpacman='pacman --color=always'
+	fi
+	if _command_exists ack; then
+		alias cack='ack --color=always'
+	fi
+	if _command_exists cower; then
+		alias cower='cower --color'
+		alias ccower='cower --color=always'
+	fi
 fi
 # {{{1 Other aliases
 # taskwarrior
-alias tw=task
-alias t=task
-# YouTube-viewer perl application.
-alias ytv='youtube-viewer'
+if _command_exists task; then
+	alias tw=task
+	alias t=task
+	alias ct='task rc._forcecolor=on'
+fi
 # xdg-open
-alias o='xdg-open'
+if _command_exists xdg-open; then
+	alias o='xdg-open'
+fi
 # xclip
-alias cxclip="xclip -selection clipboard"
-alias pxclip="xclip -selection primary"
+if _command_exists xclip; then
+	alias cxclip="xclip -selection clipboard"
+	alias pxclip="xclip -selection primary"
+fi
 # colored cat: src-highlite
-alias ccat='highlight --out-format=ansi --force'
+if _command_exists highlight; then
+	alias ccat='highlight --out-format=ansi --force'
+fi
 # always colored taskwarrior
-alias ct='task rc._forcecolor=on'
 # systemd related
-alias poweroff='systemctl poweroff'
-alias reboot='systemctl reboot'
-alias syu='systemctl --user'
-alias syut='systemctl --user start'
-alias syup='systemctl --user stop'
-alias syur='systemctl --user restart'
-alias syus='systemctl --user status'
-alias sys='sudo systemctl'
-alias syst='sudo systemctl start'
-alias sysp='sudo systemctl stop'
-alias sysr='sudo systemctl restart'
-alias syss='sudo systemctl status'
+if _command_exists systemct; then
+	alias poweroff='systemctl poweroff'
+	alias reboot='systemctl reboot'
+	alias syu='systemctl --user'
+	alias syut='systemctl --user start'
+	alias syup='systemctl --user stop'
+	alias syur='systemctl --user restart'
+	alias syus='systemctl --user status'
+	alias sys='sudo systemctl'
+	alias syst='sudo systemctl start'
+	alias sysp='sudo systemctl stop'
+	alias sysr='sudo systemctl restart'
+	alias syss='sudo systemctl status'
+fi
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
 # shortcut for launching GNU Octave with --no-gui
-alias oct='octave --no-gui'
+if _command_exists octave; then
+	alias oct='octave --no-gui'
+fi
 # Shortcut for python debugger
-alias pdb='python -m pdb '
+if _command_exists python; then
+	alias pdb='python -m pdb '
+fi
 # Shortcut for transmission-remote with authentication through environment
-alias trc='transmission-remote --authenv'
+if _command_exists transmission-remote; then
+	alias trc='transmission-remote --authenv'
+fi
 # replace shell script pass with gopass
-alias pass=gopass
+if _command_exists gopass; then
+	alias pass=gopass
+fi
 
 # Load local configuration files based on hostname
 if [[ -f "$HOME/.local/share/zsh/aliases/${TERM}" ]]; then
