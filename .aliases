@@ -72,6 +72,10 @@ if _command_exists systemct; then
 fi
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
+# alias for urls
+if _command_exists grep; then
+	alias urls='grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"'
+fi
 # shortcut for launching GNU Octave with --no-gui
 if _command_exists octave; then
 	alias oct='octave --no-gui'
