@@ -56,7 +56,7 @@ if _command_exists highlight; then
 fi
 # always colored taskwarrior
 # systemd related
-if _command_exists systemct; then
+if _command_exists systemctl; then
 	alias poweroff='systemctl poweroff'
 	alias reboot='systemctl reboot'
 	alias syu='systemctl --user'
