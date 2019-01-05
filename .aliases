@@ -74,6 +74,10 @@ fi
 alias gvi="${VISUAL} +GhostStart"
 # visual/editor with Pad plugin for quick launch
 alias pad="${VISUAL} +Pad\ new"
+# workaround for https://github.com/ncw/rclone/issues/2894
+if _command_exists rclone; then
+	alias rclone='rclone --exclude-if-present .rclone-ignore'
+fi
 # alias for urls
 if _command_exists grep; then
 	alias urls='grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"'
