@@ -72,6 +72,8 @@ if _command_exists systemctl; then
 fi
 # visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
+# visual/editor with Pad plugin for quick launch
+alias pad="${VISUAL} +Pad\ new"
 # alias for urls
 if _command_exists grep; then
 	alias urls='grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"'
