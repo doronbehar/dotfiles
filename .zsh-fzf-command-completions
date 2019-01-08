@@ -23,7 +23,11 @@ _fzf_complete_path() {
 	fi
 	#[ -z "${opts}" ] && return 1
 	local matches=(${(f)"$(printf '%s\n' "${opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
-	#[ -z "$matches" ] && return 1
+	if [ -z "$matches" ]; then
+		LBUFFER="$lbuf"$2
+		zle reset-prompt
+		return 0
+	fi
 	local all_matches
 	for match in "${matches[@]}"; do
 		if [[ -d "${match}" ]]; then
@@ -33,6 +37,7 @@ _fzf_complete_path() {
 		fi
 	done
 	LBUFFER="$lbuf${(@)all_matches}"
+	zle reset-prompt
 }
 
 # make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
@@ -46,6 +51,7 @@ _fzf_complete_gopass() {
 	local match="$(find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//' | fzf --query="${prefix}")"
 	[ -z "$match" ] && return 1
 	LBUFFER="$lbuf${match}"
+	zle reset-prompt
 }
 _fzf_complete_pass() {
 	_fzf_complete_gopass "$@"
