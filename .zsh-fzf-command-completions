@@ -2,6 +2,7 @@
 _fzf_complete_path() {
 	local lbuf="$1"
 	local prefix="$2"
+	local original_prefix="${lbuf}$2"
 	local mode="$3"  # string - `files` or `directories`
 	local path_prefix
 	if [[ "${prefix}" =~ "/" ]]; then
@@ -15,28 +16,33 @@ _fzf_complete_path() {
 	# remove \ when it is intended to quote special characters
 	path_prefix="${path_prefix//\\/}"
 	local query="${prefix//*\//}"
-	local opts
+	local opts real_opts
 	if [[ "$mode" == "directories" ]]; then
-		opts=("${path_prefix}"*(-/)) 2> /dev/null
+		opts=("${path_prefix}"*(-/N))
+		if [ ! -z "$opts" ]; then
+			real_opts=("${opts[@]/%//}")
+		fi
 	elif [[ "$mode" == "files" ]]; then
-		opts=("${path_prefix}"*) 2> /dev/null
+		opts=("${path_prefix}"*(N))
+		local opt
+		for opt in "${opts[@]}"; do
+			if [[ -d "${opt}" ]]; then
+				real_opts+=("${opt}/")
+			else
+				real_opts+=("${opt}")
+			fi
+		done
 	fi
-	#[ -z "${opts}" ] && return 1
-	local matches=(${(f)"$(printf '%s\n' "${opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
-	if [ -z "$matches" ]; then
-		LBUFFER="$lbuf"$2
+	if [ -z "$real_opts" ]; then
 		zle reset-prompt
 		return 0
 	fi
-	local all_matches
-	for match in "${matches[@]}"; do
-		if [[ -d "${match}" ]]; then
-			all_matches+=("${(q)match}/")
-		else
-			all_matches+=("${(q)match}")
-		fi
-	done
-	LBUFFER="$lbuf${(@)all_matches}"
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
+	if [ -z "$matches" ]; then
+		zle reset-prompt
+		return 0
+	fi
+	LBUFFER="$lbuf${(@q)matches}"
 	zle reset-prompt
 }
 
