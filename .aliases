@@ -74,6 +74,7 @@ fi
 alias gvi="${VISUAL} +GhostStart"
 # visual/editor with Pad plugin for quick launch
 alias pad="${VISUAL} +Pad\ new"
+alias v="${VISUAL}"
 # workaround for https://github.com/ncw/rclone/issues/2894
 if _command_exists rclone; then
 	alias rclone='rclone --exclude-if-present .rclone-ignore'
