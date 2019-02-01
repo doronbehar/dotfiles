@@ -54,7 +54,10 @@ fi
 if _command_exists highlight; then
 	alias ccat='highlight --out-format=ansi --force'
 fi
-# always colored taskwarrior
+# always colored jq
+if _command_exists jq; then
+	alias cjq='jq --color-output'
+fi
 # systemd related
 if _command_exists systemctl; then
 	alias poweroff='systemctl poweroff'
