@@ -41,6 +41,15 @@ if _command_exists task; then
 	alias t=task
 	alias ct='task rc._forcecolor=on'
 fi
+# auracle (the best AUR helper)
+if _command_exists auracle; then
+	alias aur=auracle
+	alias caur=auracle\ --color=always
+	alias aurs=auracle\ search
+	alias caurs=auracle\ --color=always\ search
+	alias auri=auracle\ search
+	alias cauri=auracle\ --color=always\ search
+fi
 # xdg-open
 if _command_exists xdg-open; then
 	alias o='xdg-open'
