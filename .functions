@@ -253,7 +253,7 @@ luaa(){
 }
 # {{{1 `luai` lua wrapper with inspect library callable by var `i`
 luai(){
-	lua -e "i=require('inspect')" -i "$@"
+	lua -e "i=require('pl.import_into')().pretty.write" -i "$@"
 }
 
 # {{{1 `wegolu` wego location updater - for caching purposes
