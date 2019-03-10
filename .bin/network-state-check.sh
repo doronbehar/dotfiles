@@ -31,13 +31,21 @@ get_ipv4_mask(){
 	}'
 }
 
+get_wifi_network(){
+	connmanctl services | awk '{
+		if ($0 ~ /\*/) {
+			print $2
+		}
+	}'
+}
+
 case "$CURRENT_HOST" in
 	NUC|ARCHPI)
 		if [[ "$NET_CONNECTION" == "home" ]]; then
-			[[ "$(get_ipv4_mask)" == "192.168.14.255" ]]
+			[[ "$(get_wifi_network)" == "Behar" ]]
 			exit $?
 		elif [[ "$NET_CONNECTION" == hotspot ]]; then
-			[[ "$(get_ipv4_mask)" == "192.168.43.255" ]]
+			[[ "$(get_wifi_network)" == "DORON-hotspot" ]]
 			exit $?
 		fi
 		;;
