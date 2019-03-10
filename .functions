@@ -256,15 +256,12 @@ luai(){
 	lua -e "i=require('pl.import_into')().pretty.write" -i "$@"
 }
 
-# {{{1 `wegolu` wego location updater - for caching purposes
-wegolu(){
-	ssh phone termux-location | jq --raw-output '. | "\(.latitude)" + "," + "\(.longitude)"' > ~/.cache/location.txt
-	cat ~/.cache/location.txt
-}
-
-# {{{1 `wegol` wego wrapper with location retrived from Android device
+# {{{1 `wegol` wego location updater - for caching purposes
 wegol(){
-	wego -location "$(cat ~/.cache/location.txt)"
+	local location="$(ssh phone termux-location | jq --raw-output '. | "\(.latitude)" + "," + "\(.longitude)"')"
+	echo "$location" > ~/.location.txt
+	sed -i 's/\(location=\)\(.*\)/\1'"$location"'/g' ~/.wegorc
+	echo location $location was written to ~/.wegorc and ~/.location.txt
 }
 
 # {{{1 `juf` shows journalctl of all given systemd units
