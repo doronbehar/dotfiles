@@ -47,7 +47,7 @@ insert2LUA_PATH(){
 export DOMAIN="$(hostname -d)"
 export FQDN="$(hostname -f)"
 if [[ "$FQDN" == "$HOST" ]]; then
-	FQDN='same as host'
+	FQDN='same_as_host'
 fi
 
 # - {{{1 PATH
