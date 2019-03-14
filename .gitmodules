@@ -1,144 +1,144 @@
 [submodule ".tmux"]
 	path = .tmux
-	url = git@github.com:doronbehar/.tmux
+	url = https://github.com/doronbehar/.tmux
 [submodule ".config/nvim"]
 	path = .config/nvim
-	url = git@github.com:doronbehar/.config_nvim
+	url = https://github.com/doronbehar/.config_nvim
 [submodule ".config/awesome"]
 	path = .config/awesome
-	url = git@github.com:doronbehar/.config_awesome
+	url = https://github.com/doronbehar/.config_awesome
 [submodule ".config/git"]
 	path = .config/git
-	url = git@github.com:doronbehar/.config_git
+	url = https://github.com/doronbehar/.config_git
 [submodule ".config/pulse"]
 	path = .config/pulse
-	url = git@github.com:doronbehar/.config_pulse
+	url = https://github.com/doronbehar/.config_pulse
 [submodule ".config/ranger"]
 	path = .config/ranger
-	url = git@github.com:doronbehar/.config_ranger
+	url = https://github.com/doronbehar/.config_ranger
 [submodule ".config/vimfx"]
 	path = .config/vimfx
-	url = git@github.com:doronbehar/.config_vimfx
+	url = https://github.com/doronbehar/.config_vimfx
 [submodule ".config/vifm"]
 	path = .config/vifm
-	url = git@github.com:doronbehar/.config_vifm
+	url = https://github.com/doronbehar/.config_vifm
 [submodule ".ncmpc"]
 	path = .ncmpc
-	url = git@github.com:doronbehar/.ncmpc
+	url = https://github.com/doronbehar/.ncmpc
 [submodule ".ncmpcpp"]
 	path = .ncmpcpp
-	url = git@github.com:doronbehar/.ncmpcpp
+	url = https://github.com/doronbehar/.ncmpcpp
 [submodule ".config/tox"]
 	path = .config/tox
-	url = git@github.com:doronbehar/.config_tox
+	url = https://github.com/doronbehar/.config_tox
 [submodule ".gnupg"]
 	path = .gnupg
-	url = git@github.com:doronbehar/.gnupg
+	url = https://github.com/doronbehar/.gnupg
 [submodule ".calcurse"]
 	path = .calcurse
-	url = git@github.com:doronbehar/.calcurse
+	url = https://github.com/doronbehar/.calcurse
 [submodule ".config/lyvi"]
 	path = .config/lyvi
-	url = git@github.com:doronbehar/.config_lyvi
+	url = https://github.com/doronbehar/.config_lyvi
 [submodule ".local/share/applications"]
 	path = .local/share/applications
-	url = git@github.com:doronbehar/.local_share_applications
+	url = https://github.com/doronbehar/.local_share_applications
 [submodule ".config/newsbeuter"]
 	path = .config/newsbeuter
-	url = git@github.com:doronbehar/.config_newsbeuter
+	url = https://github.com/doronbehar/.config_newsbeuter
 [submodule ".config/youtube-viewer"]
 	path = .config/youtube-viewer
-	url = git@github.com:doronbehar/.config_youtube-viewer
+	url = https://github.com/doronbehar/.config_youtube-viewer
 [submodule ".mutt"]
 	path = .mutt
-	url = git@github.com:doronbehar/.mutt
+	url = https://github.com/doronbehar/.mutt
 [submodule ".config/rtv"]
 	path = .config/rtv
-	url = git@github.com:doronbehar/.config_rtv
+	url = https://github.com/doronbehar/.config_rtv
 [submodule ".cpan/CPAN"]
 	path = .cpan/CPAN
-	url = git@github.com:doronbehar/.cpan_CPAN
+	url = https://github.com/doronbehar/.cpan_CPAN
 [submodule ".config/beets"]
 	path = .config/beets
-	url = git@github.com:doronbehar/.config_beets
+	url = https://github.com/doronbehar/.config_beets
 [submodule ".w3m"]
 	path = .w3m
-	url = git@github.com:doronbehar/.w3m
+	url = https://github.com/doronbehar/.w3m
 [submodule ".config/bugwarrior"]
 	path = .config/bugwarrior
-	url = git@github.com:doronbehar/.config_bugwarrior
+	url = https://github.com/doronbehar/.config_bugwarrior
 [submodule ".config/profanity"]
 	path = .config/profanity
-	url = git@github.com:doronbehar/.config_profanity
+	url = https://github.com/doronbehar/.config_profanity
 [submodule ".config/htop"]
 	path = .config/htop
-	url = git@github.com:doronbehar/.config_htop
+	url = https://github.com/doronbehar/.config_htop
 [submodule ".config/stig"]
 	path = .config/stig
-	url = git@github.com:doronbehar/.config_stig
+	url = https://github.com/doronbehar/.config_stig
 [submodule "zsh-completions"]
 	path = .zsh-completions
-	url = git@github.com:zsh-users/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
 [submodule ".ssh"]
 	path = .ssh
-	url = git@github.com:doronbehar/.ssh
+	url = https://github.com/doronbehar/.ssh
 [submodule ".config/mpDris2"]
 	path = .config/mpDris2
-	url = git@github.com:doronbehar/.config_mpDris2
+	url = https://github.com/doronbehar/.config_mpDris2
 [submodule ".pandoc"]
 	path = .pandoc
-	url = git@github.com:doronbehar/.pandoc
+	url = https://github.com/doronbehar/.pandoc
 [submodule ".texmf"]
 	path = .texmf
-	url = git@github.com:doronbehar/.texmf
+	url = https://github.com/doronbehar/.texmf
 [submodule ".mplayer"]
 	path = .mplayer
-	url = ssh://git@github.com/doronbehar/.mplayer
+	url = https://github.com/doronbehar/.mplayer
 [submodule ".config/octave"]
 	path = .config/octave
-	url = git@github.com:doronbehar/.config_octave
+	url = https://github.com/doronbehar/.config_octave
 [submodule ".config/trizen"]
 	path = .config/trizen
-	url = git@github.com:doronbehar/.config_trizen
+	url = https://github.com/doronbehar/.config_trizen
 [submodule ".nyx"]
 	path = .nyx
-	url = git@github.com:doronbehar/.nyx
+	url = https://github.com/doronbehar/.nyx
 [submodule ".config/polybar"]
 	path = .config/polybar
-	url = ssh://git@github.com/doronbehar/.config_polybar
+	url = https://github.com/doronbehar/.config_polybar
 [submodule ".config/systemd/user"]
 	path = .config/systemd/user
-	url = ssh://git@github.com/doronbehar/.config_systemd_user
+	url = https://github.com/doronbehar/.config_systemd_user
 [submodule ".config/pip"]
 	path = .config/pip
-	url = ssh://git@github.com/doronbehar/.config_pip
+	url = https://github.com/doronbehar/.config_pip
 [submodule ".zsh-system-clipboard"]
 	path = .zsh-system-clipboard
 	url = https://github.com/kutsan/zsh-system-clipboard
 [submodule ".luarocks"]
 	path = .luarocks
-	url = ssh://git@github.com/doronbehar/.luarocks
+	url = https://github.com/doronbehar/.luarocks
 [submodule ".config/letsencrypt"]
 	path = .config/letsencrypt
-	url = git@github.com:doronbehar/.config_letsencrypt
+	url = https://github.com/doronbehar/.config_letsencrypt
 [submodule ".zsh-syntax-highlighting"]
 	path = .zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule ".config/msmtp"]
 	path = .config/msmtp
-	url = ssh://git@github.com/doronbehar/.config_msmtp
+	url = https://github.com/doronbehar/.config_msmtp
 [submodule ".config/mpv"]
 	path = .config/mpv
-	url = ssh://git@github.com/doronbehar/.config_mpv
+	url = https://github.com/doronbehar/.config_mpv
 [submodule ".ipython"]
 	path = .ipython
-	url = ssh://git@github.com/doronbehar/.ipython
+	url = https://github.com/doronbehar/.ipython
 [submodule ".urxvt"]
 	path = .urxvt
 	url = https://github.com/doronbehar/.urxvt
 [submodule ".config/lf"]
 	path = .config/lf
-	url = ssh://git@github.com/doronbehar/.config_lf
+	url = https://github.com/doronbehar/.config_lf
 [submodule ".config/gopass"]
 	path = .config/gopass
-	url = ssh://git@github.com/doronbehar/.config_gopass
+	url = https://github.com/doronbehar/.config_gopass
