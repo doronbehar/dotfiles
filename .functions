@@ -274,6 +274,11 @@ jsf(){
 	eval sudo journalctl --follow ${@/#/--unit }
 }
 
+# {{{1
+mkcd(){
+	mkdir -p "$1" && cd "$1"
+}
+
 # {{{1 rvm
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
