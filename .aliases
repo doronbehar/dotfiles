@@ -51,13 +51,18 @@ if _command_exists auracle; then
 	alias cauri=auracle\ --color=always\ search
 fi
 # xdg-open
-if _command_exists xdg-open; then
+if _command_exists rifle; then
+	alias o='rifle'
+elif _command_exists xdg-open; then
 	alias o='xdg-open'
 fi
 # xclip
 if _command_exists xclip; then
 	alias cxclip="xclip -selection clipboard"
 	alias pxclip="xclip -selection primary"
+elif _command_exists xsel; then
+	alias cxsel='xsel -b'
+	alias pxsel='xsel -p'
 fi
 # colored cat: src-highlite
 if _command_exists highlight; then
