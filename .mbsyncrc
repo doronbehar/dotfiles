@@ -12,6 +12,7 @@ MaildirStore gmail-local
 # The trailing "/" is important
 Path ~/.local/share/mail/gmail/
 Inbox ~/.local/share/mail/gmail/INBOX
+Trash [Gmail]/Trash
 SubFolders Verbatim
 
 Channel gmail
@@ -22,6 +23,7 @@ Patterns *
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+Expunge Slave
 
 IMAPAccount vps
 Host imap.doronbehar.com
@@ -37,6 +39,7 @@ MaildirStore vps-local
 # The trailing "/" is important
 Path ~/.local/share/mail/vps/
 Inbox ~/.local/share/mail/vps/INBOX
+Trash Trash
 SubFolders Verbatim
 
 Channel vps
@@ -47,3 +50,4 @@ Patterns *
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+Expunge Slave
