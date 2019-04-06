@@ -293,6 +293,11 @@ sugit() {
 	fi
 }
 
+# {{{1 `pyenv` activate python environments located in ~/.virtualenvs/
+pyenv() {
+	. ~/.virtualenvs/"$1"/activate
+}
+
 # {{{1 shell specific functions
 if [[ ${SHELL} =~ "zsh" ]]; then
 	shell_functions="${HOME}/.zsh-functions"

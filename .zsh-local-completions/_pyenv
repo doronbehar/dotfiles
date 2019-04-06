@@ -1,0 +1,2 @@
+#compdef pyenv
+_files -/ -W "$HOME/.virtualenvs/"
