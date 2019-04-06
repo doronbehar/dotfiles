@@ -1,7 +1,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User doron.behar@gmail.com
-PassCmd "gkeyring --id 35 --output secret"
+PassCmd "secret-tool lookup user doron.behar@gmail.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -28,7 +28,7 @@ Expunge Slave
 IMAPAccount vps
 Host imap.doronbehar.com
 User doron
-PassCmd "gkeyring --id 36 --output secret"
+PassCmd "secret-tool lookup user me@doronbehar.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
