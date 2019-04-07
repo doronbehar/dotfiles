@@ -78,6 +78,7 @@ if _command_exists nvim; then
 		export EDITOR="nvim"
 		export VISUAL="nvim"
 		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -c 'set ft=man' -"
+		export MANWIDTH=999
 	else
 		export EDITOR="nvr --remote-silent --remote-wait"
 		export VISUAL="nvr --remote-silent --remote-wait"
