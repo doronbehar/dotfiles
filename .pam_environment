@@ -13,11 +13,6 @@ TEXMFCONFIG DEFAULT="@{HOME}/.texmf-config"
 INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
 ## XDG_UTILS
 XDG_UTILS_DEBUG_LEVEL DEFAULT="1"
-## perl variables
-PERL5LIB DEFAULT="@{HOME}/.perl5/lib/perl5"
-PERL_LOCAL_LIB_ROOT DEFAULT="@{HOME}/.perl5/local/perl5/lib/perl5"
-PERL_MB_OPT DEFAULT="--install_base ${HOME}/.perl5"
-PERL_MM_OPT DEFAULT="INSTALL_BASE=${HOME}/.perl5"
 ## ranger: make it not load default rc.conf from /etc so startup will be faster
 RANGER_LOAD_DEFAULT_RC DEFAULT=FALSE
 ## translate-shell
