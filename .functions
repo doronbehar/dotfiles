@@ -295,7 +295,7 @@ sugit() {
 
 # {{{1 `pyenv` activate python environments located in ~/.virtualenvs/
 pyenv() {
-	. ~/.virtualenvs/"$1"/activate
+	. ~/.virtualenvs/"$1"/bin/activate
 }
 
 # {{{1 shell specific functions
