@@ -1,8 +1,10 @@
 #!/bin/zsh
 
 # {{{1 Uncategorized
-# Why would I want to exclude hiddne files?
+# Why would I want to exclude hidden files?
 setopt GLOB_DOTS
+# allow more sophisticated glob patterns
+setopt EXTENDEDGLOB
 
 # {{{ Completion.
 # Completions by zsh-users
