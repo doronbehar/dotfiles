@@ -1,4 +1,3 @@
-GOPATH DEFAULT="@{HOME}/.go"
 BROWSER DEFAULT="firefox"
 PAGER DEFAULT="less"
 LESS DEFAULT="-X -x4 -r -i"
