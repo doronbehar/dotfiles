@@ -30,7 +30,7 @@ zstyle ':completion:*:gpg:*' menu select=2
 # menu selection with a cursor will be used for git commands
 zstyle ':completion:*:git*:*' menu select=2
 # setup colors for ls
-eval "$(dircolors -b)"
+test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 # make files matches use colors from LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 # don't use the old compctl completion system

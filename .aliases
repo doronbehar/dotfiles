@@ -1,47 +1,46 @@
-# {{{1 enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	if _command_exists ls; then
-		alias ls='ls --color=auto'
-		alias cls='ls --color=always'
-	fi
-	if _command_exists dir; then
-		alias dir='dir --color=auto'
-		alias vdir='vdir --color=auto'
-		alias cdir='dir --color=always'
-		alias cvdir='vdir --color=always'
-	fi
-	if _command_exists grep; then
-		alias grep='grep --color=auto'
-		alias fgrep='fgrep --color=auto'
-		alias egrep='egrep --color=auto'
-		alias cgrep='grep --color=always'
-		alias cfgrep='fgrep --color=always'
-		alias cegrep='egrep --color=always'
-	fi
-	if _command_exists diff; then
-		alias diff='diff --color=auto'
-		alias cdiff='diff --color=always'
-	fi
-	if _command_exists pacman; then
-		alias cpacman='pacman --color=always'
-	fi
-	if _command_exists ack; then
-		alias cack='ack --color=always'
-	fi
-	if _command_exists cower; then
-		alias cower='cower --color'
-		alias ccower='cower --color=always'
-	fi
+# {{{1 ls
+if _command_exists ls; then
+	alias ls='ls --color=auto'
+	alias cls='ls --color=always'
 fi
-# {{{1 Other aliases
-# taskwarrior
+
+# {{{1 dir / vdir
+if _command_exists dir; then
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias cdir='dir --color=always'
+	alias cvdir='vdir --color=always'
+fi
+
+# {{{1 grep
+if _command_exists grep; then
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+	alias cgrep='grep --color=always'
+	alias cfgrep='fgrep --color=always'
+	alias cegrep='egrep --color=always'
+fi
+
+# {{{1 diff
+if _command_exists diff; then
+	alias diff='diff --color=auto'
+	alias cdiff='diff --color=always'
+fi
+
+# {{{1 pacman
+if _command_exists pacman; then
+	alias cpacman='pacman --color=always'
+fi
+
+# {{{1 taskwarrior
 if _command_exists task; then
 	alias tw=task
 	alias t=task
 	alias ct='task rc._forcecolor=on'
 fi
-# auracle (the best AUR helper)
+
+# {{{1 auracle (the best AUR helper)
 if _command_exists auracle; then
 	alias aur=auracle
 	alias caur=auracle\ --color=always
@@ -50,13 +49,15 @@ if _command_exists auracle; then
 	alias auri=auracle\ search
 	alias cauri=auracle\ --color=always\ search
 fi
-# xdg-open
+
+# {{{1 xdg-open
 if _command_exists rifle; then
 	alias o='rifle'
 elif _command_exists xdg-open; then
 	alias o='xdg-open'
 fi
-# xclip
+
+# {{{1 xclip / xsel
 if _command_exists xclip; then
 	alias cxclip="xclip -selection clipboard"
 	alias pxclip="xclip -selection primary"
@@ -64,15 +65,18 @@ elif _command_exists xsel; then
 	alias cxsel='xsel -b'
 	alias pxsel='xsel -p'
 fi
-# colored cat: src-highlite
+
+# {{{1 colored cat: src-highlite
 if _command_exists highlight; then
 	alias ccat='highlight --out-format=ansi --force'
 fi
-# always colored jq
+
+# {{{1 always colored jq
 if _command_exists jq; then
 	alias cjq='jq --color-output'
 fi
-# systemd related
+
+# {{{1 systemd related
 if _command_exists systemctl; then
 	alias poweroff='systemctl poweroff'
 	alias reboot='systemctl reboot'
@@ -87,37 +91,43 @@ if _command_exists systemctl; then
 	alias sysr='sudo systemctl restart'
 	alias syss='sudo systemctl status'
 fi
-# visual/editor with GhostStart for quick launch
+# {{{1 visual/editor with GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
-# visual/editor with Pad plugin for quick launch
+
+# {{{1 visual/editor with Pad plugin for quick launch
 alias pad="${VISUAL} +Pad\ new"
 alias v="${VISUAL}"
-# workaround for https://github.com/ncw/rclone/issues/2894
+
+# {{{1 rclone workaround for https://github.com/ncw/rclone/issues/2894
 if _command_exists rclone; then
 	alias rclone='rclone --exclude-if-present .rclone-ignore'
 fi
-# alias for urls
+# {{{1 alias for urls
 if _command_exists grep; then
 	alias urls='grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"'
 fi
-# shortcut for launching GNU Octave with --no-gui
+
+# {{{1 shortcut for launching GNU Octave with --no-gui
 if _command_exists octave; then
 	alias oct='octave --no-gui'
 fi
-# Shortcut for python debugger
+
+# {{{1 Shortcut for python debugger
 if _command_exists python; then
 	alias pdb='python -m pdb '
 fi
-# Shortcut for transmission-remote with authentication through environment
+
+# {{{1 Shortcut for transmission-remote with authentication through environment
 if _command_exists transmission-remote; then
 	alias trc='transmission-remote --authenv'
 fi
-# replace shell script pass with gopass
+
+# {{{1 replace shell script pass with gopass
 if _command_exists gopass; then
 	alias pass=gopass
 fi
 
-# Load local configuration files based on hostname
+# {{{1 Load local configuration files based on hostname
 if [[ -f "$HOME/.local/share/zsh/aliases/${TERM}" ]]; then
 	source "$HOME/.local/share/zsh/aliases/${TERM}"
 fi
