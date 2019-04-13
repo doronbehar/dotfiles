@@ -142,3 +142,6 @@
 [submodule ".config/gopass"]
 	path = .config/gopass
 	url = https://github.com/doronbehar/.config_gopass
+[submodule ".config/alacritty"]
+	path = .config/alacritty
+	url = https://github.com/doronbehar/.config_alacritty.git
