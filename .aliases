@@ -67,8 +67,10 @@ elif _command_exists xsel; then
 fi
 
 # {{{1 colored cat: src-highlite
-if _command_exists highlight; then
-	alias ccat='highlight --out-format=ansi --force'
+if _command_exists bat; then
+	alias ccat='bat --style=plain --color=always --pager=never'
+elif _command_exists highlight; then
+	alias ccat='highlight --out-format=ansi --force --stdout'
 fi
 
 # {{{1 always colored jq
