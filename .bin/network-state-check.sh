@@ -35,6 +35,7 @@ get_wifi_network(){
 	connmanctl services | awk '{
 		if ($0 ~ /\*/) {
 			print $2
+			exit
 		}
 	}'
 }
@@ -42,7 +43,7 @@ get_wifi_network(){
 case "$CURRENT_HOST" in
 	NUC|ARCHPI)
 		if [[ "$NET_CONNECTION" == "home" ]]; then
-			[[ "$(get_wifi_network)" == "Behar" ]]
+			[[ "$(get_wifi_network)" == "Behar" ]] || [[ "$(get_wifi_network)" == "Wired" ]]
 			exit $?
 		elif [[ "$NET_CONNECTION" == hotspot ]]; then
 			[[ "$(get_wifi_network)" == "DORON-hotspot" ]]
