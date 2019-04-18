@@ -17,3 +17,5 @@ RANGER_LOAD_DEFAULT_RC DEFAULT=FALSE
 ## translate-shell
 HOME_LANG DEFAULT=he
 TARGET_LANG DEFAULT=he
+# mesa shader cache
+MESA_GLSL_CACHE_DIR=/var/cache/mesa_shader_cache/doron
