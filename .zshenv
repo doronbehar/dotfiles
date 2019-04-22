@@ -35,7 +35,7 @@ insert2MANPATH(){
 export DOMAIN="$(hostname -d)"
 export FQDN="$(hostname -f)"
 if [[ "$FQDN" == "$HOST" ]]; then
-	FQDN='same as host'
+	FQDN='same_as_host'
 fi
 
 # - {{{1 PATH
@@ -54,6 +54,12 @@ insert2PATH "$HOME/.rvm/bin"
 
 # - {{{1 CPAN
 insert2PATH "$HOME/.perl5/bin"
+if _command_exists perl; then
+	export PERL5LIB="${HOME}/.perl5/lib/perl5"
+	export PERL_LOCAL_LIB_ROOT="${HOME}/.perl5/local/perl5/lib/perl5"
+	export PERL_MB_OPT="--install_base ${HOME}/.perl5"
+	export PERL_MM_OPT="INSTALL_BASE=${HOME}/.perl5"
+fi
 
 # - {{{1 LUA_PATH and LUA_CPATH
 if _command_exists luarocks; then
@@ -66,6 +72,7 @@ if _command_exists nvim; then
 		export EDITOR="nvim"
 		export VISUAL="nvim"
 		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -c 'set ft=man' -"
+		export MANWIDTH=999
 	else
 		export EDITOR="nvr --remote-silent --remote-wait"
 		export VISUAL="nvr --remote-silent --remote-wait"

@@ -1,4 +1,3 @@
-GOPATH DEFAULT="@{HOME}/.go"
 BROWSER DEFAULT="firefox"
 PAGER DEFAULT="less"
 LESS DEFAULT="-X -x4 -r -i"
@@ -13,16 +12,10 @@ TEXMFCONFIG DEFAULT="@{HOME}/.texmf-config"
 INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
 ## XDG_UTILS
 XDG_UTILS_DEBUG_LEVEL DEFAULT="1"
-## perl variables
-PERL5LIB DEFAULT="@{HOME}/.perl5/lib/perl5"
-PERL_LOCAL_LIB_ROOT DEFAULT="@{HOME}/.perl5/local/perl5/lib/perl5"
-PERL_MB_OPT DEFAULT="--install_base ${HOME}/.perl5"
-PERL_MM_OPT DEFAULT="INSTALL_BASE=${HOME}/.perl5"
 ## ranger: make it not load default rc.conf from /etc so startup will be faster
 RANGER_LOAD_DEFAULT_RC DEFAULT=FALSE
 ## translate-shell
 HOME_LANG DEFAULT=he
 TARGET_LANG DEFAULT=he
-## Gpodder
-GPODDER_HOME DEFAULT="@{HOME}/.config/gpodder"
-GPODDER_DOWNLOAD_DIR DEFAULT="@{HOME}/downloads/podcasts"
+# mesa shader cache
+MESA_GLSL_CACHE_DIR=/var/cache/mesa_shader_cache/doron

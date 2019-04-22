@@ -1,30 +1,30 @@
-# {{{1 `vinfo` - $EDITOR viewing info files
+# {{{1 `vinfo` $EDITOR viewing info files
 vinfo(){
 	$EDITOR "info://$1/$2"
 }
 
-# {{{1 `path` - list all directories included in $PATH, with \n between them.
+# {{{1 `path` list all directories included in $PATH, with \n between them.
 path(){
 	echo "${PATH//:/\n}"
 }
 
-# {{{1 `ranger` - modify the regular ranger command to always include the `choosedir` option
+# {{{1 `ranger` modify the regular ranger command to always include the `choosedir` option
 ranger(){
 	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
 }
 
-# {{{1 `cranger` - launch ranger && cd to ranger's last visited directory
+# {{{1 `cranger` launch ranger && cd to ranger's last visited directory
 cranger(){
 	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
 	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
 }
 
-# {{{1 `cdr` - cd to ranger's last visited directory
+# {{{1 `cdr` cd to ranger's last visited directory
 cdr(){
 	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
 }
 
-# {{{1 `cdg` - cd into git repository (even if it's a submodule).
+# {{{1 `cdg` cd into git repository (even if it's a submodule).
 cdg(){
 	if [ -d .git ]; then
 		cd .git
@@ -35,12 +35,12 @@ cdg(){
 	fi
 }
 
-# {{{1 `cdmn` - Go to the directory the current song played by mpd is located in
+# {{{1 `cdmn` Go to the directory the current song played by mpd is located in
 cdmn(){
 	cd ${MPD_MUSIC_DIR}/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
 
-# {{{1 `cdgo` - Toggle between residing inside the same directory linkes somewhere inside $GOPATH
+# {{{1 `cdgo` Toggle between residing inside the same directory linkes somewhere inside $GOPATH
 cdgo(){
 	# initial checks
 	if [ -z $GOPATH ]; then
@@ -110,7 +110,7 @@ cdgo(){
 		echo "Couldn't find a directory in \$GOPATH/src which is linked to current directory" >&2
 	fi
 }
-# {{{1 `p` - bookmark navigator
+# {{{1 `p` bookmark navigator
 # interact with the command line bm ranger's compatible bookmarks manager
 p(){
 	local dir="$(bm "$@")"
@@ -256,15 +256,12 @@ luai(){
 	lua -e "i=require('pl.import_into')().pretty.write" -i "$@"
 }
 
-# {{{1 `wegolu` wego location updater - for caching purposes
-wegolu(){
-	ssh phone termux-location | jq --raw-output '. | "\(.latitude)" + "," + "\(.longitude)"' > ~/.cache/location.txt
-	cat ~/.cache/location.txt
-}
-
-# {{{1 `wegol` wego wrapper with location retrived from Android device
+# {{{1 `wegol` wego location updater - for caching purposes
 wegol(){
-	wego -location "$(cat ~/.cache/location.txt)"
+	local location="$(ssh phone termux-location | jq --raw-output '. | "\(.latitude)" + "," + "\(.longitude)"')"
+	echo "$location" > ~/.location.txt
+	sed -i 's/\(location=\)\(.*\)/\1'"$location"'/g' ~/.wegorc
+	echo location $location was written to ~/.wegorc and ~/.location.txt
 }
 
 # {{{1 `juf` shows journalctl of all given systemd units
@@ -277,19 +274,28 @@ jsf(){
 	eval sudo journalctl --follow ${@/#/--unit }
 }
 
-# {{{1 rvm
-# Load RVM into a shell session *as a function*
+# {{{1 `mkcd` mkdir and cd to it afterwards
+mkcd(){
+	mkdir -p "$1" && cd "$1"
+}
+
+# {{{1 `rvm` Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
 	source "$HOME/.rvm/scripts/rvm"
 fi
 
-# {{{1 git for root
+# {{{1 `sugit` git for root
 sugit() {
 	if alias git; then
 		unalias git
 	else
 		alias git="sudo env DISPLAY= GIT_EDITOR='$SUDO_EDITOR' git -c include.path=$HOME/.config/git/config -c commit.template=$HOME/.config/git/commit.template"
 	fi
+}
+
+# {{{1 `pyenv` activate python environments located in ~/.virtualenvs/
+pyenv() {
+	. ~/.virtualenvs/"$1"/bin/activate
 }
 
 # {{{1 shell specific functions
