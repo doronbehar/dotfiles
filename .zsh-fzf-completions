@@ -22,33 +22,20 @@ fzf-history-widget() {
 zle -N fzf-history-widget
 
 # fzf-dir-completion widget
-fzf-dir-completion() {
-	local tokens cmd prefix trigger tail lbuf
-	setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
-	# http://zsh.sourceforge.net/FAQ/zshfaq03.html
-	# http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
-	tokens=(${(z)LBUFFER})
-	if [ ${#tokens} -lt 1 ]; then
-		zle expand-or-complete
-		return
-	fi
-	cmd=${tokens[1]}
-	# Explicitly allow for empty trigger.
-	trigger=${FZF_COMPLETION_TRIGGER-'**'}
-	[ -z "$trigger" -a ${LBUFFER[-1]} = ' ' ] && tokens+=("")
-	tail=${LBUFFER:$(( ${#LBUFFER} - ${#trigger} ))}
-	if [ ${#tokens} -gt 1 -a "$tail" = "$trigger" ]; then
-		[ -z "$trigger"      ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
-		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER        || lbuf=${LBUFFER:0:-${#tokens[-1]}}
-		_fzf_complete_path "${lbuf}" "${prefix}" directories
-	else
-		zle expand-or-complete
-	fi
+fzf-dir-complete() {
+	zle fzf-completion directories
 }
-zle -N fzf-dir-completion
+zle -N fzf-dir-complete
+
+# macro-complete widget
+fzf-macro-complete() {
+	zle fzf-complete macro
+}
+zle -N fzf-macro-complete
 
 # fzf-completion widget
-fzf-completion() {
+fzf-complete() {
+	local mode="${1:-files}"
 	local tokens cmd prefix trigger tail lbuf
 	setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
 	# http://zsh.sourceforge.net/FAQ/zshfaq03.html
@@ -66,14 +53,29 @@ fzf-completion() {
 	if [ ${#tokens} -gt 1 -a "$tail" = "$trigger" ]; then
 		[ -z "$trigger"      ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
 		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER        || lbuf=${LBUFFER:0:-${#tokens[-1]}}
-		if type _fzf_complete_${cmd} > /dev/null; then
-			_fzf_complete_${cmd} "${lbuf}" "${prefix}"
+		if type _fzf_complete_${cmd} > /dev/null && [[ "$mode" != macro ]]; then
+			LBUFFER="$lbuf$(_fzf_complete_${cmd} "${lbuf}" "${prefix}")"
 		else
-			_fzf_complete_path "${lbuf}" "${prefix}" files
+			case "$mode" in
+				macro)
+					for key val in ${(kv)_fzf_macros}; do
+						if [[ "$key" == "$prefix" ]]; then
+							if [[ "$val" =~ "/$" ]]; then
+								LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${val}" files)"
+							else
+								LBUFFER="${lbuf}${val}"
+							fi
+							return 0
+						fi
+					done
+					zle expand-or-complete
+					;;
+				directories|files)
+					LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
+					;;
+			esac
 		fi
-	# Fall back to default completion
-	else
-		zle expand-or-complete
+		zle reset-prompt
 	fi
 }
-zle -N fzf-completion
+zle -N fzf-complete

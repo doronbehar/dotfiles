@@ -132,14 +132,17 @@ zle -N self-insert url-quote-magic
 # Zle widgets based on examples distributed with fzf
 export FZF_COMPLETION_TRIGGER=''
 source ~/.zsh-fzf-completions
+# source all completions based on _fzf_completion for the various commands
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)
 source ~/.zsh-fzf-command-completions
 # use only the most useful widget from there
 bindkey -M vicmd "^Z" fzf-history-widget
 bindkey -M viins "^Z" fzf-history-widget
-# source all completions based on _fzf_completion for the various commands
-# https://github.com/junegunn/fzf/wiki/Examples-(completion)
-bindkey -M viins "^F" fzf-completion
-bindkey -M viins "^D" fzf-dir-completion
+bindkey -M viins "^F" fzf-complete
+bindkey -M viins "^D" fzf-dir-complete
+# macro-complete widget
+source ~/.local/share/zsh/macros/NUC
+bindkey -M viins "^ " fzf-macro-complete
 # sync with system clipboard
 # https://github.com/kutsan/zsh-system-clipboard
 source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh

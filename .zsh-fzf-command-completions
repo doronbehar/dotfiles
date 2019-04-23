@@ -2,7 +2,6 @@
 _fzf_complete_path() {
 	local lbuf="$1"
 	local prefix="$2"
-	local original_prefix="${lbuf}$2"
 	local mode="$3"  # string - `files` or `directories`
 	local path_prefix
 	if [[ "${prefix}" =~ "/" ]]; then
@@ -16,14 +15,14 @@ _fzf_complete_path() {
 	# remove \ when it is intended to quote special characters
 	path_prefix="${path_prefix//\\/}"
 	local query="${prefix//*\//}"
-	local opts real_opts
+	local real_opts=("$path_prefix")
 	if [[ "$mode" == "directories" ]]; then
-		opts=("${path_prefix}"*(-/N))
+		local opts=("${path_prefix}"*(-/N))
 		if [ ! -z "$opts" ]; then
 			real_opts=("${opts[@]/%//}")
 		fi
 	elif [[ "$mode" == "files" ]]; then
-		opts=("${path_prefix}"*(N))
+		local opts=("${path_prefix}"*(N))
 		local opt
 		for opt in "${opts[@]}"; do
 			if [[ -d "${opt}" ]]; then
@@ -34,16 +33,16 @@ _fzf_complete_path() {
 		done
 	fi
 	if [ -z "$real_opts" ]; then
-		zle reset-prompt
+		echo "$prefix"
 		return 0
 	fi
 	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
 	if [ -z "$matches" ]; then
-		zle reset-prompt
+		echo "$path_prefix"
 		return 0
 	fi
-	LBUFFER="$lbuf${(@q)matches}"
-	zle reset-prompt
+	echo ${(@q)matches}
+	return 0
 }
 
 # make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
@@ -56,8 +55,7 @@ _fzf_complete_gopass() {
 	local prefix="$2"
 	local match="$(find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//' | fzf --query="${prefix}")"
 	[ -z "$match" ] && return 1
-	LBUFFER="$lbuf${match}"
-	zle reset-prompt
+	echo "${match}"
 }
 _fzf_complete_pass() {
 	_fzf_complete_gopass "$@"
@@ -69,7 +67,7 @@ _fzf_complete_export() {
 	local prefix="$2"
 	local matches=(${(f)"$(declare -x | fzf --query="${prefix}" --preview='eval echo \${}')"})
 	[ -z "$matches" ] && return 1
-	LBUFFER="$lbuf${matches[@]//=*/}"
+	echo "${matches[@]//=*/}"
 }
 
 # unset (zsh's built-in)
@@ -84,7 +82,7 @@ _fzf_complete_unalias() {
 	local aliases=(${(f)"$(alias)"})
 	local matches=($(printf '%s\n' ${aliases[@]//=*/} | fzf --query="${prefix}"))
 	[ -z "$matches" ] && return 1
-	LBUFFER="$lbuf${matches[@]//=*/}"
+	echo "${matches[@]//=*/}"
 }
 
 # kill
@@ -98,8 +96,7 @@ _fzf_complete_kill() {
 		line_parts=(${(s: :)match_line})
 		pids+=(${line_parts[2]})
 	done
-	LBUFFER="$lbuf${pids[@]}"
-	zle reset-prompt
+	echo "${pids[@]}"
 }
 
 # juf and jsf shell functions
@@ -137,7 +134,7 @@ _fzf_complete_journal(){
 	done
 	local matches=($(printf '%s\n' "${units[@]}" | fzf -m --query="${prefix}" --preview="$systemctl_cmd status {}"))
 	[ -z "$matches" ] && return 1
-	LBUFFER="$lbuf${matches[@]}"
+	echo "${matches[@]}"
 }
 _fzf_complete_juf(){
 	_fzf_complete_journal "$@" user
@@ -167,24 +164,18 @@ _fzf_complete_task(){
 		local matches=($(command task _tags | fzf -m --query="${${prefix#+}#-}"))
 		[ -z "$matches" ] && return 1
 		local common_prefix="${prefix//[^-+]*/}"
-		LBUFFER="$lbuf${matches[@]/#/${common_prefix}}"
-		zle reset-prompt
-		return 0
+		echo "${matches[@]/#/${common_prefix}}"
 	elif [[ "$prefix" =~ "^project:" ]]; then
 		# complete project
 		local match=$(command task _project | fzf --query="${prefix#project:}")
 		[ -z "$match" ] && return 1
 		local common_prefix="project:"
-		LBUFFER="$lbuf${match/#/${common_prefix}}"
-		zle reset-prompt
-		return 0
+		echo "${match/#/${common_prefix}}"
 	else
 		# complete task
 		local matches=(${(f)"$(eval $lbuf _zshids | fzf -m --query="${prefix}")"})
 		[ -z "$matches" ] && return 1
-		LBUFFER="$lbuf${matches[@]//:*/}"
-		zle reset-prompt
-		return 0
+		echo "${matches[@]//:*/}"
 	fi
 }
 
