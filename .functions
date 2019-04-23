@@ -8,21 +8,6 @@ path(){
 	echo "${PATH//:/\n}"
 }
 
-# {{{1 `ranger` modify the regular ranger command to always include the `choosedir` option
-ranger(){
-	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
-}
-
-# {{{1 `cranger` launch ranger && cd to ranger's last visited directory
-cranger(){
-	/usr/bin/ranger --choosedir="${XDG_RUNTIME_DIR}/ranger-directory" "${@}"
-	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
-}
-
-# {{{1 `cdr` cd to ranger's last visited directory
-cdr(){
-	cd "$(cat ${XDG_RUNTIME_DIR}/ranger-directory)"
-}
 
 # {{{1 `cdg` cd into git repository (even if it's a submodule).
 cdg(){
@@ -108,16 +93,6 @@ cdgo(){
 			fi
 		done <<< "${symlinks}"
 		echo "Couldn't find a directory in \$GOPATH/src which is linked to current directory" >&2
-	fi
-}
-# {{{1 `p` bookmark navigator
-# interact with the command line bm ranger's compatible bookmarks manager
-p(){
-	local dir="$(bm "$@")"
-	if [[ -d "$dir" ]]; then
-		cd "$dir"
-	else
-		print -r "$dir"
 	fi
 }
 
