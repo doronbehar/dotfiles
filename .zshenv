@@ -10,8 +10,10 @@ insert2PATH(){
 	# For all strings passed to function
 	for i in "$@"; do
 		# If the directory exists and it doesn't exists already in $PATH
-		if [[ -d "$i" ]] && ! echo $PATH | grep -q "$i"; then
-			export PATH="$i"":""$PATH"
+		if [[ -d "$i" ]]; then
+			if [[ ! $PATH =~ "$i" ]]; then
+				PATH="$i"":""$PATH"
+			fi
 		fi
 	done
 }
@@ -22,7 +24,7 @@ insert2MANPATH(){
 		# If the directory exists
 		if [ -d "$i" ]; then
 			# If it doesn't exists already in $MANPATH
-			if ! echo $MANPATH | grep -q "$i"; then
+			if [[ ! $MANPATH =~ "$i" ]]; then
 				export MANPATH="$i"":""$MANPATH"
 			fi
 		else
@@ -46,9 +48,7 @@ insert2PATH "$HOME/.luarocks/bin"
 insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
 insert2PATH "$HOME/.yarn/bin"
 insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
-if _command_exists ccache; then
-	insert2PATH "/usr/lib/ccache/bin"
-fi
+insert2PATH "/usr/lib/ccache/bin"
 # - {{{1 Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 insert2PATH "$HOME/.rvm/bin"
 
@@ -63,7 +63,7 @@ fi
 
 # - {{{1 LUA_PATH and LUA_CPATH
 if _command_exists luarocks; then
-	eval $(luarocks path)
+	eval $(luarocks path --no-bin)
 fi
 
 # - {{{1 VISUAL/EDITOR
