@@ -176,55 +176,46 @@ call(){
 
 # {{{1 `lual` toggle the presedence of local paths in $LUA_PATH
 lual(){
-	local lua_path=()
-	IFS=";" read -A lua_path <<<"${LUA_PATH}"
-	local modified_lua_path=()
-	local concatenated_lua_path pth
-	if [[ "${lua_path[1]}" == "./?.lua" && "${lua_path[2]}" == "./?/init.lua" ]]; then
-		for pth_index in {3..${#lua_path[@]}}; do
-			modified_lua_path+=("${lua_path[$pth_index]}")
-		done
-		modified_lua_path+=("./?.lua")
-		modified_lua_path+=("./?/init.lua")
+	# if the $1 is "so" we modify the LUA_CPATH instead
+	local IFS=";"
+	local modification_mode="${1:-lua}"
+	local path_to_modify
+	if [[ "$modification_mode" == lua ]]; then
+		path_to_modify="${LUA_PATH}"
+	elif [[ "$modification_mode" == so ]]; then
+		path_to_modify="${LUA_CPATH}"
 	else
-		modified_lua_path+=("./?.lua")
-		modified_lua_path+=("./?/init.lua")
-		for pth_index in {1..$((${#lua_path[@]} - 2))}; do
-			modified_lua_path+=("${lua_path[$pth_index]}")
-		done
+		printf 'unsupported modification mode ("%s") to LUA_* variables Use either so or lua\n' "$modification_mode" >&2
 	fi
-	concatenated_lua_path="${modified_lua_path[1]}"
-	for pth in "${modified_lua_path[@]:1}"; do
-		concatenated_lua_path="$concatenated_lua_path;$pth"
-	done
-	LUA_PATH="$concatenated_lua_path"
-	echo LUA_PATH=$LUA_PATH
-}
-# {{{1 `luaa` toggle the presence of Awesome WM paths in $LUA_PATH
-luaa(){
-	local lua_path=()
-	IFS=";" read -A lua_path <<<"${LUA_PATH}"
-	local modified_lua_path=()
-	local concatenated_lua_path pth
-	if [[ "$LUA_PATH" =~ "awesome" ]]; then
-		for pth in "${lua_path[@]}"; do
-			if [[ ! "$pth" =~ "awesome" ]]; then
-				modified_lua_path+=("$pth")
+	local modified_path=()
+	local paths_to_move=()
+	local where_to_move_paths=start
+	local pth
+	local pth_index=0
+	while read -d"${IFS}" -r pth; do
+		if [[ "$pth" =~ "^./" ]]; then
+			paths_to_move+=("$pth")
+			if [[ $pth_index -lt 2 ]]; then
+				where_to_move_paths=end
 			fi
-		done
+		else
+			modified_path+=("$pth")
+		fi
+		pth_index=$((pth_index + 1))
+	done <<< "${path_to_modify+${path_to_modify}${IFS}}" # we append an extra $IFS so we'll get the last element as well
+	if [[ "$where_to_move_paths" == end ]]; then
+		modified_path=("${modified_path[@]}" "${paths_to_move[@]}")
 	else
-		modified_lua_path+=("/usr/share/awesome/lib/?.lua")
-		modified_lua_path+=("/usr/share/awesome/lib/?/init.lua")
-		for pth in "${lua_path[@]}"; do
-			modified_lua_path+=("$pth")
-		done
+		modified_path=("${paths_to_move[@]}" "${modified_path[@]}")
 	fi
-	concatenated_lua_path="${modified_lua_path[1]}"
-	for pth in "${modified_lua_path[@]:1}"; do
-		concatenated_lua_path="$concatenated_lua_path;$pth"
-	done
-	LUA_PATH="$concatenated_lua_path"
-	echo LUA_PATH=$LUA_PATH
+	local concatenated_path="$(echo "${modified_path[*]}")"
+	if [[ "$modification_mode" == lua ]]; then
+		LUA_PATH="$concatenated_path"
+		echo LUA_PATH=$concatenated_path
+	elif [[ "$modification_mode" == so ]]; then
+		LUA_CPATH="$concatenated_path"
+		echo LUA_CPATH=$concatenated_path
+	fi
 }
 # {{{1 `luai` lua wrapper with inspect library callable by var `i`
 luai(){
