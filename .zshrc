@@ -141,7 +141,7 @@ bindkey -M viins "^Z" fzf-history-widget
 bindkey -M viins "^F" fzf-complete
 bindkey -M viins "^D" fzf-dir-complete
 # macro-complete widget
-source ~/.local/share/zsh/macros/NUC
+source ~/.local/share/zsh/macros/${HOST}
 bindkey -M viins "^ " fzf-macro-complete
 # sync with system clipboard
 # https://github.com/kutsan/zsh-system-clipboard
