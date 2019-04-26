@@ -25,77 +25,6 @@ cdmn(){
 	cd ${MPD_MUSIC_DIR}/"$(mpc current --format "%file%" | awk -F'/' '{for (i=1; i<=NF-1; ++i) printf $i"/"}')"
 }
 
-# {{{1 `cdgo` Toggle between residing inside the same directory linkes somewhere inside $GOPATH
-cdgo(){
-	# initial checks
-	if [ -z $GOPATH ]; then
-		echo \$GOPATH is not set >&2
-		return
-	fi
-	if [ ! -d $GOPATH ]; then
-		echo \$GOPATH is not set to a readable directory >&2
-		return
-	fi
-	#
-	# resolve $GOPATH in case it is by it-self sym-link as well
-	local gopath_src="$(readlink -f "$GOPATH")/src"
-	#
-	# cache management of $gopath_src symlinks
-	# cache prefix
-	local cache_dir="${HOME}/.cache/functions"
-	mkdir -p ${cache_dir}
-	local cache_prefix="${cache_dir}/cdgo."
-	local cache_last_modification_date="$(date +%s -r ${cache_prefix}gopath_src_links 2> /dev/null)"
-	local gopath_src_last_modification_date=$(date +%s -r "$gopath_src")
-	local renewing_cache symlinks readlink
-	# if cache is old
-	if [ -z ${cache_last_modification_date} ]; then
-		renewing_cache="true"
-	else
-		if [[ ${cache_last_modification_date} > ${gopath_src_last_modification_date} ]]; then
-			renewing_cache="false"
-		else
-			renewing_cache="true"
-		fi
-	fi
-	if [[ ${renewing_cache} == "true" ]]; then
-		symlinks="$(find $gopath_src -type l)"
-		echo $symlinks > ${cache_prefix}gopath_src_links
-	else
-		symlinks="$(cat ${cache_prefix}gopath_src_links)"
-	fi
-	#
-	# actually change directory
-	#
-	# Checking if we are already somewhere in ${GOPATH},
-	if echo "${PWD}" | grep -q "${gopath_src}" || echo "$(pwd -P)" | grep -q "${gopath_src}"; then
-		# if so, we need to change to a directory which is pointed to by the link from ${symlinks} matched against ${PWD}
-		while read -r link; do
-			readlink="$(readlink -f ${link})"
-			if echo "${PWD}" | grep -q "${link}"; then
-				cd "${readlink}"
-				return
-			elif echo "$(pwd -P)" | grep -q "${link}"; then
-				cd "${readlink}"
-				return
-			fi
-		done <<< "${symlinks}"
-	else
-		# If not, we need to change to a directory in ${symlinks}
-		while read -r link; do
-			readlink="$(readlink -f ${link})"
-			if [[ "${PWD}" == "${readlink}" ]]; then
-				cd "${link}"
-				return
-			elif [[ "$(pwd -P)" == "${readlink}" ]]; then
-				cd ${link}
-				return
-			fi
-		done <<< "${symlinks}"
-		echo "Couldn't find a directory in \$GOPATH/src which is linked to current directory" >&2
-	fi
-}
-
 # {{{1 `awesome-spawn` launch any program in the current awesome window
 awesome-spawn(){
 	local args="$@"
@@ -244,11 +173,6 @@ jsf(){
 mkcd(){
 	mkdir -p "$1" && cd "$1"
 }
-
-# {{{1 `rvm` Load RVM into a shell session *as a function*
-if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-	source "$HOME/.rvm/scripts/rvm"
-fi
 
 # {{{1 `sugit` git for root
 sugit() {
