@@ -13,13 +13,29 @@ _task_context(){
 	fi
 }
 
+function _contexts_parser() {
+	local line name directories dir
+	while IFS="$DEFAULT_IFS" read line; do
+		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9]*=.*\# " ]]; then
+			continue
+		fi
+		name="${${line#context.}%=*}"
+		if [[ "$name" == "$line" ]]; then
+
+		fi
+		directories=(${(z)line#*\# })
+		for dir in "${directories[@]}"; do
+			if [[ "$PWD" =~ "$dir" ]]; then
+				echo "$name"
+				return
+			fi
+		done
+	done < "$1"
+}
+
+export DEFAULT_IFS="$IFS"
 function chpwd() {
-	CONTEXT="$(context.awk -v CWD="$(pwd -P)" ~/.local/share/tasks/contexts.txt)"
-	if [[ -z ${CONTEXT} ]]; then
-		_task_context
-	else
-		_task_context ${CONTEXT}
-	fi
+	_task_context $(_contexts_parser ~/.local/share/tasks/contexts.txt)
 }
 chpwd
 
