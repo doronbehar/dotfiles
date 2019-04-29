@@ -1,28 +1,44 @@
 # `task context` wrapper with support for env variable TCS silencing it.
+function _task_context_normal() {
+	task context "$@"
+}
+function _task_context_silent() {
+	task context "$@" > /dev/null
+}
+
 _task_context(){
-	if [[ -z "$1" ]]; then
-		_task_context_default
-	else
-		if [[ -z $TCS ]]; then
-			task context "$@"
-		elif [[ $TCS == 1 ]]; then
-			task context "$@" > /dev/null
+	local current_context=$(_contexts_parser ~/.local/share/tasks/contexts.txt)
+	if [[ -h "$PWD" && ! -z "$current_context" ]]; then
+		# needed for go repositories which usually have a context defined
+		_chpwd_skip_setting_context=1
+		cd "$(pwd -P)"
+	fi
+	if (( $_chpwd_skip_setting_context )); then
+		_chpwd_skip_setting_context=0
+		return
+	fi
+	local setter=_task_context_normal
+	if (($TSC)); then
+		setter=_task_context_silent
+	fi
+	if [[ -z "$current_context" ]]; then
+		if [[ ${_HACKING_FROM_HOME} == true ]]; then
+			$setter home
 		else
-			task context "$@" &> /dev/null
+			$setter default
 		fi
+	else
+		$setter "$current_context"
 	fi
 }
 
 function _contexts_parser() {
 	local line name directories dir
 	while IFS="$DEFAULT_IFS" read line; do
-		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9]*=.*\# " ]]; then
+		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# " ]]; then
 			continue
 		fi
 		name="${${line#context.}%=*}"
-		if [[ "$name" == "$line" ]]; then
-
-		fi
 		directories=(${(z)line#*\# })
 		for dir in "${directories[@]}"; do
 			if [[ "$PWD" =~ "$dir" ]]; then
@@ -35,7 +51,6 @@ function _contexts_parser() {
 
 export DEFAULT_IFS="$IFS"
 function chpwd() {
-	_task_context $(_contexts_parser ~/.local/share/tasks/contexts.txt)
+	_task_context
 }
 chpwd
-
