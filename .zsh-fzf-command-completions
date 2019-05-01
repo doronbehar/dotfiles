@@ -152,7 +152,7 @@ _fzf_complete_man(){
 		echo "$name.${${section#\(}%\)}"
 	done))
 	[ -z "$matches" ] && return 1
-	LBUFFER="$lbuf${matches[@]}"
+	echo "${matches[@]}"
 }
 
 # taskwarrior
