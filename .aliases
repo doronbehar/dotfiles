@@ -105,9 +105,7 @@ if _command_exists rclone; then
 	alias rclone='rclone --exclude-if-present .rclone-ignore'
 fi
 # {{{1 alias for urls
-if _command_exists grep; then
-	alias urls='grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"'
-fi
+alias urls='grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"'
 
 # {{{1 shortcut for launching GNU Octave with --no-gui
 if _command_exists octave; then
