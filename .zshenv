@@ -1,10 +1,14 @@
 #!/bin/zsh
 
+# {{{1 Default IFS
+export DEFAULT_IFS="$IFS"
+
 # {{{1 `_command_exists`: Show if a command exists
 # Taken from http://stackoverflow.com/a/592649/4935114
 _command_exists () {
 	type "$1" &> /dev/null ;
 }
+
 # {{{1 `insert2PATH`: function to insert (in the beginning) of $PATH a directory only if it doesn't exist already.
 insert2PATH(){
 	# For all strings passed to function
@@ -17,6 +21,7 @@ insert2PATH(){
 		fi
 	done
 }
+
 # {{{1 `insert2MANPATH`: function to insert (in the beginning) of $MANPATH a directory only if it doesn't exist already.
 insert2MANPATH(){
 	# For all strings passed to function
@@ -32,7 +37,7 @@ insert2MANPATH(){
 		fi
 	done
 }
-# }}}1
+
 # {{{1 DOMAIN and FQDN
 export DOMAIN="$(hostname -d)"
 export FQDN="$(hostname -f)"
