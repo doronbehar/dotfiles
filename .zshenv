@@ -68,7 +68,7 @@ fi
 
 # - {{{1 VISUAL/EDITOR
 if _command_exists nvim; then
-	if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
+	if [ -z "${NVIM_LISTEN_ADDRESS+1}" ]; then
 		export EDITOR="nvim"
 		export VISUAL="nvim"
 		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -c 'set ft=man' -"
@@ -83,7 +83,7 @@ elif _command_exists vim; then
 	export EDITOR="vim"
 	export VISUAL="vim"
 	export SUDO_EDITOR="env VIM=${HOME}/.vim vim"
-	export MAN_PN=1 
+	export MAN_PN=1
 	export MANPAGER="$EDITOR --remote-silent --remote-wait 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -M +MANPAGER -"
 else
 	# taken from wiki.archlinux.org
