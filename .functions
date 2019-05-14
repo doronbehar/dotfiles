@@ -188,6 +188,11 @@ pyenv() {
 	. ~/.virtualenvs/"$1"/bin/activate
 }
 
+# {{{1 `guixenv` sets up guix through Tmux's environment
+guixenv() {
+	env GUIX_ENABLE=yes zsh --login
+}
+
 # {{{1 shell specific functions
 if [[ ${SHELL} =~ "zsh" ]]; then
 	shell_functions="${HOME}/.zsh-functions"

@@ -38,6 +38,33 @@ insert2MANPATH(){
 	done
 }
 
+# - {{{1 PATH
+setbasepath(){
+	if [[ -e /etc/path ]]; then
+		source /etc/path
+	fi
+	insert2PATH "$HOME/.local/bin"
+	insert2PATH "$HOME/.bin"
+	insert2PATH "$HOME/.go/bin"
+	insert2PATH "$HOME/.luarocks/bin"
+	insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
+	insert2PATH "$HOME/.yarn/bin"
+	insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
+	insert2PATH "/usr/lib/ccache/bin"
+	insert2PATH "$HOME/.perl5/bin"
+	insert2PATH "$HOME/.rvm/bin"
+}
+setbasepath
+
+# - {{{1 Guix
+export GUIX_LOCPATH=/var/guix/profiles/per-user/${USER}/guix-profile/lib/locale
+if [ ! -z "${GUIX_ENABLE+1}" ]; then
+	for i in ~/.guix-profile ~/.config/guix/current ; do
+		GUIX_PROFILE="$i"
+		. "$i"/etc/profile
+	done
+fi
+
 # {{{1 DOMAIN and FQDN
 export DOMAIN="$(hostname -d)"
 export FQDN="$(hostname -f)"
@@ -45,20 +72,7 @@ if [[ "$FQDN" == "$HOST" ]]; then
 	FQDN='same_as_host'
 fi
 
-# - {{{1 PATH
-insert2PATH "$HOME/.local/bin"
-insert2PATH "$HOME/.bin"
-insert2PATH "$HOME/.go/bin"
-insert2PATH "$HOME/.luarocks/bin"
-insert2PATH "$HOME/.gem/ruby/2.4.0/bin/"
-insert2PATH "$HOME/.yarn/bin"
-insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
-insert2PATH "/usr/lib/ccache/bin"
-# - {{{1 Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-insert2PATH "$HOME/.rvm/bin"
-
 # - {{{1 CPAN
-insert2PATH "$HOME/.perl5/bin"
 if _command_exists perl; then
 	export PERL5LIB="${HOME}/.perl5/lib/perl5"
 	export PERL_LOCAL_LIB_ROOT="${HOME}/.perl5/local/perl5/lib/perl5"
