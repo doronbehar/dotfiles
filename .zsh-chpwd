@@ -7,8 +7,10 @@ function _task_context_silent() {
 }
 
 # global variables for this function
-# for caching directories -> contexts (including symlinks)
-typeset -A _chpwd_taskwarrior_context_directories
+# for saving after contexts parsing alternative directories where the same context applies
+# Note: we use it mostly to check whether a symlink to PWD is in that list, and if not,
+# we add it in the context file
+_chpwd_taskwarrior_alternatives=()
 # for the current context
 _chpwd_taskwarrior_context=""
 # for the current context options (currently, only 'redirect-link' is read)
@@ -16,53 +18,46 @@ _chpwd_taskwarrior_context_options=""
 # for skipping setting the context when we dive into a recursive cd because of cd $(pwd -P)
 _chpwd_skip_setting_context=0
 _task_context(){
-	# Manage if needed quiet context setter
-	if (( $_chpwd_skip_setting_context )); then
-		_chpwd_skip_setting_context=0
-		return
-	fi
 	local setter=_task_context_normal
 	if (($TSC)); then
 		setter=_task_context_silent
 	fi
-	# skip parsing if value is in cache
-	for key val in ${(kv)_chpwd_taskwarrior_context_directories}; do
-		if [[ "$PWD" =~ "$key" ]]; then
-			$setter "$val"
-			return
-		fi
-	done
 	_contexts_parser ~/.local/share/tasks/contexts.txt
-	if [[ -z "$_chpwd_taskwarrior_context" ]]; then
-		if [[ ${_HACKING_FROM_HOME} == true ]]; then
-			$setter home
-		else
-			$setter default
-		fi
-	else
+	local realpwd
+	if [[ -h "$PWD" ]]; then
+		realpwd="$(pwd -P)"
+	fi
+	if [[ ! -z "$_chpwd_taskwarrior_context_options" ]]; then
 		local context_opt
-		_chpwd_taskwarrior_context_directories[$PWD]="$_chpwd_taskwarrior_context"
-		if [[ ! -z "$_chpwd_taskwarrior_context_options" ]]; then
-			for context_opt in "${_chpwd_taskwarrior_context_options[@]}"; do
-				if [[ "$context_opt" == "redirect-link" && -h "$PWD" ]]; then
-					local next_pwd="$(pwd -P)"
-					echo updating symlink in contexts file
-					sed -i -e "s#$PWD#$PWD $next_pwd#g" ~/.local/share/tasks/contexts.txt
-					_chpwd_taskwarrior_context_directories[$next_pwd]="$_chpwd_taskwarrior_context"
-					_chpwd_skip_setting_context=1
-					cd "$next_pwd"
-				fi
-			done
+		for context_opt in "${_chpwd_taskwarrior_context_options[@]}"; do
+			if [[ "$context_opt" == "redirect-link" && ! -z "$realpwd" ]]; then
+				echo redirect link
+				_chpwd_skip_setting_context=1
+			fi
+		done
+	fi
+	if [[ ! -z "$realpwd" ]]; then
+		local alternative no_update_symlink
+		no_update_symlink=1
+		for alternative in "${_chpwd_taskwarrior_alternatives[@]}"; do
+			if [[ "$realpwd" == "$alternative" ]]; then
+				no_update_symlink=0
+			fi
+		done
+		if (($no_update_symlink)); then
+			echo _task_context: updating symlink in contexts file
+			# make sure the real PWD is matched first!
+			sed -i -e "s#$PWD#$realpwd $PWD#g" ~/.local/share/tasks/contexts.txt
 		fi
-		$setter "$_chpwd_taskwarrior_context"
+	fi
+	$setter "$_chpwd_taskwarrior_context"
+	if (($_chpwd_skip_setting_context)); then
+		cd "$realpwd"
 	fi
 }
 
 function _contexts_parser() {
 	local line name directories dir last_dir
-	if (( $_chpwd_skip_setting_context )); then
-		return
-	fi
 	_chpwd_taskwarrior_context=""
 	while IFS="$DEFAULT_IFS" read line; do
 		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# /" ]]; then
@@ -71,6 +66,8 @@ function _contexts_parser() {
 		name="${${line#context.}%=*}"
 		directories=(${(z)line#*\# })
 		unset _chpwd_taskwarrior_context_options
+		unset _chpwd_taskwarrior_alternatives
+		_chpwd_taskwarrior_alternatives=()
 		last_dir="${directories[-1]}"
 		if [[ "${directories[-1]}" =~ "^options:" ]]; then
 			_chpwd_taskwarrior_context_options=(${(@s:,:)last_dir#options:})
@@ -79,12 +76,26 @@ function _contexts_parser() {
 			if [[ "$PWD" =~ "$dir" ]]; then
 				_chpwd_taskwarrior_context="$name"
 				return
+			elif [[ -d "$dir" ]]; then
+				_chpwd_taskwarrior_alternatives+=("$dir")
 			fi
 		done
 	done < "$1"
+	if [[ -h "$PWD" ]]; then
+		_chpwd_taskwarrior_alternatives=("$(pwd -P)")
+	fi
+	if [[ ${_HACKING_FROM_HOME} == true ]]; then
+		_chpwd_taskwarrior_context=home
+	else
+		_chpwd_taskwarrior_context=default
+	fi
 }
 
 function chpwd() {
-	_task_context
+	if (( ! $_chpwd_skip_setting_context )); then
+		_task_context
+	else
+		_chpwd_skip_setting_context=0
+	fi
 }
 chpwd
