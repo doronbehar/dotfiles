@@ -6,13 +6,17 @@ function _task_context_silent() {
 	task context "$@" > /dev/null
 }
 
+# global variables for this function
+# for caching directories -> contexts (including symlinks)
+typeset -A _chpwd_taskwarrior_context_directories
+# for the current context
+_chpwd_taskwarrior_context=""
+# for the current context options (currently, only 'redirect-link' is read)
+_chpwd_taskwarrior_context_options=""
+# for skipping setting the context when we dive into a recursive cd because of cd $(pwd -P)
+_chpwd_skip_setting_context=0
 _task_context(){
-	local current_context=$(_contexts_parser ~/.local/share/tasks/contexts.txt)
-	if [[ -h "$PWD" && ! -z "$current_context" ]]; then
-		# needed for go repositories which usually have a context defined
-		_chpwd_skip_setting_context=1
-		cd "$(pwd -P)"
-	fi
+	# Manage if needed quiet context setter
 	if (( $_chpwd_skip_setting_context )); then
 		_chpwd_skip_setting_context=0
 		return
@@ -21,35 +25,65 @@ _task_context(){
 	if (($TSC)); then
 		setter=_task_context_silent
 	fi
-	if [[ -z "$current_context" ]]; then
+	# skip parsing if value is in cache
+	for key val in ${(kv)_chpwd_taskwarrior_context_directories}; do
+		if [[ "$PWD" =~ "$key" ]]; then
+			$setter "$val"
+			return
+		fi
+	done
+	_contexts_parser ~/.local/share/tasks/contexts.txt
+	if [[ -z "$_chpwd_taskwarrior_context" ]]; then
 		if [[ ${_HACKING_FROM_HOME} == true ]]; then
 			$setter home
 		else
 			$setter default
 		fi
 	else
-		$setter "$current_context"
+		local context_opt
+		_chpwd_taskwarrior_context_directories[$PWD]="$_chpwd_taskwarrior_context"
+		if [[ ! -z "$_chpwd_taskwarrior_context_options" ]]; then
+			for context_opt in "${_chpwd_taskwarrior_context_options[@]}"; do
+				if [[ "$context_opt" == "redirect-link" && -h "$PWD" ]]; then
+					local next_pwd="$(pwd -P)"
+					echo updating symlink in contexts file
+					sed -i -e "s#$PWD#$PWD $next_pwd#g" ~/.local/share/tasks/contexts.txt
+					_chpwd_taskwarrior_context_directories[$next_pwd]="$_chpwd_taskwarrior_context"
+					_chpwd_skip_setting_context=1
+					cd "$next_pwd"
+				fi
+			done
+		fi
+		$setter "$_chpwd_taskwarrior_context"
 	fi
 }
 
 function _contexts_parser() {
-	local line name directories dir
+	local line name directories dir last_dir
+	if (( $_chpwd_skip_setting_context )); then
+		return
+	fi
+	_chpwd_taskwarrior_context=""
 	while IFS="$DEFAULT_IFS" read line; do
-		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# " ]]; then
+		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# /" ]]; then
 			continue
 		fi
 		name="${${line#context.}%=*}"
 		directories=(${(z)line#*\# })
+		unset _chpwd_taskwarrior_context_options
+		last_dir="${directories[-1]}"
+		if [[ "${directories[-1]}" =~ "^options:" ]]; then
+			_chpwd_taskwarrior_context_options=(${(@s:,:)last_dir#options:})
+		fi
 		for dir in "${directories[@]}"; do
 			if [[ "$PWD" =~ "$dir" ]]; then
-				echo "$name"
+				_chpwd_taskwarrior_context="$name"
 				return
 			fi
 		done
 	done < "$1"
 }
 
-export DEFAULT_IFS="$IFS"
 function chpwd() {
 	_task_context
 }
