@@ -8,7 +8,6 @@ path(){
 	echo "${PATH//:/\n}"
 }
 
-
 # {{{1 `cdg` cd into git repository (even if it's a submodule).
 cdg(){
 	if [ -d .git ]; then
@@ -146,6 +145,7 @@ lual(){
 		echo LUA_CPATH=$concatenated_path
 	fi
 }
+
 # {{{1 `luai` lua wrapper with inspect library callable by var `i`
 luai(){
 	lua -e "i=require('pl.import_into')().pretty.write" -i "$@"
@@ -188,7 +188,7 @@ pyenv() {
 	. ~/.virtualenvs/"$1"/bin/activate
 }
 
-# {{{1 `guixenv` sets up guix through Tmux's environment
+# {{{1 `guixenv` sets up a shell with guix environment
 guixenv() {
 	env GUIX_ENABLE=yes zsh --login
 }
