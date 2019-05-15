@@ -29,10 +29,14 @@ _task_context(){
 	fi
 	if [[ ! -z "$_chpwd_taskwarrior_context_options" ]]; then
 		local context_opt
+		unset GIT_SEND_MAIL_TO
 		for context_opt in "${_chpwd_taskwarrior_context_options[@]}"; do
 			if [[ "$context_opt" == "redirect-link" && ! -z "$realpwd" ]]; then
 				echo redirect link
 				_chpwd_skip_setting_context=1
+			fi
+			if [[ "$context_opt" =~ "patches_mailing_list=" ]]; then
+				export GIT_SEND_MAIL_TO="${context_opt#patches_mailing_list\=}"
 			fi
 		done
 	fi
@@ -63,13 +67,13 @@ function _contexts_parser() {
 		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# /" ]]; then
 			continue
 		fi
-		name="${${line#context.}%=*}"
+		name="${${line#context.}%%=*}"
 		directories=(${(z)line#*\# })
 		unset _chpwd_taskwarrior_context_options
 		unset _chpwd_taskwarrior_alternatives
 		_chpwd_taskwarrior_alternatives=()
 		last_dir="${directories[-1]}"
-		if [[ "${directories[-1]}" =~ "^options:" ]]; then
+		if [[ "${last_dir}" =~ "^options:" ]]; then
 			_chpwd_taskwarrior_context_options=(${(@s:,:)last_dir#options:})
 		fi
 		for dir in "${directories[@]}"; do
