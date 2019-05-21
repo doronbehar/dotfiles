@@ -17,12 +17,12 @@ _chpwd_taskwarrior_context=""
 _chpwd_taskwarrior_context_options=""
 # for skipping setting the context when we dive into a recursive cd because of cd $(pwd -P)
 _chpwd_skip_setting_context=0
-_task_context(){
+_chpwd_set_task_context(){
 	local setter=_task_context_normal
 	if (($TSC)); then
 		setter=_task_context_silent
 	fi
-	_contexts_parser ~/.local/share/tasks/contexts.txt
+	_chpwd_task_contexts_parser ~/.local/share/tasks/contexts.txt
 	local realpwd
 	if [[ -h "$PWD" ]]; then
 		realpwd="$(pwd -P)"
@@ -49,7 +49,7 @@ _task_context(){
 			fi
 		done
 		if (($no_update_symlink)); then
-			echo _task_context: updating symlink in contexts file
+			echo _chpwd_set_task_context: updating symlink in contexts file
 			# make sure the real PWD is matched first!
 			sed -i -e "s#$PWD#$realpwd $PWD#g" ~/.local/share/tasks/contexts.txt
 		fi
@@ -60,7 +60,7 @@ _task_context(){
 	fi
 }
 
-function _contexts_parser() {
+function _chpwd_task_contexts_parser() {
 	local line name directories dir last_dir
 	_chpwd_taskwarrior_context=""
 	while IFS="$DEFAULT_IFS" read line; do
@@ -88,7 +88,7 @@ function _contexts_parser() {
 	if [[ -h "$PWD" ]]; then
 		_chpwd_taskwarrior_alternatives=("$(pwd -P)")
 	fi
-	if [[ ${_HACKING_FROM_HOME} == true ]]; then
+	if (( ${_HACKING_FROM_HOME} )); then
 		_chpwd_taskwarrior_context=home
 	else
 		_chpwd_taskwarrior_context=default
@@ -97,7 +97,7 @@ function _contexts_parser() {
 
 function chpwd() {
 	if (( ! $_chpwd_skip_setting_context )); then
-		_task_context
+		_chpwd_set_task_context
 	else
 		_chpwd_skip_setting_context=0
 	fi
