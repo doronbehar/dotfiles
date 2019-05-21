@@ -58,12 +58,12 @@ elif _command_exists xdg-open; then
 fi
 
 # {{{1 xclip / xsel
-if _command_exists xclip; then
-	alias cxclip="xclip -selection clipboard"
-	alias pxclip="xclip -selection primary"
-elif _command_exists xsel; then
+if _command_exists xsel; then
 	alias cxsel='xsel -b'
 	alias pxsel='xsel -p'
+elif _command_exists xclip; then
+	alias cxclip="xclip -selection clipboard"
+	alias pxclip="xclip -selection primary"
 fi
 
 # {{{1 colored cat: src-highlite
