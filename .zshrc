@@ -178,6 +178,10 @@ setopt interactivecomments
 # syntax highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+# full text editor editing of the command
+autoload edit-command-line && zle -N edit-command-line
+bindkey -M viins "^V" edit-command-line
+bindkey -M vicmd "^V" edit-command-line
 
 # {{{1 Looks
 if [[ -d ~/.zsh-prompts ]]; then
@@ -187,6 +191,7 @@ autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
 prompt my
 
+# {{{1 Enable tracing a specific function
 if [ -n "${TRACE_FUNC}" ]; then
 	functions -t "$TRACE_FUNC"
 fi
