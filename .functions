@@ -193,6 +193,15 @@ guixenv() {
 	env GUIX_ENABLE=yes zsh --login
 }
 
+# {{{1 `guixbuild` sets up a shell in a failed build in /tmp/ with the proper environment
+guixbuild() {
+	if [[ -d /tmp/$1 ]]; then
+		zsh -c "cd /tmp/$1; export GUIX_BUILD_DEBUG=1; exec zsh --login"
+	else
+		echo /tmp/$1 does not exist 1>&2
+	fi
+}
+
 # {{{1 shell specific functions
 if [[ ${SHELL} =~ "zsh" ]]; then
 	shell_functions="${HOME}/.zsh-functions"

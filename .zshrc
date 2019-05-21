@@ -165,7 +165,7 @@ source ~/.aliases
 source ~/.functions
 
 # {{{1 chpwd
-if [[ -f ~/.zsh-chpwd ]]; then
+if [[ -f ~/.zsh-chpwd ]] && ! (($GUIX_BUILD_DEBUG)); then
 	source ~/.zsh-chpwd
 fi
 

@@ -1,0 +1,3 @@
+#compdef guixbuild
+
+_files -W "${TMPDIR:-/tmp}" -g "guix-build-*"
