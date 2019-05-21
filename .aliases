@@ -66,7 +66,7 @@ elif _command_exists xclip; then
 	alias pxclip="xclip -selection primary"
 fi
 
-# {{{1 colored cat: src-highlite
+# {{{1 colored cat: src-highlite or bat
 if _command_exists bat; then
 	alias ccat='bat --style=plain --color=always --pager=never'
 elif _command_exists highlight; then
@@ -131,9 +131,6 @@ fi
 if [[ -f "$HOME/.local/share/zsh/aliases/${TERM}" ]]; then
 	source "$HOME/.local/share/zsh/aliases/${TERM}"
 fi
-if [[ -f "$HOME/.local/share/zsh/aliases/${DISPLAY}" ]]; then
-	source "$HOME/.local/share/zsh/aliases/${DISPLAY}"
-fi
 if [[ -f "$HOME/.local/share/zsh/aliases/${VENDOR}" ]]; then
 	source "$HOME/.local/share/zsh/aliases/${VENDOR}"
 fi
@@ -142,12 +139,6 @@ if [[ -f "$HOME/.local/share/zsh/aliases/${OSTYPE}" ]]; then
 fi
 if [[ -f "$HOME/.local/share/zsh/aliases/${HOST}" ]]; then
 	source "$HOME/.local/share/zsh/aliases/${HOST}"
-fi
-if [[ -f "$HOME/.local/share/zsh/aliases/${FQDN}" ]]; then
-	source "$HOME/.local/share/zsh/aliases/${FQDN}"
-fi
-if [[ -f "$HOME/.local/share/zsh/aliases/${DOMAIN}" ]]; then
-	source "$HOME/.local/share/zsh/aliases/${DOMAIN}"
 fi
 
 # {{{1 modeline
