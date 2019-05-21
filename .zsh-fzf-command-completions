@@ -49,7 +49,7 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || pistol {}' | history-appender)"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='pistol {}' | history-appender)"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
@@ -62,7 +62,7 @@ _fzf_complete_path() {
 _fzf_complete_path_history() {
 	local lbuf="$1"
 	local prefix="$2"
-	local matches=(${(f)"$(fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || pistol {}' < ~/.zsh-fzf-path-completion-history)"})
+	local matches=(${(f)"$(fzf --query="${query}" -m --preview='pistol {}' < ~/.zsh-fzf-path-completion-history)"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
