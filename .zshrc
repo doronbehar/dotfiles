@@ -152,9 +152,27 @@ bindkey -M viins "^D" fzf-dir-complete
 # macro-complete widget
 source ~/.local/share/zsh/macros/${HOST}
 bindkey -M viins "^ " fzf-macro-complete
-# sync with system clipboard
+# sync with system clipboard, only if programs available
 # https://github.com/kutsan/zsh-system-clipboard
-source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
+if _command_exists xclip || _command_exists xsel; then
+	export ZSH_SYSTEM_CLIPBOARD_DISABLE_DEFAULT_MAPS=1
+	source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
+	function () {
+		local binded_keys i parts key cmd keymap
+		for keymap in vicmd visual emacs; do
+			binded_keys=(${(f)"$(bindkey -M $keymap)"})
+			for (( i = 1; i < ${#binded_keys[@]}; ++i )); do
+				parts=("${(z)binded_keys[$i]}")
+				key="${parts[1]}"
+				cmd="${parts[2]}"
+				if (( $+functions[zsh-system-clipboard-$keymap-$cmd] )); then
+					eval bindkey -M $keymap \"\ \"$key zsh-system-clipboard-$keymap-$cmd
+				fi
+			done
+		done
+		bindkey -ar " "
+	}
+fi
 # enable inline comments
 setopt interactivecomments
 # syntax highlighting
