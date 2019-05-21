@@ -61,6 +61,10 @@ fzf-complete() {
 				directories|files)
 					LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
 					;;
+				# completes files from the history
+				files_history)
+					LBUFFER="$lbuf$(_fzf_complete_path_history "${lbuf}" "${prefix}")"
+					;;
 			esac
 		fi
 		zle reset-prompt
@@ -79,6 +83,12 @@ fzf-macro-complete() {
 	zle fzf-complete macro
 }
 zle -N fzf-macro-complete
+
+# macro-complete widget
+fzf-path-history-complete() {
+	zle fzf-complete files_history
+}
+zle -N fzf-path-history-complete
 
 show-macros() {
 	local comp_message=""

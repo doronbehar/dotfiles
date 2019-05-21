@@ -1,3 +1,16 @@
+# helper for path completion that saves the selections from fzf in a history file
+# and it outputs the name as was given as well. It works using stdin
+history-appender(){
+	local p
+	while read p; do
+		echo "$p"
+		if [[ "$p" =~ '^./' ]]; then
+			p="${PWD}/${p[$MEND+1,${#p}]}"
+		fi
+		echo "$p" >> ~/.zsh-fzf-path-completion-history
+	done
+}
+
 # create a simpler and lighter directory fzf completion
 _fzf_complete_path() {
 	local lbuf="$1"
@@ -36,13 +49,25 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || pistol {}')"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || pistol {}' | history-appender)"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
 	fi
 	echo ${(@q)matches}
 	return 0
+}
+
+# complete files from history file
+_fzf_complete_path_history() {
+	local lbuf="$1"
+	local prefix="$2"
+	local matches=(${(f)"$(fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || pistol {}' < ~/.zsh-fzf-path-completion-history)"})
+	if [ -z "$matches" ]; then
+		echo "$prefix"
+		return 0
+	fi
+	echo ${(@q)matches}
 }
 
 # make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir

@@ -152,6 +152,8 @@ bindkey -M viins "^D" fzf-dir-complete
 # macro-complete widget
 source ~/.local/share/zsh/macros/${HOST}
 bindkey -M viins "^ " fzf-macro-complete
+# path history completion
+bindkey -M viins "^T" fzf-path-history-complete
 # sync with system clipboard, only if programs available
 # https://github.com/kutsan/zsh-system-clipboard
 if _command_exists xclip || _command_exists xsel; then
