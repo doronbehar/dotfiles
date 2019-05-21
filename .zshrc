@@ -6,13 +6,20 @@ setopt GLOB_DOTS
 # allow more sophisticated glob patterns
 setopt EXTENDEDGLOB
 
-# {{{ Completion.
-# Completions by zsh-users
-fpath=(~/.zsh-completions/src $fpath)
-fpath=(~/.zsh-collected-completions/src $fpath)
-fpath=(~/.zsh-local-completions $fpath)
-fpath=(~/.zsh-untracked-completions $fpath)
-fpath=(~/.zsh-tested-completions $fpath)
+# {{{ Completions
+if [[ -d ~/.zsh-local-completions ]]; then
+	fpath=(~/.zsh-local-completions $fpath)
+fi
+if [[ -d ~/.zsh-untracked-completions ]]; then
+	fpath=(~/.zsh-untracked-completions $fpath)
+fi
+if [[ -d ~/.zsh-tested-completions ]]; then
+	fpath=(~/.zsh-tested-completions $fpath)
+fi
+# GUIX completion
+if [ ! -z "${GUIX_ENABLE+1}" ]; then
+	fpath=(~/.config/guix/current/share/zsh/site-functions $fpath)
+fi
 autoload -Uz compinit && compinit -D
 # zstyle
 # the names of the completer functions to use
@@ -29,7 +36,7 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*:gpg:*' menu select=2
 # menu selection with a cursor will be used for git commands
 zstyle ':completion:*:git*:*' menu select=2
-# setup colors for ls
+# setup colors for ls only if needed
 if [[ -z "$LS_COLORS" ]]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
@@ -155,7 +162,9 @@ setopt interactivecomments
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # {{{1 Looks
-fpath=(~/.zsh-prompts $fpath)
+if [[ -d ~/.zsh-prompts ]]; then
+	fpath=(~/.zsh-prompts $fpath)
+fi
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
 prompt my
