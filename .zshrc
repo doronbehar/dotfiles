@@ -169,6 +169,10 @@ autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
 prompt my
 
+if [ -n "${TRACE_FUNC}" ]; then
+	functions -t "$TRACE_FUNC"
+fi
+
 # {{{1 aliases and functions
 source ~/.aliases
 source ~/.functions
