@@ -7,14 +7,16 @@ function _task_context_silent() {
 }
 
 # global variables for this function
-# for saving after contexts parsing alternative directories where the same context applies
-# Note: we use it mostly to check whether a symlink to PWD is in that list, and if not,
-# we add it in the context file
-_chpwd_taskwarrior_alternatives=()
+# ==================================
+#
+# This one holds all the directories exactly as written in the contexts file so
+# they could be matched against PWD vs $(pwd -P) and only if no match is found,
+# we update the contexts file with the `readlink` equivalents
+_chpwd_taskwarrior_parent_dirs=()
 # for the current context
 _chpwd_taskwarrior_context=""
 # for the current context options (currently, only 'redirect-link' is read)
-_chpwd_taskwarrior_context_options=""
+_chpwd_taskwarrior_context_options=()
 # for skipping setting the context when we dive into a recursive cd because of cd $(pwd -P)
 _chpwd_skip_setting_context=0
 _chpwd_set_task_context(){
@@ -40,17 +42,17 @@ _chpwd_set_task_context(){
 			fi
 		done
 	fi
-	if [[ ! -z "$realpwd" ]]; then
-		local alternative no_update_symlink
-		no_update_symlink=1
-		for alternative in "${_chpwd_taskwarrior_alternatives[@]}"; do
-			if [[ "$realpwd" == "$alternative" ]]; then
-				no_update_symlink=0
+	if [[ -n "$realpwd" ]]; then
+		local roots update_symlink
+		update_symlink=1
+		for root in "${_chpwd_taskwarrior_parent_dirs[@]}"; do
+			if [[ "${realpwd}" =~ "${root}" ]]; then
+				update_symlink=0
+				break
 			fi
 		done
-		if (($no_update_symlink)); then
+		if (($update_symlink)); then
 			echo _chpwd_set_task_context: updating symlink in contexts file
-			# make sure the real PWD is matched first!
 			sed -i -e "s#$PWD#$realpwd $PWD#g" ~/.local/share/tasks/contexts.txt
 		fi
 	fi
@@ -69,29 +71,34 @@ function _chpwd_task_contexts_parser() {
 		fi
 		name="${${line#context.}%%=*}"
 		directories=(${(z)line#*\# })
-		unset _chpwd_taskwarrior_context_options
-		unset _chpwd_taskwarrior_alternatives
-		_chpwd_taskwarrior_alternatives=()
+		_chpwd_taskwarrior_context_options=()
+		_chpwd_taskwarrior_parent_dirs=()
+		local found_context=0
 		last_dir="${directories[-1]}"
 		if [[ "${last_dir}" =~ "^options:" ]]; then
 			_chpwd_taskwarrior_context_options=(${(@s:,:)last_dir#options:})
 		fi
 		for dir in "${directories[@]}"; do
+			if [[ -d "$dir" ]]; then
+				_chpwd_taskwarrior_parent_dirs+=("$dir")
+			fi
 			if [[ "$PWD" =~ "$dir" ]]; then
 				_chpwd_taskwarrior_context="$name"
-				return
-			elif [[ -d "$dir" ]]; then
-				_chpwd_taskwarrior_alternatives+=("$dir")
+				found_context=1
 			fi
 		done
+		if (( $found_context )); then
+			break
+		fi
 	done < "$1"
-	if [[ -h "$PWD" ]]; then
-		_chpwd_taskwarrior_alternatives=("$(pwd -P)")
-	fi
-	if (( ${_HACKING_FROM_HOME} )); then
-		_chpwd_taskwarrior_context=home
-	else
-		_chpwd_taskwarrior_context=default
+	if [[ -z "${_chpwd_taskwarrior_context}" ]]; then
+		unset _chpwd_taskwarrior_context_options 
+		unset _chpwd_taskwarrior_parent_dirs
+		if (( ${_HACKING_FROM_HOME} )); then
+			_chpwd_taskwarrior_context=home
+		else
+			_chpwd_taskwarrior_context=default
+		fi
 	fi
 }
 
