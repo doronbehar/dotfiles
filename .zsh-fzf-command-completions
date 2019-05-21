@@ -36,7 +36,7 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || ~/.config/ranger/scope.sh {} $COLUMNS $LINES "" False')"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='[[ -d {} ]] && ls --color {} || pistol {}')"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
