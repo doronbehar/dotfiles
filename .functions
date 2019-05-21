@@ -207,9 +207,6 @@ fi
 if [[ -f "$HOME/.local/share/zsh/functions/${TERM}" ]]; then
 	source "$HOME/.local/share/zsh/functions/${TERM}"
 fi
-if [[ -f "$HOME/.local/share/zsh/functions/${DISPLAY}" ]]; then
-	source "$HOME/.local/share/zsh/functions/${DISPLAY}"
-fi
 if [[ -f "$HOME/.local/share/zsh/functions/${VENDOR}" ]]; then
 	source "$HOME/.local/share/zsh/functions/${VENDOR}"
 fi
@@ -218,12 +215,6 @@ if [[ -f "$HOME/.local/share/zsh/functions/${OSTYPE}" ]]; then
 fi
 if [[ -f "$HOME/.local/share/zsh/functions/${HOST}" ]]; then
 	source "$HOME/.local/share/zsh/functions/${HOST}"
-fi
-if [[ -f "$HOME/.local/share/zsh/functions/${FQDN}" ]]; then
-	source "$HOME/.local/share/zsh/functions/${FQDN}"
-fi
-if [[ -f "$HOME/.local/share/zsh/functions/${DOMAIN}" ]]; then
-	source "$HOME/.local/share/zsh/functions/${DOMAIN}"
 fi
 
 # {{{1

@@ -23,4 +23,29 @@ HOME_LANG DEFAULT=he
 TARGET_LANG DEFAULT=he
 
 # mesa shader cache
-MESA_GLSL_CACHE_DIR=/var/cache/mesa_shader_cache/doron
+MESA_GLSL_CACHE_DIR DEFAULT="/var/cache/mesa_shader_cache/doron"
+
+# GUIX
+GUIX_LOCPATH DEFAULT="@{HOME}/.guix-profile/lib/locale"
+
+# Perl / cpan
+PERL5LIB DEFAULT DEFAULT="@{HOME}/.perl5/lib/perl5"
+PERL_LOCAL_LIB_ROOT DEFAULT="${HOME}/.perl5/local/perl5/lib/perl5"
+PERL_MB_OPT DEFAULT="--install_base ${HOME}/.perl5"
+PERL_MM_OPT DEFAULT="INSTALL_BASE=${HOME}/.perl5"
+
+# GCC
+GCC_COLORS DEFAULT='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Git
+EMPTY_COMMIT_HASH DEFAULT=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+
+# XDG
+XDG_DESKTOP_DIR DEFAULT="@{HOME}/desktop"
+XDG_DOWNLOAD_DIR DEFAULT="@{HOME}/downloads"
+XDG_TEMPLATES_DIR DEFAULT="@{HOME}/templates"
+XDG_PUBLICSHARE_DIR DEFAULT="@{HOME}/repos"
+XDG_DOCUMENTS_DIR DEFAULT="@{HOME}/documents"
+XDG_MUSIC_DIR DEFAULT="@{HOME}/recordings"
+XDG_PICTURES_DIR DEFAULT="@{HOME}/pictures"
+XDG_VIDEOS_DIR DEFAULT="@{HOME}/screencasts"
