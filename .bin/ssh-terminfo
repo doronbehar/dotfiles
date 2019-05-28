@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# This script makes sure that a given host has terminfo definition as this terminal
+
+if ssh "$1" toe -a | grep -q "$TERM"; then
+	echo no need to add terminfo to this machine
+else
+	term_firstletter="${TERM:0:1}"
+	ssh "$1" mkdir -p .terminfo/"$term_firstletter"
+	infocmp -D | while read infocmp_dir; do
+		if [[ "$infocmp_dir" =~ "$HOME" ]]; then
+			find -L "$infocmp_dir" -name "$TERM" -exec scp {} "$1":.terminfo/"$term_firstletter" \; -print | grep . && exit 0
+		fi
+	done
+	infocmp -D | while read infocmp_dir; do
+		find -L "$infocmp_dir" -name "$TERM" -exec scp {} "$1":.terminfo/"$term_firstletter" \;
+	done
+fi
