@@ -77,7 +77,7 @@
 	path = .config/stig
 	url = https://github.com/doronbehar/.config_stig
 [submodule "zsh-completions"]
-	path = .zsh-completions
+	path = .zsh/comp/community
 	url = https://github.com/zsh-users/zsh-completions
 [submodule ".ssh"]
 	path = .ssh
@@ -113,7 +113,7 @@
 	path = .config/pip
 	url = https://github.com/doronbehar/.config_pip
 [submodule ".zsh-system-clipboard"]
-	path = .zsh-system-clipboard
+	path = .zsh/zle/system-clipboard
 	url = https://github.com/kutsan/zsh-system-clipboard
 [submodule ".luarocks"]
 	path = .luarocks
@@ -122,7 +122,7 @@
 	path = .config/letsencrypt
 	url = https://github.com/doronbehar/.config_letsencrypt
 [submodule ".zsh-syntax-highlighting"]
-	path = .zsh-syntax-highlighting
+	path = .zsh/zle/syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule ".config/msmtp"]
 	path = .config/msmtp

@@ -7,14 +7,14 @@ setopt GLOB_DOTS
 setopt EXTENDEDGLOB
 
 # {{{ Completions
-if [[ -d ~/.zsh-local-completions ]]; then
-	fpath=(~/.zsh-local-completions $fpath)
+if [[ -d ~/.zsh/comp/local ]]; then
+	fpath=(~/.zsh/comp/local $fpath)
 fi
-if [[ -d ~/.zsh-untracked-completions ]]; then
-	fpath=(~/.zsh-untracked-completions $fpath)
+if [[ -d ~/.zsh/comp/untracked ]]; then
+	fpath=(~/.zsh/comp/untracked $fpath)
 fi
-if [[ -d ~/.zsh-tested-completions ]]; then
-	fpath=(~/.zsh-tested-completions $fpath)
+if [[ -d ~/.zsh/comp/tesed ]]; then
+	fpath=(~/.zsh/comp/tesed $fpath)
 fi
 # GUIX completion
 if [ ! -z "${GUIX_ENABLE+1}" ]; then
@@ -140,10 +140,10 @@ autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 # Zle widgets based on examples distributed with fzf
 export FZF_COMPLETION_TRIGGER=''
-source ~/.zsh-fzf-completions
+source ~/.zsh/zle/fzf
 # source all completions based on _fzf_completion for the various commands
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
-source ~/.zsh-fzf-command-completions
+source ~/.zsh/comp/fzf
 # use only the most useful widget from there
 bindkey -M vicmd "^Z" fzf-history-widget
 bindkey -M viins "^Z" fzf-history-widget
@@ -158,7 +158,7 @@ bindkey -M viins "^T" fzf-path-history-complete
 # https://github.com/kutsan/zsh-system-clipboard
 if _command_exists xclip || _command_exists xsel; then
 	export ZSH_SYSTEM_CLIPBOARD_DISABLE_DEFAULT_MAPS=1
-	source ~/.zsh-system-clipboard/zsh-system-clipboard.zsh
+	source ~/.zsh/zle/system-clipboard/zsh-system-clipboard.zsh
 	function () {
 		local binded_keys i parts key cmd keymap
 		for keymap in vicmd visual emacs; do
@@ -179,15 +179,15 @@ fi
 setopt interactivecomments
 # syntax highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source ~/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 # full text editor editing of the command
 autoload edit-command-line && zle -N edit-command-line
 bindkey -M viins "^V" edit-command-line
 bindkey -M vicmd "^V" edit-command-line
 
 # {{{1 Looks
-if [[ -d ~/.zsh-prompts ]]; then
-	fpath=(~/.zsh-prompts $fpath)
+if [[ -d ~/.zsh/prompts ]]; then
+	fpath=(~/.zsh/prompts $fpath)
 fi
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
@@ -203,8 +203,8 @@ source ~/.aliases
 source ~/.functions
 
 # {{{1 chpwd
-if [[ -f ~/.zsh-chpwd ]] && ! (($GUIX_BUILD_DEBUG)); then
-	source ~/.zsh-chpwd
+if [[ -f ~/.zsh/chpwd ]] && ! (($GUIX_BUILD_DEBUG)); then
+	source ~/.zsh/chpwd
 fi
 
 # {{{1 modeline
