@@ -103,7 +103,7 @@ function _chpwd_task_contexts_parser() {
 }
 
 function chpwd() {
-	if (( ! $_chpwd_skip_setting_context )); then
+	if (( ! $_chpwd_skip_setting_context )) && _command_exists task; then
 		_chpwd_set_task_context
 	else
 		_chpwd_skip_setting_context=0
