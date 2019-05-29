@@ -150,7 +150,9 @@ bindkey -M viins "^Z" fzf-history-widget
 bindkey -M viins "^F" fzf-complete
 bindkey -M viins "^D" fzf-dir-complete
 # macro-complete widget
-source ~/.local/share/zsh/macros/${HOST}
+if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
+	source ~/.local/share/zsh/macros/${HOST}
+fi
 bindkey -M viins "^ " fzf-macro-complete
 # path history completion
 bindkey -M viins "^T" fzf-path-history-complete
