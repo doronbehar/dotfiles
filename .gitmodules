@@ -145,3 +145,6 @@
 [submodule ".config/alacritty"]
 	path = .config/alacritty
 	url = https://github.com/doronbehar/.config_alacritty.git
+[submodule ".config/sxiv"]
+	path = .config/sxiv
+	url = https://github.com/doronbehar/.config_sxiv
