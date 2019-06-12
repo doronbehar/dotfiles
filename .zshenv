@@ -3,6 +3,9 @@
 # {{{1 Default IFS
 export DEFAULT_IFS="$IFS"
 
+# {{{1 HOST - from some reason this is not exported by deafult
+export HOST
+
 # {{{1 `insert2PATH`: function to insert (in the beginning) of $PATH a directory only if it doesn't exist already.
 insert2PATH(){
 	# Simple test to mitigate duplications

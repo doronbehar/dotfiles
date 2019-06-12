@@ -61,9 +61,11 @@ fi
 if _command_exists xsel; then
 	alias cxsel='xsel -b'
 	alias pxsel='xsel -p'
+	export FORGIT_COPY_CMD='xsel -b'
 elif _command_exists xclip; then
 	alias cxclip="xclip -selection clipboard"
 	alias pxclip="xclip -selection primary"
+	export FORGIT_COPY_CMD='xclip -selection clipboard'
 fi
 
 # {{{1 colored cat: src-highlite or bat

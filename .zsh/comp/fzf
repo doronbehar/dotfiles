@@ -78,7 +78,7 @@ _fzf_complete_cd() {
 # gopass and pass passwords
 _fzf_complete_gopass() {
 	local prefix="$2"
-	local match="$(find -L ~/.password-store -name '.git*' -prune -o -type f -printf '%P\n' | sed 's/.gpg$//' | fzf --query="${prefix}")"
+	local match="$(gopass list --flat | fzf --query="${prefix}")"
 	[ -z "$match" ] && return 1
 	echo "${match}"
 }

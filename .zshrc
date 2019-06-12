@@ -13,8 +13,8 @@ fi
 if [[ -d ~/.zsh/comp/untracked ]]; then
 	fpath=(~/.zsh/comp/untracked $fpath)
 fi
-if [[ -d ~/.zsh/comp/tesed ]]; then
-	fpath=(~/.zsh/comp/tesed $fpath)
+if [[ -d ~/.zsh/comp/tested ]]; then
+	fpath=(~/.zsh/comp/tested $fpath)
 fi
 # GUIX completion
 if [ ! -z "${GUIX_ENABLE+1}" ]; then
