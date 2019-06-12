@@ -16,7 +16,7 @@ insert2PATH(){
 
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
-insert2PATH "$HOME/.go/bin"
+insert2PATH "$GOPATH/bin"
 insert2PATH "$HOME/.luarocks/bin"
 insert2PATH "$HOME/.yarn/bin"
 insert2PATH "$HOME/.perl5/bin"
