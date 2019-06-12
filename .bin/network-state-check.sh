@@ -52,7 +52,7 @@ case "$CURRENT_HOST" in
 		;;
 	PHONE)
 		if [[ "$NET_CONNECTION" == "home" ]]; then
-			exec $(termux-wifi-connectioninfo | jq --raw-output '.ssid == "Behar"')
+			[[ "$(get_ipv4_mask)" == "192.168.14.255" ]]
 		elif [[ "$NET_CONNECTION" == "hotspot" ]]; then
 			[[ "$(get_ipv4_mask)" == "192.168.43.255" ]]
 			exit $?
