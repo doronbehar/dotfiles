@@ -9,9 +9,6 @@ LESSHISTFILE DEFAULT="@{HOME}/.local/share/less-history"
 # SSH
 SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
-# GnuPG
-PINENTRY_USER_DATA DEFAULT="tty"
-
 # info
 INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
 

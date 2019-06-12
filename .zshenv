@@ -67,6 +67,9 @@ if [[ -z "${LUA_PATH+1}" && -z "${LUA_CPATH}" ]] && _command_exists luarocks; th
 	eval $(luarocks path --no-bin)
 fi
 
+# GnuPG
+export PINENTRY_USER_DATA=tty
+
 # - {{{1 local environmental variables
 if [[ -f "$HOME/.local/share/zsh/env/${TERM}" ]]; then
 	source "$HOME/.local/share/zsh/env/${TERM}"
