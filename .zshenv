@@ -60,7 +60,7 @@ if [[ ! -z "${VISUAL}" ]]; then
 fi
 
 # - {{{1 Luarocks paths
-if [[ -z "${LUA_PATH+1}" && -z "${LUA_CPATH}" ]] && _command_exists luarocks; then
+if [[ -z "${LUA_PATH+1}" && -z "${LUA_CPATH+1}" ]] && _command_exists luarocks; then
 	eval $(luarocks path --no-bin)
 fi
 
