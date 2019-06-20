@@ -148,3 +148,6 @@
 [submodule ".config/sxiv"]
 	path = .config/sxiv
 	url = https://github.com/doronbehar/.config_sxiv
+[submodule ".config/coc"]
+	path = .config/coc
+	url = https://github.com/doronbehar/.config_coc
