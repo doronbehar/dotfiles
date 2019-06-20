@@ -19,12 +19,6 @@ XDG_UTILS_DEBUG_LEVEL DEFAULT="1"
 HOME_LANG DEFAULT=he
 TARGET_LANG DEFAULT=he
 
-# mesa shader cache
-MESA_GLSL_CACHE_DIR DEFAULT="/var/cache/mesa_shader_cache/doron"
-
-# GUIX
-GUIX_LOCPATH DEFAULT="@{HOME}/.guix-profile/lib/locale"
-
 # Perl / cpan
 PERL5LIB DEFAULT DEFAULT="@{HOME}/.perl5/lib/perl5"
 PERL_LOCAL_LIB_ROOT DEFAULT="${HOME}/.perl5/local/perl5/lib/perl5"
