@@ -174,7 +174,7 @@ _fzf_complete_man(){
 	local prefix="$2"
 	local name section dash description
 	local matches=($(man -k . | fzf -m --query="${prefix}" | while read -r name section dash description; do
-		echo "$name.${${section#\(}%\)}"
+		echo "-s${${section#\(}%\)} $name"
 	done))
 	[ -z "$matches" ] && return 1
 	echo "${matches[@]}"
