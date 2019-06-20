@@ -7,12 +7,12 @@
 
 case $PINENTRY_USER_DATA in
 	"")
-		exec /usr/bin/pinentry "$@"
+		exec pinentry-tty "$@"
 		;;
 	curses|emacs|gnome3|gtk-2|qt|tty)
-		exec /usr/bin/pinentry-${PINENTRY_USER_DATA} "$@"
+		exec pinentry-${PINENTRY_USER_DATA} "$@"
 		;;
 	*)
-		echo there is no such pinentry program: /usr/bin/pinentry-"${PINENTRY_USER_DATA}" >&2
+		echo there is no such pinentry program: pinentry-"${PINENTRY_USER_DATA}" >&2
 		exit 1
 esac
