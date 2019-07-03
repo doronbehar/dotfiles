@@ -9,3 +9,11 @@ set show-mode-in-prompt on
 set keymap vi-command
 "w": vi-prev-word
 "W": vi-prev-word
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+j: history-search-forward
+k: history-search-backward
+
+set keymap vi-insert
+"\e[A": history-search-backward
+"\e[B": history-search-forward
