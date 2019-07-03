@@ -4,3 +4,8 @@ set colored-stats on
 set expand-tilde on
 set history-size 1000
 set show-mode-in-prompt on
+
+# Key bindings
+set keymap vi-command
+"w": vi-prev-word
+"W": vi-prev-word
