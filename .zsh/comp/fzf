@@ -7,7 +7,9 @@ history-appender(){
 		if [[ "$p" =~ '^./' ]]; then
 			p="${PWD}/${p[$MEND+1,${#p}]}"
 		fi
-		echo "$p" >> ~/.zsh-fzf-path-completion-history
+		if ! grep -q "$p" ~/.zsh-fzf-path-completion-history; then
+			echo "$p" >> ~/.zsh-fzf-path-completion-history
+		fi
 	done
 }
 
@@ -28,46 +30,70 @@ _fzf_complete_path() {
 	# remove \ when it is intended to quote special characters
 	path_prefix="${path_prefix//\\/}"
 	local query="${prefix//*\//}"
+	# setting default options which may change in the following case structure
 	local real_opts=("$path_prefix")
-	if [[ "$mode" == "directories" ]]; then
-		local opts=("${path_prefix}"*(-/N))
-		if [ ! -z "$opts" ]; then
-			real_opts=("${opts[@]/%//}")
-		fi
-	elif [[ "$mode" == "files" ]]; then
-		local opts=("${path_prefix}"*(N))
-		local opt
-		for opt in "${opts[@]}"; do
-			if [[ -d "${opt}" ]]; then
-				real_opts+=("${opt}/")
-			else
-				real_opts+=("${opt}")
+	local preview="pistol {}"
+	local header
+	case "$mode" in
+		"directories")
+			local opts=("${path_prefix}"*(-/N))
+			if [ ! -z "$opts" ]; then
+				real_opts+=("${opts[@]/%//}")
 			fi
-		done
-	fi
+			header="Only Directories in Current Directory"
+			;;
+		"files")
+			local opts=("${path_prefix}"*(N))
+			local opt
+			for opt in "${opts[@]}"; do
+				if [[ -d "${opt}" ]]; then
+					real_opts+=("${opt}/")
+				else
+					real_opts+=("${opt}")
+				fi
+			done
+			header="Files and Directories in Current Directory"
+			;;
+		"git"*)
+			if ! git rev-parse --is-inside-work-tree 2>&1 > /dev/null; then
+				echo "$prefix"
+				return
+			fi
+			if [[ "$mode" == "git-changed-files" ]]; then
+				real_opts=(${(f)"$(git status --short --no-renames | sed -n -e '/^D /d' -e 's/\(??\| [MD]\|[MA] \) \(.*\)/\2/p')"})
+				preview='git diff --color=always -- {} | grep . || git diff --color=always -- /dev/null {} 2>/dev/null'
+				header="All Files Git Modified"
+			elif [[ "$mode" == "git-all-files" ]]; then
+				real_opts=(${(f)"$(git ls)"})
+				header="All Files Tracked by Git"
+			fi
+			;;
+		"history")
+			local nvim_view_files=(~/.local/share/nvim/view/*)
+			# remove the prefixing ~/.local/share/nvim/view
+			local nvim_edited_files=(${nvim_view_files[@]#/home/doron/.local/share/nvim/view/})
+			# replace the '=+' characters in these strings which replace /
+			nvim_edited_files=(${nvim_edited_files[@]//\=+/\/})
+			# remove the trailing '=' as well
+			nvim_edited_files=(${nvim_edited_files[@]%\=})
+			# expand beginning ~ as home with ZSH's built in way to do it
+			real_opts=(${~nvim_edited_files[@]})
+			# Add files from our history file
+			real_opts+=(${(f)"$(< ~/.zsh-fzf-path-completion-history)"})
+			header="All Files Ever Edited or Matched by fzf"
+			;;
+	esac
 	if [ -z "$real_opts" ]; then
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --query="${query}" -m --preview='pistol {}' | history-appender)"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --layout=reverse --height "50%" --min-height 15 --header="${header}" --query="${query}" -m --preview="${preview}" | history-appender)"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
 	fi
 	echo ${(@q)matches}
 	return 0
-}
-
-# complete files from history file
-_fzf_complete_path_history() {
-	local lbuf="$1"
-	local prefix="$2"
-	local matches=(${(f)"$(fzf --query="${query}" -m --preview='pistol {}' < ~/.zsh-fzf-path-completion-history)"})
-	if [ -z "$matches" ]; then
-		echo "$prefix"
-		return 0
-	fi
-	echo ${(@q)matches}
 }
 
 # make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
@@ -167,6 +193,16 @@ _fzf_complete_juf(){
 _fzf_complete_jsf(){
 	_fzf_complete_journal "$@" system
 }
+# completing systemctl {start|stop|disable|enable} aliases
+function (){
+	local _alias
+	for _alias in syu{,s,p,t}; do
+		eval "_fzf_complete_$_alias() { _fzf_complete_journal \"\$@\" user; }"
+	done
+	for _alias in sys{,s,p,t}; do
+		eval "_fzf_complete_$_alias() { _fzf_complete_journal \"\$@\" system; }"
+	done
+}
 
 # man pages
 _fzf_complete_man(){
@@ -198,7 +234,7 @@ _fzf_complete_task(){
 		echo "${match/#/${common_prefix}}"
 	else
 		# complete task
-		local matches=(${(f)"$(eval $lbuf _zshids | fzf -m --query="${prefix}")"})
+		local matches=(${(f)"$(command task _zshids | fzf -m --query="${prefix}")"})
 		[ -z "$matches" ] && return 1
 		echo "${matches[@]//:*/}"
 	fi
@@ -207,3 +243,5 @@ _fzf_complete_task(){
 _fzf_complete_t(){
 	_fzf_complete_task "$@"
 }
+
+# vim:ft=zsh

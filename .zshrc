@@ -151,14 +151,17 @@ source ~/.zsh/comp/fzf
 bindkey -M vicmd "^Z" fzf-history-widget
 bindkey -M viins "^Z" fzf-history-widget
 bindkey -M viins "^F" fzf-complete
-bindkey -M viins "^D" fzf-dir-complete
+bindkey -M viins "^D" fzf-complete-directories
 # macro-complete widget
 if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 	source ~/.local/share/zsh/macros/${HOST}
 fi
-bindkey -M viins "^ " fzf-macro-complete
+bindkey -M viins "^ " fzf-complete-macro
 # path history completion
-bindkey -M viins "^T" fzf-path-history-complete
+bindkey -M viins "^T" fzf-complete-history
+# path git files completion
+bindkey -M viins "^P" fzf-complete-git-all-files
+bindkey -M viins "^Y" fzf-complete-git-changed-files
 # sync with system clipboard, only if programs available
 # https://github.com/kutsan/zsh-system-clipboard
 if _command_exists xclip || _command_exists xsel; then
