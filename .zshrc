@@ -20,6 +20,9 @@ fi
 if [ ! -z "${GUIX_ENABLE+1}" ]; then
 	fpath=(~/.config/guix/current/share/zsh/site-functions $fpath)
 fi
+fpath(){
+	printf '$s\n' "${fpath[@]}"
+}
 autoload -Uz compinit && compinit -D
 # zstyle
 # the names of the completer functions to use
