@@ -7,7 +7,7 @@ LESS DEFAULT="-X -x4 -r -i"
 LESSHISTFILE DEFAULT="@{HOME}/.local/share/less-history"
 
 # SSH
-SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+SSH_AUTH_SOCK DEFAULT="@{HOME}/.ssh/agent.socket"
 
 # info
 INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
