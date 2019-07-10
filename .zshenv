@@ -60,6 +60,9 @@ else
 fi
 export VISUAL="$EDITOR"
 
+# - {{{1 FZF
+export FZF_DEFAULT_OPTS="--history=/home/doron/.local/share/fzf/history"
+
 # - {{{1 Luarocks paths
 if [[ -z "${LUA_PATH+1}" && -z "${LUA_CPATH+1}" ]] && _command_exists luarocks; then
 	eval $(luarocks path --no-bin)
