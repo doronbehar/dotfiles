@@ -25,26 +25,26 @@ Create Both
 SyncState *
 Expunge Slave
 
-IMAPAccount vps
-Host imap.doronbehar.com
-User doron
+IMAPAccount gandi
+Host mail.gandi.net
+User me@doronbehar.com
 PassCmd "secret-tool lookup user me@doronbehar.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-IMAPStore vps-remote
-Account vps
+IMAPStore gandi-remote
+Account gandi
 
-MaildirStore vps-local
+MaildirStore gandi-local
 # The trailing "/" is important
-Path ~/.local/share/mail/vps/
-Inbox ~/.local/share/mail/vps/INBOX
+Path ~/.local/share/mail/gandi/
+Inbox ~/.local/share/mail/gandi/INBOX
 Trash Trash
 SubFolders Verbatim
 
-Channel vps
-Master :vps-remote:
-Slave :vps-local:
+Channel gandi
+Master :gandi-remote:
+Slave :gandi-local:
 Patterns *
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
