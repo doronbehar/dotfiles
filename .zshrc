@@ -204,10 +204,11 @@ fi
 source ~/.aliases
 source ~/.functions
 
-# {{{1 chpwd
-if [[ -f ~/.zsh/chpwd ]] && ! (($GUIX_BUILD_DEBUG)); then
-	source ~/.zsh/chpwd
-fi
+# {{{1 chpwd - mostly for taskwarrior context
+for i in ~/.zsh/chpwd/*; do
+	. "$i"
+done
+unset i
 
 # {{{1 modeline
 # vim:ft=zsh:foldmethod=marker

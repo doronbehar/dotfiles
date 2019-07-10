@@ -1,3 +1,7 @@
+if ! _command_exists task; then
+	return
+fi
+
 # `task context` wrapper with support for env variable TCS silencing it.
 function _task_context_normal() {
 	task context "$@"
@@ -20,6 +24,10 @@ _chpwd_taskwarrior_context_options=()
 # for skipping setting the context when we dive into a recursive cd because of cd $(pwd -P)
 _chpwd_skip_setting_context=0
 _chpwd_set_task_context(){
+	if (( $_chpwd_skip_setting_context )); then
+		_chpwd_skip_setting_context=0
+		return
+	fi
 	local setter=_task_context_normal
 	if (($TSC)); then
 		setter=_task_context_silent
@@ -94,7 +102,7 @@ function _chpwd_task_contexts_parser() {
 	if [[ -z "${_chpwd_taskwarrior_context}" ]]; then
 		unset _chpwd_taskwarrior_context_options 
 		unset _chpwd_taskwarrior_parent_dirs
-		if (( ${_HACKING_FROM_HOME} )); then
+		if [[ "${NETWORK_NAME}" == "Home" ]]; then
 			_chpwd_taskwarrior_context=home
 		else
 			_chpwd_taskwarrior_context=default
@@ -102,11 +110,8 @@ function _chpwd_task_contexts_parser() {
 	fi
 }
 
-function chpwd() {
-	if (( ! $_chpwd_skip_setting_context )) && _command_exists task; then
-		_chpwd_set_task_context
-	else
-		_chpwd_skip_setting_context=0
-	fi
-}
-chpwd
+typeset -ag chpwd_functions
+chpwd_functions+=_chpwd_set_task_context
+_chpwd_set_task_context
+
+# vim:ft=zsh
