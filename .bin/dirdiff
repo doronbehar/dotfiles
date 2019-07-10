@@ -1,0 +1,3 @@
+#!/bin/sh
+
+env ENABLE_PLUGINS=dirdiff $EDITOR -c "DirDiff $*"
