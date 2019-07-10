@@ -1,0 +1,35 @@
+if ! _command_exists git; then
+	return
+fi
+
+# {{{1 `cdg` cd into git repository (even if it's a submodule).
+cdg(){
+	if [ -d .git ]; then
+		cd .git
+	elif [ -f .git ]; then
+		cd $(sed 's/gitdir: //g' .git)
+	elif [ -f config ]; then
+		# We are in a git dir already, and we would like to switch back to the work tree
+		if [[ "${PWD##*/}" == ".git" ]]; then
+			# This is it
+			cd ../
+			return
+		else
+			worktree="$(grep worktree config)"
+			cd ${worktree##* }
+			return
+		fi
+		echo cdg: could not identify current directory as a Git repository, bare or not
+	fi
+}
+#
+# {{{1 `sugit` git for root
+sugit() {
+	if alias git; then
+		unalias git
+	else
+		alias git="sudo env DISPLAY= GIT_EDITOR='$SUDO_EDITOR' git -c include.path=$HOME/.config/git/config -c commit.template=$HOME/.config/git/commit.template"
+	fi
+}
+
+# vim: ft=zsh

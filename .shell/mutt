@@ -1,0 +1,15 @@
+# {{{1 mutt / neomutt
+if _command_exists mutt; then
+	alias gmutt="mutt -f +gmail/INBOX"
+	alias vmutt="mutt -f +gandi/INBOX"
+	alias gmut="mutt -f +gmail/INBOX"
+	alias vmut="mutt -f +gandi/INBOX"
+fi
+if _command_exists neomutt; then
+	alias gmutt="neomutt -f +gmail/INBOX"
+	alias vmutt="neomutt -f +gandi/INBOX"
+	alias gmut="neomutt -f +gmail/INBOX"
+	alias vmut="neomutt -f +gandi/INBOX"
+fi
+
+# vim:ft=sh:foldmethod=marker

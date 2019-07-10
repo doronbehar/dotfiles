@@ -1,0 +1,33 @@
+# {{{1 systemd related
+if _command_exists systemctl; then
+	if ! _command_exists poweroff; then
+		alias poweroff='systemctl poweroff'
+	fi
+	if ! _command_exists reboot; then
+		alias reboot='systemctl reboot'
+	fi
+	alias syu='systemctl --user'
+	alias syut='systemctl --user start'
+	alias syup='systemctl --user stop'
+	alias syur='systemctl --user restart'
+	alias syus='systemctl --user status'
+	alias sys='sudo systemctl'
+	alias syst='sudo systemctl start'
+	alias sysp='sudo systemctl stop'
+	alias sysr='sudo systemctl restart'
+	alias syss='sudo systemctl status'
+else
+	return
+fi
+
+# {{{1 `juf` shows journalctl of all given systemd units
+juf(){
+	eval journalctl --user --follow ${@/#/--unit }
+}
+
+# {{{1 `jsf` shows journalctl of all given systemd units
+jsf(){
+	eval sudo journalctl --follow ${@/#/--unit }
+}
+
+# vim: ft=sh

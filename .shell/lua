@@ -1,0 +1,61 @@
+if ! _command_exists lua; then
+	return
+fi
+
+# {{{1 `lual` toggle the presedence of local paths in $LUA_PATH
+lual(){
+	# if the $1 is "so" we modify the LUA_CPATH instead
+	local IFS=";"
+	local modification_mode="${1:-lua}"
+	local path_to_modify
+	if [[ "$modification_mode" == lua ]]; then
+		path_to_modify="${LUA_PATH}"
+	elif [[ "$modification_mode" == so ]]; then
+		path_to_modify="${LUA_CPATH}"
+	else
+		printf 'unsupported modification mode ("%s") to LUA_* variables Use either so or lua\n' "$modification_mode" >&2
+	fi
+	local modified_path=()
+	local paths_to_move=()
+	local where_to_move_paths=start
+	local pth
+	local pth_index=0
+	while read -d"${IFS}" -r pth; do
+		if [[ "$pth" =~ "^./" ]]; then
+			paths_to_move+=("$pth")
+			if [[ $pth_index -lt 2 ]]; then
+				where_to_move_paths=end
+			fi
+		else
+			modified_path+=("$pth")
+		fi
+		pth_index=$((pth_index + 1))
+	done <<< "${path_to_modify+${path_to_modify}${IFS}}" # we append an extra $IFS so we'll get the last element as well
+	if [[ -z "$paths_to_move" ]]; then
+		echo lual: warning: original PATH did not contain a local path - ./\?.$modification_mode >&2
+		paths_to_move+=("./?.${modification_mode}")
+		if [[ "$modification_mode" == lua ]]; then
+			paths_to_move+=("./?/init.${modification_mode}")
+		fi
+	fi
+	if [[ "$where_to_move_paths" == end ]]; then
+		modified_path=("${modified_path[@]}" "${paths_to_move[@]}")
+	else
+		modified_path=("${paths_to_move[@]}" "${modified_path[@]}")
+	fi
+	local concatenated_path="$(echo "${modified_path[*]}")"
+	if [[ "$modification_mode" == lua ]]; then
+		LUA_PATH="$concatenated_path"
+		echo LUA_PATH=$concatenated_path
+	elif [[ "$modification_mode" == so ]]; then
+		LUA_CPATH="$concatenated_path"
+		echo LUA_CPATH=$concatenated_path
+	fi
+}
+
+# {{{1 `luai` lua wrapper with inspect library callable by var `i`
+luai(){
+	lua -e "i=require('pl.import_into')().pretty.write" -i "$@"
+}
+
+# {{{1 vim: ft=sh

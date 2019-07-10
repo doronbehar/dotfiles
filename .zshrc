@@ -206,9 +206,11 @@ if [ -n "${TRACE_FUNC}" ]; then
 	functions -t "$TRACE_FUNC"
 fi
 
-# {{{1 aliases and functions
-source ~/.aliases
-source ~/.functions
+# {{{1 shell common functions and aliases
+for i in ~/.shell/*; do
+	. "$i"
+done
+unset i
 
 # {{{1 chpwd - mostly for taskwarrior context
 for i in ~/.zsh/chpwd/*; do

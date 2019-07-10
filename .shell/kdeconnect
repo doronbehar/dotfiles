@@ -1,0 +1,82 @@
+if ! _command_exists kdeconnect-cli || ! _command_exists khard; then
+	return
+fi
+
+# {{{1 `khardp` print a phone number of khard contact using fzf
+khardp(){
+	local phone_number contact_name phone_type
+	khard phone --parsable | sort -u | fzf | IFS=$'\t' read -r phone_number contact_name phone_type
+	if [[ "$1" == '--extended' ]]; then # usually used only internaly
+		echo $phone_number$'\t'$contact_name$'\t'$phone_type
+	else
+		echo $phone_number
+	fi
+}
+
+# {{{1 `kharde` print an email of a khard contact using fzf
+kharde(){
+	local email_address name email_type
+	khard email --parsable | fzf | IFS=$'\t' read -r email_address name email_type
+	echo $email_address
+}
+
+# {{{1 `kdec` kdeconnect-cli with default device as first argument
+kdec(){
+	local device_name="$(kdeconnect-cli --list-devices | awk --assign dev_id="${_KDECONNECT_DEFAULT_DEVICE}" -F'[-|:|(|)]' '$(NF - 1) == "paired and reachable" && $(NF - 2) ~ dev_id {print $2}')"
+	if [[ -z "${device_name}" ]]; then
+		echo It seems the default device configured with the env variable _KDECONNECT_DEFAULT_DEVICE \(${_KDECONNECT_DEFAULT_DEVICE}\) is not reachable or not paired > /dev/stderr
+		return
+	else
+		echo Using device:${device_name}
+	fi
+	kdeconnect-cli --device ${_KDECONNECT_DEFAULT_DEVICE} $@
+}
+
+# {{{1 `sms` Send a text message through kdeconnect-cli
+_sms_wrapper(){
+	local phone_number="$1"
+	shift
+	local contact_name="$1"
+	shift
+	local args="$@"
+	if [[ -z "${phone_number}" ]]; then
+		echo No recipient was chosen >&2
+		return
+	else
+		echo "${contact_name}"$'\t'"${phone_number}"$'\t'"${phone_type}" > ${_KDECONNECT_SMS_LAST_RECIPIENT}
+		kdec --send-sms "${args}" --destination "${phone_number}" && \
+		echo sent sms message to ${contact_name} | fribidi
+	fi
+}
+sms(){
+	local phone_number contact_name phone_type
+	khardp --extended | IFS=$'\t' read -r phone_number contact_name phone_type
+	_sms_wrapper "$phone_number" "$contact_name" "$@"
+}
+
+# {{{1 `smsl` Send a text message through kdeconnect-cli to the last recipient used with sms
+smsl(){
+	local phone_number contact_name phone_type
+	IFS=$'\t' read -r phone_number contact_name phone_type < ${_KDECONNECT_SMS_LAST_RECIPIENT}
+	if [[ -z "${contact_name}" ]]; then
+		khardp --extended | IFS=$'\t' read -r phone_number contact_name phone_type
+	fi
+	echo phone_number is "$phone_number"
+	echo contact_name is "$contact_name"
+	_sms_wrapper "$phone_number" "$contact_name" "$@"
+}
+
+# {{{1 `call` initiate a phone call with ssh to a termux machine with termux's command `termux-telephony-call`
+call(){
+	local phone_number name phone_type
+	khard --extended | fzf | IFS=$'\t' read -r phone_number name phone_type
+	if [[ -z "${phone_number}" ]]; then
+		echo No recipient was chosen >&2
+		return
+	else
+		echo dialing: "${name}" | fribidi
+		ssh phone termux-telephony-call \""${phone_number}"\"
+	fi
+}
+
+# vim: ft=sh
