@@ -157,3 +157,6 @@
 [submodule ".config/nix"]
 	path = .config/nix
 	url = https://github.com/doronbehar/.config_nix
+[submodule ".config/direnv"]
+	path = .config/direnv
+	url = https://github.com/doronbehar/.config_direnv
