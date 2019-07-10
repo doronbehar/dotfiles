@@ -210,12 +210,18 @@ fi
 for i in ~/.shell/*; do
 	. "$i"
 done
-unset i
 
 # {{{1 chpwd - mostly for taskwarrior context
 for i in ~/.zsh/chpwd/*; do
 	. "$i"
 done
+
+# {{{1 precmd - mostly for direnv
+for i in ~/.zsh/precmd/*; do
+	. "$i"
+done
+
+# Unset i used in the above 3 loops
 unset i
 
 # {{{1 modeline
