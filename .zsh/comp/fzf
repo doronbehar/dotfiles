@@ -1,14 +1,12 @@
 # helper for path completion that saves the selections from fzf in a history file
 # and it outputs the name as was given as well. It works using stdin
-history-appender(){
+__fzf_history-appender(){
 	local p
 	while read p; do
 		echo "$p"
-		if [[ "$p" =~ '^./' ]]; then
-			p="${PWD}/${p[$MEND+1,${#p}]}"
-		fi
-		if ! grep -q "$p" ~/.zsh-fzf-path-completion-history; then
-			echo "$p" >> ~/.zsh-fzf-path-completion-history
+		local realpath="$(realpath "$p")"
+		if ! grep -q "$realpath" ~/.zsh-fzf-path-completion-history; then
+			echo "$realpath" >> ~/.zsh-fzf-path-completion-history
 		fi
 	done
 }
@@ -87,7 +85,7 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --layout=reverse --height "50%" --min-height 15 --header="${header}" --query="${query}" -m --preview="${preview}" | history-appender)"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --layout=reverse --height "50%" --min-height 15 --header="${header}" --query="${query}" -m --preview="${preview}" | __fzf_history-appender)"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
