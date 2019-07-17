@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# grep from a process' environment
+
+pid="$1"
+if [[ -z "$pid" ]]; then
+	cat << EOF
+usage: grepenv <pid> <other args for grep>
+EOF
+	exit 2
+fi
+shift
+if [ -t 1 ]; then
+	grep --color=always -z "$@" /proc/"$pid"/environ | tr '\0' '\n'
+else
+	grep -z "$@" /proc/"$pid"/environ | tr '\0' '\n'
+fi
+
+

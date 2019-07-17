@@ -134,7 +134,7 @@ _fzf_complete_unalias() {
 	echo "${matches[@]//=*/}"
 }
 
-# kill
+# process completion
 _fzf_complete_kill() {
 	local lbuf="$1"
 	local prefix="$2"
@@ -146,6 +146,9 @@ _fzf_complete_kill() {
 		pids+=(${line_parts[2]})
 	done
 	echo "${pids[@]}"
+}
+_fzf_complete_grepenv() {
+	_fzf_complete_kill
 }
 
 # juf and jsf shell functions
