@@ -1,0 +1,30 @@
+#!/bin/sh
+
+files_to_edit=()
+for f in shell.nix .envrc; do
+  if [ -e "$f" ]; then
+    files_to_edit+=("$f")
+  fi
+done
+
+if [[ ! -z "$files_to_edit" ]]; then
+  exec "$EDITOR" shell.nix .envrc
+fi
+
+cat > shell.nix <<'EOF'
+with import <nixpkgs> {};
+pkgs.mkShell {
+  buildInputs = [
+EOF
+for package in "$@"; do
+  echo "    $package" >> shell.nix
+done
+
+cat >> shell.nix <<'EOF'
+  ];
+}
+EOF
+
+cat > .envrc <<'EOF'
+use nix
+EOF
