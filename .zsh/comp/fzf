@@ -85,7 +85,7 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --layout=reverse --height "50%" --min-height 15 --header="${header}" --query="${query}" -m --preview="${preview}" | __fzf_history-appender)"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --layout=reverse --header="${header}" --query="${query}" -m --preview="${preview}" | __fzf_history-appender)"})
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
@@ -138,7 +138,7 @@ _fzf_complete_unalias() {
 _fzf_complete_kill() {
 	local lbuf="$1"
 	local prefix="$2"
-	local matches=(${(f)"$(command ps -ef | sed 1d | fzf -m -q "$prefix" --height "50%" --min-height 15 --reverse --preview 'echo {}' --preview-window down:3:wrap)"})
+	local matches=(${(f)"$(command ps -ef | sed 1d | fzf -m -q "$prefix" --reverse --preview 'echo {}' --preview-window down:3:wrap)"})
 	[ -z "$matches" ] && return 1
 	local match_line line_parts pids
 	for match_line in ${matches[@]}; do
