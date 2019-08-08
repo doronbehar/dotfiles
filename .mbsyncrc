@@ -1,7 +1,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User doron.behar@gmail.com
-PassCmd "secret-tool lookup user doron.behar@gmail.com"
+PassCmd "env -u DBUS_SESSION_BUS_ADDRESS secret-tool lookup user doron.behar@gmail.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -28,7 +28,7 @@ Expunge Slave
 IMAPAccount gandi
 Host mail.gandi.net
 User me@doronbehar.com
-PassCmd "secret-tool lookup user me@doronbehar.com"
+PassCmd "env -u DBUS_SESSION_BUS_ADDRESS secret-tool lookup user me@doronbehar.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
