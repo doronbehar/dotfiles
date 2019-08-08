@@ -2,7 +2,6 @@
 xset -dpms
 xset s noblank
 xset s off
-xset r rate 250 27
 export PINENTRY_USER_DATA=gtk-2
 if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
 	eval $(dbus-launch --exit-with-session --sh-syntax)
