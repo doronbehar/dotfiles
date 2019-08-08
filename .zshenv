@@ -19,6 +19,7 @@ insert2PATH "$HOME/.bin"
 insert2PATH "$HOME/.luarocks/bin"
 insert2PATH "$HOME/.perl5/bin"
 insert2PATH "$HOME/.yarn/bin"
+insert2PATH "$HOME/.cargo/bin"
 insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
 
 # - {{{1 Guix
