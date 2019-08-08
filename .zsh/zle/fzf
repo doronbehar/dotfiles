@@ -1,5 +1,5 @@
-# history widget
-fzf-history-widget() {
+# history widget - complete commands
+fzf-complete-history-commands() {
 	local selected num
 	setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
 	selected=($(fc -rl 1 | fzf +m \
@@ -19,7 +19,7 @@ fzf-history-widget() {
 	zle reset-prompt
 	return $ret
 }
-zle -N fzf-history-widget
+zle -N fzf-complete-history-commands
 
 # fzf-completion widget
 fzf-complete() {
@@ -56,6 +56,13 @@ fzf-complete() {
 					fi
 				done
 				zle complete-macros
+			elif [[ "$mode" == "history-words" ]]; then
+				# for information about the `uq` command in this pipe, see
+				# https://github.com/lostutils/uq
+				local selected=($(printf '%s\n' "${(z)history}" | uq | fzf -m \
+					--query="${prefix}" \
+				))
+				LBUFFER="${lbuf} $selected"
 			else
 				LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
 			fi
@@ -67,7 +74,7 @@ zle -N fzf-complete
 
 function(){
 	local mode
-	for mode in files directories macro history git-all-files git-changed-files; do
+	for mode in files directories macro history-{paths,words} git-all-files git-changed-files; do
 		eval "fzf-complete-$mode(){ fzf-complete $mode; }; zle -N fzf-complete-$mode"
 	done
 }
