@@ -59,10 +59,10 @@ fzf-complete() {
 			elif [[ "$mode" == "history-words" ]]; then
 				# for information about the `uq` command in this pipe, see
 				# https://github.com/lostutils/uq
-				local selected=($(printf '%s\n' "${(z)history}" | uq | fzf -m \
+				local selected=($(printf '%s\n' ${(z)historywords} | uq | fzf -m \
 					--query="${prefix}" \
 				))
-				LBUFFER="${lbuf} $selected"
+				LBUFFER="${lbuf}$selected"
 			else
 				LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
 			fi
