@@ -102,7 +102,7 @@ function _chpwd_task_contexts_parser() {
 	if [[ -z "${_chpwd_taskwarrior_context}" ]]; then
 		unset _chpwd_taskwarrior_context_options 
 		unset _chpwd_taskwarrior_parent_dirs
-		if [[ "${NETWORK_NAME}" == "Home" ]]; then
+		if [[ "${NETWORK_NAME}" =~ "Home" ]]; then
 			_chpwd_taskwarrior_context=home
 		else
 			_chpwd_taskwarrior_context=default
