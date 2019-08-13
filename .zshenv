@@ -48,7 +48,6 @@ if _command_exists nvim; then
 		export GIT_EDITOR="nvr --remote-silent --remote-wait"
 		export EDITOR="nvr"
 		export MANPAGER="$EDITOR -c 'set ft=man' -"
-		export GIT_EDITOR="$EDITOR"
 	fi
 elif _command_exists vim; then
 	export EDITOR="vim"
