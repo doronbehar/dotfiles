@@ -41,6 +41,7 @@ if _command_exists nvim; then
 	if [ -z "${NVIM_LISTEN_ADDRESS+1}" ]; then
 		export EDITOR="nvim"
 		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -c 'set ft=man' -"
+		# See https://github.com/neovim/neovim/issues/10808
 		export MANWIDTH=999
 		export GIT_EDITOR="$EDITOR"
 	else
