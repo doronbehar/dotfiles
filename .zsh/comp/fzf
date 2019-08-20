@@ -62,8 +62,13 @@ _fzf_complete_path() {
 				preview='git diff --color=always -- {} | grep . || git diff --color=always -- /dev/null {} 2>/dev/null'
 				header="All Files Git Modified"
 			elif [[ "$mode" == "git-all-files" ]]; then
-				real_opts=(${(f)"$(git ls)"})
-				header="All Files Tracked by Git"
+				if [[ "$lbuf" == "cd " ]]; then
+					real_opts=(${(f)"$(dirname $(git ls) | uq)"})
+					header="All directories of file tracked by Git"
+				else
+					real_opts=(${(f)"$(git ls)"})
+					header="All Files Tracked by Git"
+				fi
 			fi
 			;;
 		"history")
@@ -92,11 +97,6 @@ _fzf_complete_path() {
 	fi
 	echo ${(@q)matches}
 	return 0
-}
-
-# make sure cd is completed with the default fzf-completion widget with _fzf_complete_dir
-_fzf_complete_cd() {
-	_fzf_complete_path "$@" "directories"
 }
 
 # gopass and pass passwords
