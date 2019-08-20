@@ -1,3 +1,7 @@
+# Set this variable is it will be used by some other commands and it shouldn't
+# be needed to run this command again and again every time..
+TPUT_COLORS="$(tput colors)"
+
 # {{{1 colored cat: src-highlite or bat
 if _command_exists bat; then
 	alias ccat='bat --style=plain --color=always --pager=never'
