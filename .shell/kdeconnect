@@ -1,0 +1,13 @@
+if ! _command_exists kdeconnect-cli; then
+	return
+fi
+
+if [[ -z "${_KDECONNECT_DEFAULT_DEVICE}" ]]; then
+	echo warning: no default device was set in the environment variable \$_KDECONNECT_DEFAULT_DEVICE >&2
+	echo warning: use \`kdeconnect-cli --list-devices\` to view available devices. >&2
+	echo warning: use the random string as the value for \$_KDECONNECT_DEFAULT_DEVICE >&2
+fi
+
+alias kdec="kdeconnect-cli --device ${_KDECONNECT_DEFAULT_DEVICE}"
+
+# vim: ft=sh
