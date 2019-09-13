@@ -51,3 +51,30 @@ Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
 Expunge Slave
+
+IMAPAccount technion
+Host outlook.office365.com
+User doronbehar@campus.technion.ac.il
+PassCmd "env -u DBUS_SESSION_BUS_ADDRESS secret-tool lookup user doronbehar@campus.technion.ac.il"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore technion-remote
+Account technion
+
+MaildirStore technion-local
+# The trailing "/" is important
+Path ~/.local/share/mail/technion/
+Inbox ~/.local/share/mail/technion/INBOX
+Trash Trash
+SubFolders Verbatim
+
+Channel technion
+Master :technion-remote:
+Slave :technion-local:
+Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
+Expunge Slave
