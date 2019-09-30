@@ -1,8 +1,3 @@
-# {{{1 shortcut for launching GNU Octave with --no-gui
-if _command_exists octave; then
-	alias oct='octave --no-gui'
-fi
-
 # {{{1 Shortcut for transmission-remote with authentication through environment
 if _command_exists transmission-remote; then
 	alias trc='transmission-remote --authenv'
