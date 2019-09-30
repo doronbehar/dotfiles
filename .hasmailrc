@@ -4,8 +4,3 @@ click=launch-hasmail-mail-client
 hostname=imap.gmail.com:993
 username=doron.behar@gmail.com
 password=env -u DBUS_SESSION_BUS_ADDRESS secret-tool lookup user doron.behar@gmail.com
-
-[technion]
-hostname=outlook.office365.com:993
-username=doronbehar@campus.technion.ac.il
-password=env -u DBUS_SESSION_BUS_ADDRESS secret-tool lookup user doronbehar@campus.technion.ac.il
