@@ -105,7 +105,8 @@ xterm*VT100.translations:#override <Btn1Up>:select-end(PRIMARY, CLIPBOARD, CUT_B
 !! {{{ Fonts
 URxvt*font:\
 	xft:Hack Nerd Font Mono:size=11,\
-	xft:FreeMono:size=11,
+	xft:FreeMono:size=11,\
+	xft:Symbola:size=10,
 !! }}}
 
 !! {{{ Colors
