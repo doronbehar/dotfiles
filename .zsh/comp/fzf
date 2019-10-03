@@ -15,7 +15,8 @@ __fzf_history-appender(){
 _fzf_complete_path() {
 	local lbuf="$1"
 	local prefix="$2"
-	local mode="$3"  # string - `files` or `directories`
+	# Mode of operation: See anonymous function in .zsh/zle/fzf
+	local mode="$3"
 	local path_prefix
 	if [[ "${prefix}" =~ "/" ]]; then
 		path_prefix="${prefix%/*}/"
@@ -71,16 +72,15 @@ _fzf_complete_path() {
 				fi
 			fi
 			;;
-		"history")
+		"history-paths")
 			local nvim_view_files=(~/.local/share/nvim/view/*)
 			# remove the prefixing ~/.local/share/nvim/view
-			local nvim_edited_files=(${nvim_view_files[@]#/home/doron/.local/share/nvim/view/})
+			local nvim_edited_files=(${nvim_view_files[@]#${HOME}/.local/share/nvim/view/})
 			# replace the '=+' characters in these strings which replace /
 			nvim_edited_files=(${nvim_edited_files[@]//\=+/\/})
 			# remove the trailing '=' as well
 			nvim_edited_files=(${nvim_edited_files[@]%\=})
-			# expand beginning ~ as home with ZSH's built in way to do it
-			real_opts=(${~nvim_edited_files[@]})
+			real_opts=(${nvim_edited_files[@]//\~/${HOME}})
 			# Add files from our history file
 			real_opts+=(${(f)"$(< ~/.zsh-fzf-path-completion-history)"})
 			header="All Files Ever Edited or Matched by fzf"

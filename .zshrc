@@ -147,21 +147,16 @@ source ~/.zsh/zle/fzf
 # source all completions based on _fzf_completion for the various commands
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
 source ~/.zsh/comp/fzf
-# use only the most useful widget from there
-bindkey -M vicmd "^Z" fzf-complete-history-commands
-bindkey -M viins "^Z" fzf-complete-history-commands
-bindkey -M vicmd "^A" fzf-complete-history-words
-bindkey -M viins "^A" fzf-complete-history-words
-bindkey -M viins "^F" fzf-complete
-bindkey -M viins "^D" fzf-complete-directories
 # macro-complete widget
 if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 	source ~/.local/share/zsh/macros/${HOST}
 fi
+bindkey -M viins "^F" fzf-complete
+bindkey -M viins "^D" fzf-complete-directories
 bindkey -M viins "^ " fzf-complete-macro
-# path history completion
+bindkey -M viins "^Z" fzf-complete-history-commands
+bindkey -M vicmd "^A" fzf-complete-history-words
 bindkey -M viins "^T" fzf-complete-history-paths
-# path git files completion
 bindkey -M viins "^P" fzf-complete-git-all-files
 bindkey -M viins "^Y" fzf-complete-git-changed-files
 # sync with system clipboard, only if programs available
