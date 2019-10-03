@@ -49,13 +49,6 @@ if _command_exists pacman; then
 	alias cpacman='pacman --color=always'
 fi
 
-# {{{1 taskwarrior
-if _command_exists task; then
-	alias tw=task
-	alias t=task
-	alias ct='task rc._forcecolor=on'
-fi
-
 # {{{1 auracle (the best AUR helper)
 if _command_exists auracle; then
 	alias aur=auracle
