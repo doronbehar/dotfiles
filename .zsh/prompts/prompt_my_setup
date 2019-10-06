@@ -4,30 +4,79 @@ prompt_my_setup(){
 	zstyle ':vcs_info:*' disable bzr cdv darcs mtn svk tla
 	zstyle ':vcs_info:*' check-for-changes true
 	if [ -z $DISPLAY ]; then
-		zstyle ':vcs_info:*' formats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}>%F\{white\}PE%K\{cyan\}%F\{54\}>}:-%K\{cyan\}%F\{blue\}>}'%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}>'
-		zstyle ':vcs_info:*' nvcsformats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}>%F\{white\}PE%K\{green\}%F\{54\}>}:-%K\{green\}%F\{blue\}>}
+		prompt_divider='>'
+		prompt_left_divider='<'
 		zstyle ':vcs_info:*' stagedstr '+'
 		zstyle ':vcs_info:*' unstagedstr '-'
+		prompt_my_mails_prefix=' mails:'
+		typeset -A prompt_my_mail_accounts_names
+		prompt_my_mail_accounts_names=(
+			technion "technion: "
+			gmail "gmail: "
+			gandi "gandi: "
+		)
 	else
-		zstyle ':vcs_info:*' formats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}%F\{white\}🌴%K\{cyan\}%F\{54\}}:-%K\{cyan\}%F\{blue\}}'%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}'
-		zstyle ':vcs_info:*' nvcsformats ${${PIPENV_ACTIVE:+%K\{54\}%F\{blue\}%F\{white\}🌴%K\{green\}%F\{54\}}:-%K\{green\}%F\{blue\}}
+		prompt_divider=''
+		prompt_left_divider=''
 		zstyle ':vcs_info:*' stagedstr '✚'
 		zstyle ':vcs_info:*' unstagedstr '●'
+		# TODO: Find a suitable logo
+		prompt_my_mails_prefix=' '
+		prompt_my_mail_accounts_names=(
+			technion ""
+			gmail ""
+			gandi ""
+		)
 	fi
+	zstyle ':vcs_info:*' formats '%K{cyan}%F{blue}'$prompt_divider'%K{cyan}%F{black}  %b%c%u %K{green}%F{cyan}'$prompt_divider
+	zstyle ':vcs_info:*' nvcsformats '%K{green}%F{blue}'$prompt_divider
 	add-zsh-hook precmd prompt_my_precmd
 	add-zsh-hook preexec prompt_my_preexec
-	if [ -z $DISPLAY ]; then
-		PS1_base='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b${vcs_info_msg_0_}%K{green}%F{black} %3c %(1j.%K{yellow}%F{green}>%K{yellow}%F{black}%B %j %b%K{default}%F{yellow}>.%K{default}%F{green}>)%b%u%k%f '
-		PS2='%K{blue}%F{white} %^ %K{default}%F{blue}> '
-		RPS1='%(?..%K{default}%F{red}<%K{red}%F{black} %? )'
-	else
-		PS1_base='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b${vcs_info_msg_0_}%K{green}%F{black} %3c %(1j.%K{yellow}%F{green}%K{yellow}%F{black}%B %j %b%K{default}%F{yellow}.%K{default}%F{green})%b%u%k%f '
-		PS2='%K{blue}%F{white} %^ %K{default}%F{blue} '
-		RPS1='%(?..%K{default}%F{red}%K{red}%F{black} %? )'
-	fi
+	# This part is identical for both when display is set and not
+	PS1_name_host='%(!.%K{red}%F{white}%B %n.%K{blue}%F{white}%B %n)${SSH_TTY:+@%M} %b'
+	# If there's a single job waiting
+	PS1_zombie_processes='%(1j'
+	# Use:                                     yellow bakcground                                         and reset background
+	PS1_zombie_processes=$PS1_zombie_processes'.%K{yellow}%F{green}'${prompt_divider}'%K{yellow}%F{black}%B %j %b$(prompt_my_mails with_zombies)'
+	# Else use:                                default background with green prompt_divider (for PS1_cur_dir)
+	PS1_zombie_processes=$PS1_zombie_processes'.$(prompt_my_mails no_zombies))'
+	PS1_cur_dir='%K{green}%F{black} %3c '
+	PS1_reset_all='%b%u%k%f '
+	PS1_base=${PS1_name_host}'${vcs_info_msg_0_}'${PS1_cur_dir}${PS1_zombie_processes}${PS1_reset_all}
+	PS2='%K{blue}%F{white} %^ %K{default}%F{blue}'$prompt_divider' '
+	RPS1='%(?..%K{default}%F{red}'$prompt_left_divider'%K{red}%F{black} %? )'
 	zle -N zle-line-init
 	zle -N zle-keymap-select
 	terminfo_down_sc=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
+}
+
+prompt_my_mails () {
+	local account_inbox account_name messsage_prefix files
+	for account_inbox in ~/.local/share/mail/*/INBOX; do
+		files=( "$account_inbox"/new/*(N) )
+		if ((${#files[@]})) then
+			for account_name messsage_prefix in ${(kv)prompt_my_mail_accounts_names}; do
+				if [[ "$account_name" == "${${account_inbox%/*}##*/}" ]]; then
+					message=${message:+$message' '}${#files[@]}' '$messsage_prefix
+				fi
+			done
+		else
+			continue
+		fi
+	done
+	if [[ -z "$message" ]]; then
+		if [[ "$1" == "no_zombies" ]]; then
+			print -r -- '%K{default}%F{green}'$prompt_divider
+		elif [[ "$1" == "with_zombies" ]]; then
+			print -r -- '%b%K{default}%F{yellow}'$prompt_divider
+		fi
+	else
+		if [[ "$1" == "no_zombies" ]]; then
+			print -r -- '%K{magenta}%F{green}'$prompt_divider'%K{magenta}%F{white}%B'$prompt_my_mails_prefix': '$message' %b%K{default}%F{magenta}'$prompt_divider
+		elif [[ "$1" == "with_zombies" ]]; then
+			print -r -- '%K{magenta}%F{yellow}'$prompt_divider'%K{magenta}%F{white}%B'$prompt_my_mails_prefix': '$message' %b%K{default}%F{magenta}'$prompt_divider
+		fi
+	fi
 }
 
 prompt_my_precmd () {
