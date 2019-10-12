@@ -184,6 +184,7 @@ fi
 setopt interactivecomments
 # syntax highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 source ~/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 # full text editor editing of the command
 autoload edit-command-line && zle -N edit-command-line
