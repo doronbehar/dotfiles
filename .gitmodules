@@ -148,3 +148,15 @@
 [submodule ".config/sxiv"]
 	path = .config/sxiv
 	url = https://github.com/doronbehar/.config_sxiv
+[submodule ".config/coc"]
+	path = .config/coc
+	url = https://github.com/doronbehar/.config_coc
+[submodule ".config/nixpkgs"]
+	path = .config/nixpkgs
+	url = https://github.com/doronbehar/.config_nixpkgs
+[submodule ".config/nix"]
+	path = .config/nix
+	url = https://github.com/doronbehar/.config_nix
+[submodule ".config/direnv"]
+	path = .config/direnv
+	url = https://github.com/doronbehar/.config_direnv

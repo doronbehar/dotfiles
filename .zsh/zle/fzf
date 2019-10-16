@@ -1,5 +1,5 @@
-# history widget
-fzf-history-widget() {
+# history widget - complete commands
+fzf-complete-history-commands() {
 	local selected num
 	setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
 	selected=($(fc -rl 1 | fzf +m \
@@ -19,7 +19,7 @@ fzf-history-widget() {
 	zle reset-prompt
 	return $ret
 }
-zle -N fzf-history-widget
+zle -N fzf-complete-history-commands
 
 # fzf-completion widget
 fzf-complete() {
@@ -44,51 +44,40 @@ fzf-complete() {
 		if type _fzf_complete_${cmd} > /dev/null && [[ "$mode" != macro ]]; then
 			LBUFFER="$lbuf$(_fzf_complete_${cmd} "${lbuf}" "${prefix}")"
 		else
-			case "$mode" in
-				macro)
-					for key val in ${(kv)_fzf_macros}; do
-						if [[ "$key" == "$prefix" ]]; then
-							if [[ "$val" =~ "/$" ]]; then
-								LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${val}" files)"
-							else
-								LBUFFER="${lbuf}${val}"
-							fi
-							return 0
+			if [[ "$mode" == "macro" ]]; then
+				for key val in ${(kv)_fzf_macros}; do
+					if [[ "$key" == "$prefix" ]]; then
+						if [[ "$val" =~ "/$" ]]; then
+							LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${val}" files)"
+						else
+							LBUFFER="${lbuf}${val}"
 						fi
-					done
-					zle complete-macros
-					;;
-				directories|files)
-					LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
-					;;
-				# completes files from the history
-				files_history)
-					LBUFFER="$lbuf$(_fzf_complete_path_history "${lbuf}" "${prefix}")"
-					;;
-			esac
+						return 0
+					fi
+				done
+				zle complete-macros
+			elif [[ "$mode" == "history-words" ]]; then
+				# for information about the `uq` command in this pipe, see
+				# https://github.com/lostutils/uq
+				local selected=($(printf '%s\n' ${(z)historywords} | uq | fzf -m \
+					--query="${prefix}" \
+				))
+				LBUFFER="${lbuf}$selected"
+			else
+				LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
+			fi
 		fi
 		zle reset-prompt
 	fi
 }
 zle -N fzf-complete
 
-# fzf-dir-completion widget
-fzf-dir-complete() {
-	zle fzf-completion directories
+function(){
+	local mode
+	for mode in files directories macro history-{paths,words} git-all-files git-changed-files; do
+		eval "fzf-complete-$mode(){ fzf-complete $mode; }; zle -N fzf-complete-$mode"
+	done
 }
-zle -N fzf-dir-complete
-
-# macro-complete widget
-fzf-macro-complete() {
-	zle fzf-complete macro
-}
-zle -N fzf-macro-complete
-
-# macro-complete widget
-fzf-path-history-complete() {
-	zle fzf-complete files_history
-}
-zle -N fzf-path-history-complete
 
 show-macros() {
 	local comp_message=""
@@ -98,3 +87,5 @@ show-macros() {
 	compadd -x "$comp_message"
 }
 zle -C complete-macros expand-or-complete show-macros
+
+# vim:ft=zsh

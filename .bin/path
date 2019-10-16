@@ -1,0 +1,3 @@
+#!/bin/sh
+# This is best compatible if interpreted by the classic /bin/sh
+echo -e "${PATH//:/$'\n'}"

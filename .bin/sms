@@ -1,0 +1,86 @@
+#!/bin/sh
+
+set -e
+
+if ! type kdeconnect-cli 2>&1 > /dev/null; then
+	echo no kdeconnect-cli executable was found in your \$PATH >&2
+	exit 2
+fi
+
+if [[ -z "${_KDECONNECT_DEFAULT_DEVICE}" ]]; then
+	echo no default device was set in the environment variable \$_KDECONNECT_DEFAULT_DEVICE >&2
+	echo use \`kdeconnect-cli --list-devices\` to view available devices. >&2
+	echo use the random string as the value for \$_KDECONNECT_DEFAULT_DEVICE >&2
+	exit 3
+fi
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
+device_check(){
+	local device_name="$(kdeconnect-cli --list-devices | awk --assign dev_id="${_KDECONNECT_DEFAULT_DEVICE}" -F'[-|:|(|)]' '$(NF - 1) == "paired and reachable" && $(NF - 2) ~ dev_id {print $2}')"
+	if [[ -z "${device_name}" ]]; then
+		echo ${red}device ${_KDECONNECT_DEFAULT_DEVICE}${reset} is not reachable or not paired >&2
+		return 1
+	else
+		echo ${green}Using device:${device_name}${reset}
+		return 0
+	fi
+}
+
+device_check_recursive(){
+	echo Checking for available devices "(takes a second or two..)"
+	while ! device_check; do
+		printf '%s' "Would you like to try again? (Press <Enter> to try again or Ctrl-c to abort) "
+		read
+	done
+}
+
+main_sms(){
+	if [ $# -eq 0 ]; then
+		echo usage: "$0" '<phone number>' text message words ...
+		exit 1
+	fi
+	destination="$1"
+	shift
+	if [[ -z "$1" ]]; then
+		echo Type your message below, end it with Ctrl-D "(EOF)"
+		echo ---------------------------
+		echo 
+		message="$(</dev/stdin)"
+		echo 
+		echo ---------------------------
+	else
+		message="$1"
+	fi
+	device_check_recursive
+	kdeconnect-cli --device ${_KDECONNECT_DEFAULT_DEVICE} "$@" --destination "$destination" --send-sms "$message"
+	return $?
+}
+
+main_share(){
+	if [ $# -eq 0 ]; then
+		echo usage: "$0" "<file>"
+		exit 1
+	fi
+	device_check_recursive
+	while [ $# -gt 0 ]; do
+		kdeconnect-cli --device "${_KDECONNECT_DEFAULT_DEVICE}" --share "$(realpath "$1")"
+		shift
+	done
+}
+
+# main
+case "$0" in
+	*sms)
+		main_sms "$@"
+		;;
+	*share)
+		main_share "$@"
+		;;
+	*)
+		echo "You've linked this script to a file with an unhandled name"
+		exit 5
+esac
+exit $?

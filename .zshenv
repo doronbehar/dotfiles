@@ -16,10 +16,11 @@ insert2PATH(){
 
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
-insert2PATH "$GOPATH/bin"
 insert2PATH "$HOME/.luarocks/bin"
-insert2PATH "$HOME/.yarn/bin"
 insert2PATH "$HOME/.perl5/bin"
+insert2PATH "$HOME/.yarn/bin"
+insert2PATH "$HOME/.cargo/bin"
+insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
 
 # - {{{1 Guix
 if [[ ! -z "${GUIX_ENABLE+1}" && ! "$PATH" =~ "guix" ]]; then
@@ -39,35 +40,38 @@ _command_exists () {
 if _command_exists nvim; then
 	if [ -z "${NVIM_LISTEN_ADDRESS+1}" ]; then
 		export EDITOR="nvim"
-		export VISUAL="nvim"
 		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -c 'set ft=man' -"
+		# See https://github.com/neovim/neovim/issues/10808
 		export MANWIDTH=999
+		export GIT_EDITOR="$EDITOR"
 	else
-		export EDITOR="nvr --remote-silent --remote-wait"
-		export VISUAL="nvr --remote-silent --remote-wait"
+		# Only git needs to know when the editor exits
+		export GIT_EDITOR="nvr --remote-silent --remote-wait"
+		export EDITOR="nvr"
 		export MANPAGER="$EDITOR -c 'set ft=man' -"
 	fi
-	export SUDO_EDITOR="env XDG_CONFIG_HOME=${HOME}/.config $EDITOR"
+	export SUDO_EDITOR="env XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config} $EDITOR"
 elif _command_exists vim; then
 	export EDITOR="vim"
-	export VISUAL="vim"
-	export SUDO_EDITOR="env VIM=${HOME}/.vim vim"
 	export MAN_PN=1
 	export MANPAGER="$EDITOR --remote-silent --remote-wait 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -M +MANPAGER -"
+	export GIT_EDITOR="$EDITOR"
+	export SUDO_EDITOR="env VIM=${HOME}/.vim $EDITOR"
 else
 	# taken from wiki.archlinux.org
 	export MANPAGER=env\ LESS_TERMCAP_mb=$'\E[01;31m'\ LESS_TERMCAP_md=$'\E[01;38;5;74m'\ LESS_TERMCAP_me=$'\E[0m'\ LESS_TERMCAP_se=$'\E[0m'\ LESS_TERMCAP_so=$'\E[38;5;246m'\ LESS_TERMCAP_ue=$'\E[0m'\ LESS_TERMCAP_us=$'\E[04;38;5;146m'\ less
 fi
-if [[ ! -z "${VISUAL}" ]]; then
-	export GIT_EDITOR="$VISUAL"
-fi
+export VISUAL="$EDITOR"
+
+# - {{{1 FZF
+export FZF_DEFAULT_OPTS="--history=/home/doron/.local/share/fzf/history"
 
 # - {{{1 Luarocks paths
 if [[ -z "${LUA_PATH+1}" && -z "${LUA_CPATH+1}" ]] && _command_exists luarocks; then
 	eval $(luarocks path --no-bin)
 fi
 
-# GnuPG
+# - {{{1 GnuPG
 export PINENTRY_USER_DATA=tty
 
 # - {{{1 local environmental variables

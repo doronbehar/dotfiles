@@ -20,6 +20,9 @@ fi
 if [ ! -z "${GUIX_ENABLE+1}" ]; then
 	fpath=(~/.config/guix/current/share/zsh/site-functions $fpath)
 fi
+fpath(){
+	printf '$s\n' "${fpath[@]}"
+}
 autoload -Uz compinit && compinit -D
 # zstyle
 # the names of the completer functions to use
@@ -144,18 +147,18 @@ source ~/.zsh/zle/fzf
 # source all completions based on _fzf_completion for the various commands
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
 source ~/.zsh/comp/fzf
-# use only the most useful widget from there
-bindkey -M vicmd "^Z" fzf-history-widget
-bindkey -M viins "^Z" fzf-history-widget
-bindkey -M viins "^F" fzf-complete
-bindkey -M viins "^D" fzf-dir-complete
 # macro-complete widget
 if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 	source ~/.local/share/zsh/macros/${HOST}
 fi
-bindkey -M viins "^ " fzf-macro-complete
-# path history completion
-bindkey -M viins "^T" fzf-path-history-complete
+bindkey -M viins "^F" fzf-complete
+bindkey -M viins "^D" fzf-complete-directories
+bindkey -M viins "^ " fzf-complete-macro
+bindkey -M viins "^Z" fzf-complete-history-commands
+bindkey -M vicmd "^A" fzf-complete-history-words
+bindkey -M viins "^T" fzf-complete-history-paths
+bindkey -M viins "^P" fzf-complete-git-all-files
+bindkey -M viins "^Y" fzf-complete-git-changed-files
 # sync with system clipboard, only if programs available
 # https://github.com/kutsan/zsh-system-clipboard
 if _command_exists xclip || _command_exists xsel; then
@@ -200,14 +203,23 @@ if [ -n "${TRACE_FUNC}" ]; then
 	functions -t "$TRACE_FUNC"
 fi
 
-# {{{1 aliases and functions
-source ~/.aliases
-source ~/.functions
+# {{{1 shell common functions and aliases
+for i in ~/.shell/*; do
+	. "$i"
+done
 
-# {{{1 chpwd
-if [[ -f ~/.zsh/chpwd ]] && ! (($GUIX_BUILD_DEBUG)); then
-	source ~/.zsh/chpwd
-fi
+# {{{1 chpwd - mostly for taskwarrior context
+for i in ~/.zsh/chpwd/*; do
+	. "$i"
+done
+
+# {{{1 precmd - mostly for direnv
+for i in ~/.zsh/precmd/*; do
+	. "$i"
+done
+
+# Unset i used in the above 3 loops
+unset i
 
 # {{{1 modeline
 # vim:ft=zsh:foldmethod=marker

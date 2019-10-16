@@ -1,0 +1,45 @@
+# {{{1 Shortcut for transmission-remote with authentication through environment
+if _command_exists transmission-remote; then
+	alias trc='transmission-remote --authenv'
+fi
+
+# {{{1 replace shell script pass with gopass
+if _command_exists gopass; then
+	alias pass=gopass
+fi
+
+# {{{1 rclone workaround for https://github.com/ncw/rclone/issues/2894
+if _command_exists rclone; then
+	alias rclone='rclone --exclude-if-present .rclone-ignore'
+fi
+# {{{1 xclip / xsel
+if _command_exists xsel; then
+	alias cxsel='xsel -b'
+	alias pxsel='xsel -p'
+	export FORGIT_COPY_CMD='xsel -b'
+elif _command_exists xclip; then
+	alias cxclip="xclip -selection clipboard"
+	alias pxclip="xclip -selection primary"
+	export FORGIT_COPY_CMD='xclip -selection clipboard'
+fi
+
+# {{{1 xdg-open
+if _command_exists rifle; then
+	alias o='rifle'
+elif _command_exists xdg-open; then
+	alias o='xdg-open'
+fi
+
+# {{{1 visual/editor with GhostStart for quick launch
+alias gvi="${VISUAL} +GhostStart"
+
+# {{{1 visual/editor with Pad plugin for quick launch
+alias pad="${VISUAL} +Pad\ new"
+alias v="${VISUAL}"
+
+# {{{1 `mkcd` mkdir and cd to it afterwards
+mkcd(){
+	mkdir -p "$1" && cd "$1"
+}
+
+# vim: ft=zsh

@@ -1,0 +1,13 @@
+# {{{1 mutt / neomutt
+if _command_exists mutt; then
+	alias gmut="env MUTT_ACCOUNT=gmail mutt -f +gmail/INBOX"
+	alias vmut="env MUTT_ACCOUNT=gandi mutt -f +gandi/INBOX"
+	alias tmut="env MUTT_ACCOUNT=technion mutt -f +technion/INBOX"
+fi
+if _command_exists neomutt; then
+	alias gmut="env MUTT_ACCOUNT=gmail neomutt -f +gmail/INBOX"
+	alias vmut="env MUTT_ACCOUNT=gandi neomutt -f +gandi/INBOX"
+	alias tmut="env MUTT_ACCOUNT=technion neomutt -f +technion/INBOX"
+fi
+
+# vim:ft=sh:foldmethod=marker

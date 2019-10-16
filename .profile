@@ -14,12 +14,11 @@ if [ -n "$BASH_VERSION" ]; then
 	if [ -f "$HOME/.zshenv" ]; then
 		. "$HOME/.zshenv"
 	fi
-	if [ -f "$HOME/.aliases" ]; then
-		. "$HOME/.aliases"
-	fi
-	if [ -f "$HOME/.functions" ]; then
-		. "$HOME/.functions"
-	fi
+	# shell common functions and aliases
+	for i in ~/.shell/*; do
+		. "$i"
+	done
+	unset i
 	# include .bashrc if it exists
 	if [ -f "$HOME/.bashrc" ]; then
 		. "$HOME/.bashrc"

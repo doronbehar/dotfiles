@@ -1,0 +1,10 @@
+# Pistol (https://github.com/doronbehar/pistol)
+if ! _command_exists pistol; then
+	return
+fi
+
+if [[ "$TPUT_COLORS" == 256 ]]; then
+	export PISTOL_CHROMA_FORMATTER=terminal256
+fi
+
+# vim: ft=sh

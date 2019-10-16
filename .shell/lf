@@ -1,0 +1,11 @@
+if ! _command_exists lf; then
+	return
+fi
+
+export LF_LAST_DIR_PATH=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/lf.$USER.lastdir
+alias lf="lf -last-dir-path=$LF_LAST_DIR_PATH"
+cdl() {
+	cd "$(<"$LF_LAST_DIR_PATH")"
+}
+
+# vim: ft=sh

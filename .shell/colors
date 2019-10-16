@@ -1,0 +1,62 @@
+# Set this variable is it will be used by some other commands and it shouldn't
+# be needed to run this command again and again every time..
+TPUT_COLORS="$(tput colors)"
+
+# {{{1 colored cat: src-highlite or bat
+if _command_exists bat; then
+	alias ccat='bat --style=plain --color=always --pager=never'
+elif _command_exists highlight; then
+	alias ccat='highlight --out-format=ansi --force --stdout'
+fi
+
+# {{{1 always colored jq
+if _command_exists jq; then
+	alias cjq='jq --color-output'
+fi
+
+# {{{1 ls
+if _command_exists ls; then
+	alias ls='ls --color=auto'
+	alias cls='ls --color=always'
+fi
+
+# {{{1 dir / vdir
+if _command_exists dir; then
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias cdir='dir --color=always'
+	alias cvdir='vdir --color=always'
+fi
+
+# {{{1 grep
+if _command_exists grep; then
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+	alias cgrep='grep --color=always'
+	alias cfgrep='fgrep --color=always'
+	alias cegrep='egrep --color=always'
+fi
+
+# {{{1 diff
+if _command_exists diff; then
+	alias diff='diff --color=auto'
+	alias cdiff='diff --color=always'
+fi
+
+# {{{1 pacman
+if _command_exists pacman; then
+	alias cpacman='pacman --color=always'
+fi
+
+# {{{1 auracle (the best AUR helper)
+if _command_exists auracle; then
+	alias aur=auracle
+	alias caur=auracle\ --color=always
+	alias aurs=auracle\ search
+	alias caurs=auracle\ --color=always\ search
+	alias auri=auracle\ search
+	alias cauri=auracle\ --color=always\ search
+fi
+
+# vim: ft=sh

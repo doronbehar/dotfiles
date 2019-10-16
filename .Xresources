@@ -104,13 +104,9 @@ xterm*VT100.translations:#override <Btn1Up>:select-end(PRIMARY, CLIPBOARD, CUT_B
 
 !! {{{ Fonts
 URxvt*font:\
-	xft:DroidSansMonoForPowerline Nerd Font:size=10,\
-	xft:DejaVuSansMono Nerd Font:size=9,\
-	xft:FreeMono:size=10,\
-	xft:FreeMono:size=9,\
-	xft:Symbola:size=9,\
-	xft:Symbola:size=8,\
-	xft:Symbola:size=7
+	xft:Hack Nerd Font Mono:size=11,\
+	xft:FreeMono:size=11,\
+	xft:Symbola:size=10,
 !! }}}
 
 !! {{{ Colors
@@ -142,8 +138,8 @@ URxvt.underlineURLs:False
 URxvt*loginShell:false
 URxvt.perl-ext:url-select,keyboard-select,font-size
 Urxvt.bidi.FieldSep:\x{2502}
-URxvt.url-launcher:/usr/bin/xdg-open
-URxvt.url-select.launcher:/usr/bin/xdg-open
+URxvt.url-launcher:xdg-open
+URxvt.url-select.launcher:xdg-open
 URxvt*cursorBlink:true
 URxvt*cursorOffTime:400
 URxvt*cursorOnTime:400

@@ -1,0 +1,332 @@
+#compdef pip
+
+# This completion will not be accepted by ZSH maintainers since
+# there is already one available provided by pip upstream. It is generated
+# with a 'pip completion' kind of command. It's good only for options though
+# so this is a better hand made completion.
+# It is not accepted yet by pip upstream, see https://github.com/pypa/pip/issues/5364
+
+# {{{ common options
+local common_options_help=(
+	'(- :)'{-h,--help}'[show help]'
+)
+local common_options_pre=(
+	'--pre[Include pre-release and development versions]'
+)
+local common_options_install=(
+	{\*-c,\*--constraint}'[Constrain versions using the given constraints file]:FILE:_files'
+	'(- :)'{-e,--editable}'[Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url]:PACKAGE:{__pip_package "url" "file"}'
+	{\*-r,\*--requirement}'[Install from the given requirements file]:FILE:_files'
+	{-b,--build}'[Directory to unpack packages into and build in]:DIRECTORY:_files -/'
+	"--no-deps[Don't install package dependencies]"
+	"${common_options_pre[@]}"
+	'*--global-option=[Extra global options to be supplied to the setup.py call before the install command]:OPTION:_setup.py'
+	'*--no-binary[Do not use binary packages]:FORMAT_CONTROL:__pip_no_binary_control'
+	'*--only-binary[Do not use binary packages]:FORMAT_CONTROL:__pip_only_binary_control'
+	"--no-clean[Don't clean up build directories]"
+	'--require-hashes[Require a hash to check each requirement against, for repeatable installs]'
+)
+local common_options_wheel=(
+	"${common_options_install[@]}"
+	'--src[Directory to check out editable projects into]:DIRECTORY:_files -/'
+	'--ignore-requires-python[Ignore the Requires-Python information]'
+)
+local common_options_index=(
+	'(--no-index)'{-i,--index-url}'[Base URL of Python Package Index (default https://pypi.python.org/simple)]:URL:_urls'
+	'(--no-index)*--extra-index-url[Extra URLs of package indexes to use in addition to --index-url]:URL:_urls'
+	'(-i --index-url)--no-index[Ignore package index (only looking at --find-links URLs instead)]'
+	{-f,--find-links}'[If a url or path to an html file, then parse for links to archives]:URL:__pip_find_links'
+	'--process-dependency-links[Enable the processing of dependency links]'
+)
+local common_options_user=(
+	'--user\[Only output packages installed in user-site\]'
+)
+local common_options_local=(
+	{-l,--local}'[If in a virtualenv that has global access, do not output globally-installed packages]'
+)
+# }}}
+# {{{ helper: installed packages cache policy
+__pip_install_packages_cache_policy(){
+	# TODO: workout a way that will let users configure via zstyle locations of site-packages
+	# the number of seconds since 1970-01-01 the site-packages directories were changed
+	local site_packages_user_dir_last_date_modified="$(date -r ~/.local/lib/python3.6/site-packages +%s 2>/dev/null)"
+	local site_packages_system_dir_last_date_modified="$(date -r /usr/lib/python3.6/site-packages +%s 2>/dev/null)"
+	# the number of seconds since 1970-01-01 the cache file was modified
+	local cache_last_date_modified="$(date -r $1 +%s 2>/dev/null)"
+	if [[ ! -z "${cache_last_date_modified}" ]] && [[ ! -z "${site_packages_user_dir_last_date_modified}" || ! -z "${site_packages_system_dir_last_date_modified}" ]]; then
+		# if the manifest file is newer then the cache:
+		if [[ ${site_packages_user_dir_last_date_modified} -ge ${cache_last_date_modified} ]] || [[ ${site_packages_system_dir_last_date_modified} -ge ${cache_last_date_modified} ]]; then
+			(( 1 ))
+		else
+			(( 0 ))
+		fi
+	else
+		(( 1 ))
+	fi
+}
+# }}}
+# {{{ helper: installed packages (using cache)
+__pip_installed() {
+	local update_policy
+	zstyle -s ":completion:${curcontext}:" cache-policy update_policy
+	if [[ -z "$update_policy" ]]; then
+		zstyle ":completion:${curcontext}:" cache-policy __pip_install_packages_cache_policy
+	fi
+	if _cache_invalid pip_installed_packages; then
+		installed_packages=($(pip list --format freeze | sed -n -e 's/\([-a-z_]\+\)==.*/\1/p'))
+		_store_cache pip_installed_packages installed_packages
+	else
+		_retrieve_cache pip_installed_packages
+	fi
+	_values "installed packages" "${installed_packages[@]}"
+}
+# }}}
+# {{{ helper: available commands
+local commands=(
+	'install:install packages'
+	'download:download packages'
+	'uninstall:uninstall packages'
+	'freeze:output all currently installed packages (exact versions) to stdout'
+	'list:list installed packages'
+	'show:show information about installed packages'
+	'search:search PyPI'
+	'wheel:build individual wheel archives for your requirements and dependencies'
+	'hash:compute a hash of a local package archive'
+	'help:show available commands'
+)
+__pip_commands(){
+	_describe "pip command" commands
+}
+# }}}
+# {{{ helper: installable packages wrapper
+__pip_package(){
+	local -a alts
+	for arg in "$@"; do
+		case $arg in
+			"url")
+				alts+=(':URL of package:_urls')
+				;;
+			"file")
+				alts+=(':package repo or archive:_files')
+				;;
+		esac
+	done
+	_alternative "${alts[@]}"
+}
+# }}}
+# {{{ helper: upgrade strategy
+__pip_upgrade_strategy(){
+	local strategies=(
+		"eager:dependencies are upgraded whether currently installed version satisfies the requirements or not"
+		"only-if-needed:are upgraded only when they do not satisfy the requirements of the upgraded package(s)"
+	)
+	_describe "strategy" strategies
+}
+# }}}
+# {{{ helper: binary control
+__pip_no_binary_control(){
+	local options=(
+		'all:"disable all binary packages"'
+		'none:"enable all binary packages"'
+	)
+	_alternative ": :((${options[@]}))" ": :_message 'packages to install or use:'"
+}
+__pip_only_binary_control(){
+	local options=(
+		'all:"enable all binary packages"'
+		'none:"disable all binary packages"'
+	)
+	_alternative ": :((${options[@]}))" ": :{_message 'packages to install or use:'}"
+}
+# }}}
+# {{{ helper: look for html file or url with links to packages or find packages in a directory
+__pip_find_links(){
+	_alternative ': :_urls' ': :_files -g ".html"' ': :_files -/'
+}
+# }}}
+# {{{ helper: urls or files to install
+__pip_install_packages(){
+	_alternative ': :_urls' ': :_files'
+}
+# }}}
+# {{{ command install
+local command_install_options=(
+	"${common_options_help[@]}"
+	"${common_options_wheel[@]}"
+	"${common_options_index[@]}"
+	{-t,--target}'[Install packages into DIRECTORY]:DIRECTORY:_files -/'
+	{-d,--download}"[Download packages into <dir> instead of installing them, regardless of what's already installed]:DIRECTORY:_files -/"
+	{-U,--upgrade}'[Upgrade all specified packages to the newest available version]'
+	'--upgrade-strategy[Determines how dependency upgrading should be handled]:STRATEGY:__pip_upgrade_strategy'
+	'--force-reinstall[When upgrading, reinstall all packages even if they are already up-to-date]'
+	{-I,--ignore-installed}'[Ignore the installed packages (reinstalling instead)]'
+	# TODO: autoload _setup.py to complete options for it
+	'*--install-option=[Extra arguments to be supplied to the setup.py install command]:OPTION:_setup.py'
+	'--user[Install to the Python user install directory for your platform]'
+	"--egg[Install packages as eggs, not 'flat', like pip normally does]"
+	'--root[Install everything relative to this alternate root directory]:DIRECTORY:_files -/'
+	'--prefix[Installation prefix where lib, bin and other top-level folders are place]:DIRECTORY:_files -/'
+	'--compile[Compile py files to pyc]'
+	'--no-compile[Do not compile py files to pyc]'
+	'--no-use-wheel[DEPRECATED in favour of --no-binary]'
+)
+_pip_install(){
+	_arguments \
+		"${command_install_options[@]}" \
+		'*:PACKAGE:__pip_install_packages'
+}
+# }}}
+# {{{ command download
+local command_download_options=(
+	"${common_options_help[@]}"
+	"${common_options_install[@]}"
+	"${common_options_index[@]}"
+	'--src[Directory to check out editable projects into]:DIRECTORY:_files -/'
+	{-d,--dest}'[Download packages into DIRECTORY]:DIRECTORY:_files -/'
+	'--platform[Only download wheels compatible with PLATFORM]:PLATFORM:'
+	'--python-version[Only download wheels compatible with Python interpreter version VERSION]:VERSION:'
+	'--implementation[Only download wheels compatible with Python implementation IMPLEMENTATION]:IMPLEMENTATION:'
+	'--abi[Only download wheels compatible with Python abi ABI]:ABI:'
+)
+_pip_download(){
+	_arguments \
+		"${command_download_options[@]}" \
+		'*:PACKAGE:__pip_install_packages'
+}
+# }}}
+# {{{ command uninstall
+local command_uninstall_options=(
+	"${common_options_help[@]}"
+	{\*-r,\*--requirement}'[Uninstall all the packages listed in the given requirements file]:FILE:_files'
+	{-y,--yes}"[Don't ask for confirmation of uninstall deletions]"
+)
+_pip_uninstall(){
+	_arguments \
+		"${command_uninstall_options[@]}" \
+		'*: :__pip_installed'
+}
+# }}}
+# {{{ command freeze
+local command_freeze_options=(
+	"${common_options_help[@]}"
+	"${common_options_local[@]}"
+	"${common_options_user[@]}"
+	{\*-r,\*--requirement}'[Use the order in the given requirements file and its comments when generating output]:FILE:_files'
+	{-f,--find-links}'[URL for finding packages, which will be added to the output]:URL:_urls'
+	'--all[Do not skip these packages in the output: pip, setuptools, distribute, wheel]'
+
+)
+_pip_freeze(){
+	_arguments \
+		"${command_freeze_options[@]}"
+}
+# }}}
+# {{{ command list
+local command_list_options=(
+	"${common_options_help[@]}"
+	"${common_options_local[@]}"
+	"${common_options_user[@]}"
+	"${common_options_pre[@]}"
+	{-o,--outdated}'[List outdated packages]'
+	{-u,--uptodate}'[List uptodate packages]'
+	{-e,--editable}'[List editable projects]'
+	'--format[Select the output format among]:FORMAT:(legacy columns freeze json)'
+	'--not-required[List packages that are not dependencies of installed packages]'
+	"${common_options_index[@]}"
+)
+_pip_list(){
+	_arguments \
+		"${command_list_options[@]}" \
+		'1: :'
+}
+# }}}
+# {{{ command show
+local command_show_options=(
+	"${common_options_help[@]}"
+	{-f,--files}'[Show the full list of installed files for each package]'
+)
+_pip_show(){
+	_arguments \
+		"${command_show_options[@]}" \
+		'*: :__pip_installed'
+}
+# }}}
+# {{{ command search
+local command_search_options=(
+	"${common_options_help[@]}"
+	{-i,--index}'[Base URL of Python Package Index (default https://pypi.python.org/pypi)]:URL:_urls'
+)
+_pip_search(){
+	_arguments \
+		"${command_search_options[@]}" \
+		'*:QUERY:'
+}
+# }}}
+# {{{ command wheel
+local command_wheel_options=(
+	"${common_options_help[@]}"
+	"${common_options_wheel[@]}"
+	"${common_options_index[@]}"
+	'(--no-wheel-dir)'{-w,--wheel-dir}'[Build wheels into DIRECTORY (default is current working directory)]:DIRECTORY:_files -/'
+	'(-w --wheel-dir)--no-wheel-dir[Do not Find and prefer wheel archives when searching indexes and find-links locations]'
+)
+_pip_wheel(){
+	_arguments \
+		"${command_wheel_options[@]}" \
+		'*:PACKAGE:__pip_install_packages'
+}
+# }}}
+# {{{ command hash
+local command_hash_options=(
+	"${common_options_help[@]}"
+	{-a,--algorithm}'[The hash algorithm to use]:ALGORITHM:(sha256 sha384 sha512)'
+)
+_pip_hash(){
+	_arguments \
+		"${command_hash_options[@]}" \
+		'1:PACKAGE_ARCHIVE:_files'
+}
+# }}}
+# {{{ command help
+local command_help_options=(
+	"${common_options_help[@]}"
+)
+_pip_help(){
+	_arguments \
+		"${command_help_options[@]}" \
+		'1:COMMAND:__pip_commands'
+}
+# }}}
+
+# The real thing
+_arguments \
+	"${common_options_help[@]}" \
+	'--isolated[run pip in isolated mode, ignores environment variables and user configuration]' \
+	{-v,--verbose}'[give more output]' \
+	{-V,--version}'[show version number of program and exit]' \
+	{-q,--quiet}'[give less output]' \
+	'--log[log file location]' \
+	'--proxy=[proxy in form user:passwd@proxy.server:port]' \
+	'--retries=[max number of retries per connection (default 5 times)]' \
+	'--timeout=[socket timeout (default 15s)]' \
+	'--exists-action=[default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup]' \
+	'--trusted-host=[mark this host as trusted]' \
+	'--cert=[path to alternate CA bundle]' \
+	'--client-cert=[path to SSL client certificate]' \
+	'--cache-dir=[store the cache data in specified directory]' \
+	'--no-cache-dir[disable de cache]' \
+	'--disable-pip-version-check[do not check periodically for new pip version downloads]' \
+	{-E,--environment}'[virtualenv environment to run pip in (deprecated)]' \
+	{-s,--enable-site-packages}'[include site-packages in virtualenv (deprecated)]' \
+	'1: :__pip_commands' \
+	'*::arg:->args'
+
+case "$state" in
+	(args)
+		curcontext="${curcontext%:*:*}:pip_${words[1]}:"
+		# check if a command with a defined completion was typed
+		type _pip_${words[1]} &> /dev/null
+		if [[ $? != 1 ]]; then
+			_pip_${words[1]}
+		fi
+esac

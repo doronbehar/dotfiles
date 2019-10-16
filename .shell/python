@@ -1,0 +1,13 @@
+if ! _command_exists python; then
+	return
+fi
+
+# {{{1 `pyenv` activate python environments located in ~/.virtualenvs/
+pyenv() {
+	. ~/.virtualenvs/"$1"/bin/activate
+}
+
+# {{{1 Shortcut for python debugger
+alias pdb='python -m pdb'
+
+# vim: ft=sh

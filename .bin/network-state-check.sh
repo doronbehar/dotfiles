@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 NET_CONNECTION="$1"
 
@@ -41,7 +41,7 @@ get_wifi_network(){
 }
 
 case "$CURRENT_HOST" in
-	NUC|ARCHPI)
+	NUX|ARCHPI)
 		if [[ "$NET_CONNECTION" == "home" ]]; then
 			[[ "$(get_wifi_network)" == "Behar" ]] || [[ "$(get_wifi_network)" == "Wired" ]]
 			exit $?

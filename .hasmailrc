@@ -3,9 +3,4 @@ click=launch-hasmail-mail-client
 [gmail]
 hostname=imap.gmail.com:993
 username=doron.behar@gmail.com
-password=gopass show -f software/desktop/gmail-hasmail
-
-[vps]
-hostname=imap.doronbehar.com:993
-username=doron
-password=gopass show -f hosts/vps/users/doron
+password=env -u DBUS_SESSION_BUS_ADDRESS secret-tool lookup user doron.behar@gmail.com

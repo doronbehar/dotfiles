@@ -4,7 +4,7 @@
 export IFS=":"
 for i in $(echo "$PATH"); do
 	if [ -f "$i"/"$1" ]; then
-		file "$i"/"$1"
+		file -L "$i"/"$1"
 		exit 0
 	fi
 done

@@ -1,0 +1,4 @@
+#compdef nixify
+
+_nix-common-options
+_nix_attr_paths "import <nixpkgs>"

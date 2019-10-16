@@ -1,0 +1,20 @@
+# - {{{1 Guix
+if ! _command_exists guix; then
+	return
+fi
+
+# {{{1 `guixenv` sets up a shell with guix environment
+guixenv() {
+	env GUIX_ENABLE=yes zsh --login
+}
+
+# {{{1 `guixbuild` sets up a shell in a failed build in /tmp/ with the proper environment
+guixbuild() {
+	if [[ -d /tmp/$1 ]]; then
+		zsh -c "cd /tmp/$1; export GUIX_BUILD_DEBUG=1; exec zsh --login"
+	else
+		echo /tmp/$1 does not exist 1>&2
+	fi
+}
+
+# vim: ft=sh

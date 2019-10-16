@@ -7,7 +7,7 @@ LESS DEFAULT="-X -x4 -r -i"
 LESSHISTFILE DEFAULT="@{HOME}/.local/share/less-history"
 
 # SSH
-SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+SSH_AUTH_SOCK DEFAULT="@{HOME}/.ssh/agent.socket"
 
 # info
 INFO_PRINT_COMMAND DEFAULT="@{HOME}/.bin/info-print"
@@ -18,12 +18,6 @@ XDG_UTILS_DEBUG_LEVEL DEFAULT="1"
 # translate-shell
 HOME_LANG DEFAULT=he
 TARGET_LANG DEFAULT=he
-
-# mesa shader cache
-MESA_GLSL_CACHE_DIR DEFAULT="/var/cache/mesa_shader_cache/doron"
-
-# GUIX
-GUIX_LOCPATH DEFAULT="@{HOME}/.guix-profile/lib/locale"
 
 # Perl / cpan
 PERL5LIB DEFAULT DEFAULT="@{HOME}/.perl5/lib/perl5"
