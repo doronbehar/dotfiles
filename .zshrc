@@ -192,12 +192,8 @@ bindkey -M viins "^V" edit-command-line
 bindkey -M vicmd "^V" edit-command-line
 
 # {{{1 Looks
-if [[ -d ~/.zsh/prompts ]]; then
-	fpath=(~/.zsh/prompts $fpath)
-fi
-autoload -Uz colors && colors
-autoload -Uz promptinit && promptinit
-prompt my
+source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.p10k.zsh
 
 # {{{1 Enable tracing a specific function
 if [ -n "${TRACE_FUNC}" ]; then

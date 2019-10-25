@@ -160,3 +160,6 @@
 [submodule ".config/direnv"]
 	path = .config/direnv
 	url = https://github.com/doronbehar/.config_direnv
+[submodule ".zsh/powerlevel10k"]
+	path = .zsh/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
