@@ -67,8 +67,11 @@ export VISUAL="$EDITOR"
 export FZF_DEFAULT_OPTS="--history=/home/doron/.local/share/fzf/history"
 
 # - {{{1 Luarocks paths
-if [[ -z "${LUA_PATH+1}" && -z "${LUA_CPATH+1}" ]] && _command_exists luarocks; then
+if [[ -z "${LUA_VERSION+1}" ]] && _command_exists luarocks; then
 	eval $(luarocks path --no-bin)
+	LUA_VERSION=$(lua -e "print(_VERSION:gsub('Lua ', ''):sub(1))")
+	LUA_PATH="${LUA_PATH};${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?/init.lua;${HOME}/.luarocks/share/lua/5.3/?/init.lua"
+	LUA_CPATH="${LUA_CPATH};${HOME}/.nix-profile/lib/lua/${LUA_VERSION}/?.so"
 fi
 
 # - {{{1 GnuPG
