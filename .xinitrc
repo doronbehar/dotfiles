@@ -9,7 +9,7 @@ fi
 systemctl --user import-environment DISPLAY XAUTHORITY
 
 if command -v dbus-update-activation-environment >/dev/null 2>&1; then
-        dbus-update-activation-environment DISPLAY XAUTHORITY
+	dbus-update-activation-environment --all --systemd --verbose
 fi
 if [[ -f "$HOME/.local/share/xorg/${DISPLAY}" ]]; then
 	source "$HOME/.local/share/xorg/${DISPLAY}"
