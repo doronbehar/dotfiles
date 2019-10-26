@@ -17,22 +17,6 @@ xterm*locale:true
 !! {{{ Colors
 xterm*background:black
 xterm*foreground:white
-xterm*color0:#2E3436
-xterm*color1:#a40000
-xterm*color2:#4E9A06
-xterm*color3:#C4A000
-xterm*color4:#3465A4
-xterm*color5:#75507B
-xterm*color6:#ce5c00
-xterm*color7:#babdb9
-xterm*color8:#555753
-xterm*color9:#EF2929
-xterm*color10:#8AE234
-xterm*color11:#FCE94F
-xterm*color12:#729FCF
-xterm*color13:#AD7FA8
-xterm*color14:#fcaf3e
-xterm*color15:#EEEEEC
 !! }}}
 
 !! {{{ Behaviour
@@ -41,9 +25,6 @@ xterm*loginShell:false
 xterm*title:xterm
 xterm*toolBar:false
 xterm*termName:xterm-256color
-xterm*cursorBlink:true
-xterm*cursorOffTime:400
-xterm*cursorOnTime:400
 xterm*activeIcon:true
 xterm*sameName:true
 XTerm*allowWindowOps:true
@@ -114,22 +95,6 @@ URxvt*scrollBar:false
 URxvt*saveLines:65535
 URxvt.background:#000000
 URxvt*foreground:#ffffff
-URxvt*color0:#2E3436
-URxvt*color1:#a40000
-URxvt*color2:#4E9A06
-URxvt*color3:#C4A000
-URxvt*color4:#3465A4
-URxvt*color5:#75507B
-URxvt*color6:#ce5c00
-URxvt*color7:#babdb9
-URxvt*color8:#555753
-URxvt*color9:#EF2929
-URxvt*color10:#8AE234
-URxvt*color11:#FCE94F
-URxvt*color12:#729FCF
-URxvt*color13:#AD7FA8
-URxvt*color14:#fcaf3e
-URxvt*color15:#EEEEEC
 URxvt.url-select.underline:false
 URxvt.underlineURLs:False
 !! }}}
@@ -140,9 +105,6 @@ URxvt.perl-ext:url-select,keyboard-select,font-size
 Urxvt.bidi.FieldSep:\x{2502}
 URxvt.url-launcher:xdg-open
 URxvt.url-select.launcher:xdg-open
-URxvt*cursorBlink:true
-URxvt*cursorOffTime:400
-URxvt*cursorOnTime:400
 ! do not scroll with output
 URxvt*scrollTtyOutput:false
 ! scroll back to the bottom on keypress
