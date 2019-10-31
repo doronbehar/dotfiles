@@ -48,6 +48,9 @@ case "$CURRENT_HOST" in
 		elif [[ "$NET_CONNECTION" == hotspot ]]; then
 			[[ "$(get_wifi_network)" == "DORON-hotspot" ]]
 			exit $?
+		elif [[ "$NET_CONNECTION" == myDorms ]]; then
+			[[ "$(get_wifi_network)" == "HOTBOX-1BD4" ]]
+			exit $?
 		fi
 		;;
 	PHONE)
