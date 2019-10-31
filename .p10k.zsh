@@ -842,9 +842,6 @@
   # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
-  function prompt_direnv() {
-    p10k segment -f 208 -i '' -c '$DIRENV_DIR'
-  }
   function prompt_emails() {
     typeset -A prompt_my_mail_accounts_names
     prompt_my_mail_accounts_names=(
@@ -865,7 +862,9 @@
         continue
       fi
     done
-    p10k segment -b magenta -i '' -c "$message" -t "$message"
+    if [[ -n $message ]]; then
+      p10k segment -b magenta -i '' -t $message
+    fi
   }
 
   # User-defined prompt segments can be customized the same way as built-in segments.
