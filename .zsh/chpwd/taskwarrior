@@ -12,6 +12,7 @@ function _task_set_context() {
 		eval "tm(){task $(task _get rc.context."$_chpwd_taskwarrior_context" 2> /dev/null) "'"$@";}'
 	fi
 	eval "t(){task rc.context=$_chpwd_taskwarrior_context "'"$@";}'
+	eval "tfzf(){taskfzf rc.context=$_chpwd_taskwarrior_context "'"$@";}'
 }
 
 # global variables for this function
