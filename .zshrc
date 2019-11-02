@@ -86,6 +86,49 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE="$HOME/.local/share/zsh/history"
 
+# {{{1 ZLE
+# automatically escape URLs
+# /usr/share/zsh/functions/Zle/url-quote-magic
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+# Zle widgets based on examples distributed with fzf
+export FZF_COMPLETION_TRIGGER=''
+source ~/.zsh/zle/fzf
+# source all completions based on _fzf_completion for the various commands
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)
+source ~/.zsh/comp/fzf
+# macro-complete widget
+if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
+	source ~/.local/share/zsh/macros/${HOST}
+fi
+# sync with system clipboard, only if programs available
+# https://github.com/kutsan/zsh-system-clipboard
+if _command_exists xclip || _command_exists xsel; then
+	export ZSH_SYSTEM_CLIPBOARD_DISABLE_DEFAULT_MAPS=1
+	source ~/.zsh/zle/system-clipboard/zsh-system-clipboard.zsh
+	function () {
+		local binded_keys i parts key cmd keymap
+		for keymap in vicmd visual emacs; do
+			binded_keys=(${(f)"$(bindkey -M $keymap)"})
+			for (( i = 1; i < ${#binded_keys[@]}; ++i )); do
+				parts=("${(z)binded_keys[$i]}")
+				key="${parts[1]}"
+				cmd="${parts[2]}"
+				if (( $+functions[zsh-system-clipboard-$keymap-$cmd] )); then
+					eval bindkey -M $keymap \"\ \"$key zsh-system-clipboard-$keymap-$cmd
+				fi
+			done
+		done
+		bindkey -ar " "
+	}
+fi
+# enable inline comments
+setopt interactivecomments
+# syntax highlighting
+# https://github.com/zsh-users/zsh-syntax-highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+source ~/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+
 # {{{1 Bindings
 bindkey -v
 # The time lapse between <Esc> and changing to insert mode.
@@ -117,8 +160,6 @@ fi
 if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
 fi
-
-# {{{1 ZLE
 # create quotes text objects
 # /usr/share/zsh/functions/Zle/select-quoted
 autoload -U select-quoted
@@ -137,20 +178,11 @@ for m in visual viopp; do
 		bindkey -M $m $c select-bracketed
 	done
 done
-# automatically escape URLs
-# /usr/share/zsh/functions/Zle/url-quote-magic
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
-# Zle widgets based on examples distributed with fzf
-export FZF_COMPLETION_TRIGGER=''
-source ~/.zsh/zle/fzf
-# source all completions based on _fzf_completion for the various commands
-# https://github.com/junegunn/fzf/wiki/Examples-(completion)
-source ~/.zsh/comp/fzf
-# macro-complete widget
-if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
-	source ~/.local/share/zsh/macros/${HOST}
-fi
+# full text editor editing of the command
+autoload edit-command-line && zle -N edit-command-line
+bindkey -M viins "^V" edit-command-line
+bindkey -M vicmd "^V" edit-command-line
+# fzf completions
 bindkey -M viins "^F" fzf-complete
 bindkey -M viins "^D" fzf-complete-directories
 bindkey -M viins "^ " fzf-complete-macro
@@ -159,37 +191,6 @@ bindkey -M vicmd "^A" fzf-complete-history-words
 bindkey -M viins "^T" fzf-complete-history-paths
 bindkey -M viins "^P" fzf-complete-git-all-files
 bindkey -M viins "^Y" fzf-complete-git-changed-files
-# sync with system clipboard, only if programs available
-# https://github.com/kutsan/zsh-system-clipboard
-if _command_exists xclip || _command_exists xsel; then
-	export ZSH_SYSTEM_CLIPBOARD_DISABLE_DEFAULT_MAPS=1
-	source ~/.zsh/zle/system-clipboard/zsh-system-clipboard.zsh
-	function () {
-		local binded_keys i parts key cmd keymap
-		for keymap in vicmd visual emacs; do
-			binded_keys=(${(f)"$(bindkey -M $keymap)"})
-			for (( i = 1; i < ${#binded_keys[@]}; ++i )); do
-				parts=("${(z)binded_keys[$i]}")
-				key="${parts[1]}"
-				cmd="${parts[2]}"
-				if (( $+functions[zsh-system-clipboard-$keymap-$cmd] )); then
-					eval bindkey -M $keymap \"\ \"$key zsh-system-clipboard-$keymap-$cmd
-				fi
-			done
-		done
-		bindkey -ar " "
-	}
-fi
-# enable inline comments
-setopt interactivecomments
-# syntax highlighting
-# https://github.com/zsh-users/zsh-syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-source ~/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-# full text editor editing of the command
-autoload edit-command-line && zle -N edit-command-line
-bindkey -M viins "^V" edit-command-line
-bindkey -M vicmd "^V" edit-command-line
 
 # {{{1 Looks
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
