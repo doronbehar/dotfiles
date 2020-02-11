@@ -850,6 +850,9 @@
       gandi ""
     )
     local account_inbox account_name message messsage_prefix files
+    if [ ! -d ~/.local/share/mail ]; then
+      return
+    fi
     for account_inbox in ~/.local/share/mail/*/INBOX; do
       files=( "$account_inbox"/new/*(N) )
       if ((${#files[@]})) then
