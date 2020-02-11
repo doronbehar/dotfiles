@@ -11,6 +11,10 @@ systemctl --user import-environment DISPLAY XAUTHORITY
 if command -v dbus-update-activation-environment >/dev/null 2>&1; then
 	dbus-update-activation-environment --all --systemd --verbose
 fi
+# This service can only be started after the environment is set with the above
+# commands
+systemctl --user restart mbsync-manager.service
+
 if [[ -f "$HOME/.local/share/xorg/${DISPLAY}" ]]; then
 	source "$HOME/.local/share/xorg/${DISPLAY}"
 fi
