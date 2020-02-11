@@ -8,6 +8,11 @@ if _command_exists gopass; then
 	alias pass=gopass
 fi
 
+# {{{1 replace classic 'cal' command with that of khal
+if _command_exists khal; then
+	alias cal='khal --color calendar | head -25'
+fi
+
 # {{{1 rclone workaround for https://github.com/ncw/rclone/issues/2894
 if _command_exists rclone; then
 	alias rclone='rclone --exclude-if-present .rclone-ignore'
