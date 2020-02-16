@@ -3,9 +3,11 @@ if ! _command_exists wego; then
 fi
 
 # {{{1 `wego` wrapper that uses api key from gopass
-wego(){
-	command wego -owm-api-key "$(gopass show -f api/openweathermap)"
-}
+if _command_exists gopass || _command_exists secret-tool; then
+	wego(){
+		command wego -owm-api-key "$(secret-tool lookup wego owm-api-key 2>/dev/null || gopass show -f api/openweathermap)"
+	}
+fi
 
 # {{{1 `wegol` wego location updater - for caching purposes
 wegol(){
