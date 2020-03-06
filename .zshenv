@@ -64,7 +64,7 @@ fi
 export VISUAL="$EDITOR"
 
 # - {{{1 FZF
-export FZF_DEFAULT_OPTS="--history=/home/doron/.local/share/fzf/history"
+export FZF_DEFAULT_OPTS="--history=$HOME/.local/share/fzf/history"
 
 # - {{{1 Luarocks paths
 if [[ -z "${LUA_VERSION+1}" ]] && _command_exists luarocks; then
