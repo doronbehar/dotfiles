@@ -24,6 +24,8 @@ fpath(){
 	printf '$s\n' "${fpath[@]}"
 }
 autoload -Uz compinit && compinit -D
+# Fix a completion collision between devtodo and todo
+compdef _todo todo
 # zstyle
 # the names of the completer functions to use
 zstyle ':completion:*' completer _expand _complete _correct _approximate
