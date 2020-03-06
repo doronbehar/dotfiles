@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 NET_CONNECTION="$1"
 
@@ -32,12 +32,20 @@ get_ipv4_mask(){
 }
 
 get_wifi_network(){
-	connmanctl services | awk '{
-		if ($0 ~ /\*/) {
-			print $2
-			exit
-		}
-	}'
+	case "$CURRENT_HOST" in
+		NUX)
+			connmanctl services | awk '{
+				if ($0 ~ /\*/) {
+					print $2
+					exit
+				}
+			}'
+			;;
+		ARCHPI)
+			# Archpi is always at home
+			echo "Behar"
+			;;
+	esac
 }
 
 case "$CURRENT_HOST" in
