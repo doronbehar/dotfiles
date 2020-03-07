@@ -196,7 +196,11 @@ bindkey -M viins "^Y" fzf-complete-git-changed-files
 
 # {{{1 Looks
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.p10k.zsh
+if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+else
+  [[ ! -f ~/.p10k.ascii.zsh ]] || source ~/.p10k.ascii.zsh
+fi
 
 # {{{1 Enable tracing a specific function
 if [ -n "${TRACE_FUNC}" ]; then
