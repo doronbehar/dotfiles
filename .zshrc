@@ -196,7 +196,9 @@ bindkey -M viins "^Y" fzf-complete-git-changed-files
 
 # {{{1 Looks
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
+# If SSH_TMUX_ATTACH is set, then we are sshing from the main home computer.
+# If TERM_NO_ICONS_FONT is set, we have made 
+if [ -n $SSH_TMUX_ATTACH ] || zmodload zsh/terminfo && (( terminfo[colors] >= 256 )) && [ -z $TERM_NO_ICONS_FONT ]; then
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 else
   [[ ! -f ~/.p10k.ascii.zsh ]] || source ~/.p10k.ascii.zsh
