@@ -13,6 +13,18 @@ if _command_exists khal; then
 	alias cal='khal --color calendar | head -25'
 fi
 
+# {{{1 nautilus
+if _command_exists nautilus; then
+	alias nau='nautilus'
+	# nautilus here
+	alias nauh='nautilus .'
+fi
+
+# {{{1 `maims` for quick selection screenshots
+if _command_exists maim; then
+	alias maims='maim --format=png -s -c 1,0,0.6'
+fi
+
 # {{{1 rclone workaround for https://github.com/ncw/rclone/issues/2894
 if _command_exists rclone; then
 	alias rclone='rclone --exclude-if-present .rclone-ignore'
