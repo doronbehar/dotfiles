@@ -163,3 +163,6 @@
 [submodule ".zsh/powerlevel10k"]
 	path = .zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
+[submodule ".config/pistol"]
+	path = .config/pistol
+	url = gh:doronbehar/.config_pistol
