@@ -45,7 +45,7 @@ _fzf_complete_path() {
 			local opts=("${path_prefix}"*(N))
 			local opt
 			for opt in "${opts[@]}"; do
-				if [[ -d "${opt}" ]]; then
+				if [[ -d "${opt}" ]] && ! [[ -h ${opt} ]]; then
 					real_opts+=("${opt}/")
 				else
 					real_opts+=("${opt}")
