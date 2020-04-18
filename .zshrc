@@ -197,21 +197,22 @@ bindkey -M viins "^Y" fzf-complete-git-changed-files
 # {{{1 Looks
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 # If SSH_TMUX_ATTACH is set, then we are sshing from the main home computer.
-# If TERM_NO_ICONS_FONT is set, we have made 
+# If TERM_NO_ICONS_FONT is set, we have made
 # if [ -n $SSH_TMUX_ATTACH ] || zmodload zsh/terminfo && (( terminfo[colors] >= 256 )) && [ -z $TERM_NO_ICONS_FONT ]; then
 zmodload zsh/terminfo
 (){
-  if [ ! -z "$SSH_TMUX_ATTACH" ]; then
-    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-    return
-  fi
-  if (( terminfo[colors] >= 256 )); then
-    if [ -z $TERM_NO_ICONS_FONT ]; then
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-      return
-    fi
-  fi
-  [[ ! -f ~/.p10k.ascii.zsh ]] || source ~/.p10k.ascii.zsh
+	if [ ! -z "$SSH_TMUX_ATTACH" ]; then
+		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+		return
+	fi
+	if (( terminfo[colors] >= 256 )); then
+		# TELEPORT_SESSION is for teleconsole (https://www.teleconsole.com/)
+		if [[ -z "$TERM_NO_ICONS_FONT" ]] && [[ -z "$TELEPORT_SESSION" ]]; then
+			[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+			return
+		fi
+	fi
+	[[ ! -f ~/.p10k.ascii.zsh ]] || source ~/.p10k.ascii.zsh
 }
 
 # {{{1 Enable tracing a specific function
