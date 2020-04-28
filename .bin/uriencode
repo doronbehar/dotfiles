@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# uriencode with fallback implementions, see:
+# https://stackoverflow.com/questions/296536/how-to-urlencode-data-for-curl-command
+
+# https://stackoverflow.com/a/11111040/4935114
+if type ruby &> /dev/null; then
+	ruby -r cgi -e 'puts CGI.escape(ARGV[0])' "$@"
+	exit
+fi
+
+# https://stackoverflow.com/a/20653858/4935114
+# if type ruby &> /dev/null; then
+# fi
+
+echo no suitable command was found to encode. Tested: >&2
+echo - ruby >&2
+# echo - node >&2
+# echo - php >&2
+# echo - perl possibly found but without needed modules >&2
+exit 2
