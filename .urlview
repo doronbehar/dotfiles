@@ -1,1 +1,1 @@
-COMMAND xdg-open
+COMMAND gio open

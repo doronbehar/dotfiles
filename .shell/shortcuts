@@ -41,8 +41,8 @@ elif _command_exists xclip; then
 fi
 
 # {{{1 xdg-open
-if _command_exists rifle; then
-	alias o='rifle'
+if _command_exists gio; then
+	alias o='gio open'
 elif _command_exists xdg-open; then
 	alias o='xdg-open'
 fi
