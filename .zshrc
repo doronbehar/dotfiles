@@ -5,6 +5,9 @@
 setopt GLOB_DOTS
 # allow more sophisticated glob patterns
 setopt EXTENDEDGLOB
+# allow ?, ~ and = to be used even if unmatched -
+# http://zsh.sourceforge.net/Doc/Release/Options.html#index-NOMATCH
+setopt nonomatch
 
 # {{{ Completions
 if [[ -d ~/.zsh/comp/local ]]; then
