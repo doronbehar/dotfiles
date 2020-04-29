@@ -90,6 +90,12 @@ setopt HIST_REDUCE_BLANKS
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE="$HOME/.local/share/zsh/history"
+# Ignore hsub history substituter
+export HISTORY_IGNORE="hsub"
+function zshaddhistory() {
+	emulate -L zsh
+	! [[ "$1" =~ "${HISTORY_IGNORE}" ]]
+}
 
 # {{{1 ZLE
 # automatically escape URLs

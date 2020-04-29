@@ -90,13 +90,40 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | fzf --layout=reverse --header="${header}" --query="${query}" -m --preview="${preview}" | __fzf_history-appender)"})
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | \
+		fzf --layout=reverse \
+			--header="${header}" \
+			--query="${query}" \
+			-m --preview="${preview}" | \
+			__fzf_history-appender)"} \
+	)
 	if [ -z "$matches" ]; then
 		echo "$prefix"
 		return 0
 	fi
 	echo ${(@q)matches}
 	return 0
+}
+
+# hsub :  a sed -e helper for any command from history
+_fzf_complete_hsub() {
+	local selected num
+	setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+	selected=($(fc -rl 1 | fzf +m \
+		--height "40%" \
+		-n2..,.. \
+		--tiebreak=index \
+		--bind=ctrl-r:toggle-sort \
+		--query="${LBUFFER}" \
+	))
+	local ret=$?
+	if [ -n "$selected" ]; then
+		num=$selected[1]
+		if [ -n "$num" ]; then
+			echo $num
+		fi
+	fi
+	return $ret
 }
 
 # gopass and pass passwords

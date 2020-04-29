@@ -59,4 +59,32 @@ mkcd(){
 	mkdir -p "$1" && cd "$1"
 }
 
+# {{{1 sed -e for any command from history
+hsub(){
+	local hist_index="$1"
+	if [ -z "$hist_index" ]; then
+		echo USAGE: hsub "<index>" "<sed filter>" >&2
+		return 1
+	fi
+	shift
+	local cmd_full="$(fc -l "$hist_index" "$hist_index")"
+	if [ -z "$cmd_full" ]; then
+		return 1
+	fi
+	local index
+	IFS=" " read index cmd <<< "$cmd_full"
+	if [ -z "$@" ]; then
+		echo $((hist_index - 1)): $cmd
+		return
+	fi
+	local cmd_file="$(mktemp -u -t hsub-cmd.XXXX)"
+	echo We are going to run:
+	echo =======
+	echo $cmd | sed "$@" | tee "$cmd_file"
+	echo =======
+	echo "Are you sure it's OK?"
+	read
+	source "$cmd_file"
+}
+
 # vim: ft=zsh
