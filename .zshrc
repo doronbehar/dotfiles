@@ -19,6 +19,9 @@ fi
 if [[ -d ~/.zsh/comp/tested ]]; then
 	fpath=(~/.zsh/comp/tested $fpath)
 fi
+if [[ -d ~/.zsh/comp/community/src ]]; then
+	fpath=(~/.zsh/comp/community/src $fpath)
+fi
 # GUIX completion
 if [ ! -z "${GUIX_ENABLE+1}" ]; then
 	fpath=(~/.config/guix/current/share/zsh/site-functions $fpath)
