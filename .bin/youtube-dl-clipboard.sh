@@ -26,6 +26,7 @@ xsel -ob | \
 	location_dir="$(dirname "$where_to_save")"
 	mkdir -p ~/.cache/youtube-dl-clipboard
 	echo "$location_dir" > ~/.cache/youtube-dl-clipboard/last_save_dir
+	rm -f "$where_to_save"
 	youtube-dl --output="$where_to_save" "$url"
 	if zenity --question --text="Would you like to play the file now?"; then
 		if type gio &> /dev/null; then
