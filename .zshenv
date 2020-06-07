@@ -73,8 +73,8 @@ export FZF_DEFAULT_OPTS="--history=$HOME/.local/share/fzf/history"
 if [[ -z "${LUA_VERSION+1}" ]] && _command_exists luarocks; then
 	eval $(luarocks path --no-bin)
 	LUA_VERSION=$(lua -e "print(_VERSION:gsub('Lua ', ''):sub(1))")
-	LUA_PATH="${LUA_PATH};/run/current-system/sw/share/lua/${LUA_VERSION}/?/init.lua;/run/current-system/sw/share/lua/${LUA_VERSION}/?.lua;${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?/init.lua;${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?.lua;${HOME}/.luarocks/share/lua/5.3/?/init.lua;${HOME}/.luarocks/share/lua/5.3/?.lua"
-	LUA_CPATH="${LUA_CPATH};/run/current-system/sw/lib/lua/${LUA_VERSION}/?.so;${HOME}/.nix-profile/lib/lua/${LUA_VERSION}/?.so"
+	LUA_PATH="${LUA_PATH};${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?/init.lua;${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?.lua;${HOME}/.luarocks/share/lua/5.3/?/init.lua;${HOME}/.luarocks/share/lua/5.3/?.lua"
+	LUA_CPATH="${LUA_CPATH};${HOME}/.nix-profile/lib/lua/${LUA_VERSION}/?.so"
 fi
 
 # - {{{1 GnuPG
