@@ -46,17 +46,26 @@ elif _command_exists xdg-open; then
 	alias o='xdg-open'
 fi
 
-# {{{1 visual/editor with GhostStart for quick launch
-alias gvi="${VISUAL} +GhostStart"
-
-# {{{1 visual/editor with Pad plugin for quick launch
-alias pad="${VISUAL} +Pad\ new"
+# {{{1 visual/editor related
+# THE shortcut
 alias v="${VISUAL}"
+# GhostStart for quick launch
+alias gvi="${VISUAL} +GhostStart"
+# Start a note at NOTE_DIR (set in ~/.files.private)
+pad() {
+    ${VISUAL} "${NOTE_DIR}/$(date +%Y-%m-%d_%H.%S).txt"
+}
+
 
 # {{{1 `mkcd` mkdir and cd to it afterwards
 mkcd(){
 	mkdir -p "$1" && cd "$1"
 }
+
+# {{{1 `oct` - for GNU Octave
+if _command_exists octave; then
+    alias oct=octave
+fi
 
 # {{{1 sed -e for any command from history
 hsub(){
