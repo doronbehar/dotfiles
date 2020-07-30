@@ -90,6 +90,10 @@ URxvt*font:\
 	xft:Symbola:size=10,
 !! }}}
 
+!! {{{ icons for rxvt (usually?) See https://bbs.archlinux.org/viewtopic.php?id=63197
+URxvt*iconFile: /run/current-system/sw/share/icons/hicolor/scalable/apps/org.gnome.Terminal.svg
+!! }}}
+
 !! {{{ Colors
 URxvt*scrollBar:false
 URxvt*saveLines:65535
