@@ -165,7 +165,7 @@
 	url = https://github.com/romkatv/powerlevel10k
 [submodule ".config/pistol"]
 	path = .config/pistol
-	url = gh:doronbehar/.config_pistol
+	url = https://github.com/doronbehar/.config_pistol
 [submodule ".mozilla/native-messaging-hosts"]
 	path = .mozilla/native-messaging-hosts
 	url = https://github.com/doronbehar/.mozilla_native-messaging-hosts
