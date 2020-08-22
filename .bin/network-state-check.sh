@@ -45,11 +45,14 @@ get_wifi_network(){
 			# Archpi is always at home
 			echo "Behar"
 			;;
+		ZENIX)
+			iwctl station wlan0 get-networks | grep -o Behar
+			;;
 	esac
 }
 
 case "$CURRENT_HOST" in
-	NUX|ARCHPI)
+	NUX|ARCHPI|ZENIX)
 		if [[ "$NET_CONNECTION" == "home" ]]; then
 			[[ "$(get_wifi_network)" == "Behar" ]] || [[ "$(get_wifi_network)" == "Wired" ]]
 			exit $?
