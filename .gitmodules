@@ -166,3 +166,6 @@
 [submodule ".config/pistol"]
 	path = .config/pistol
 	url = gh:doronbehar/.config_pistol
+[submodule ".mozilla/native-messaging-hosts"]
+	path = .mozilla/native-messaging-hosts
+	url = https://github.com/doronbehar/.mozilla_native-messaging-hosts
