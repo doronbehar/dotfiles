@@ -18,12 +18,12 @@ SubFolders Verbatim
 Channel gmail
 Master :gmail-remote:
 Slave :gmail-local:
-Patterns *
-# Automatically create missing mailboxes, both locally and on the server
-Create Both
-# Save the synchronization state files in the relevant directory
-SyncState *
-Expunge Slave
+Patterns Lists/*
+Patterns [Gmail]/Trash
+Patterns INBOX
+Patterns Keep
+Patterns [Gmail]/Sent*
+Patterns [Gmail]/Drafts
 
 IMAPAccount gandi
 Host mail.gandi.net
@@ -45,7 +45,11 @@ SubFolders Verbatim
 Channel gandi
 Master :gandi-remote:
 Slave :gandi-local:
-Patterns *
+Patterns INBOX
+Patterns Sent
+Patterns Drafts
+Patterns Trash
+Patterns Archive
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
 # Save the synchronization state files in the relevant directory
@@ -72,7 +76,11 @@ SubFolders Verbatim
 Channel technion
 Master :technion-remote:
 Slave :technion-local:
-Patterns *
+Patterns INBOX
+Patterns Sent*
+Patterns Drafts
+Patterns Trash
+Patterns Archive
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
 # Save the synchronization state files in the relevant directory
