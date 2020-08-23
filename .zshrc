@@ -8,6 +8,8 @@ setopt EXTENDEDGLOB
 # allow ?, ~ and = to be used even if unmatched -
 # http://zsh.sourceforge.net/Doc/Release/Options.html#index-NOMATCH
 setopt nonomatch
+# Only an interactive shell should have this enabled
+export PINENTRY_USER_DATA=tty
 
 # {{{ Completions
 if [[ -d ~/.zsh/comp/local ]]; then

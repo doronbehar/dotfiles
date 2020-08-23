@@ -77,9 +77,6 @@ if [[ -z "${LUA_VERSION+1}" ]] && _command_exists luarocks; then
 	LUA_CPATH="${LUA_CPATH};/run/current-system/sw/lib/lua/${LUA_VERSION}/?.so;${HOME}/.nix-profile/lib/lua/${LUA_VERSION}/?.so"
 fi
 
-# - {{{1 GnuPG
-export PINENTRY_USER_DATA=tty
-
 # - {{{1 local environmental variables
 if [[ -f "$HOME/.local/share/zsh/env/${TERM}" ]]; then
 	source "$HOME/.local/share/zsh/env/${TERM}"
