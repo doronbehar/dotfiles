@@ -19,19 +19,6 @@ insert2PATH(){
 
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
-insert2PATH "$HOME/.luarocks/bin"
-insert2PATH "$HOME/.perl5/bin"
-insert2PATH "$HOME/.yarn/bin"
-insert2PATH "$HOME/.cargo/bin"
-insert2PATH "$HOME/.config/yarn/global/node_modules/.bin"
-
-# - {{{1 Guix
-if [[ ! -z "${GUIX_ENABLE+1}" && ! "$PATH" =~ "guix" ]]; then
-	for i in ~/.guix-profile ~/.config/guix/current ; do
-		GUIX_PROFILE="$i"
-		. "$i"/etc/profile
-	done
-fi
 
 # {{{1 `_command_exists`: Show if a command exists
 # Taken from http://stackoverflow.com/a/592649/4935114
@@ -69,24 +56,7 @@ export VISUAL="$EDITOR"
 # - {{{1 FZF
 export FZF_DEFAULT_OPTS="--history=$HOME/.local/share/fzf/history"
 
-# - {{{1 Luarocks paths
-if [[ -z "${LUA_VERSION+1}" ]] && _command_exists luarocks; then
-	eval $(luarocks path --no-bin)
-	LUA_VERSION=$(lua -e "print(_VERSION:gsub('Lua ', ''):sub(1))")
-	LUA_PATH="${LUA_PATH};/run/current-system/sw/share/lua/${LUA_VERSION}/?/init.lua;/run/current-system/sw/share/lua/${LUA_VERSION}/?.lua;${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?/init.lua;${HOME}/.nix-profile/share/lua/${LUA_VERSION}/?.lua;${HOME}/.luarocks/share/lua/5.3/?/init.lua;${HOME}/.luarocks/share/lua/5.3/?.lua"
-	LUA_CPATH="${LUA_CPATH};/run/current-system/sw/lib/lua/${LUA_VERSION}/?.so;${HOME}/.nix-profile/lib/lua/${LUA_VERSION}/?.so"
-fi
-
 # - {{{1 local environmental variables
-if [[ -f "$HOME/.local/share/zsh/env/${TERM}" ]]; then
-	source "$HOME/.local/share/zsh/env/${TERM}"
-fi
-if [[ -f "$HOME/.local/share/zsh/env/${VENDOR}" ]]; then
-	source "$HOME/.local/share/zsh/env/${VENDOR}"
-fi
-if [[ -f "$HOME/.local/share/zsh/env/${OSTYPE}" ]]; then
-	source "$HOME/.local/share/zsh/env/${OSTYPE}"
-fi
 if [[ -f "$HOME/.local/share/zsh/env/${HOST}" ]]; then
 	source "$HOME/.local/share/zsh/env/${HOST}"
 fi
