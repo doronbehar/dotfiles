@@ -113,7 +113,7 @@ if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 fi
 # sync with system clipboard, only if programs available
 # https://github.com/kutsan/zsh-system-clipboard
-if _command_exists xclip || _command_exists xsel; then
+if _command_exists xclip || _command_exists xsel || _command_exists wl-copy; then
 	export ZSH_SYSTEM_CLIPBOARD_DISABLE_DEFAULT_MAPS=1
 	source ~/.zsh/zle/system-clipboard/zsh-system-clipboard.zsh
 	function () {
