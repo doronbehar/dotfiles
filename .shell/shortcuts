@@ -54,7 +54,7 @@ alias v="${VISUAL}"
 alias gvi="${VISUAL} +GhostStart"
 # Start a note at NOTE_DIR (set in ~/.files.private)
 pad() {
-    ${VISUAL} "${NOTE_DIR}/$(date +%Y-%m-%d_%H.%S).txt"
+	${VISUAL} "${NOTE_DIR}/$(date +%Y-%m-%d_%H.%S).txt"
 }
 
 
@@ -65,7 +65,7 @@ mkcd(){
 
 # {{{1 `oct` - for GNU Octave
 if _command_exists octave; then
-    alias oct=octave
+	alias oct=octave
 fi
 
 # {{{1 sed -e for any command from history
