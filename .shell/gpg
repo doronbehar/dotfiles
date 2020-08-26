@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if ! _command_exists gpg; then
+	return
+fi
+
+# Control what pinentry program is going to be used, using the wrapper at ~/.bin/pinentry
+if tty -s; then
+	if _command_exists pinentry-curses; then
+		PINENTRY_USER_DATA="curses"
+	elif _command_exists pinentry-tty; then
+		PINENTRY_USER_DATA="tty"
+	else
+		cat > ~/pinentry.log << EOF
+.zshenv: WARNING: Not sure what PINENTRY_USER_DATA to set - tty is interactive,
+but pinentry-tty and pinentry-curses commands were not found. Using system's
+defaut: $(where pinentry)
+EOF
+		PINENTRY_USER_DATA=""
+	fi
+fi
