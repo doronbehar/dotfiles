@@ -14,6 +14,7 @@ Path ~/.local/share/mail/gmail/
 Inbox ~/.local/share/mail/gmail/INBOX
 Trash [Gmail]/Trash
 SubFolders Verbatim
+MaxSize 5M
 
 Channel gmail
 Master :gmail-remote:
@@ -24,6 +25,10 @@ Patterns INBOX
 Patterns Keep
 Patterns [Gmail]/Sent*
 Patterns [Gmail]/Drafts
+Expunge Slave
+# to make it suitable for mailing lists
+MaxMessages 180
+ExpireUnread yes
 
 IMAPAccount gandi
 Host mail.gandi.net
