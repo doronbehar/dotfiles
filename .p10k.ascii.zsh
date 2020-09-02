@@ -1433,6 +1433,9 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_emails() {
+    if [ ! -d ~/.local/share/mail ]; then
+      return
+    fi
     maildirs=()
     if [[ -z "${DISPLAY}" ]]; then
       maildirs=(~/.local/share/mail/*/INBOX)
@@ -1446,9 +1449,6 @@
       mentions "Mentions"
     )
     local account_inbox account_name message messsage_prefix files
-    if [ ! -d ~/.local/share/mail ]; then
-      return
-    fi
     for account_inbox in "${maildirs[@]}"; do
       files=( "$account_inbox"/new/*(N) )
       if ((${#files[@]})) then
