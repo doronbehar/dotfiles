@@ -10,10 +10,18 @@ __fzf_history-appender(){
 		fi
 	done
 }
+# A pipe that does nothing besides echoing stdin - equivallent cat
+__fzf_cat(){
+	local p
+	while read p; do
+		echo "$p"
+	done
+}
 
 # create a simpler and lighter directory fzf completion
 _fzf_complete_path() {
 	local lbuf="$1"
+	local cmd=${lbuf%% *}
 	local prefix="$2"
 	# Mode of operation: See anonymous function in .zsh/zle/fzf
 	local mode="$3"
@@ -31,7 +39,7 @@ _fzf_complete_path() {
 	local query="${prefix//*\//}"
 	# setting default options which may change in the following case structure
 	local real_opts=("$path_prefix")
-	local preview="pistol {}"
+	local preview="--preview=pistol {}"
 	local header
 	case "$mode" in
 		"directories")
@@ -60,7 +68,7 @@ _fzf_complete_path() {
 			fi
 			if [[ "$mode" == "git-changed-files" ]]; then
 				real_opts=(${(f)"$(git status --short --no-renames | sed -n -e '/^D /d' -e 's/\(??\| [MD]\|[MA] \) \(.*\)/\2/p')"})
-				preview='git diff --color=always -- {} | grep . || git diff --color=always -- /dev/null {} 2>/dev/null'
+				preview="--preview=git diff --color=always -- {} | grep . || git diff --color=always -- /dev/null {} 2>/dev/null"
 				header="All Files Git Modified"
 			elif [[ "$mode" == "git-all-files" ]]; then
 				if [[ "$lbuf" == "cd " ]]; then
@@ -94,7 +102,7 @@ _fzf_complete_path() {
 		fzf --layout=reverse \
 			--header="${header}" \
 			--query="${query}" \
-			-m --preview="${preview}" | \
+			-m ${preview} | \
 			__fzf_history-appender)"} \
 	)
 	if [ -z "$matches" ]; then
