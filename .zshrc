@@ -193,8 +193,9 @@ autoload edit-command-line && zle -N edit-command-line
 bindkey -M viins "^V" edit-command-line
 bindkey -M vicmd "^V" edit-command-line
 # fzf completions
-bindkey -M viins "^F" fzf-complete
+bindkey -M viins "^F" fzf-complete-generic
 bindkey -M viins "^D" fzf-complete-directories
+bindkey -M viins "^G" fzf-complete-files
 bindkey -M viins "^ " fzf-complete-macro
 bindkey -M viins "^Z" fzf-complete-history-commands
 bindkey -M vicmd "^A" fzf-complete-history-words
