@@ -180,7 +180,7 @@ _fzf_complete_kill() {
 		line_parts=(${(s: :)match_line})
 		pids+=(${line_parts[2]})
 	done
-	echo "${pids[@]}"
+	echo ${pids[@]}
 }
 _fzf_complete_grepenv() {
 	_fzf_complete_kill
