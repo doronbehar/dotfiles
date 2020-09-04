@@ -280,15 +280,4 @@ _fzf_complete_t(){
 	_fzf_complete_task "$@"
 }
 
-# sms
-_fzf_complete_sms(){
-	local lbuf="$1"
-	local prefix="$2"
-	local phone_number phone_type
-	local match=$(command khard phone --parsable | fzf --query="${prefix}" | while IFS=$'\t' read phone_number contact_name phone_type; do
-		echo $phone_number
-	done)
-	echo "$match"
-}
-
 # vim:ft=zsh
