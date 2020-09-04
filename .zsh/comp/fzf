@@ -41,6 +41,7 @@ _fzf_complete_path() {
 	local real_opts=("$path_prefix")
 	local preview="--preview=pistol {}"
 	local header
+	local history_appender=__fzf_cat
 	case "$mode" in
 		"directories")
 			local opts=("${path_prefix}"*(-/N))
@@ -92,6 +93,7 @@ _fzf_complete_path() {
 			# Add files from our history file
 			real_opts+=(${(f)"$(< ~/.zsh-fzf-path-completion-history)"})
 			header="All Files Ever Edited or Matched by fzf"
+			history_appender=__fzf_history-appender
 			;;
 	esac
 	if [ -z "$real_opts" ]; then
@@ -103,7 +105,7 @@ _fzf_complete_path() {
 			--header="${header}" \
 			--query="${query}" \
 			-m ${preview} | \
-			__fzf_history-appender)"} \
+			$history_appender)"} \
 	)
 	if [ -z "$matches" ]; then
 		echo "$prefix"
