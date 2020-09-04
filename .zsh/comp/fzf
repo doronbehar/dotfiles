@@ -242,18 +242,6 @@ function (){
 	done
 }
 
-# man pages
-_fzf_complete_man(){
-	local lbuf="$1"
-	local prefix="$2"
-	local name section dash description
-	local matches=($(man -k . | fzf -m --query="${prefix}" | while read -r name section dash description; do
-		echo "-s${${section#\(}%\)} $name"
-	done))
-	[ -z "$matches" ] && return 1
-	echo "${matches[@]}"
-}
-
 # taskwarrior
 _fzf_complete_task(){
 	local lbuf="$1"
