@@ -43,6 +43,17 @@ _fzf_complete_path() {
 	local header
 	local history_appender=__fzf_cat
 	case "$mode" in
+		"generic")
+			local real_opts=(${(f)"$(capture.zsh "$lbuf $prefix")"//$'\r'/})
+			case "$cmd" in
+				git)
+					preview="--preview=git show --color {1}"
+					;;
+				*)
+					preview=
+					;;
+			esac
+			;;
 		"directories")
 			local opts=("${path_prefix}"*(-/N))
 			if [ ! -z "$opts" ]; then
@@ -111,7 +122,7 @@ _fzf_complete_path() {
 		echo "$prefix"
 		return 0
 	fi
-	echo ${(@q)matches}
+	echo ${(@q)matches%% -- *}
 	return 0
 }
 

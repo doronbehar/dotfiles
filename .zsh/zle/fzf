@@ -9,7 +9,7 @@ zle -N fzf-complete-history-commands
 
 # fzf-completion widget
 fzf-complete() {
-	local mode="${1:-files}"
+	local mode="${1:-generic}"
 	local tokens cmd prefix trigger tail lbuf
 	setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
 	# http://zsh.sourceforge.net/FAQ/zshfaq03.html
@@ -56,11 +56,10 @@ fzf-complete() {
 		zle reset-prompt
 	fi
 }
-zle -N fzf-complete
 
 function(){
 	local mode
-	for mode in files directories macro history-{paths,words} git-all-files git-changed-files; do
+	for mode in generic files directories macro history-{paths,words} git-all-files git-changed-files; do
 		eval "fzf-complete-$mode(){ fzf-complete $mode; }; zle -N fzf-complete-$mode"
 	done
 }
