@@ -29,6 +29,7 @@ Expunge Slave
 # to make it suitable for mailing lists
 MaxMessages 180
 ExpireUnread yes
+Create Both
 
 IMAPAccount gandi
 Host mail.gandi.net
