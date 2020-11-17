@@ -82,7 +82,7 @@ hsub(){
 	fi
 	local index
 	IFS=" " read index cmd <<< "$cmd_full"
-	if [ -z "$@" ]; then
+	if [[ -z "$@" ]]; then
 		echo $((hist_index - 1)): $cmd
 		return
 	fi
