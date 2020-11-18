@@ -71,42 +71,59 @@ _chpwd_set_task_context(){
 	fi
 }
 
+zmodload zsh/system
+zmodload -F zsh/stat b:zstat
+
 function _chpwd_task_contexts_parser() {
-	local line name directories dir last_dir
-	_chpwd_taskwarrior_context=""
-	while IFS="$DEFAULT_IFS" read line; do
-		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# /" ]]; then
-			continue
-		fi
-		name="${${line#context.}%%=*}"
-		directories=(${(z)line#*\# })
-		_chpwd_taskwarrior_context_options=()
-		_chpwd_taskwarrior_parent_dirs=()
-		local found_context=0
-		last_dir="${directories[-1]}"
-		if [[ "${last_dir}" =~ "^options:" ]]; then
-			_chpwd_taskwarrior_context_options=(${(@s:,:)last_dir#options:})
-		fi
-		for dir in "${directories[@]}"; do
-			if [[ -d "$dir" ]]; then
-				_chpwd_taskwarrior_parent_dirs+=("$dir")
+	emulate -L zsh -o extended_glob -o no_unset -o warn_create_global -o warn_nested_var
+
+	local -H stat
+	zstat -H stat -- $1 || return
+	local sig="$stat[inode] $stat[mtime] $stat[size]"
+
+	if [[ $sig != ${_chpwd_taskwarrior_cached_sig-} ]]; then
+		# Context file has changed. Parse it into _chpwd_taskwarrior_cached_{name,dirs,opts}.
+		() {
+			local buf
+			local -i err
+			local -a match mbegin mend
+			while :; do
+				sysread 'buf[$#buf+1]'
+				err=$?
+				if (( err == 5 )); then
+					buf+=$'\n'  # EOF
+				elif (( err )); then
+					return err
+				fi
+				[[ $buf == (#b)*$'\n'context.([a-zA-Z0-9._-]##)=[^#]#'# '(/[^$'\n']#)$'\n'* ]] && break
+				(( err == 5 )) && break  # EOF
+				buf=${buf##*$'\n'}
+			done < $1
+			typeset -g _chpwd_taskwarrior_cached_name=${match[1]-}
+			# Note: (z) without (Q) on the next line is likely a bug.
+			typeset -ga _chpwd_taskwarrior_cached_dirs=(${(z)match[2]-})
+			if [[ ${_chpwd_taskwarrior_cached_dirs[-1]-} == options:* ]]; then
+				typeset -ga _chpwd_taskwarrior_cached_opts=(
+						${(s:,:)_chpwd_taskwarrior_cached_dirs[-1]#options:})
+				_chpwd_taskwarrior_cached_dirs[-1]=()
 			fi
-			if [[ "$PWD" =~ "$dir" ]]; then
-				_chpwd_taskwarrior_context="$name"
-				found_context=1
-			fi
-		done
-		if (( $found_context )); then
-			break
-		fi
-	done < "$1"
-	if [[ -z "${_chpwd_taskwarrior_context}" ]]; then
-		unset _chpwd_taskwarrior_context_options 
-		unset _chpwd_taskwarrior_parent_dirs
-		if [[ "${NETWORK_NAME}" =~ "Home" ]]; then
-			_chpwd_taskwarrior_context=home
+		} $1 || return
+		typeset -g _chpwd_taskwarrior_cached_sig=$sig
+	fi
+
+	# Set _chpwd_taskwarrior_{context,parent_dirs,context_options} based
+	# on _chpwd_taskwarrior_cached_{name,dirs,opts}.
+	local dirs=(${^_chpwd_taskwarrior_cached_dirs}(-/N))
+	if (( $#dirs )) && [[ $PWD/ == (${~${(j:|:)${(b)dirs}}})/* ]]; then
+		typeset -g _chpwd_taskwarrior_context=$_chpwd_taskwarrior_cached_name
+		typeset -ga _chpwd_taskwarrior_parent_dirs=($dirs)
+		typeset -ga _chpwd_taskwarrior_context_options=($_chpwd_taskwarrior_cached_opts)
+	else
+		unset _chpwd_taskwarrior_parent_dirs _chpwd_taskwarrior_context_options
+		if [[ ${NETWORK_NAME-} == *Home* ]]; then
+			typeset -g _chpwd_taskwarrior_context=home
 		else
-			_chpwd_taskwarrior_context=default
+			typeset -g _chpwd_taskwarrior_context=default
 		fi
 	fi
 }
