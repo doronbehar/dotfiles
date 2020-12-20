@@ -32,10 +32,16 @@ fi
 if _command_exists xsel; then
 	alias cxsel='xsel -b'
 	alias pxsel='xsel -p'
+	# Main aliases
+	alias wlc='xsel -b'
+	alias wlp='xsel -p'
 elif _command_exists xclip; then
 	alias cxclip="xclip -selection clipboard"
 	alias pxclip="xclip -selection primary"
-elif _command_exists wl-copy; then
+	# Main aliases
+	alias wlc="xclip -selection clipboard"
+	alias wlp="xclip -selection primary"
+elif _command_exists wl-copy && [[ -z "$DISPLAY" ]]; then
 	alias wlc=wl-copy
 	alias wlp=wl-paste
 fi
