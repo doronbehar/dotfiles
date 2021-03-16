@@ -7,7 +7,17 @@
 
 case $PINENTRY_USER_DATA in
 	"")
-		exec pinentry-tty "$@"
+		case "$XDG_SESSION_DESKTOP" in
+			"")
+				exec pinentry-tty "$@"
+				;;
+			gnome*)
+				exec pinentry-gnome3 "$@"
+				;;
+			*)
+				exec pinentry-gtk-2 "$@"
+				;;
+		esac
 		;;
 	curses|emacs|gnome3|gtk-2|qt|tty)
 		exec pinentry-${PINENTRY_USER_DATA} "$@"
