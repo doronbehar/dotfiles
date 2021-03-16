@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# To profile startup
+# zmodload zsh/zprof
+
 # {{{1 Uncategorized
 # Why would I want to exclude hidden files?
 setopt GLOB_DOTS
@@ -246,6 +249,9 @@ done
 
 # Unset i used in the above 3 loops
 unset i
+
+# To profile startup
+#zprof
 
 # {{{1 modeline
 # vim:ft=zsh:foldmethod=marker
