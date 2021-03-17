@@ -2,117 +2,116 @@ if ! _command_exists task; then
 	return
 fi
 
-# `task context` wrapper with support for env variable TCS silencing it.
-function _task_set_context() {
-	if [[ "$_chpwd_taskwarrior_context" == "default" ]] || [[ "$_chpwd_taskwarrior_context" == "home" ]]; then
-		eval 'tm(){task "$@";}'
-	else
-		# I disable the output because this may fail due to:
-		# https://github.com/GothenburgBitFactory/taskwarrior/issues/2219
-		eval "tm(){task $(task _get rc.context."$_chpwd_taskwarrior_context" 2> /dev/null) "'"$@";}'
-	fi
-	eval "t(){task rc.context=$_chpwd_taskwarrior_context "'"$@";}'
-	eval "tfzf(){taskfzf rc.context=$_chpwd_taskwarrior_context "'"$@";}'
+zmodload zsh/system
+zmodload -F zsh/stat b:zstat
+zmodload -F zsh/files b:zf_mv
+
+function t() {
+	emulate -L zsh -o no_unset
+	task rc.context=$_chpwd_taskwarrior_context "$@"
 }
 
-# global variables for this function
-# ==================================
-#
-# This one holds all the directories exactly as written in the contexts file so
-# they could be matched against PWD vs $(pwd -P) and only if no match is found,
-# we update the contexts file with the `readlink` equivalents
-_chpwd_taskwarrior_parent_dirs=()
-# for the current context
-_chpwd_taskwarrior_context=""
-# for the current context options (currently, only 'redirect-link' is read)
-_chpwd_taskwarrior_context_options=()
-# for skipping setting the context when we dive into a recursive cd because of cd $(pwd -P)
-_chpwd_skip_setting_context=0
-_chpwd_set_task_context(){
-	if (( $_chpwd_skip_setting_context )); then
-		_chpwd_skip_setting_context=0
-		return
-	fi
-	_chpwd_task_contexts_parser ~/.local/share/tasks/contexts.txt
-	local realpwd
-	if [[ -h "$PWD" ]]; then
-		realpwd="$(pwd -P)"
-	fi
-	if [[ ! -z "$_chpwd_taskwarrior_context_options" ]]; then
-		local context_opt
-		unset GIT_SEND_MAIL_TO
-		for context_opt in "${_chpwd_taskwarrior_context_options[@]}"; do
-			if [[ "$context_opt" == "redirect-link" && ! -z "$realpwd" ]]; then
-				echo redirect link
-				_chpwd_skip_setting_context=1
-			fi
-			if [[ "$context_opt" =~ "patches_mailing_list=" ]]; then
-				export GIT_SEND_MAIL_TO="${context_opt#patches_mailing_list\=}"
-			fi
-		done
-	fi
-	if [[ -n "$realpwd" ]]; then
-		local roots update_symlink
-		update_symlink=1
-		for root in "${_chpwd_taskwarrior_parent_dirs[@]}"; do
-			if [[ "${realpwd}" =~ "${root}" ]]; then
-				update_symlink=0
-				break
-			fi
-		done
-		if (($update_symlink)); then
-			echo _chpwd_set_task_context: updating symlink in contexts file
-			sed -i -e "s#$PWD#$realpwd $PWD#g" ~/.local/share/tasks/contexts.txt
-		fi
-	fi
-	_task_set_context
-	if (($_chpwd_skip_setting_context)); then
-		cd "$realpwd"
-	fi
+function tfzf() {
+	emulate -L zsh -o no_unset
+	taskfzf rc.context=$_chpwd_taskwarrior_context "$@"
 }
 
-function _chpwd_task_contexts_parser() {
-	local line name directories dir last_dir
-	_chpwd_taskwarrior_context=""
-	while IFS="$DEFAULT_IFS" read line; do
-		if [[ ! "$line" =~ "context\.[-_a-zA-Z0-9\.]*=.*\# /" ]]; then
-			continue
-		fi
-		name="${${line#context.}%%=*}"
-		directories=(${(z)line#*\# })
-		_chpwd_taskwarrior_context_options=()
-		_chpwd_taskwarrior_parent_dirs=()
-		local found_context=0
-		last_dir="${directories[-1]}"
-		if [[ "${last_dir}" =~ "^options:" ]]; then
-			_chpwd_taskwarrior_context_options=(${(@s:,:)last_dir#options:})
-		fi
-		for dir in "${directories[@]}"; do
-			if [[ -d "$dir" ]]; then
-				_chpwd_taskwarrior_parent_dirs+=("$dir")
-			fi
-			if [[ "$PWD" =~ "$dir" ]]; then
-				_chpwd_taskwarrior_context="$name"
-				found_context=1
-			fi
-		done
-		if (( $found_context )); then
-			break
-		fi
-	done < "$1"
-	if [[ -z "${_chpwd_taskwarrior_context}" ]]; then
-		unset _chpwd_taskwarrior_context_options 
-		unset _chpwd_taskwarrior_parent_dirs
-		if [[ "${NETWORK_NAME}" =~ "Home" ]]; then
-			_chpwd_taskwarrior_context=home
+function tm() {
+	emulate -L zsh -o no_unset
+	if (( ! $+_chpwd_taskwarrior_context_data )); then
+		if [[ $_chpwd_taskwarrior_context == (home|default) ]]; then
+			typeset -ga _chpwd_taskwarrior_context_data=()
 		else
-			_chpwd_taskwarrior_context=default
+			# I disable the output because this may fail due to:
+			# https://github.com/GothenburgBitFactory/taskwarrior/issues/2219
+			typeset -ga _chpwd_taskwarrior_context_data=(
+					# Note: this is slow.
+					$(task _get rc.context.$_chpwd_taskwarrior_context 2>/dev/null))
 		fi
 	fi
+	task $_chpwd_taskwarrior_context_data "$@"
+}
+
+# Sets _chpwd_taskwarrior_context.
+function _chpwd_taskwarrior_init() {
+	emulate -L zsh -o extended_glob -o no_unset -o warn_create_global -o warn_nested_var
+
+	unset _chpwd_taskwarrior_context _chpwd_taskwarrior_context_data GIT_SEND_MAIL_TO
+	_chpwd_taskwarrior_parse_contexts ~/.local/share/tasks/contexts.txt || return
+
+	local -a ctx=(${(0)_chpwd_taskwarrior_contexts[(k)$PWD/]})
+	if (( ! $#ctx )); then
+		if [[ ${NETWORK_NAME-} == *Home* ]]; then
+			ctx=(home)
+		else
+			ctx=(default)
+		fi
+	fi
+
+	local realpwd=${PWD:A}
+
+	local a=$PWD b=$realpwd
+	while [[ $a != $b && -z ${_chpwd_taskwarrior_contexts[(k)$b/]} ]]; do
+		_chpwd_taskwarrior_add_dir ~/.local/share/tasks/contexts.txt $a $b || return
+		a=${a:h}
+		b=${a:A}
+	done
+
+	typeset -g _chpwd_taskwarrior_context=$ctx[1]
+
+	local opt
+	for opt in ${ctx:1}; do
+		case $opt in
+			redirect-link)
+				builtin cd -q -- $realpwd
+			;;
+			patches_mailing_list=*)
+				export GIT_SEND_MAIL_TO=${opt#*=}
+			;;
+		esac
+	done
+}
+
+function _chpwd_taskwarrior_parse_contexts() {
+	emulate -L zsh -o extended_glob -o no_unset -o warn_create_global
+
+	local -H stat
+	zstat -H stat -- $1 || return
+	local sig="$stat[inode] $stat[mtime] $stat[size]"
+
+	if [[ $sig != ${_chpwd_taskwarrior_cached_sig-} ]]; then
+		# Context file has changed. Parse it into _chpwd_taskwarrior_contexts.
+		local line dir
+		local -a lines dirs data match mbegin mend
+		lines=(${(f)"$(<$1)"}) || return
+		typeset -gA _chpwd_taskwarrior_contexts=()
+		for line in $lines; do
+			[[ $line == (#b)context.([a-zA-Z0-9._-]##)=[^#]#'# '(/[^$'\n']#) ]] || continue
+			data=$match[1]
+			# Note: (z) without (Q) on the next line is likely a bug.
+			dirs=(${(z)match[2]})
+			if [[ $dirs[-1] == options:* ]]; then
+				data+=$'\0'${${dirs[-1]#options:}//,/$'\0'}
+				dirs[-1]=()
+			fi
+			_chpwd_taskwarrior_contexts+=("(${(j:|:)${(@b)dirs}})/*" $data)
+		done
+		typeset -g _chpwd_taskwarrior_cached_sig=$sig
+	fi
+}
+
+# Adds directory $3 in front of $2 in file $1.
+function _chpwd_taskwarrior_add_dir() {
+	emulate -L zsh -o extended_glob -o no_unset -o warn_create_global -o warn_nested_var
+	local -a lines match begin end
+	lines=("${(@f)$(<$1)}") || return
+	local tmp=$1.tmp.$$
+	>$tmp print -rC1 -- ${(@)lines:/(#b)([^#]#'#'*)" $2"(| *)/$match[1]" $3 $2"$match[2]} || return
+	zf_mv -f -- $tmp $1
 }
 
 typeset -ag chpwd_functions
-chpwd_functions+=_chpwd_set_task_context
-_chpwd_set_task_context
+chpwd_functions+=_chpwd_taskwarrior_init
+_chpwd_taskwarrior_init
 
 # vim:ft=zsh
