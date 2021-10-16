@@ -42,5 +42,7 @@ include ~/.local/share/tasks/credentials/shared.txt
 include ~/.local/share/tasks/credentials/PC.txt
 include ~/.local/share/tasks/contexts.txt
 context=no
+# Read the news
+news.version=2.6.0
 
 # vim:ft=taskrc
