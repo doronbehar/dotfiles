@@ -4,9 +4,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/doronbehar/.config_nvim
-[submodule ".config/awesome"]
-	path = .config/awesome
-	url = https://github.com/doronbehar/.config_awesome
 [submodule ".config/git"]
 	path = .config/git
 	url = https://github.com/doronbehar/.config_git
