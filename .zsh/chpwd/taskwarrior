@@ -16,22 +16,6 @@ function tfzf() {
 	taskfzf rc.context=$_chpwd_taskwarrior_context "$@"
 }
 
-function tm() {
-	emulate -L zsh -o no_unset
-	if (( ! $+_chpwd_taskwarrior_context_data )); then
-		if [[ $_chpwd_taskwarrior_context == (home|default) ]]; then
-			typeset -ga _chpwd_taskwarrior_context_data=()
-		else
-			# I disable the output because this may fail due to:
-			# https://github.com/GothenburgBitFactory/taskwarrior/issues/2219
-			typeset -ga _chpwd_taskwarrior_context_data=(
-					# Note: this is slow.
-					$(task _get rc.context.$_chpwd_taskwarrior_context 2>/dev/null))
-		fi
-	fi
-	task $_chpwd_taskwarrior_context_data "$@"
-}
-
 # Sets _chpwd_taskwarrior_context.
 function _chpwd_taskwarrior_init() {
 	emulate -L zsh -o extended_glob -o no_unset -o warn_create_global -o warn_nested_var
@@ -86,7 +70,7 @@ function _chpwd_taskwarrior_parse_contexts() {
 		lines=(${(f)"$(<$1)"}) || return
 		typeset -gA _chpwd_taskwarrior_contexts=()
 		for line in $lines; do
-			[[ $line == (#b)context.([a-zA-Z0-9._-]##)=[^#]#'# '(/[^$'\n']#) ]] || continue
+			[[ $line == (#b)context.([a-zA-Z0-9._-]##)\.read=[^#]#'# '(/[^$'\n']#) ]] || continue
 			data=$match[1]
 			# Note: (z) without (Q) on the next line is likely a bug.
 			dirs=(${(z)match[2]})
