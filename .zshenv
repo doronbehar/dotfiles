@@ -19,6 +19,9 @@ insert2PATH(){
 
 insert2PATH "$HOME/.local/bin"
 insert2PATH "$HOME/.bin"
+if [[ -d "$HOME/.nix-profile/bin" ]]; then
+	insert2PATH "$HOME/.nix-profile/bin"
+fi
 
 # {{{1 `_command_exists`: Show if a command exists
 # Taken from http://stackoverflow.com/a/592649/4935114
