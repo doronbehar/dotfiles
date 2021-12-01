@@ -220,7 +220,7 @@ zmodload zsh/terminfo
 		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 		return
 	fi
-	if (( terminfo[colors] >= 256 )); then
+	if (( terminfo[colors] >= 256 )) && [[ -z "$TERM_FORCE_ASCII" ]]; then
 		# TELEPORT_SESSION is for teleconsole (https://www.teleconsole.com/)
 		if [[ -z "$TERM_NO_ICONS_FONT" ]] && [[ -z "$TELEPORT_SESSION" ]]; then
 			[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
