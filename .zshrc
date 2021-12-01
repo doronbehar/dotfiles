@@ -220,9 +220,11 @@ zmodload zsh/terminfo
 		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 		return
 	fi
-	if (( terminfo[colors] >= 256 )) && [[ -z "$TERM_FORCE_ASCII" ]]; then
+	if (( terminfo[colors] >= 256 )); then
 		# TELEPORT_SESSION is for teleconsole (https://www.teleconsole.com/)
-		if [[ -z "$TERM_NO_ICONS_FONT" ]] && [[ -z "$TELEPORT_SESSION" ]]; then
+		# SSH_TERM_NO_ICONS_FONT is inherited between ssh sessions, for example
+		# when sshing to vps from a terminal with no suitable fonts.
+		if [[ -z "$SSH_TERM_NO_ICONS_FONT" ]] && [[ -z "$TELEPORT_SESSION" ]]; then
 			[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 			return
 		fi
