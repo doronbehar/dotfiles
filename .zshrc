@@ -16,6 +16,9 @@ setopt nonomatch
 if [[ -d ~/.zsh/comp/local ]]; then
 	fpath=(~/.zsh/comp/local $fpath)
 fi
+if [[ -d ~/.nix-profile/share/zsh/site-functions ]]; then
+	fpath=(~/.nix-profile/share/zsh/site-functions $fpath)
+fi
 if [[ -d ~/.zsh/comp/untracked ]]; then
 	fpath=(~/.zsh/comp/untracked $fpath)
 fi
