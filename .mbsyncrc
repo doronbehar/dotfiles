@@ -85,7 +85,7 @@ Slave :technion-local:
 Patterns INBOX
 Patterns Sent*
 Patterns Drafts
-Patterns Trash
+Patterns Deleted*
 Patterns Archive
 # Automatically create missing mailboxes, both locally and on the server
 Create Both

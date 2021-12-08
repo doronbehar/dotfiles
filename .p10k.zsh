@@ -1529,10 +1529,7 @@
     if [ ! -d ~/.local/share/mail ]; then
       return
     fi
-    maildirs=()
-    if [[ -z "${DISPLAY}" ]]; then
-      maildirs=(~/.local/share/mail/*/INBOX)
-    fi
+    maildirs=(~/.local/share/mail/*/INBOX)
     maildirs+=(~/.local/share/mail/gmail/Lists/mentions/open)
     typeset -A prompt_my_mail_accounts_names
     prompt_my_mail_accounts_names=(
