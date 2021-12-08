@@ -56,6 +56,12 @@ else
 fi
 export VISUAL="$EDITOR"
 
+# - {{{1 Pager and info 
+export PAGER="less"
+export LESS="-X -x4 -r -i"
+export LESSHISTFILE="${HOME}/.local/share/less-history"
+export INFO_PRINT_COMMAND="${HOME}/.bin/info-print"
+
 # - {{{1 FZF
 export FZF_DEFAULT_OPTS="--history=$HOME/.local/share/fzf/history"
 
