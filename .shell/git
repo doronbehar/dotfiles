@@ -32,4 +32,11 @@ sugit() {
 	fi
 }
 
+# {{{1 `gitclone` git clone and cd into it
+gitclone(){
+	if git clone "$@"; then
+		cd "${1##*/}"
+	fi
+}
+
 # vim: ft=zsh
