@@ -62,6 +62,10 @@ alias gvi="${VISUAL} +GhostStart"
 pad() {
 	${VISUAL} "${NOTE_DIR}/$(date +%Y-%m-%d_%H.%S).txt"
 }
+# Often one wishes to view a manual page without fooling troffi with a fake MANWIDTH, see .zshenv
+manw(){
+	env MANWIDTH=$COLUMNS man "$@"
+}
 
 
 # {{{1 `mkcd` mkdir and cd to it afterwards
