@@ -60,14 +60,17 @@ Patterns Archive
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
-Expunge Slave
+Expunge Near
 
 IMAPAccount technion
-Host outlook.office365.com
 User doronbehar@campus.technion.ac.il
 PassCmd "secret-tool lookup user doronbehar@campus.technion.ac.il"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# Using davmail
+Host localhost
+Port 1143
+SSLType None
+AuthMechs LOGIN
+Timeout 0
 
 IMAPStore technion-remote
 Account technion

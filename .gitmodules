@@ -166,3 +166,6 @@
 [submodule ".mozilla/native-messaging-hosts"]
 	path = .mozilla/native-messaging-hosts
 	url = https://github.com/doronbehar/.mozilla_native-messaging-hosts
+[submodule ".local/share/qalculate/definitions"]
+	path = .local/share/qalculate/definitions
+	url = https://github.com/doronbehar/.local_share_qalculate_definitions
