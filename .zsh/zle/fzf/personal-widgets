@@ -76,6 +76,18 @@ _fzf_complete_path() {
 			header="All Files Ever Edited or Matched by fzf"
 			history_appender=__fzf_history-appender
 			;;
+		"files")
+			local opts=("${path_prefix}"*(N))
+			local opt
+			for opt in "${opts[@]}"; do
+				if [[ -d "${opt}" ]] && ! [[ -h ${opt} ]]; then
+					real_opts+=("${opt}/")
+				else
+					real_opts+=("${opt}")
+				fi
+			done
+			header="Files and Directories in Current Directory"
+			;;
 	esac
 	if [ -z "$real_opts" ]; then
 		echo "$prefix"
@@ -109,10 +121,10 @@ fzf-complete-history-commands() {
 	))
 	local ret=$?
 	if [ -n "$selected" ]; then
-	    num=$selected[1]
-	    if [ -n "$num" ]; then
-	        echo $num
-	    fi
+		num=$selected[1]
+		if [ -n "$num" ]; then
+			echo $num
+		fi
 	fi
 	zle vi-fetch-history -n $num
 	zle reset-prompt
@@ -138,8 +150,8 @@ fzf-complete() {
 	[ -z "$trigger" -a ${LBUFFER[-1]} = ' ' ] && tokens+=("")
 	tail=${LBUFFER:$(( ${#LBUFFER} - ${#trigger} ))}
 	if [ ${#tokens} -gt 1 -a "$tail" = "$trigger" ]; then
-		[ -z "$trigger"      ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
-		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER        || lbuf=${LBUFFER:0:-${#tokens[-1]}}
+		[ -z "$trigger"	  ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
+		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER		|| lbuf=${LBUFFER:0:-${#tokens[-1]}}
 		if [[ "$mode" == "history-words" ]]; then
 			# for information about the `uq` command in this pipe, see
 			# https://github.com/lostutils/uq
@@ -147,6 +159,18 @@ fzf-complete() {
 				--query="${prefix}" \
 			))
 			LBUFFER="${lbuf}$selected"
+		elif [[ "$mode" == "macro" ]]; then
+			for key val in ${(kv)_fzf_macros}; do
+				if [[ "$key" == "$prefix" ]]; then
+					if [[ "$val" =~ "/$" ]]; then
+						LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${val}" files)"
+					else
+						LBUFFER="${lbuf}${val}"
+					fi
+					return 0
+				fi
+			done
+			zle complete-macros
 		else
 			LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
 		fi
@@ -156,9 +180,18 @@ fzf-complete() {
 
 function(){
 	local mode
-	for mode in history-{paths,words} git-all-files git-changed-files; do
+	for mode in macro history-{paths,words} git-all-files git-changed-files; do
 		eval "fzf-complete-$mode(){ fzf-complete $mode; }; zle -N fzf-complete-$mode"
 	done
 }
+
+show-macros() {
+	local comp_message=""
+	for key val in ${(kv)_fzf_macros}; do
+		comp_message="${comp_message}${key}"$'\t'"${val}"$'\n'
+	done
+	compadd -x "$comp_message"
+}
+zle -C complete-macros expand-or-complete show-macros
 
 # vim:ft=zsh
