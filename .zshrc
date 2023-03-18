@@ -109,10 +109,9 @@ autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 # Zle widgets based on examples distributed with fzf
 export FZF_COMPLETION_TRIGGER=''
-source ~/.zsh/zle/fzf
 # source all completions based on _fzf_completion for the various commands
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
-source ~/.zsh/comp/fzf
+source ~/.zsh/zle/fzf/personal-widgets
 # macro-complete widget
 if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 	source ~/.local/share/zsh/macros/${HOST}
@@ -199,12 +198,10 @@ autoload edit-command-line && zle -N edit-command-line
 bindkey -M viins "^V" edit-command-line
 bindkey -M vicmd "^V" edit-command-line
 # fzf completions
-bindkey -M viins "^F" fzf-complete-generic
-bindkey -M viins "^D" fzf-complete-directories
-bindkey -M viins "^G" fzf-complete-files
-bindkey -M viins "^ " fzf-complete-macro
+source ~/.zsh/zle/fzf/tab/fzf-tab.plugin.zsh
+zstyle ':fzf-tab:*gopass*' continuous-trigger ""
 bindkey -M viins "^Z" fzf-complete-history-commands
-bindkey -M vicmd "^A" fzf-complete-history-words
+bindkey -M viins "^A" fzf-complete-history-words
 bindkey -M viins "^T" fzf-complete-history-paths
 bindkey -M viins "^P" fzf-complete-git-all-files
 bindkey -M viins "^Y" fzf-complete-git-changed-files

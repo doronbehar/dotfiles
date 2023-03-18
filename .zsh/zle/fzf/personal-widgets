@@ -1,0 +1,149 @@
+# helper for path completion that saves the selections from fzf in a history file
+# and it outputs the name as was given as well. It works using stdin
+__fzf_history-appender(){
+	local p
+	while read p; do
+		echo "$p"
+		local realpath="$(realpath "$p")"
+		if ! grep -q "$realpath" ~/.zsh-fzf-path-completion-history; then
+			echo "$realpath" >> ~/.zsh-fzf-path-completion-history
+		fi
+	done
+}
+# A pipe that does nothing besides echoing stdin - equivallent cat
+__fzf_cat(){
+	local p
+	while read p; do
+		echo "$p"
+	done
+}
+
+# create a simpler and lighter directory fzf completion
+_fzf_complete_path() {
+	local lbuf="$1"
+	local cmd=${lbuf%% *}
+	local prefix="$2"
+	# Mode of operation: See anonymous function in .zsh/zle/fzf
+	local mode="$3"
+	local path_prefix
+	if [[ "${prefix}" =~ "/" ]]; then
+		path_prefix="${prefix%/*}/"
+		prefix="${prefix##*/}"
+	else
+		path_prefix="./"
+	fi
+	# substiture ~ to $HOME in path_prefix
+	path_prefix="${path_prefix/#\~/$HOME}"
+	# remove \ when it is intended to quote special characters
+	path_prefix="${path_prefix//\\/}"
+	local query="${prefix//*\//}"
+	# setting default options which may change in the following case structure
+	local real_opts=("$path_prefix")
+	local preview="--preview=pistol {}"
+	local header
+	local history_appender=__fzf_cat
+	case "$mode" in
+		"git"*)
+			if ! git rev-parse --is-inside-work-tree 2>&1 > /dev/null; then
+				echo "$prefix"
+				return
+			fi
+			if [[ "$mode" == "git-changed-files" ]]; then
+				real_opts=(${(f)"$(git status --short --no-renames | sed -n -e '/^D /d' -e 's/\(??\| [MD]\|[MA] \) \(.*\)/\2/p')"})
+				preview="--preview=git diff --color=always -- {} | grep . || git diff --color=always -- /dev/null {} 2>/dev/null"
+				header="All Files Git Modified"
+			elif [[ "$mode" == "git-all-files" ]]; then
+				if [[ "$lbuf" == "cd " ]]; then
+					real_opts=(${(f)"$(dirname $(git ls) | uq)"})
+					header="All directories of file tracked by Git"
+				else
+					real_opts=(${(f)"$(git ls)"})
+					header="All Files Tracked by Git"
+				fi
+			fi
+			;;
+		"history-paths")
+			local nvim_view_files=(~/.local/share/nvim/view/*)
+			# remove the prefixing ~/.local/share/nvim/view
+			local nvim_edited_files=(${nvim_view_files[@]#${HOME}/.local/share/nvim/view/})
+			# replace the '=+' characters in these strings which replace /
+			nvim_edited_files=(${nvim_edited_files[@]//\=+/\/})
+			# remove the trailing '=' as well
+			nvim_edited_files=(${nvim_edited_files[@]%\=})
+			real_opts=(${nvim_edited_files[@]//\~/${HOME}})
+			# Add files from our history file
+			real_opts+=(${(f)"$(< ~/.zsh-fzf-path-completion-history)"})
+			header="All Files Ever Edited or Matched by fzf"
+			history_appender=__fzf_history-appender
+			;;
+	esac
+	if [ -z "$real_opts" ]; then
+		echo "$prefix"
+		return 0
+	fi
+	local matches=(${(f)"$(printf '%s\n' "${real_opts[@]}" | \
+		fzf --layout=reverse \
+			--header="${header}" \
+			--query="${query}" \
+			-m ${preview} | \
+			$history_appender)"} \
+	)
+	if [ -z "$matches" ]; then
+		echo "$prefix"
+		return 0
+	fi
+	echo ${(@q)matches%% -- *}
+	return 0
+}
+
+# history widget - complete commands
+fzf-complete-history-commands() {
+	local num=$(_fzf_complete_hsub)
+	zle vi-fetch-history -n $num
+	zle reset-prompt
+	return $ret
+}
+zle -N fzf-complete-history-commands
+
+# fzf-completion widget
+fzf-complete() {
+	local mode="$1"
+	local tokens cmd prefix trigger tail lbuf
+	setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
+	# http://zsh.sourceforge.net/FAQ/zshfaq03.html
+	# http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
+	tokens=(${(z)LBUFFER})
+	if [ ${#tokens} -lt 1 ]; then
+		zle expand-or-complete
+		return
+	fi
+	cmd=${tokens[1]}
+	# Explicitly allow for empty trigger.
+	trigger=${FZF_COMPLETION_TRIGGER-'**'}
+	[ -z "$trigger" -a ${LBUFFER[-1]} = ' ' ] && tokens+=("")
+	tail=${LBUFFER:$(( ${#LBUFFER} - ${#trigger} ))}
+	if [ ${#tokens} -gt 1 -a "$tail" = "$trigger" ]; then
+		[ -z "$trigger"      ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
+		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER        || lbuf=${LBUFFER:0:-${#tokens[-1]}}
+		if [[ "$mode" == "history-words" ]]; then
+			# for information about the `uq` command in this pipe, see
+			# https://github.com/lostutils/uq
+			local selected=($(printf '%s\n' ${(z)historywords} | uq | fzf -m \
+				--query="${prefix}" \
+			))
+			LBUFFER="${lbuf}$selected"
+		else
+			LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
+		fi
+		zle reset-prompt
+	fi
+}
+
+function(){
+	local mode
+	for mode in history-{paths,words} git-all-files git-changed-files; do
+		eval "fzf-complete-$mode(){ fzf-complete $mode; }; zle -N fzf-complete-$mode"
+	done
+}
+
+# vim:ft=zsh
