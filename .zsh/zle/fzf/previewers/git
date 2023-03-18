@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# split process given `words` string environment to an array
+words=("${(@s/ /)words}")
+
+# TODO: Make this script more suphisticated!
+if [[ -f "$word" ]]; then
+	git diff --color=always "$word"
+else
+	git show --color=always "$word"
+fi
+

@@ -202,6 +202,14 @@ source ~/.zsh/zle/fzf/tab/fzf-tab.plugin.zsh
 zstyle ':fzf-tab:*' continuous-trigger ""
 zstyle ':fzf-tab:*' switch-group 'ctrl-u' 'ctrl-i'
 zstyle ':fzf-tab:complete:(j(u|s)f|systemctl-)*:*' fzf-preview 'env words="$words" $HOME/.zsh/zle/fzf/previewers/systemctl'
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+	'[[ $group == "Completing process ID" ]] && pstree -a $word'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+zstyle ':fzf-tab:complete:git*' fzf-preview 'env words="$words" word=${word%% } $HOME/.zsh/zle/fzf/previewers/git'
+zstyle ':fzf-tab:complete:git*' fzf-flags --preview-window=right:55%:wrap
+zstyle ':fzf-tab:complete:git*' fzf-min-height 10000
 bindkey -M viins "^ " fzf-complete-macro
 bindkey -M viins "^Z" fzf-complete-history-commands
 bindkey -M viins "^A" fzf-complete-history-words
