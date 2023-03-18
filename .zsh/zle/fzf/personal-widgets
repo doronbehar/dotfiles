@@ -98,7 +98,22 @@ _fzf_complete_path() {
 
 # history widget - complete commands
 fzf-complete-history-commands() {
-	local num=$(_fzf_complete_hsub)
+	local selected num
+	setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+	selected=($(fc -rl 1 | fzf +m \
+		--height "40%" \
+		-n2..,.. \
+		--tiebreak=index \
+		--bind=ctrl-r:toggle-sort \
+		--query="${LBUFFER}" \
+	))
+	local ret=$?
+	if [ -n "$selected" ]; then
+	    num=$selected[1]
+	    if [ -n "$num" ]; then
+	        echo $num
+	    fi
+	fi
 	zle vi-fetch-history -n $num
 	zle reset-prompt
 	return $ret
