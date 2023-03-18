@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# split process given `words` string environment to an array
+words=("${(@s/ /)words}")
+
+export SYSTEMD_COLORS=1
+
+if [[ "${words[2]}" == "--user" ]] || [[ "${words[1]}" == "juf" ]]; then
+	systemctl --user status $word
+else
+	systemctl status $word
+fi
+return $?

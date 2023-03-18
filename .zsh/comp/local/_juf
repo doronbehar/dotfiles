@@ -1,0 +1,16 @@
+#compdef juf jsf
+
+echo ${words[1]} > ~/.zdbg
+if [[ "${words[1]}" == juf ]]; then
+	userOpt="--user"
+fi
+unitsComplete=()
+local unitFile unitState unitStatePresent
+systemctl $userOpt list-unit-files | while read unitFile unitState unitStatePresent; do
+	if [[ $unitFile == "UNIT" ]] || [[ "$unitStatePresent" == "files listed." ]]; then
+		continue
+	fi
+	unitsComplete+=("$unitFile":"state\: $unitState"$'\t'"present\: $unitStatePresent")
+done
+
+_describe "available units" unitsComplete

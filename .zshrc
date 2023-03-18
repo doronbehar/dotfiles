@@ -200,6 +200,7 @@ bindkey -M vicmd "^V" edit-command-line
 # fzf completions
 source ~/.zsh/zle/fzf/tab/fzf-tab.plugin.zsh
 zstyle ':fzf-tab:*gopass*' continuous-trigger ""
+zstyle ':fzf-tab:complete:(j(u|s)f|systemctl-)*:*' fzf-preview 'env words="$words" $HOME/.zsh/zle/fzf/previewers/systemctl'
 bindkey -M viins "^Z" fzf-complete-history-commands
 bindkey -M viins "^A" fzf-complete-history-words
 bindkey -M viins "^T" fzf-complete-history-paths
