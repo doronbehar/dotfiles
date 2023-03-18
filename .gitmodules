@@ -171,4 +171,5 @@
 	url = https://github.com/doronbehar/.local_share_qalculate_definitions
 [submodule ".zsh/zle/fzf/tab"]
 	path = .zsh/zle/fzf/tab
-	url = https://github.com/Aloxaf/fzf-tab
+	url = https://github.com/doronbehar/fzf-tab
+	branch = fzf-orig-monkeyPatch
