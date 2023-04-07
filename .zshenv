@@ -34,9 +34,12 @@ if _command_exists nvim; then
 	# Older versions of neovim use NVIM_LISTEN_ADDRESS
 	if [ -z "${NVIM_LISTEN_ADDRESS+1}" ] && [ -z "${NVIM+1}" ]; then
 		export EDITOR="nvim"
-		export MANPAGER="$EDITOR --cmd 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' +Man!"
-		# See https://github.com/neovim/neovim/issues/10808
+		# Default to soft wrapping, `:ManHW` is defined in case hardwrapping is needed
 		export MANWIDTH=999
+		export MANPAGER="$EDITOR +Man!"
+		function manhw() {
+			env MANWIDTH=$COLUMNS man "$@"
+		}
 		export GIT_EDITOR="$EDITOR"
 	else
 		# Only git needs to know when the editor exits
