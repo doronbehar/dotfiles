@@ -55,6 +55,10 @@ _fzf_complete_path() {
 			elif [[ "$mode" == "git-all-files" ]]; then
 				if [[ "$lbuf" == "cd " ]]; then
 					real_opts=(${(f)"$(dirname $(git ls) | uq)"})
+					local git_module hsh br
+					git submodule | while read hsh git_module br; do
+						real_opts+=("$git_module")
+					done
 					header="All directories of file tracked by Git"
 				else
 					real_opts=(${(f)"$(git ls)"})
