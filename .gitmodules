@@ -173,3 +173,6 @@
 	path = .zsh/zle/fzf/tab
 	url = https://github.com/doronbehar/fzf-tab
 	branch = fzf-orig-monkeyPatch
+[submodule ".mlterm"]
+	path = .mlterm
+	url = https://github.com/doronbehar/.mlterm

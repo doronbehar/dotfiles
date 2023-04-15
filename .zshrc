@@ -224,7 +224,7 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 # if [ -n $SSH_TMUX_ATTACH ] || zmodload zsh/terminfo && (( terminfo[colors] >= 256 )) && [ -z $TERM_NO_ICONS_FONT ]; then
 zmodload zsh/terminfo
 (){
-	if [ ! -z "$SSH_TMUX_ATTACH" ]; then
+	if [ ! -z "$SSH_TMUX_ATTACH$MLTERM" ]; then
 		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 		return
 	fi
