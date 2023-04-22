@@ -67,6 +67,15 @@ manw(){
 	env MANWIDTH=$COLUMNS man "$@"
 }
 
+vprofile() {
+	$VISUAL \
+		--cmd 'profile start profile.log' \
+		--cmd 'profile func *' \
+		--cmd 'profile file *' \
+		"$@" && \
+	$VISUAL profile.log && \
+	rm -i profile.log
+}
 
 # {{{1 `mkcd` mkdir and cd to it afterwards
 mkcd(){
