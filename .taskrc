@@ -35,7 +35,6 @@ color=on
 dateformat = d/m/y-h:n
 
 include ~/.local/share/tasks/reports.txt
-include ~/.local/share/tasks/udas/bugwarrior.txt
 include ~/.local/share/tasks/udas/personal.txt
 include ~/.local/share/tasks/udas/books.txt
 include ~/.local/share/tasks/credentials/shared.txt
