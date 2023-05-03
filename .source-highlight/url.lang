@@ -1,5 +1,0 @@
-vardef URLPART = '[[:word:]\./\-_~]+'
-url = '(<?)' + $URLPART + '@' + $URLPART + "." + '[[:word:]]+' + '(>?)'
-url = '(<?)' + '[[:word:]]+://' + $URLPART + '(>?)'
-
-# vim:ft=lang

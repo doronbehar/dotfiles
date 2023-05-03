@@ -1,7 +1,0 @@
-comment start '^\*'
-comment start '^C'
-comment start '^c'
-
-include "fortran.lang"
-
-# vim:ft=lang
