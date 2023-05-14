@@ -224,8 +224,12 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 # if [ -n $SSH_TMUX_ATTACH ] || zmodload zsh/terminfo && (( terminfo[colors] >= 256 )) && [ -z $TERM_NO_ICONS_FONT ]; then
 zmodload zsh/terminfo
 (){
+	if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+		[[ ! -f ~/.zsh/p10k/wsl ]] || source ~/.zsh/p10k/wsl
+		return
+	fi
 	if [ ! -z "$SSH_TMUX_ATTACH$MLTERM" ]; then
-		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+		[[ ! -f ~/.zsh/p10k/default ]] || source ~/.zsh/p10k/default
 		return
 	fi
 	if (( terminfo[colors] >= 256 )); then
@@ -233,11 +237,11 @@ zmodload zsh/terminfo
 		# SSH_TERM_NO_ICONS_FONT is inherited between ssh sessions, for example
 		# when sshing to vps from a terminal with no suitable fonts.
 		if [[ -z "$SSH_TERM_NO_ICONS_FONT" ]] && [[ -z "$TELEPORT_SESSION" ]]; then
-			[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+			[[ ! -f ~/.zsh/p10k/default ]] || source ~/.zsh/p10k/default
 			return
 		fi
 	fi
-	[[ ! -f ~/.p10k.ascii.zsh ]] || source ~/.p10k.ascii.zsh
+	[[ ! -f ~/.zsh/p10k/ascii ]] || source ~/.zsh/p10k/ascii
 }
 
 # {{{1 Enable tracing a specific function
