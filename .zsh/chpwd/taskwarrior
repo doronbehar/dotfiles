@@ -25,8 +25,10 @@ function _chpwd_taskwarrior_init() {
 
 	local -a ctx=(${(0)_chpwd_taskwarrior_contexts[(k)$PWD/]})
 	if (( ! $#ctx )); then
-		if [[ ${NETWORK_NAME-} == *Home* ]]; then
+		if [ -f "$HOME_NETWORK" ]; then
 			ctx=(home)
+		elif [ -f "$WORK_NETWORK" ]; then
+			ctx=(work)
 		else
 			ctx=(default)
 		fi
