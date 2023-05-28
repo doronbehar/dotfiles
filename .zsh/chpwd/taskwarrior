@@ -18,7 +18,7 @@ function tfzf() {
 
 # Sets _chpwd_taskwarrior_context.
 function _chpwd_taskwarrior_init() {
-	emulate -L zsh -o extended_glob -o no_unset -o warn_create_global -o warn_nested_var
+	emulate -L zsh -o extended_glob -o warn_create_global -o warn_nested_var
 
 	unset _chpwd_taskwarrior_context _chpwd_taskwarrior_context_data GIT_SEND_MAIL_TO
 	_chpwd_taskwarrior_parse_contexts ~/.local/share/tasks/contexts.txt || return
