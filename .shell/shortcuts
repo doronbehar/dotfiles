@@ -24,10 +24,6 @@ if _command_exists maim; then
 	alias maims='maim --format=png -s -c 1,0,0.6'
 fi
 
-# {{{1 rclone workaround for https://github.com/ncw/rclone/issues/2894
-if _command_exists rclone; then
-	alias rclone='rclone --exclude-if-present .rclone-ignore'
-fi
 # {{{1 xclip / xsel / wl-{copy,paste}
 if _command_exists xsel; then
 	alias cxsel='xsel -b'
