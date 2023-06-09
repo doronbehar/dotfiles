@@ -28,7 +28,7 @@ sugit() {
 	if alias git; then
 		unalias git
 	else
-		alias git="sudo env GIT_SSH_COMMAND='ssh -F $HOME/.ssh/config.d/hosts.conf' DISPLAY= GIT_EDITOR='$SUDO_EDITOR' git -c include.path=$HOME/.config/git/config -c commit.template=$HOME/.config/git/commit.template"
+		alias git="sudo env GIT_SSH_COMMAND='ssh -F $HOME/.ssh/config' DISPLAY= GIT_EDITOR='$SUDO_EDITOR' git -c include.path=$HOME/.config/git/config -c commit.template=$HOME/.config/git/commit.template"
 	fi
 }
 
