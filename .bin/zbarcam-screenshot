@@ -1,0 +1,5 @@
+#!/bin/sh
+
+grab="$(mktemp -t 'XXX-qr.jpg')"
+gnome-screenshot --area --file="$grab" && zbarimg "$grab"
+rm -f "$grab"
