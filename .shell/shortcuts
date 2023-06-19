@@ -78,6 +78,11 @@ mkcd(){
 	mkdir -p "$1" && cd "$1"
 }
 
+# {{{1 `tmate` - terminal session
+if _command_exists tmate; then
+	alias tmux=tmate-wrapper.sh
+fi
+
 # {{{1 `oct` - for GNU Octave
 if _command_exists octave; then
 	alias oct=octave
