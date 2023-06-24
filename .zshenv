@@ -9,6 +9,17 @@ export HOST
 # {{{1 SSH_ORIGINAL_TERM - used by my ssh configs - part of the environment that's set
 export SSH_ORIGINAL_TERM="$TERM"
 
+# {{{1 Misc
+# translate-shell
+export HOME_LANG=he
+export TARGET_LANG=he
+# Pistol (https://github.com/doronbehar/pistol)
+export PISTOL_CHROMA_STYLE=monokai
+# GCC
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# Go
+export GOPATH=$HOME/.go
+
 # {{{1 `insert2PATH`: function to insert (in the beginning) of $PATH a directory only if it doesn't exist already.
 insert2PATH(){
 	# Simple test to mitigate duplications
