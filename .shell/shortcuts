@@ -25,21 +25,24 @@ if _command_exists maim; then
 fi
 
 # {{{1 xclip / xsel / wl-{copy,paste}
-if _command_exists xsel; then
-	alias cxsel='xsel -b'
-	alias pxsel='xsel -p'
-	# Main aliases
+# The existence / no existence of a command indicates the
+if _command_exists wl-copy; then
+	alias wlcp='wl-copy -p'
+	alias wlpp='wl-paste -p'
+	alias wlc='wl-copy'
+	alias wlp='wl-paste'
+elif _command_exists xsel; then
+	# Xsel automatically detects if it's pasting or copying
+	alias wlcp='xsel -p'
+	alias wlpp='xsel -p'
 	alias wlc='xsel -b'
-	alias wlp='xsel -p'
+	alias wlp='xsel -b'
 elif _command_exists xclip; then
-	alias cxclip="xclip -selection clipboard"
-	alias pxclip="xclip -selection primary"
-	# Main aliases
+	# xclip automatically detects if it's pasting or copying
+	alias wlcp="xclip -selection primary"
+	alias wlpp="xclip -selection primary"
 	alias wlc="xclip -selection clipboard"
-	alias wlp="xclip -selection primary"
-elif _command_exists wl-copy && [[ -z "$DISPLAY" ]]; then
-	alias wlc=wl-copy
-	alias wlp=wl-paste
+	alias wlp="xclip -selection clipboard"
 fi
 
 # {{{1 xdg-open
