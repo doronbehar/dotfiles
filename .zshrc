@@ -171,6 +171,28 @@ if [[ -f "${ZDOTDIR:-$HOME}/.zkbd/${TERM}-${DISPLAY:-$VENDOR-$OSTYPE}" ]]; then
 else
 	echo you need to run \`zkbd\` for this terminal.
 fi
+# don't exit last tmate pane / window, based on: https://superuser.com/a/1702473/430539
+if [[ "$TMUX" =~ "tmate-$UID" ]]; then
+	# tmux detach or delete
+	function tmate-safe-exit() {
+		if [[ -n "${BUFFER}" ]]
+		then
+			zle delete-char-or-list
+		else
+			# Naturally if $TMUX has tmate-$UID tmate is installed...
+			if [[ "$(tmate list-panes -a | wc -l)" == "1" ]]; then
+				echo "do not try to exit the last tmate pane!"
+			else
+				exit
+			fi
+		fi
+	}
+	if [[ -n "$TMUX" ]]; then
+		setopt ignoreeof
+		zle -N tmate-safe-exit
+		bindkey "^D" tmate-safe-exit
+	fi
+fi
 # Fix bracket paste in zle for tmux only:
 if [[ $TERM =~ .*tmux.* ]]; then
 	unset zle_bracketed_paste
