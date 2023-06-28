@@ -43,6 +43,13 @@ elif _command_exists xclip; then
 	alias wlpp="xclip -selection primary"
 	alias wlc="xclip -selection clipboard"
 	alias wlp="xclip -selection clipboard"
+elif _command_exists clip.exe; then # On WSL
+	alias wlcp="clip.exe"
+	wlpp(){
+		powershell.exe -c '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))'
+	}
+	alias wlc=wlcp
+	alias wlp=wlpp
 fi
 
 # {{{1 xdg-open
