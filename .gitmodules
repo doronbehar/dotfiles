@@ -176,3 +176,6 @@
 [submodule ".mlterm"]
 	path = .mlterm
 	url = https://github.com/doronbehar/.mlterm
+[submodule ".config/gh"]
+	path = .config/gh
+	url = https://github.com/doronbehar/.config_gh
