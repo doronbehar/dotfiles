@@ -179,3 +179,6 @@
 [submodule ".config/gh"]
 	path = .config/gh
 	url = https://github.com/doronbehar/.config_gh
+[submodule ".config/autostart"]
+	path = .config/autostart
+	url = https://github.com/doronbehar/.config_autostart
