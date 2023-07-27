@@ -58,7 +58,7 @@ if _command_exists nvim; then
 		export EDITOR="nvr"
 		export MANPAGER="$EDITOR -c 'set ft=man' -"
 	fi
-	export SUDO_EDITOR="env XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config} $EDITOR"
+	export SUDO_EDITOR="$EDITOR"
 elif _command_exists vim; then
 	export EDITOR="vim"
 	export MAN_PN=1

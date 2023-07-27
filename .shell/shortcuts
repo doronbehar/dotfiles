@@ -82,6 +82,9 @@ vprofile() {
 	$VISUAL profile.log && \
 	rm -i profile.log
 }
+# It should also possible to configure this in /etc/sudoers, but it's much
+# easier here
+alias sudo="sudo --preserve-env=VISUAL,EDITOR,GIT_EDITOR"
 
 # {{{1 `mkcd` mkdir and cd to it afterwards
 mkcd(){
