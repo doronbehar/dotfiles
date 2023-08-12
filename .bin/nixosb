@@ -11,7 +11,11 @@ if [[ "$1" == -u ]]; then
 	cd ~-
 	shift 1
 fi
+orig_home=$HOME
+if [[ "$1" == boot || "$1" == switch ]]; then
+	alias nixos-rebuild='sudo nixos-rebuild'
+fi
 nixos-rebuild \
-	--flake $HOME/repos/nixos-configs#$h \
+	--flake $orig_home/repos/nixos-configs#$h \
 	--keep-going \
 	"$@"
