@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# nixos-rebuild wrapper
+if [[ "$1" == "ZENIX" || "$1" == "office" ]]; then
+	h="$1"
+	shift 1
+fi
+if [[ "$1" == -u ]]; then
+	cd $HOME/repos/nixos-configs
+	nix flake update --commit-lock-file
+	cd ~-
+	shift 1
+fi
+nixos-rebuild \
+	--flake $HOME/repos/nixos-configs#$h \
+	--keep-going \
+	"$@"
