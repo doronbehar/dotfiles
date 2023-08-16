@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Tell if json object is valid
+input_file="${1:-/dev/stdin}"
+jq empty "$input_file" > /dev/null 2>&1
+
+if [[ $? == 0 ]]; then
+	echo "JSON is valid"
+else
+	echo "JSON is invalid"
+	exit 1
+fi
