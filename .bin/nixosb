@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [[ ! -z "$GITLAB_TOKEN" ]] || [[ ! -z "$GITHUB_TOKEN" ]]; then
+	alias nix="nix --option access-tokens 'github.com=$GITHUB_TOKEN gitlab.com=OAuth2:$GITLAB_TOKEN'"
+fi
+
 # nixos-rebuild wrapper
 if [[ "$1" == "ZENIX" || "$1" == "office" ]]; then
 	h="$1"
