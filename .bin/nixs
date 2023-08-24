@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Nix search nixpkgs-current wrapper
+nix search nixpkgs-current "$@"
