@@ -19,7 +19,14 @@ orig_home=$HOME
 if [[ "$1" == boot || "$1" == switch ]]; then
 	alias nixos-rebuild='sudo nixos-rebuild'
 fi
-nixos-rebuild \
-	--flake $orig_home/repos/nixos-configs#$h \
-	--keep-going \
-	"$@"
+if type nom &> /dev/null ; then
+	nixos-rebuild \
+		--flake $orig_home/repos/nixos-configs#$h \
+		--keep-going \
+		"$@" |& nom
+else
+	nixos-rebuild \
+		--flake $orig_home/repos/nixos-configs#$h \
+		--keep-going \
+		"$@"
+fi
