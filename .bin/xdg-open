@@ -1,2 +1,6 @@
 #!/bin/sh
-gio open "$@"
+if [[ "$HOST" == office ]]; then
+	"/mnt/c/Program Files/Mozilla Firefox/firefox.exe" "$@"
+else
+	gio open "$@"
+fi
