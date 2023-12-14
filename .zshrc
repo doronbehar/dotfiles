@@ -222,7 +222,7 @@ bindkey -M vicmd "^V" edit-command-line
 # fzf completions
 source ~/.zsh/zle/fzf/tab/fzf-tab.plugin.zsh
 zstyle ':fzf-tab:*' continuous-trigger ""
-zstyle ':fzf-tab:*' switch-group 'ctrl-u' 'ctrl-i'
+zstyle ':fzf-tab:*' switch-group 'ctrl-n' 'ctrl-m'
 zstyle ':fzf-tab:complete:(j(u|s)f|systemctl-)*:*' fzf-preview 'env words="$words" $HOME/.zsh/zle/fzf/previewers/systemctl'
 # give a preview of commandline arguments when completing `kill`
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
