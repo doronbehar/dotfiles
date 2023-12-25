@@ -129,8 +129,4 @@ hsub(){
 	source "$cmd_file"
 }
 
-if [[ ! -z "$GITLAB_TOKEN" ]] || [[ ! -z "$GITHUB_TOKEN" ]]; then
-	alias nix="nix --option access-tokens 'github.com=$GITHUB_TOKEN gitlab.com=OAuth2:$GITLAB_TOKEN'"
-fi
-
 # vim: ft=zsh
