@@ -61,8 +61,7 @@ if _command_exists nvim; then
 	export SUDO_EDITOR="$EDITOR"
 elif _command_exists vim; then
 	export EDITOR="vim"
-	export MAN_PN=1
-	export MANPAGER="$EDITOR --remote-silent --remote-wait 'let g:loaded_youcompleteme = 1' --cmd 'let g:did_coc_loaded = 1' -M +MANPAGER -"
+	export MANPAGER="$EDITOR -M +MANPAGER -"
 	export GIT_EDITOR="$EDITOR"
 	export SUDO_EDITOR="env VIM=${HOME}/.vim $EDITOR"
 else
