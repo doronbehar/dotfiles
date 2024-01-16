@@ -37,7 +37,8 @@ dateformat = d/m/y-h:n
 include ~/.local/share/tasks/reports.txt
 include ~/.local/share/tasks/udas/personal.txt
 include ~/.local/share/tasks/udas/books.txt
-include ~/.local/share/tasks/credentials/inthe.txt
+# Synced with syncthing
+include ~/documents/taskwarrior-credentials/local.txt
 include ~/.local/share/tasks/contexts.txt
 context=no
 # Read the news
