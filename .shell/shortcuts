@@ -8,6 +8,13 @@ if _command_exists gopass; then
 	alias pass=gopass
 fi
 
+# {{{1 replace shell script pass with gopass
+if _command_exists nix && [[ ! -z "$NIX_CONFIG" ]]; then
+	nixos-rebuild() {
+		sudo env NIX_CONFIG=$NIX_CONFIG nixos-rebuild "$@"
+	}
+fi
+
 # {{{1 replace classic 'cal' command with that of khal
 if _command_exists khal; then
 	alias cal='khal --color calendar | head -25'
