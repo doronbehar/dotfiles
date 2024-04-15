@@ -11,7 +11,8 @@ fi
 # {{{1 replace shell script pass with gopass
 if _command_exists nix && [[ ! -z "$NIX_CONFIG" ]]; then
 	nixos-rebuild() {
-		sudo env NIX_CONFIG=$NIX_CONFIG nixos-rebuild "$@"
+		# See also https://github.com/NixOS/nix/issues/7154#issuecomment-1975851354
+		sudo env NIX_CONFIG=$NIX_CONFIG NIX_REMOTE=daemon nixos-rebuild "$@"
 	}
 fi
 
