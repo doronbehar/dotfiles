@@ -1,0 +1,36 @@
+#!/bin/sh
+
+addrFile="$HOME/.local/share/tmate/office"
+
+ssh(){
+	if [[ ! -f "$addrFile" ]]; then
+		echo address file $addrFile doesn\'t exist. Exiting..
+		exit 1
+	fi
+	local current_host="$(cat "$addrFile")"
+	if [[ "$current_host" == "" ]]; then
+		echo $0: file "$addrFile" wasn\'t found, or is empty. Exiting..
+		exit 1
+	fi
+	if [[ "$TMATE_OFFICE_SESSION" == "" ]]; then
+		echo $0: TMATE_OFFICE_SESSION environmental variable is empty, can\'t log in. Exiting..
+		exit 1
+	fi
+	local target="$TMATE_OFFICE_SESSION@$current_host"
+	command ssh -o IdentityFile=$HOME/.ssh/tmate "$@" "$target"
+}
+
+if ! ssh; then
+	sshExitCode=$?
+	# TODO: Test all of this..
+	output="$(ssh -q 2>&1)"
+	maybeNewHost="$(echo "$output" | grep "$TMATE_OFFICE_SESSION" | awk -F@ '{print $NF}')"
+	if [[ "$maybeNewHost" == "" ]]; then
+		echo $0: encountered unexpected error. Exiting..
+		exit $sshExitCode
+	fi
+	echo $0: writing new host $maybeNewHost to $addrFile
+	echo "$maybeNewHost" > "$addrFile"
+	echo $0: trying again...
+	ssh
+fi
