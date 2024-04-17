@@ -1,0 +1,11 @@
+#!/bin/sh
+
+nix shell --impure \
+	--expr '(builtins.getFlake "nixpkgs-current")
+			.legacyPackages.${builtins.currentSystem}.buildFHSUserEnv {
+				name = "quick-dirty-fhs";
+				targetPkgs = p: with p; [
+					'"$*"'
+				];
+			}' \
+	--command quick-dirty-fhs
