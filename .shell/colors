@@ -16,8 +16,9 @@ fi
 
 # {{{1 ls
 if _command_exists ls; then
-	alias ls='ls --color=auto'
-	alias cls='ls --color=always'
+	# I'm a human
+	alias ls='ls --color=auto --human'
+	alias cls='ls --color=always --human'
 fi
 
 # {{{1 dir / vdir
