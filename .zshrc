@@ -180,7 +180,7 @@ if [[ "$TMUX" =~ "tmate-$UID" ]]; then
 			zle delete-char-or-list
 		else
 			# Naturally if $TMUX has tmate-$UID tmate is installed...
-			if [[ "$(tmate list-panes -a | wc -l)" == "1" ]]; then
+			if [[ "$(tmate list-panes -a | wc -l)" == "1" && -z "$NVIM" && -z "$VIM" ]]; then
 				echo "do not try to exit the last tmate pane!"
 			else
 				exit
