@@ -11,7 +11,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=~/.local/share/tasks/data
+data.location=~/.local/share/tasks
 
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme
@@ -37,11 +37,9 @@ dateformat = d/m/y-h:n
 include ~/.local/share/tasks/reports.txt
 include ~/.local/share/tasks/udas/personal.txt
 include ~/.local/share/tasks/udas/books.txt
-# Synced with syncthing
-include ~/documents/taskwarrior-credentials/local.txt
 include ~/.local/share/tasks/contexts.txt
 context=no
 # Read the news
-news.version=2.6.0
+news.version=3.0.2
 
 # vim:ft=taskrc
