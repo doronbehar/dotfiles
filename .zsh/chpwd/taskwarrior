@@ -25,13 +25,20 @@ function _chpwd_taskwarrior_init() {
 
 	local -a ctx=(${(0)_chpwd_taskwarrior_contexts[(k)$PWD/]})
 	if (( ! $#ctx )); then
-		if [ -f "$HOME_NETWORK" ]; then
-			ctx=(home)
-		elif [ -f "$WORK_NETWORK" ]; then
-			ctx=(work)
-		else
-			ctx=(default)
-		fi
+		ctx=(default)
+		local network
+		for network in "${HOME_NETWORKS[@]}"; do
+			if [[ -f "$network" ]]; then
+				ctx=(home)
+				break
+			fi
+		done
+		for network in "${WORK_NETWORKS[@]}"; do
+			if [[ -f "$network" ]]; then
+				ctx=(work)
+				break
+			fi
+		done
 	fi
 
 	local realpwd=${PWD:A}
