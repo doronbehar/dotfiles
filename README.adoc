@@ -6,3 +6,13 @@
 * I use https://github.com/romkatv/powerlevel10k[powerlevel10k]
 * I use `zsh-syntax-highlighting`.
 * I hate reinventing the wheel.
+
+If I have to use bash on Windows, I put this in my `~/.bashrc`:
+
+[source,bash]
+----
+#!/bin/bash
+DOTFILES_DIR=$HOME/dotfiles
+source $DOTFILES_DIR/.bashrc
+----
+
