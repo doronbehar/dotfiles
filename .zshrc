@@ -31,6 +31,13 @@ fi
 fpath(){
 	printf '%s\n' "${fpath[@]}"
 }
+# Exclude fpath directories that I don't want to use their completion
+fpath_exclude=(
+	# This directory includes a _git file which I don't want, see:
+	# https://lore.kernel.org/git/mrn75pj663u6ikkwfnoq6c342l7w5plfeju4ji7norsmlzx4jn@3se3fmuqes4p/T/#u
+	/nix/var/nix/profiles/default/share/zsh/site-functions
+)
+fpath=(${fpath:|fpath_exclude})
 autoload -Uz compinit && compinit -D
 # Fix a completion collision between devtodo and todo
 compdef _todo todo
