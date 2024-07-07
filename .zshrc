@@ -29,7 +29,7 @@ if [[ -d ~/.zsh/comp/community/src ]]; then
 	fpath=(~/.zsh/comp/community/src $fpath)
 fi
 fpath(){
-	printf '$s\n' "${fpath[@]}"
+	printf '%s\n' "${fpath[@]}"
 }
 autoload -Uz compinit && compinit -D
 # Fix a completion collision between devtodo and todo
