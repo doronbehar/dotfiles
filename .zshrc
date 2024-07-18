@@ -13,20 +13,20 @@ setopt EXTENDEDGLOB
 setopt nonomatch
 
 # {{{ Completions
-if [[ -d ~/.zsh/comp/local ]]; then
-	fpath=(~/.zsh/comp/local $fpath)
+if [[ -d ${ZDOTDIR:-$HOME}/.zsh/comp/local ]]; then
+	fpath=(${ZDOTDIR:-$HOME}/.zsh/comp/local $fpath)
 fi
-if [[ -d ~/.nix-profile/share/zsh/site-functions ]]; then
-	fpath=(~/.nix-profile/share/zsh/site-functions $fpath)
+if [[ -d ${ZDOTDIR:-$HOME}/.nix-profile/share/zsh/site-functions ]]; then
+	fpath=(${ZDOTDIR:-$HOME}/.nix-profile/share/zsh/site-functions $fpath)
 fi
-if [[ -d ~/.zsh/comp/untracked ]]; then
-	fpath=(~/.zsh/comp/untracked $fpath)
+if [[ -d ${ZDOTDIR:-$HOME}/.zsh/comp/untracked ]]; then
+	fpath=(${ZDOTDIR:-$HOME}/.zsh/comp/untracked $fpath)
 fi
-if [[ -d ~/.zsh/comp/tested ]]; then
-	fpath=(~/.zsh/comp/tested $fpath)
+if [[ -d ${ZDOTDIR:-$HOME}/.zsh/comp/tested ]]; then
+	fpath=(${ZDOTDIR:-$HOME}/.zsh/comp/tested $fpath)
 fi
-if [[ -d ~/.zsh/comp/community/src ]]; then
-	fpath=(~/.zsh/comp/community/src $fpath)
+if [[ -d ${ZDOTDIR:-$HOME}/.zsh/comp/community/src ]]; then
+	fpath=(${ZDOTDIR:-$HOME}/.zsh/comp/community/src $fpath)
 fi
 fpath(){
 	printf '%s\n' "${fpath[@]}"
@@ -58,7 +58,7 @@ zstyle ':completion:*:gpg:*' menu select=2
 zstyle ':completion:*:git*:*' menu select=2
 # setup colors for ls only if needed
 if [[ -z "$LS_COLORS" ]]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	test -r ${ZDOTDIR:-$HOME}/.dircolors && eval "$(dircolors -b ${ZDOTDIR:-$HOME}/.dircolors)" || eval "$(dircolors -b)"
 fi
 # make files matches use colors from LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -118,8 +118,9 @@ zle -N self-insert url-quote-magic
 export FZF_COMPLETION_TRIGGER=''
 # source all completions based on _fzf_completion for the various commands
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
-source ~/.zsh/zle/fzf/personal-widgets
-# macro-complete widget
+source ${ZDOTDIR:-$HOME}/.zsh/zle/fzf/personal-widgets
+# macro-complete widget, these are usually sourced from a different repository,
+# and hence we don't use the ZDOTDIR here
 if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 	source ~/.local/share/zsh/macros/${HOST}
 fi
@@ -127,7 +128,7 @@ fi
 # https://github.com/kutsan/zsh-system-clipboard
 if _command_exists xclip || _command_exists xsel || _command_exists wl-copy || _command_exists clip.exe; then
 	export ZSH_SYSTEM_CLIPBOARD_DISABLE_DEFAULT_MAPS=1
-	source ~/.zsh/zle/system-clipboard/zsh-system-clipboard.zsh
+	source ${ZDOTDIR:-$HOME}/.zsh/zle/system-clipboard/zsh-system-clipboard.zsh
 	function () {
 		local binded_keys i parts key cmd keymap
 		for keymap in vicmd visual emacs; do
@@ -149,7 +150,7 @@ setopt interactivecomments
 # syntax highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-source ~/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source ${ZDOTDIR:-$HOME}/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # {{{1 Bindings
 bindkey -v
@@ -227,7 +228,7 @@ autoload edit-command-line && zle -N edit-command-line
 bindkey -M viins "^V" edit-command-line
 bindkey -M vicmd "^V" edit-command-line
 # fzf completions
-source ~/.zsh/zle/fzf/tab/fzf-tab.plugin.zsh
+source ${ZDOTDIR:-$HOME}/.zsh/zle/fzf/tab/fzf-tab.plugin.zsh
 zstyle ':fzf-tab:*' continuous-trigger ""
 zstyle ':fzf-tab:*' switch-group 'ctrl-n' 'ctrl-m'
 zstyle ':fzf-tab:complete:(j(u|s)f|systemctl-)*:*' fzf-preview 'env words="$words" $HOME/.zsh/zle/fzf/previewers/systemctl'
@@ -247,18 +248,18 @@ bindkey -M viins "^P" fzf-complete-git-all-files
 bindkey -M viins "^Y" fzf-complete-git-changed-files
 
 # {{{1 Looks
-source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ${ZDOTDIR:-$HOME}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 # If SSH_TMUX_ATTACH is set, then we are sshing from the main home computer.
 # If TERM_NO_ICONS_FONT is set, we have made
 # if [ -n $SSH_TMUX_ATTACH ] || zmodload zsh/terminfo && (( terminfo[colors] >= 256 )) && [ -z $TERM_NO_ICONS_FONT ]; then
 zmodload zsh/terminfo
 (){
 	if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-		[[ ! -f ~/.zsh/p10k/wsl ]] || source ~/.zsh/p10k/wsl
+		[[ ! -f ${ZDOTDIR:-$HOME}/.zsh/p10k/wsl ]] || source ${ZDOTDIR:-$HOME}/.zsh/p10k/wsl
 		return
 	fi
 	if [ ! -z "$SSH_TMUX_ATTACH$MLTERM" ]; then
-		[[ ! -f ~/.zsh/p10k/default ]] || source ~/.zsh/p10k/default
+		[[ ! -f ${ZDOTDIR:-$HOME}/.zsh/p10k/default ]] || source ${ZDOTDIR:-$HOME}/.zsh/p10k/default
 		return
 	fi
 	if (( terminfo[colors] >= 256 )); then
@@ -266,11 +267,11 @@ zmodload zsh/terminfo
 		# SSH_TERM_NO_ICONS_FONT is inherited between ssh sessions, for example
 		# when sshing to vps from a terminal with no suitable fonts.
 		if [[ -z "$SSH_TERM_NO_ICONS_FONT" ]] && [[ -z "$TELEPORT_SESSION" ]]; then
-			[[ ! -f ~/.zsh/p10k/default ]] || source ~/.zsh/p10k/default
+			[[ ! -f ${ZDOTDIR:-$HOME}/.zsh/p10k/default ]] || source ${ZDOTDIR:-$HOME}/.zsh/p10k/default
 			return
 		fi
 	fi
-	[[ ! -f ~/.zsh/p10k/ascii ]] || source ~/.zsh/p10k/ascii
+	[[ ! -f ${ZDOTDIR:-$HOME}/.zsh/p10k/ascii ]] || source ${ZDOTDIR:-$HOME}/.zsh/p10k/ascii
 }
 
 # {{{1 Enable tracing a specific function
@@ -279,17 +280,17 @@ if [ -n "${TRACE_FUNC}" ]; then
 fi
 
 # {{{1 shell common functions and aliases
-for i in ~/.shell/*; do
+for i in ${ZDOTDIR:-$HOME}/.shell/*; do
 	. "$i"
 done
 
 # {{{1 chpwd - mostly for taskwarrior context
-for i in ~/.zsh/chpwd/*; do
+for i in ${ZDOTDIR:-$HOME}/.zsh/chpwd/*; do
 	. "$i"
 done
 
 # {{{1 precmd - mostly for direnv
-for i in ~/.zsh/precmd/*; do
+for i in ${ZDOTDIR:-$HOME}/.zsh/precmd/*; do
 	. "$i"
 done
 
