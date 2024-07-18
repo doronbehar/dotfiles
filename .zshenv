@@ -84,5 +84,9 @@ if [[ -f "$HOME/.local/share/zsh/env/${HOST}" ]]; then
 	source "$HOME/.local/share/zsh/env/${HOST}"
 fi
 
+if [[ "$OSTYPE" == "msys" ]]; then
+	export XDG_CONFIG_HOME=$HOME/AppData/Local
+fi
+
 # - {{{1
 # vim:ft=zsh:foldmethod=marker

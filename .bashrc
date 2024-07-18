@@ -29,7 +29,6 @@ unset i
 source "$DOTFILES_DIR/.zlogin"
 
 if [ "$OSTYPE" == "msys" ]; then
-	export XDG_CONFIG_HOME=$HOME/AppData/Local
 	# From some reason this is set to /usr/bin/bash instead, which is not
 	# found by neovim's :term
 	export SHELL="$(which bash.exe)"

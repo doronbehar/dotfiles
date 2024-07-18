@@ -16,3 +16,40 @@ DOTFILES_DIR=$HOME/dotfiles
 source $DOTFILES_DIR/.bashrc
 ----
 
+For ZSH on Windows (with msys2), I put in `~/.zshrc`:
+
+[source,zsh]
+----
+export ZDOTDIR=$HOME/dotfiles
+source $ZDOTDIR/.zshenv
+source $ZDOTDIR/.zshrc
+----
+
+On msys, from some reason this ~/.tmux.conf was needed:
+
+[source,tmux]
+----
+# Not using simply source ~/.tmux/init.tmux as it doesn't work
+run-shell "tmux source ~/.tmux/init.tmux"
+----
+
+Stuff that may help in an msys setup:
+
+- https://stackoverflow.com/a/44351945/4935114
+- https://www.msys2.org/docs/terminals/
+- https://devhints.io/pacman
+
+Pacman commands I ran:
+
+[source,zsh]
+----
+pacman -Syy
+pacman -Syu
+pacman -S \
+	tmux \
+	git \
+	zsh \
+	mingw-w64-x86_64-bat \
+	mingw-w64-x86_64-neovim \
+	man-db
+----
