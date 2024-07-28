@@ -99,6 +99,11 @@ mkcd(){
 	mkdir -p "$1" && cd "$1"
 }
 
+# {{{1 `taskwariror-tui
+if _command_exists taskwarrior-tui && [[ -d ~/.local/share/tasks ]]; then
+	alias tui=taskwarrior-tui
+fi
+
 # {{{1 `tmate` - terminal session
 if _command_exists tmate; then
 	alias tmux=tmate-wrapper.sh
