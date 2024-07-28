@@ -1,4 +1,4 @@
-if ! _command_exists task; then
+if ! _command_exists task || [[ ! -d ~/.local/share/tasks ]]; then
 	return
 fi
 
