@@ -7,7 +7,10 @@ ssh(){
 		echo "address file $addrFile doesn't exist. Exiting.."
 		exit 1
 	fi
-	current_host="$(cat "$addrFile")"
+	# From some reason this file may get windows line endings which make ssh
+	# fail to actually connect to the host, saying: "hostname has invalid
+	# characters".
+	current_host="$(tr -d '\r' < "$addrFile")"
 	if [ "$current_host" = "" ]; then
 		echo "$0: file $addrFile wasn't found, or is empty. Exiting.."
 		exit 1
