@@ -12,6 +12,13 @@ ssh(){
 		echo "$0: file $addrFile wasn't found, or is empty. Exiting.."
 		exit 1
 	fi
+	if [ "$(wc -l < "$addrFile")" != 1 ]; then
+		echo \
+			"address file $addrFile has too many lines - don't know how to" \
+			"interpret them. Content:"
+		echo "$current_host"
+		exit 2
+	fi
 	if [ "$TMATE_OFFICE_SESSION" = "" ]; then
 		echo "$0: TMATE_OFFICE_SESSION environmental variable is empty, can't log in. Exiting.."
 		exit 1
