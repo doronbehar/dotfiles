@@ -20,10 +20,10 @@ ssh(){
 	command ssh -o IdentityFile="$HOME/.ssh/tmate" "$@" "$target"
 }
 
-if ! ssh; then
+if ! ssh "$@"; then
 	sshExitCode=$?
 	# TODO: Test all of this..
-	output="$(ssh -q 2>&1)"
+	output="$(ssh -q "$@" 2>&1)"
 	maybeNewHost="$(echo "$output" | grep "$TMATE_OFFICE_SESSION" | awk -F@ '{print $NF}')"
 	if [ "$maybeNewHost" = "" ]; then
 		echo "$0: encountered unexpected error. Exiting.."
