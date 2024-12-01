@@ -106,7 +106,13 @@ fi
 
 # {{{1 `tmate` - terminal session
 if _command_exists tmate; then
-	alias tmux=tmate-wrapper.sh
+	function tmate-self(){
+		# ~/.tmate.session is stored in my ~/.ssh/tmate.conf as well - secretly - not git tracked
+		# ~/.tmate-api.key is given by the web app.
+		while ! command tmate -n $(cat ~/.tmate.session) -k $(cat ~/.tmate-api.key) -a ~/.ssh/authorized_keys; do
+			echo Restarting tmate, after an unexpected error
+		done
+	}
 fi
 
 # {{{1 `oct` - for GNU Octave
