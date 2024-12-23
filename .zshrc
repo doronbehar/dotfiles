@@ -16,6 +16,9 @@ setopt nonomatch
 if [[ -d ${ZDOTDIR:-$HOME}/.zsh/comp/local ]]; then
 	fpath=(${ZDOTDIR:-$HOME}/.zsh/comp/local $fpath)
 fi
+if [[ -d ${ZDOTDIR:-$HOME}/.zsh/comp/git-fzf ]]; then
+	fpath=(${ZDOTDIR:-$HOME}/.zsh/comp/git-fzf $fpath)
+fi
 if [[ -d ${ZDOTDIR:-$HOME}/.nix-profile/share/zsh/site-functions ]]; then
 	fpath=(${ZDOTDIR:-$HOME}/.nix-profile/share/zsh/site-functions $fpath)
 fi
