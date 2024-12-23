@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if [ "$#" -gt 0 ]; then
+	# We have command line arguments.
+	# Output them with newlines in-between.
+	printf '%s\n' "$@"
+else
+	# No command line arguments.
+	# Just pass stdin on.
+	cat
+fi | while read -r attr; do
+	if [[ "$attr" == "" ]]; then
+		continue
+	fi
+	if echo "$attr" | grep -q ".dist$"; then
+		continue
+	fi
+	last_result="$(hydra-check "$attr" --json | jq 'first(.[]) | .[0].success')"
+	echo " - $attr succeeds on hydra:" "$last_result"
+done
