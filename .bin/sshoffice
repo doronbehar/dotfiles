@@ -34,7 +34,7 @@ if ! ssh "$@"; then
 	sshExitCode=$?
 	# TODO: Test all of this..
 	output="$(ssh -q "$@" 2>&1)"
-	maybeNewHost="$(echo "$output" | grep "$TMATE_OFFICE_SESSION" | awk -F@ '{print $NF}')"
+	maybeNewHost="$(echo "$output" | grep -v "web session: https://tmate.io/t/$TMATE_OFFICE_SESSION" | grep "$TMATE_OFFICE_SESSION" | awk -F@ '{print $NF}')"
 	if [ "$maybeNewHost" = "" ]; then
 		echo "$0: encountered unexpected error. Exiting.."
 		exit $sshExitCode
