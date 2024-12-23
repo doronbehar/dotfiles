@@ -40,6 +40,6 @@ include ~/.local/share/tasks/udas/books.txt
 include ~/.local/share/tasks/contexts.txt
 context=work
 # Read the news
-news.version=3.0.2
+news.version=3.3.0
 
 # vim:ft=taskrc
