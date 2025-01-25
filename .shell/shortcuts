@@ -32,6 +32,11 @@ if _command_exists maim; then
 	alias maims='maim --format=png -s -c 1,0,0.6'
 fi
 
+# https://github.com/NixOS/nixpkgs/pull/376674
+uq(){
+	awk '!seen[$0]++'
+}
+
 # {{{1 xclip / xsel / wl-{copy,paste}
 # The existence / no existence of a command indicates the
 if _command_exists wl-copy; then
@@ -39,6 +44,7 @@ if _command_exists wl-copy; then
 	alias wlpp='wl-paste -p'
 	alias wlc='wl-copy'
 	alias wlp='wl-paste'
+	alias wlpng='wl-copy --type image/png'
 elif _command_exists xsel; then
 	# Xsel automatically detects if it's pasting or copying
 	alias wlcp='xsel -p'
