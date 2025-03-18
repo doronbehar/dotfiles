@@ -15,6 +15,6 @@ fi | while read -r attr; do
 	if echo "$attr" | grep -q ".dist$"; then
 		continue
 	fi
-	last_result="$(hydra-check "$attr" --json | jq 'first(.[]) | .[0].success')"
+	last_result="$(hydra-check $HYDRA_CHECK_ARGS "$attr" --json | jq 'first(.[]) | .[0].success')"
 	echo " - $attr succeeds on hydra:" "$last_result"
 done
