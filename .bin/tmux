@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# My locale is usually en_IL, which has no UTF-8 suffix, which makes tmux think
+# we don't have UTF-8 characters at all.
+exec $(which -a tmux | grep -v "$0" | head -1) -u "$@"
