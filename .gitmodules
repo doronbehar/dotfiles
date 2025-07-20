@@ -188,3 +188,6 @@
 [submodule ".config/qalculate"]
 	path = .config/qalculate
 	url = https://github.com/doronbehar/.config_qalculate
+[submodule ".config/matplotlib"]
+	path = .config/matplotlib
+	url = gh:doronbehar/.config_matplotlib
