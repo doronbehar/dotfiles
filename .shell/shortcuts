@@ -111,7 +111,7 @@ if _command_exists taskwarrior-tui && [[ -d ~/.local/share/tasks ]]; then
 fi
 
 # {{{1 `tmate` - terminal session
-if _command_exists tmate; then
+if _command_exists tmate && [[ -f ~/.tmate.session ]] && [[ -f ~/.tmate-api.key ]] then
 	function tmate-self(){
 		# ~/.tmate.session is stored in my ~/.ssh/tmate.conf as well - secretly - not git tracked
 		# ~/.tmate-api.key is given by the web app.
