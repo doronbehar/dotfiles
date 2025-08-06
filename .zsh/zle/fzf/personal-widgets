@@ -18,6 +18,9 @@ __fzf_cat(){
 	done
 }
 
+# NOTE only lower case is needed here
+declare -a FZF_COMPLETE_BIN_EXTENSIONS=(pdf svg png jpg jpeg tif tiff)
+
 # create a simpler and lighter directory fzf completion
 _fzf_complete_path() {
 	local lbuf="$1"
@@ -60,6 +63,17 @@ _fzf_complete_path() {
 						real_opts+=("$git_module")
 					done
 					header="All directories of file tracked by Git"
+				elif [[ "$lbuf" == "v " ]]; then
+					all_opts=(${(f)"$(git ls-files)"})
+					real_opts=()
+					for file in $all_opts; do
+  					  # lowercase extension
+  					  ext=${(L)${file##*.}}
+  					  if (( ! ${FZF_COMPLETE_BIN_EXTENSIONS[(Ie)$ext]} )); then
+    					real_opts+="$file"
+  					  fi
+					done
+					header="All Editable Files Tracked by Git"
 				else
 					real_opts=(${(f)"$(git ls-files)"})
 					header="All Files Tracked by Git"
