@@ -61,7 +61,7 @@ _fzf_complete_path() {
 					done
 					header="All directories of file tracked by Git"
 				else
-					real_opts=(${(f)"$(git ls)"})
+					real_opts=(${(f)"$(git ls-files)"})
 					header="All Files Tracked by Git"
 				fi
 			fi
