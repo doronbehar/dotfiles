@@ -26,7 +26,11 @@ cdg(){
 # {{{1 `gitclone` git clone and cd into it
 gitclone(){
 	if git clone "$@"; then
-		cd "${1##*/}"
+		if [[ "$2" == "" ]]; then
+			cd "${1##*/}"
+		else
+			cd "$2"
+		fi
 	fi
 }
 
