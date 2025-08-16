@@ -78,10 +78,6 @@ fi
 alias v="${VISUAL}"
 # GhostStart for quick launch
 alias gvi="${VISUAL} +GhostStart"
-# Start a note at NOTE_DIR (set in ~/.files.private)
-pad() {
-	${VISUAL} "${NOTE_DIR}/$(date +%Y-%m-%d_%H.%S).txt"
-}
 # Often one wishes to view a manual page without fooling troffi with a fake MANWIDTH, see .zshenv
 manw(){
 	env MANWIDTH=$COLUMNS man "$@"
