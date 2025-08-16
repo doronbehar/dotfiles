@@ -3,7 +3,31 @@ if ! _command_exists lf; then
 fi
 
 export LF_LAST_DIR_PATH=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/lf.$USER.lastdir
-alias lf="lf -last-dir-path=$LF_LAST_DIR_PATH"
+lf() {
+	local args=(-last-dir-path="$LF_LAST_DIR_PATH")
+	if [[ "$EDITOR" == "nvr" ]]; then
+		# Written with help of a LLM
+		local startpath=$PWD
+		local seen_path=0
+		for arg in "$@"; do
+			if [[ ! "$arg" =~ ^- ]]; then
+				if (( seen_path == 0 )); then
+					startpath=$arg
+					seen_path=1
+				else
+					echo "only single file or directory is allowed" >&2
+					return 2
+				fi
+			else
+				args+=("$arg")
+			fi
+		done
+		local user_args=$(printf "%s\n" "${args[@]}" | sed "s/'/''/g" | paste -sd' ' -)
+		nvr --remote-expr "lf#LF('${startpath}', 'edit', split('${user_args}'))"
+	else
+		command lf "$args" "$@"
+	fi
+}
 cdl() {
 	cd "$(<"$LF_LAST_DIR_PATH")"
 }
