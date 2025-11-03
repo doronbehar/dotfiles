@@ -154,6 +154,7 @@ setopt interactivecomments
 # https://github.com/zsh-users/zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 source ${ZDOTDIR:-$HOME}/.zsh/zle/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source ${ZDOTDIR:-$HOME}/.zsh/zle/brotab-nixpkgs-review.zsh
 
 # {{{1 Bindings
 bindkey -v
@@ -249,6 +250,7 @@ bindkey -M viins "^A" fzf-complete-history-words
 bindkey -M viins "^T" fzf-complete-history-paths
 bindkey -M viins "^P" fzf-complete-git-all-files
 bindkey -M viins "^Y" fzf-complete-git-changed-files
+bindkey -M viins "^N" brotab-nixpkgs-review
 
 # {{{1 Looks
 source ${ZDOTDIR:-$HOME}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
