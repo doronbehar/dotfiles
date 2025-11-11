@@ -71,6 +71,9 @@ fi
 export VISUAL="$EDITOR"
 
 # - {{{1 Pager and info 
+if _command_exists delta; then
+	export GIT_PAGER="delta"
+fi
 export PAGER="less"
 export LESS="-X -x4 -r -i"
 export LESSHISTFILE="${HOME}/.local/share/less-history"
