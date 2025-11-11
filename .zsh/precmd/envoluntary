@@ -1,0 +1,16 @@
+_envoluntary_hook() {
+    vars="$(envoluntary shell export zsh)"
+    trap -- '' SIGINT
+    eval "$vars"
+    trap - SIGINT
+}
+typeset -ag precmd_functions
+if (( ! ${precmd_functions[(I)_envoluntary_hook]} )); then
+    precmd_functions=(_envoluntary_hook $precmd_functions)
+fi
+typeset -ag chpwd_functions
+if (( ! ${chpwd_functions[(I)_envoluntary_hook]} )); then
+    chpwd_functions=(_envoluntary_hook $chpwd_functions)
+fi
+
+# vim:ft=zsh
