@@ -26,7 +26,8 @@ brotab-nixpkgs-review(){
 			"$full_path" =~ "NixOS/nixpkgs/pull/[0-9]+" \
 		]]; then
 			local title_parts=("${(@s: · :)title}")
-			prs[${full_path##*/}]=${title_parts[1]//[^[:ascii:]]/}
+			local url_path_parts=(${(s:/:)full_path})
+			prs[${url_path_parts[4]}]=${title_parts[1]//[^[:ascii:]]/}
 		fi
 	done
 	local nixpkgs_review_cmd="nixpkgs-review pr "
