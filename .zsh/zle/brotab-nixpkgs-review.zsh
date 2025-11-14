@@ -25,19 +25,19 @@ brotab-nixpkgs-review(){
 			"$(echo $url | url-parser ht)" == "github.com" && \
 			"$full_path" =~ "NixOS/nixpkgs/pull/[0-9]+" \
 		]]; then
-			title_parts=("${(@s: · :)title}")
+			local title_parts=("${(@s: · :)title}")
 			prs[${full_path##*/}]=${title_parts[1]//[^[:ascii:]]/}
 		fi
 	done
-	nixpkgs_review_cmd="nixpkgs-review pr "
+	local nixpkgs_review_cmd="nixpkgs-review pr "
 	# NOTE: Put the systems you have available in ~/.config/nix or /etc/nix/
 	nixpkgs_review_cmd+="--systems 'aarch64-linux x86_64-linux aarch64-darwin x86_64-darwin' "
-	new_cursor=$(($CURSOR + "${#nixpkgs_review_cmd}"))
+	local new_cursor=$(($CURSOR + "${#nixpkgs_review_cmd}"))
 	nixpkgs_review_cmd+="--post-result"
 	if [[ ${#prs} == 0 ]]; then
 		zle -M "brotab has detected no Nixpkgs PR tabs"
 	else
-		selected_pr=$(printf "%s\t%s\n" ${(kv)prs} | fzf \
+		local selected_pr=$(printf "%s\t%s\n" ${(kv)prs} | fzf \
 			--select-1 \
 			--header='Nixpkgs Pull Requests' \
 			--delimiter='\t' \
