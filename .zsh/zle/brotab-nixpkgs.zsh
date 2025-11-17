@@ -1,10 +1,10 @@
-# Purpose of this widget is to insert a nixpkgs-review command to the terminal,
-# with a ZSH `#` comment of the PR title - useful for history lookup. The
-# widget is not binded here by default, only created. After the command is
+# Purpose of this widget is to insert a nixpkgs-review or a gh command to the
+# terminal, with a ZSH `#` comment of the PR title - useful for history lookup.
+# The widget is not binded here by default, only created. After the command is
 # inserted, the cursor is placed right after the `--systems` argument. The
 # default --systems argument used here includes all systems (see NOTE below).
 
-brotab-nixpkgs-review(){
+brotab-nixpkgs(){
 	if ! _command_exists brotab; then
 		zle -M "brotab is not installed"
 		return
@@ -30,11 +30,19 @@ brotab-nixpkgs-review(){
 			prs[${url_path_parts[4]}]=${title_parts[1]//[^[:ascii:]]/}
 		fi
 	done
-	local nixpkgs_review_cmd="nixpkgs-review pr "
-	# NOTE: Put the systems you have available in ~/.config/nix or /etc/nix/
-	nixpkgs_review_cmd+="--systems 'aarch64-linux x86_64-linux aarch64-darwin x86_64-darwin' "
-	local new_cursor=$(($CURSOR + "${#nixpkgs_review_cmd}"))
-	nixpkgs_review_cmd+="--post-result"
+	local cmd_name=$(echo "gh\nnixpkgs-review" | fzf \
+		--header='Nixpkgs command' \
+		--no-multi \
+	)
+	if [[ "$cmd_name" == "nixpkgs-review" ]]; then
+		local cmd="nixpkgs-review pr "
+		cmd+="--systems 'aarch64-linux x86_64-linux aarch64-darwin x86_64-darwin' "
+		local new_cursor=$(($CURSOR + "${#cmd}"))
+		cmd+="--post-result"
+	elif [[ "$cmd_name" == "gh" ]]; then
+		local cmd="gh pr checkout"
+		local new_cursor=$(($CURSOR + "${#cmd}"))
+	fi
 	if [[ ${#prs} == 0 ]]; then
 		zle -M "brotab has detected no Nixpkgs PR tabs"
 	else
@@ -45,10 +53,10 @@ brotab-nixpkgs-review(){
 			--accept-nth=1 \
 			--no-multi
 		)
-		LBUFFER+="${nixpkgs_review_cmd} ${selected_pr} # ${prs[$selected_pr]}"
+		LBUFFER+="${cmd} ${selected_pr} # ${prs[$selected_pr]}"
 		CURSOR="$new_cursor"
 	fi
 }
-zle -N brotab-nixpkgs-review
+zle -N brotab-nixpkgs
 
 # vim: ft=zsh
