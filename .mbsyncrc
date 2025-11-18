@@ -22,6 +22,7 @@ Near :gmail-local:
 Patterns Lists/*
 Patterns [Gmail]/Trash
 Patterns INBOX
+Patterns orders/*
 Patterns Keep
 Patterns [Gmail]/Sent*
 Patterns [Gmail]/Drafts
