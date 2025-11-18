@@ -2,7 +2,7 @@ IMAPAccount gmail
 Host imap.gmail.com
 User doron.behar@gmail.com
 PassCmd "secret-tool lookup user doron.behar@gmail.com"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmail-remote
@@ -17,15 +17,15 @@ SubFolders Verbatim
 MaxSize 5M
 
 Channel gmail
-Master :gmail-remote:
-Slave :gmail-local:
+Far :gmail-remote:
+Near :gmail-local:
 Patterns Lists/*
 Patterns [Gmail]/Trash
 Patterns INBOX
 Patterns Keep
 Patterns [Gmail]/Sent*
 Patterns [Gmail]/Drafts
-Expunge Slave
+Expunge Near
 # to make it suitable for mailing lists
 MaxMessages 180
 ExpireUnread yes
@@ -35,7 +35,7 @@ IMAPAccount gandi
 Host mail.gandi.net
 User me@doronbehar.com
 PassCmd "secret-tool lookup user me@doronbehar.com"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gandi-remote
@@ -49,8 +49,8 @@ Trash Trash
 SubFolders Verbatim
 
 Channel gandi
-Master :gandi-remote:
-Slave :gandi-local:
+Far :gandi-remote:
+Near :gandi-local:
 Patterns INBOX
 Patterns Sent
 Patterns Drafts
@@ -68,7 +68,7 @@ PassCmd "secret-tool lookup user doronbehar@campus.technion.ac.il"
 # Using davmail
 Host localhost
 Port 1143
-SSLType None
+TLSType None
 AuthMechs LOGIN
 Timeout 0
 
@@ -83,8 +83,8 @@ Trash Trash
 SubFolders Verbatim
 
 Channel technion
-Master :technion-remote:
-Slave :technion-local:
+Far :technion-remote:
+Near :technion-local:
 Patterns INBOX
 Patterns Sent*
 Patterns Drafts
@@ -94,4 +94,4 @@ Patterns Archive
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
-Expunge Slave
+Expunge Near
