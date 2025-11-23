@@ -153,23 +153,22 @@ zle -N fzf-complete-history-commands
 # fzf-completion widget
 fzf-complete() {
 	local mode="$1"
-	local tokens cmd prefix trigger tail lbuf
 	setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
 	# http://zsh.sourceforge.net/FAQ/zshfaq03.html
 	# http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
-	tokens=(${(z)LBUFFER})
+	local tokens=(${(z)LBUFFER})
 	if [ ${#tokens} -lt 1 ]; then
 		zle expand-or-complete
 		return
 	fi
-	cmd=${tokens[1]}
+	local cmd=${tokens[1]}
 	# Explicitly allow for empty trigger.
-	trigger=${FZF_COMPLETION_TRIGGER-'**'}
+	local trigger=${FZF_COMPLETION_TRIGGER-'**'}
 	[ -z "$trigger" -a ${LBUFFER[-1]} = ' ' ] && tokens+=("")
-	tail=${LBUFFER:$(( ${#LBUFFER} - ${#trigger} ))}
+	local tail=${LBUFFER:$(( ${#LBUFFER} - ${#trigger} ))}
 	if [ ${#tokens} -gt 1 -a "$tail" = "$trigger" ]; then
-		[ -z "$trigger"	  ] && prefix=${tokens[-1]} || prefix=${tokens[-1]:0:-${#trigger}}
-		[ -z "${tokens[-1]}" ] && lbuf=$LBUFFER		|| lbuf=${LBUFFER:0:-${#tokens[-1]}}
+		[ -z "$trigger" ]      && local prefix=${tokens[-1]} || local prefix=${tokens[-1]:0:-${#trigger}}
+		[ -z "${tokens[-1]}" ] && local lbuf=$LBUFFER        || local lbuf=${LBUFFER:0:-${#tokens[-1]}}
 		if [[ "$mode" == "history-words" ]]; then
 			# for information about the `uq` command in this pipe, see
 			# https://github.com/lostutils/uq
@@ -178,6 +177,7 @@ fzf-complete() {
 			))
 			LBUFFER="${lbuf}$selected"
 		elif [[ "$mode" == "macro" ]]; then
+			local key val
 			for key val in ${(kv)_fzf_macros}; do
 				if [[ "$key" == "$prefix" ]]; then
 					if [[ "$val" =~ "/$" ]]; then
