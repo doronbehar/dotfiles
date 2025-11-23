@@ -1,3 +1,23 @@
+uridecode() {
+    local url="$1"
+    local decoded=""
+    local i=1
+    local len=${#url}
+    local char hex
+    while (( i <= len )); do
+        char="${url[i]}"
+        if [[ "$char" == "%" ]] && (( i + 2 <= len )); then
+            hex="${url[i+1,i+2]}"
+            decoded+="$(printf "\\x$hex")"
+            (( i += 3 ))
+        else
+            decoded+="$char"
+            (( i += 1 ))
+        fi
+    done
+    echo "$decoded"
+}
+
 # helper for path completion that saves the selections from fzf in a history file
 # and it outputs the name as was given as well. It works using stdin
 __fzf_history-appender(){
@@ -177,6 +197,28 @@ fzf-complete() {
 			))
 			LBUFFER="${lbuf}$selected"
 		elif [[ "$mode" == "macro" ]]; then
+			if [[ "$prefix" == g ]]; then
+				typeset -A gtk_bookmarks
+				local uri gtk_name
+				while read uri gtk_name; do
+    	    	    	    	    local p="$(uridecode "${uri//file:\/\//}")"
+    	    	    	    	    if [[ -z "$gtk_name" ]]; then
+        				# No name provided, use basename of the path
+        				gtk_bookmarks["$p"]="${p:t}"
+    	    	    	    	    else
+        				gtk_bookmarks["$p"]="$gtk_name"
+    	    	    	    	    fi
+				done < ${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/bookmarks
+				local selected_dir="$(printf "%s\t%s\n" ${(kv)gtk_bookmarks} | fzf \
+					--select-1 \
+					--header='GTK Bookmarks' \
+					--delimiter='\t' \
+					--accept-nth=1 \
+					--no-multi
+				)"
+				LBUFFER="${lbuf}${selected_dir}"
+				return 0
+			fi
 			local key val
 			for key val in ${(kv)_fzf_macros}; do
 				if [[ "$key" == "$prefix" ]]; then
