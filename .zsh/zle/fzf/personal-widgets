@@ -232,7 +232,12 @@ fzf-complete() {
 			done
 			zle complete-macros
 		else
-			LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
+			if [[ "$mode" =~ "^git*" && "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "" ]]; then
+				zle -M "Outside a Git repository"
+				return
+			else
+				LBUFFER="$lbuf$(_fzf_complete_path "${lbuf}" "${prefix}" "$mode")"
+			fi
 		fi
 		zle reset-prompt
 	fi

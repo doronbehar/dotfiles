@@ -5,6 +5,10 @@
 # default --systems argument used here includes all systems (see NOTE below).
 
 brotab-nixpkgs(){
+	if ! [[ "${PWD##*/}" =~ "nixpkgs" ]]; then
+		zle -M "Outside a Nixpkgs repository"
+		return
+	fi
 	if ! _command_exists brotab; then
 		zle -M "brotab is not installed"
 		return
