@@ -24,6 +24,7 @@ Patterns [Gmail]/Trash
 Patterns INBOX
 Patterns orders/*
 Patterns Keep
+Patterns Jobs
 Patterns [Gmail]/Sent*
 Patterns [Gmail]/Drafts
 Expunge Near
