@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# See: https://github.com/dandavison/delta/issues/1869
+env -u GIT_PAGER git grep "$@"
