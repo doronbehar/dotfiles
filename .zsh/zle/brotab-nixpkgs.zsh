@@ -40,12 +40,12 @@ brotab-nixpkgs(){
 	)
 	if [[ "$cmd_name" == "nixpkgs-review" ]]; then
 		local cmd="nixpkgs-review pr "
-		local systems=$(echo \
+		local systems=($(echo \
 			"aarch64-linux\nx86_64-linux\naarch64-darwin\nx86_64-darwin" | fzf \
 			--header="Nix systems" \
 			--bind 'start:select-all' \
 			--multi \
-		)
+		))
 		cmd+="--systems '${systems[@]}' "
 		local new_cursor=$(($CURSOR + "${#cmd}"))
 		cmd+="--post-result"
