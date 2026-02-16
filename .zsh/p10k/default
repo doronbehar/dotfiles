@@ -42,6 +42,7 @@
       dir                     # current directory
       vcs                     # git status
       emails
+      msmtpq
       background_jobs         # presence of background jobs
       prompt_char           # prompt symbol
   )
@@ -1553,6 +1554,16 @@
     done
     if [[ -n $message ]]; then
       p10k segment -b magenta -i '' -t $message
+    fi
+  }
+
+  function prompt_msmtpq() {
+    if [ ! -d ~/.msmtpq ]; then
+      return
+    fi
+    local queued=(~/.msmtpq/*.mail(N))
+    if [[ "${#queued}" > 0 ]]; then
+      p10k segment -b magenta -i '✎' -t "${#queued}"
     fi
   }
 
