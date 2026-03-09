@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# These W3M_ prefixed variables can contain non-utf8 characters, and cause
+# firefox to crash. Couldn't reproduce the issue to file a bug report at
+# https://bugzilla.mozilla.org ...
+env \
+	-u W3M_TITLE \
+	-u W3M_CURRENT_WORD \
+	xdg-open "$@"
