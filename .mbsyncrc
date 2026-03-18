@@ -90,7 +90,7 @@ Near :technion-local:
 Patterns INBOX
 Patterns Sent*
 Patterns Drafts
-Patterns Deleted*
+Patterns Trash
 Patterns Archive
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
