@@ -63,37 +63,3 @@ Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
 Expunge Near
-
-IMAPAccount technion
-User doronbehar@campus.technion.ac.il
-PassCmd "secret-tool lookup user doronbehar@campus.technion.ac.il"
-# Using davmail
-Host localhost
-Port 1143
-TLSType None
-AuthMechs LOGIN
-Timeout 0
-
-IMAPStore technion-remote
-Account technion
-
-MaildirStore technion-local
-# The trailing "/" is important
-Path ~/.local/share/mail/technion/
-Inbox ~/.local/share/mail/technion/INBOX
-Trash Trash
-SubFolders Verbatim
-
-Channel technion
-Far :technion-remote:
-Near :technion-local:
-Patterns INBOX
-Patterns Sent*
-Patterns Drafts
-Patterns Trash
-Patterns Archive
-# Automatically create missing mailboxes, both locally and on the server
-Create Both
-# Save the synchronization state files in the relevant directory
-SyncState *
-Expunge Near
