@@ -1443,7 +1443,6 @@
     maildirs+=(~/.local/share/mail/gmail/Lists/mentions/open)
     typeset -A prompt_my_mail_accounts_names
     prompt_my_mail_accounts_names=(
-      technion "Technion"
       gmail "Gmail"
       gandi "Gandi"
       mentions "Mentions"
