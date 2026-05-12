@@ -1,0 +1,19 @@
+#!/bin/sh
+
+{
+	IFS= read -r _
+	IFS= read -r nixpkgs_review
+} <<EOF
+$(which -a nixpkgs-review)
+EOF
+
+if on_network_with_ssh && [ "$1" = pr ] || [ "$1" = rev ] || [ "$1" = wip ]; then
+	main_subcmd="$1"
+	shift
+	exec "$nixpkgs_review" \
+		"$main_subcmd" \
+		--build-args "--option builders @$HOME/.config/nix/builders.txt" \
+		"$@"
+else
+	exec "$nixpkgs_review" "$@"
+fi
