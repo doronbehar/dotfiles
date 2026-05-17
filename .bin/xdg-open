@@ -1,5 +1,6 @@
 #!/bin/sh
-if [[ "$HOST" == office ]]; then
+
+if [ "$HOST" = office ]; then
 	"$BROWSER" "$@"
 else
 	gio open "$@"
