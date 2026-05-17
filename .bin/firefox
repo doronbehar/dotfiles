@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Wrap firefox such that it won't launch when time is not synchronized - use
+# timedatectl to check that. If time is not synchronized when firefox is
+# launched, the cookies will be destroyed and it requires logging in to all
+# websites to get new cookies.
+#
+# Ignore SIGPIPE. Writes to closed std{out,err} pipes will now fail silently
+# instead of terminating the script instantly - from some reason this is the
+# case when Neovim calls this script via `system()`.
+trap '' PIPE
+
+{
+	IFS= read -r _
+	IFS= read -r firefox
+} <<EOF
+$(which -a firefox)
+EOF
+
+while true; do
+	echo Checking NTP synchronization
+	if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
+		exec "$firefox" "$@"
+	else
+		msg="Firefox: NTP is not synchronized yet, waiting for it"
+		notify-send "$msg" --expire-time=2000
+		echo "$msg"
+		sleep 0.3
+	fi
+done
