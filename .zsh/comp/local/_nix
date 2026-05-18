@@ -8,8 +8,6 @@ function _nix() {
   local ifs_bk="$IFS"
   local input=("${(Q)words[@]}")
   IFS=$'\n'
-  # With our nix wrapping function in `~/.shell/nix`, using `env` prefix is
-  # required, otherwise only `--option` string is completed forever.
   local res=($(NIX_GET_COMPLETIONS=$((CURRENT - 1)) "$input[@]" 2>/dev/null))
   IFS="$ifs_bk"
   local tpe="${${res[1]}%%>	*}"
