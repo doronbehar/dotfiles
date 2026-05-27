@@ -2,6 +2,9 @@ IMAPAccount gmail
 Host imap.gmail.com
 User doron.behar@gmail.com
 PassCmd "secret-tool lookup user doron.behar@gmail.com"
+# Because if mbsync has XOAUTH2 enabled, it will try to use this mechanism
+# instead, so we wish to be explicit.
+AuthMechs PLAIN
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -78,6 +81,35 @@ Patterns Trash
 Patterns Archive
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
+Expunge Near
+
+IMAPAccount huji
+Host imap.gmail.com
+User doron.behar@mail.huji.ac.il
+PassCmd "pizauth show huji"
+# Required specifically for Gmail. For this to work, SASL_PATH needs to include
+# cyrus-sasl-xoauth2 & cyrus_sasl paths.
+AuthMechs XOAUTH2
+TLSType IMAPS
+
+IMAPStore huji-remote
+Account huji
+
+MaildirStore huji-local
+# The trailing "/" is important
+Path ~/.local/share/mail/huji/
+Inbox ~/.local/share/mail/huji/INBOX
+Trash Trash
+SubFolders Verbatim
+
+Channel huji
+Far :huji-remote:
+Near :huji-local:
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+Patterns *
 # Save the synchronization state files in the relevant directory
 SyncState *
 Expunge Near
