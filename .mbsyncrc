@@ -8,20 +8,38 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-MaildirStore gmail-local
-# The trailing "/" is important
+# Gmail Store for everything except inbox (Limited to 5M)
+MaildirStore gmail-local-limited
 Path ~/.local/share/mail/gmail/
 Inbox ~/.local/share/mail/gmail/INBOX
 Trash [Gmail]/Trash
 SubFolders Verbatim
 MaxSize 5M
 
-Channel gmail
+# Gmail Store for INBOX only (Unlimited size)
+MaildirStore gmail-local-unlimited
+Path ~/.local/share/mail/gmail/
+Inbox ~/.local/share/mail/gmail/INBOX
+Trash [Gmail]/Trash
+SubFolders Verbatim
+MaxSize 0
+
+# Gmail Channel 1: Dedicated to INBOX (Points to the unlimited store)
+Channel gmail-inbox
 Far :gmail-remote:
-Near :gmail-local:
+Near :gmail-local-unlimited:
+Patterns INBOX
+Expunge Near
+MaxMessages 180
+ExpireUnread yes
+Create Both
+
+# Gmail Channel 2: All other folders (Points to the limited store)
+Channel gmail-others
+Far :gmail-remote:
+Near :gmail-local-limited:
 Patterns Lists/*
 Patterns [Gmail]/Trash
-Patterns INBOX
 Patterns orders/*
 Patterns Keep
 Patterns Jobs
