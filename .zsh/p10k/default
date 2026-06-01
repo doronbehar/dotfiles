@@ -1536,7 +1536,8 @@
     prompt_my_mail_accounts_names=(
       gmail ""
       gandi ""
-      mentions ""
+      mentions "🦕"
+      huji "√"
     )
     local account_inbox account_name message messsage_prefix files
     for account_inbox in "${maildirs[@]}"; do
