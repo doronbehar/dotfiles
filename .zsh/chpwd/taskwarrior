@@ -27,8 +27,15 @@ function _chpwd_taskwarrior_init() {
 	if (( ! $#ctx )); then
 		ctx=(default)
 		local network
+		local current_network
+		if [[ -f ~/.local/share/NetworkManager/current-network ]]; then
+			current_network=$(<~/.local/share/NetworkManager/current-network)
+		else
+			# If something is wrong, I'm probably at home :)
+			current_network=${HOME_NETWORKS[1]}
+		fi
 		for network in "${HOME_NETWORKS[@]}"; do
-			if [[ -f "$network" ]]; then
+			if [[ "$current_network" == "$network" ]]; then
 				ctx=(home)
 				break
 			fi
