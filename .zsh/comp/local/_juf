@@ -1,6 +1,5 @@
 #compdef juf jsf
 
-echo ${words[1]} > ~/.zdbg
 if [[ "${words[1]}" == juf ]]; then
 	userOpt="--user"
 fi
