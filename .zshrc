@@ -303,6 +303,9 @@ done
 # Unset i used in the above 3 loops
 unset i
 
+# Mainly useful on Windows systems...
+source ${ZDOTDIR:-$HOME}/.zsh/autoenv/autoenv.zsh
+
 # To profile startup
 #zprof
 

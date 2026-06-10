@@ -196,3 +196,6 @@
 [submodule ".local/share/qalculate/ancient"]
 	path = .local/share/qalculate/ancient
 	url = https://github.com/doronbehar/qalculate-ancient-units
+[submodule ".zsh/autoenv"]
+	path = .zsh/autoenv
+	url = https://github.com/Tarrasch/zsh-autoenv
