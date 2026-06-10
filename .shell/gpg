@@ -11,11 +11,6 @@ if tty -s; then
 	elif _command_exists pinentry-tty; then
 		PINENTRY_USER_DATA="tty"
 	else
-		cat > ~/pinentry.log << EOF
-.zshenv: WARNING: Not sure what PINENTRY_USER_DATA to set - tty is interactive,
-but pinentry-tty and pinentry-curses commands were not found. Using system's
-defaut: $(where pinentry)
-EOF
 		PINENTRY_USER_DATA=""
 	fi
 fi
