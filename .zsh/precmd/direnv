@@ -1,3 +1,7 @@
+if ! _command_exists direnv; then
+  return 0
+fi
+
 _direnv_hook() {
   trap -- '' SIGINT
   eval "$(direnv export zsh)"
