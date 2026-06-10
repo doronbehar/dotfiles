@@ -29,7 +29,7 @@ insert2PATH(){
 }
 
 insert2PATH "$HOME/.local/bin"
-insert2PATH "$HOME/.bin"
+insert2PATH "${ZDOTDIR:-$HOME}/.bin"
 if [[ -d "$HOME/.nix-profile/bin" ]]; then
 	insert2PATH "$HOME/.nix-profile/bin"
 fi
