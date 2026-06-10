@@ -1,0 +1,2 @@
+Include ~/.files/.ssh/config
+# vim:ft=sshconfig
