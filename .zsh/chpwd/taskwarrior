@@ -41,7 +41,7 @@ function _chpwd_taskwarrior_init() {
 			fi
 		done
 		for network in "${WORK_NETWORKS[@]}"; do
-			if [[ -f "$network" ]]; then
+			if [[ "$current_network" == "$network" ]]; then
 				ctx=(work)
 				break
 			fi
