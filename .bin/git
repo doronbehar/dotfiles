@@ -1,0 +1,17 @@
+#!/bin/sh
+
+{
+	IFS= read -r _
+	IFS= read -r git
+} <<EOF
+$(which -a git)
+EOF
+
+# Train my muscle memory to use my aliases instead of git-grep which is buggy
+# if delta is used. See: https://github.com/dandavison/delta/issues/1869
+if [ "$1" = grep ]; then
+	echo "git grep: use git grp (alias)" >&2
+	exit 127
+else
+	"$git" "$@"
+fi
