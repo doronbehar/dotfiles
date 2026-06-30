@@ -135,7 +135,8 @@ _fzf_complete_path() {
 		fzf --layout=reverse \
 			--header="${header}" \
 			--query="${query}" \
-			-m ${preview} | \
+			--multi \
+			${preview} | \
 			$history_appender)"} \
 	)
 	if [ -z "$matches" ]; then
