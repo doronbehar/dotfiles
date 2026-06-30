@@ -38,6 +38,7 @@ include ~/.local/share/tasks/reports.txt
 include ~/.local/share/tasks/udas/personal.txt
 include ~/.local/share/tasks/udas/books.txt
 include ~/.local/share/tasks/contexts.txt
+include ~/.local/share/tasks/sync.txt
 context=work
 # Read the news
 news.version=3.4.1
