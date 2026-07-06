@@ -73,6 +73,11 @@ else
 fi
 export VISUAL="$EDITOR"
 
+if [[ ! -z "$TMUX" ]]; then
+	export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
+	export CLAUDE_CODE_NO_FLICKER=1
+fi
+
 # - {{{1 Pager and info 
 if _command_exists delta; then
 	export GIT_PAGER="delta"
