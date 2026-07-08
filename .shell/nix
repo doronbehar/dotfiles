@@ -1,0 +1,13 @@
+if ! _command_exists nix; then
+	return
+fi
+
+# These are installed a bit more declaratively, see:
+# https://github.com/doronbehar/.local_share_gh_extensions
+#
+# NOTE: That repo is not a submodule of my dotfiles repository, since the
+# symlinks there should be relative, and their targets will become invalid if
+# the repo is located in e.g `~/.files/.local/share/gh/extensions`.
+export GH_NO_EXTENSION_UPDATE_NOTIFIER=1
+
+# vim:ft=sh
