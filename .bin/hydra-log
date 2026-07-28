@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Why is this so complicated? See https://github.com/nix-community/hydra-check/issues/107
+
+set -eu
+
+json_obj="$(\
+  hydra-check --json "$1" --short \
+  | jq '.[] | .[]'
+)"
+if [ "$(echo "$json_obj" | jq --raw-output '.evals')" = "false" ]; then
+  echo "No evals found for given attribute $1" >&2
+  echo "$json_obj" >&2
+  exit 1
+fi
+
+build_url="$(\
+  echo "$json_obj" | jq --raw-output '.build_url'
+)"
+if [ -z "$build_url" ]; then
+  echo Failed to parse hydra\'s build_url >&2
+  exit 2
+fi
+
+log_url="$(\
+  curl --silent -L "$build_url" \
+    | pup 'a.btn:nth-child(2) attr{href}'
+)"
+
+if [ -z "$log_url" ]; then
+  echo Failed to parse hydra\'s log_url "(with pup)" >&2
+  exit
+fi
+
+curl --silent -L "$log_url" | ansifilter
