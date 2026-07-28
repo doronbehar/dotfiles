@@ -8,7 +8,12 @@ zmodload -F zsh/files b:zf_mv
 
 function t() {
 	emulate -L zsh -o no_unset
-	task rc.context=$_chpwd_taskwarrior_context "$@"
+	if [[ "$_chpwd_taskwarrior_context" == "work" ]]; then
+		# For work. Shared with colleges at https://app.wingtask.com/
+		env TASKRC=$HOME/.local/share/work-tasks/main.txt task "$@"
+	else
+		task rc.context=$_chpwd_taskwarrior_context "$@"
+	fi
 }
 
 function tfzf() {
