@@ -189,7 +189,7 @@
 	url = https://github.com/doronbehar/.config_qalculate
 [submodule ".config/matplotlib"]
 	path = .config/matplotlib
-	url = gh:doronbehar/.config_matplotlib
+	url = https://github.com/doronbehar/.config_matplotlib
 [submodule ".config/goldendict"]
 	path = .config/goldendict
 	url = https://github.com/doronbehar/.config_goldendict
