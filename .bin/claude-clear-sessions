@@ -1,0 +1,157 @@
+#!/bin/sh
+# claude-clear-sessions — interactive fzf browser for Claude Code sessions
+# belonging to the current project ($PWD), with a keybinding to delete a
+# session's transcript.
+#
+# POSIX sh — avoids bashisms (arrays, [[ ]], local, <<<, $BASH_SOURCE,
+# process substitution, `read -n`, `set -o pipefail`, etc.) so it runs
+# under dash, ash/busybox sh, and other /bin/sh implementations, not just bash.
+#
+# Usage:
+#   ./claude-clear-sessions
+#
+# Inside fzf:
+#   enter    -> prints `claude --resume <session-id>` to stdout on exit
+#   ctrl-d   -> delete the highlighted session immediately (no confirmation)
+#   ctrl-r   -> reload the list (e.g. after deleting)
+#
+# Requires: fzf, jq
+#
+# Notes:
+#   - Claude Code has no dedicated session "title" field. The title shown
+#     here is the last "summary" event Claude Code wrote for the session,
+#     falling back to the first user message if no summary exists yet.
+#   - This script re-invokes itself (via $0's resolved path) for
+#     --list/--delete/--preview, which is how fzf's reload/execute/preview
+#     stay in sync with a single source of truth.
+
+set -eu
+
+encoded_pwd=$(printf '%s' "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
+proj_dir="$HOME/.claude/projects/$encoded_pwd"
+
+# Best-effort, portable-ish mtime lookup. POSIX itself has no standard way
+# to read a file's mtime, so try the common variants and fall back to "?".
+get_mtime() {
+  f="$1"
+  if date -r "$f" '+%Y-%m-%d %H:%M' >/dev/null 2>&1; then
+    date -r "$f" '+%Y-%m-%d %H:%M'
+  elif command -v stat >/dev/null 2>&1; then
+    stat -c '%y' "$f" 2>/dev/null | cut -c1-16 \
+      || stat -f '%Sm' "$f" 2>/dev/null
+  else
+    printf '%s' '?'
+  fi
+}
+
+list_sessions() {
+  [ -d "$proj_dir" ] || return 0
+  for f in "$proj_dir"/*.jsonl; do
+    [ -e "$f" ] || continue
+    session_id=$(basename "$f" .jsonl)
+    mtime=$(get_mtime "$f")
+
+    title=$(jq -r 'select(.type=="summary") | .summary // empty' "$f" 2>/dev/null | tail -n 1)
+    if [ -z "$title" ]; then
+      title=$(jq -r '
+        select(.type=="user") | .message.content
+        | if type=="array"
+          then ([.[] | select(.type=="text") | .text][0] // empty)
+          else .
+          end
+      ' "$f" 2>/dev/null | grep -v '^null$' | head -n 1)
+    fi
+    [ -z "$title" ] && title='(untitled)'
+    title=$(printf '%s' "$title" | tr '\n' ' ' | cut -c1-120)
+
+    # Field 1 (session id) stays hidden from the fzf display; field 2 is the
+    # single visible column, with mtime and title joined by a box-drawing
+    # vertical bar (│) instead of a wide tab gap — unlike ASCII "|", it forms
+    # an unbroken line when stacked across rows.
+    printf '%s\t%s \342\224\202 %s\n' "$session_id" "$mtime" "$title"
+  done | sort -t "$(printf '\t')" -k2 -r
+}
+
+# Colorized preview: a bold header, then the transcript with [user] in cyan
+# and [assistant] in green. fzf's preview window renders ANSI codes natively.
+preview_session() {
+  session_id="$1"
+  f="$proj_dir/$session_id.jsonl"
+  if [ ! -e "$f" ]; then
+    printf '\033[31m(missing file)\033[0m\n'
+    return
+  fi
+
+  printf '\033[1;33mSession %s\033[0m\n\n' "$session_id"
+
+  jq -r '
+    select(.type=="user" or .type=="assistant") as $m
+    | ($m.message.content
+       | if type=="array"
+         then ([.[] | select(.type=="text") | .text] | join("\n"))
+         else .
+         end)
+    | select(length > 0)
+    | (if $m.type=="user"
+       then "\u001b[36m[user]\u001b[0m "
+       else "\u001b[32m[assistant]\u001b[0m "
+       end) + .
+  ' "$f" 2>/dev/null | head -c 4000
+}
+
+delete_session() {
+  session_id="$1"
+  f="$proj_dir/$session_id.jsonl"
+  if [ ! -e "$f" ]; then
+    echo "Not found: $f" >&2
+    sleep 1
+    return
+  fi
+  rm -- "$f"
+  echo "Deleted $session_id"
+  sleep 0.3
+}
+
+# Internal dispatch so fzf can call back into this same script for
+# reload / execute / preview.
+case "${1:-}" in
+  --list)
+    list_sessions
+    exit 0
+    ;;
+  --delete)
+    delete_session "$2"
+    exit 0
+    ;;
+  --preview)
+    preview_session "$2"
+    exit 0
+    ;;
+esac
+
+if [ ! -d "$proj_dir" ]; then
+  echo "No Claude Code session directory found for $PWD" >&2
+  echo "(looked in: $proj_dir)" >&2
+  exit 1
+fi
+
+command -v fzf >/dev/null 2>&1 || { echo "fzf is not installed" >&2; exit 1; }
+command -v jq  >/dev/null 2>&1 || { echo "jq is not installed"  >&2; exit 1; }
+
+self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+
+selected=$(
+  list_sessions | fzf \
+    --delimiter='\t' \
+    --with-nth=2 \
+    --header 'enter: print resume cmd   ctrl-d: delete   ctrl-r: reload' \
+    --preview "\"$self\" --preview {1}" \
+    --preview-window=right:60%:wrap \
+    --bind "ctrl-d:execute(\"$self\" --delete {1})+reload($self --list)" \
+    --bind "ctrl-r:reload($self --list)"
+)
+
+[ -z "${selected:-}" ] && exit 0
+
+session_id=$(printf '%s\n' "$selected" | cut -f1)
+echo "claude --resume $session_id"
