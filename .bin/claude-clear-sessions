@@ -11,7 +11,7 @@
 #   ./claude-clear-sessions
 #
 # Inside fzf:
-#   enter    -> prints `claude --resume <session-id>` to stdout on exit
+#   enter    -> open full session transcript in $PAGER
 #   ctrl-d   -> delete the highlighted session immediately (no confirmation)
 #   ctrl-r   -> reload the list (e.g. after deleting)
 #
@@ -22,7 +22,7 @@
 #     here is the last "summary" event Claude Code wrote for the session,
 #     falling back to the first user message if no summary exists yet.
 #   - This script re-invokes itself (via $0's resolved path) for
-#     --list/--delete/--preview, which is how fzf's reload/execute/preview
+#     --list/--delete/--preview/--pager, which is how fzf's reload/execute/preview
 #     stay in sync with a single source of truth.
 
 set -eu
@@ -81,9 +81,8 @@ list_sessions() {
   done | sort -t "$(printf '\t')" -k2 -r
 }
 
-# Colorized preview: a bold header, then the transcript with [user] in cyan
-# and [assistant] in green. fzf's preview window renders ANSI codes natively.
-preview_session() {
+# Colorized transcript: bold header, [user] in cyan, [assistant] in green.
+format_session() {
   session_id="$1"
   f="$proj_dir/$session_id.jsonl"
   if [ ! -e "$f" ]; then
@@ -105,8 +104,14 @@ preview_session() {
        then "\u001b[36m[user]\u001b[0m "
        else "\u001b[32m[assistant]\u001b[0m "
        end) + .
-  ' "$f" 2>/dev/null | head -c 4000
+  ' "$f" 2>/dev/null
 }
+
+# fzf preview window renders ANSI natively; truncate to avoid lag.
+preview_session() { format_session "$1" | head -c 4000; }
+
+# Full transcript in $PAGER for easy scrolling.
+pager_session() { format_session "$1" | ${PAGER:-less}; }
 
 delete_session() {
   session_id="$1"
@@ -136,6 +141,10 @@ case "${1:-}" in
     preview_session "$2"
     exit 0
     ;;
+  --pager)
+    pager_session "$2"
+    exit 0
+    ;;
 esac
 
 if [ ! -d "$proj_dir" ]; then
@@ -149,18 +158,12 @@ command -v jq  >/dev/null 2>&1 || { echo "jq is not installed"  >&2; exit 1; }
 
 self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
 
-selected=$(
-  list_sessions | fzf \
-    --delimiter='\t' \
-    --with-nth=2 \
-    --header 'enter: print resume cmd   ctrl-d: delete   ctrl-r: reload' \
-    --preview "\"$self\" --preview {1}" \
-    --preview-window=right:60%:wrap \
-    --bind "ctrl-d:execute(\"$self\" --delete {1})+reload($self --list)" \
-    --bind "ctrl-r:reload($self --list)"
-)
-
-[ -z "${selected:-}" ] && exit 0
-
-session_id=$(printf '%s\n' "$selected" | cut -f1)
-echo "claude --resume $session_id"
+list_sessions | fzf \
+  --delimiter='\t' \
+  --with-nth=2 \
+  --header 'enter: open in pager   ctrl-d: delete   ctrl-r: reload' \
+  --preview "\"$self\" --preview {1}" \
+  --preview-window=right:60%:wrap \
+  --bind "enter:execute(\"$self\" --pager {1})" \
+  --bind "ctrl-d:execute(\"$self\" --delete {1})+reload($self --list)" \
+  --bind "ctrl-r:reload($self --list)"
