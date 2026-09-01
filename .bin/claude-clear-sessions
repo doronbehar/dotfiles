@@ -27,8 +27,17 @@
 
 set -eu
 
-encoded_pwd=$(printf '%s' "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
-proj_dir="$HOME/.claude/projects/$encoded_pwd"
+# On Windows POSIX environments (MSYS2/Git Bash/Cygwin), Claude Code is a
+# native Windows exe that keys project dirs by the Windows form of PWD
+# (e.g. C:\msys64\home\owner\...) and stores them under %USERPROFILE%\.claude.
+if command -v cygpath >/dev/null 2>&1 && [ -n "${USERPROFILE:-}" ]; then
+  encoded_pwd=$(cygpath -w "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
+  claude_home=$(cygpath -u "$USERPROFILE")
+else
+  encoded_pwd=$(printf '%s' "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
+  claude_home="$HOME"
+fi
+proj_dir="$claude_home/.claude/projects/$encoded_pwd"
 
 # Best-effort, portable-ish mtime lookup. POSIX itself has no standard way
 # to read a file's mtime, so try the common variants and fall back to "?".
