@@ -39,28 +39,14 @@ else
 fi
 proj_dir="$claude_home/.claude/projects/$encoded_pwd"
 
-# Best-effort, portable-ish mtime lookup. POSIX itself has no standard way
-# to read a file's mtime, so try the common variants and fall back to "?".
-get_mtime() {
-  f="$1"
-  if date -r "$f" '+%Y-%m-%d %H:%M' >/dev/null 2>&1; then
-    date -r "$f" '+%Y-%m-%d %H:%M'
-  elif command -v stat >/dev/null 2>&1; then
-    stat -c '%y' "$f" 2>/dev/null | cut -c1-16 \
-      || stat -f '%Sm' "$f" 2>/dev/null
-  else
-    printf '%s' '?'
-  fi
-}
-
 list_sessions() {
   [ -d "$proj_dir" ] || return 0
   for f in "$proj_dir"/*.jsonl; do
     [ -e "$f" ] || continue
     session_id=$(basename "$f" .jsonl)
-    mtime=$(get_mtime "$f")
+    mtime=$(date -r "$f" '+%Y-%m-%d %H:%M')
 
-    title=$(jq -r 'select(.type=="summary") | .summary // empty' "$f" 2>/dev/null | tail -n 1)
+    title=$(jq -r 'select(.type=="summary") | .summary // empty' "$f" | tail -n 1)
     if [ -z "$title" ]; then
       title=$(jq -r '
         select(.type=="user") | .message.content
@@ -68,7 +54,7 @@ list_sessions() {
           then ([.[] | select(.type=="text") | .text][0] // empty)
           else .
           end
-      ' "$f" 2>/dev/null | grep -v '^null$' | head -n 1)
+      ' "$f" | grep -v '^null$' | head -n 1)
     fi
     [ -z "$title" ] && title='(untitled)'
     title=$(printf '%s' "$title" | tr '\n' ' ' | cut -c1-120)
@@ -104,7 +90,7 @@ format_session() {
        then "\u001b[36m[user]\u001b[0m "
        else "\u001b[32m[assistant]\u001b[0m "
        end) + .
-  ' "$f" 2>/dev/null
+  ' "$f"
 }
 
 # fzf preview window renders ANSI natively; truncate to avoid lag.
