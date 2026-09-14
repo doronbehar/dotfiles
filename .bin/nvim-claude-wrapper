@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# This is script is needed and used on Windows systems that also use claude
+# code within tmux. See e.g `~/.local/share/zsh/login/QOG-SERVER`.
+ 
+read LEFT TOP WIDTH HEIGHT <<EOF
+$(tmux display-message -p '#{pane_left} #{pane_top} #{pane_width} #{pane_height}')
+EOF
+
+tmux display-popup -BE -x "$LEFT" -y "$TOP" -w "$WIDTH" -h "$HEIGHT" "nvim '$1'"
