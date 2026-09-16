@@ -117,6 +117,22 @@ if _command_exists tmate && [[ -f ~/.tmate.session ]] && [[ -f ~/.tmate-api.key 
 	}
 fi
 
+# {{{1 `ssh`, but with shell expansion disabled optionally
+ssh() {
+	local -a raw quoted
+	local arg sq="'" esc="'\\''" seen=0
+	for arg in "$@"; do
+		if (( seen )); then
+			quoted+=("'${arg//$sq/$esc}'")
+		elif [[ $arg == -- ]]; then
+			seen=1
+		else
+			raw+=("$arg")
+		fi
+	done
+	command ssh "${raw[@]}" ${quoted[@]:+"${quoted[*]}"}
+}
+
 # {{{1 `oct` - for GNU Octave
 if _command_exists octave; then
 	alias oct=octave
