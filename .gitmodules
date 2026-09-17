@@ -199,3 +199,6 @@
 [submodule ".zsh/autoenv"]
 	path = .zsh/autoenv
 	url = https://github.com/Tarrasch/zsh-autoenv
+[submodule ".config/vlc"]
+	path = .config/vlc
+	url = https://github.com/doronbehar/.config_vlc
