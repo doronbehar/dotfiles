@@ -202,3 +202,6 @@
 [submodule ".config/vlc"]
 	path = .config/vlc
 	url = https://github.com/doronbehar/.config_vlc
+[submodule ".claude"]
+	path = .claude
+	url = https://github.com/doronbehar/.claude
