@@ -1,9 +1,10 @@
-# Purpose of this widget is to insert a `gh pr checkout` command to the
-# terminal, with a ZSH `#` comment of the PR title - useful for history
-# lookup. The widget is not binded here by default, only created. The
-# repository to look for PR tabs of is determined by the current directory's
-# `git remote -v` output - any remote (e.g. a fork's `origin` and its
-# `upstream`) is matched against, regardless of host.
+# Purpose of this widget is to insert a `gh pr checkout` or (when the repo is
+# nixpkgs) a `nixpkgs-review pr` command to the terminal, with a ZSH `#`
+# comment of the PR title - useful for history lookup. The widget is not
+# binded here by default, only created. The repository to look for PR tabs
+# of is determined by the current directory's `git remote -v` output - any
+# remote (e.g. a fork's `origin` and its `upstream`) is matched against,
+# regardless of host.
 
 brotab-git(){
 	if ! _command_exists brotab; then
@@ -12,10 +13,6 @@ brotab-git(){
 	fi
 	if ! _command_exists fzf; then
 		zle -M "fzf is not installed"
-		return
-	fi
-	if ! _command_exists gh; then
-		zle -M "gh is not installed"
 		return
 	fi
 	local git_error
@@ -70,21 +67,62 @@ brotab-git(){
 			fi
 		done
 	done
-	local cmd="gh pr checkout"
-	local new_cursor=$(($CURSOR + "${#cmd}"))
 	if [[ ${#prs} == 0 ]]; then
 		zle -M "brotab has detected no PR tabs for the current repository"
-	else
-		local selected_pr=$(printf "%s\t%s\n" ${(kv)prs} | fzf \
-			--select-1 \
-			--header='Pull Requests' \
-			--delimiter='\t' \
-			--accept-nth=1 \
-			--no-multi
-		)
-		LBUFFER+="${cmd} ${selected_pr} # ${prs[$selected_pr]}"
-		CURSOR="$new_cursor"
+		return
 	fi
+	# `gh` always applies; `nixpkgs-review` only applies when one of the
+	# repo's remotes is nixpkgs itself. Narrow candidates down to the ones
+	# actually installed, then only prompt if there's an actual choice.
+	local -a candidate_cmds=(gh)
+	for remote_path in $remote_paths; do
+		if [[ "${remote_path##*/}" == "nixpkgs" ]]; then
+			candidate_cmds+=(nixpkgs-review)
+			break
+		fi
+	done
+	local -a available_cmds
+	local candidate
+	for candidate in $candidate_cmds; do
+		_command_exists $candidate && available_cmds+=("$candidate")
+	done
+	local cmd_name
+	if [[ ${#available_cmds} == 0 ]]; then
+		zle -M "none of: ${candidate_cmds} is installed"
+		return
+	elif [[ ${#available_cmds} == 1 ]]; then
+		cmd_name="${available_cmds[1]}"
+	else
+		cmd_name=$(printf '%s\n' $available_cmds | fzf \
+			--header='Nixpkgs command' \
+			--no-multi \
+		)
+	fi
+	local cmd new_cursor
+	if [[ "$cmd_name" == "nixpkgs-review" ]]; then
+		cmd="nixpkgs-review pr "
+		local systems=($(echo \
+			"aarch64-linux\nx86_64-linux\naarch64-darwin\nx86_64-darwin" | fzf \
+			--header="Nix systems" \
+			--bind 'start:select-all' \
+			--multi \
+		))
+		cmd+="--systems '${systems[@]}' "
+		new_cursor=$(($CURSOR + "${#cmd}"))
+		cmd+="--post-result"
+	else
+		cmd="gh pr checkout"
+		new_cursor=$(($CURSOR + "${#cmd}"))
+	fi
+	local selected_pr=$(printf "%s\t%s\n" ${(kv)prs} | fzf \
+		--select-1 \
+		--header='Pull Requests' \
+		--delimiter='\t' \
+		--accept-nth=1 \
+		--no-multi
+	)
+	LBUFFER+="${cmd} ${selected_pr} # ${prs[$selected_pr]}"
+	CURSOR="$new_cursor"
 }
 zle -N brotab-git
 
