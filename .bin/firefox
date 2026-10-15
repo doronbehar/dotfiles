@@ -39,6 +39,8 @@ else
 			--width=500 \
 			--title="Firefox NTP Cookies Safety Wrapper" \
 			--text="$msg"
-		"$firefox" "$@"
+		if ! "$firefox" "$@"; then
+			break
+		fi
 	done
 fi
