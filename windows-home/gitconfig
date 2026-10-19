@@ -1,0 +1,6 @@
+[core]
+	# The default on Git for Windows - the same git that's used by Claude code,
+	# but different from the git that's used by our msys2 environment.
+	autocrlf = true
+
+# vim: ft=gitconfig

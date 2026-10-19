@@ -1,0 +1,7 @@
+# Copy this file to ~/.local/share/git/config - as that path is automatically
+# included by ~/.files/.config/git/config. This file in turn will include the
+# real file needed for windows machines.
+[include]
+	path = ~/.files/windows-home/gitconfig
+
+# vim: ft=gitconfig
