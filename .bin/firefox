@@ -24,7 +24,7 @@ else
 	while true; do
 		msg="Waiting for Network Time Sync..."
 		echo "$msg"
-		(
+		if ! (
 			while true; do
 				if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
 					echo 100
@@ -38,7 +38,9 @@ else
 			--auto-close \
 			--width=500 \
 			--title="Firefox NTP Cookies Safety Wrapper" \
-			--text="$msg"
+			--text="$msg"; then
+			break
+		fi
 		if ! "$firefox" "$@"; then
 			break
 		fi
