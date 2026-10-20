@@ -57,12 +57,13 @@ brotab-git(){
 			# Plain glob matching (not a regex), so characters like `.` in
 			# remote_path are matched literally rather than as wildcards.
 			# `[0-9]##` (requires extendedglob) is glob syntax for "one or
-			# more digits", the glob counterpart of regex's `[0-9]+`.
+			# more digits", the glob counterpart of regex's `[0-9]+`. The
+			# optional `/*` suffix allows sub-pages such as `/changes`.
 			setopt localoptions extendedglob
-			if [[ "$tab_path" == "${remote_path}/pull/"[0-9]## ]]; then
+			if [[ "$tab_path" == "${remote_path}/pull/"[0-9]##(|/*) ]]; then
 				local title_parts=("${(@s: · :)title}")
-				local url_path_parts=(${(s:/:)tab_path})
-				prs[${url_path_parts[-1]}]=${title_parts[1]//[^[:ascii:]]/}
+				local pr_number="${tab_path#"${remote_path}/pull/"}"
+				prs[${pr_number%%/*}]=${title_parts[1]//[^[:ascii:]]/}
 				break
 			fi
 		done
