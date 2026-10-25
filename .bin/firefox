@@ -17,32 +17,25 @@ trap '' PIPE
 $(which -a firefox)
 EOF
 
-echo Checking NTP synchronization
-if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
-	"$firefox" "$@"
-else
-	while true; do
-		msg="Waiting for Network Time Sync..."
-		echo "$msg"
-		if ! (
-			while true; do
-				if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
-					echo 100
-					break
-				fi
-				echo 0
-				sleep 0.4
-			done
-		) | zenity --progress \
-			--pulsate \
-			--auto-close \
-			--width=500 \
-			--title="Firefox NTP Cookies Safety Wrapper" \
-			--text="$msg"; then
-			break
-		fi
-		if ! "$firefox" "$@"; then
-			break
-		fi
-	done
+if [ "$(timedatectl show --property=NTPSynchronized --value)" != "yes" ]; then
+	msg="Waiting for Network Time Sync..."
+	echo "$msg"
+	if ! (
+		while true; do
+			if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
+				echo 100
+				break
+			fi
+			echo 0
+			sleep 0.4
+		done
+	) | zenity --progress \
+		--pulsate \
+		--auto-close \
+		--width=500 \
+		--title="Firefox NTP Cookies Safety Wrapper" \
+		--text="$msg"; then
+		exit 1
+	fi
 fi
+exec "$firefox" "$@"
