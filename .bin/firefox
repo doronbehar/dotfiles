@@ -20,24 +20,32 @@ EOF
 if [ "$(timedatectl show --property=NTPSynchronized --value)" != "yes" ]; then
 	msg="Waiting for Network Time Sync..."
 	echo "$msg"
-	if ! (
-		while true; do
-			if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
-				echo 100
-				break
-			fi
-			# SIGPIPE is ignored, so if zenity is gone, this loop would
-			# keep polling forever - stop when writing to it fails.
-			echo 0 || exit 0
+	if command -v zenity >/dev/null 2>&1; then
+		if ! (
+			while true; do
+				if [ "$(timedatectl show --property=NTPSynchronized --value)" = "yes" ]; then
+					echo 100
+					break
+				fi
+				# SIGPIPE is ignored, so if zenity is gone, this loop would
+				# keep polling forever - stop when writing to it fails.
+				echo 0 || exit 0
+				sleep 0.4
+			done
+		) | zenity --progress \
+			--pulsate \
+			--auto-close \
+			--width=500 \
+			--title="Firefox NTP Cookies Safety Wrapper" \
+			--text="$msg"; then
+			exit 1
+		fi
+	else
+		# Without zenity there is nothing to report progress to, and
+		# nothing to cancel - just wait for the sync.
+		while [ "$(timedatectl show --property=NTPSynchronized --value)" != "yes" ]; do
 			sleep 0.4
 		done
-	) | zenity --progress \
-		--pulsate \
-		--auto-close \
-		--width=500 \
-		--title="Firefox NTP Cookies Safety Wrapper" \
-		--text="$msg"; then
-		exit 1
 	fi
 fi
 exec "$firefox" "$@"
