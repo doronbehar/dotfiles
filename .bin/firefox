@@ -26,7 +26,9 @@ if [ "$(timedatectl show --property=NTPSynchronized --value)" != "yes" ]; then
 				echo 100
 				break
 			fi
-			echo 0
+			# SIGPIPE is ignored, so if zenity is gone, this loop would
+			# keep polling forever - stop when writing to it fails.
+			echo 0 || exit 0
 			sleep 0.4
 		done
 	) | zenity --progress \
