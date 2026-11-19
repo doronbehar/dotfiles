@@ -48,18 +48,30 @@ if [ "${1:-}" = "--all" ]; then
   shift
 fi
 
+# Claude Code keys a project directory by its own process.cwd(), which has
+# symlinks resolved, whereas the $PWD inherited from an interactive shell keeps
+# whichever symlink one cd'd through (~/.config/tmux rather than the
+# ~/.files/.config/tmux it points at). So look under the resolved path first,
+# and fall back to the symlinked one in case sessions were recorded under it.
+logical_pwd="$PWD"
+physical_pwd=$(pwd -P)
+
 # On Windows POSIX environments (MSYS2/Git Bash/Cygwin), Claude Code is a
-# native Windows exe that keys project dirs by the Windows form of PWD
+# native Windows exe that keys project dirs by the Windows form of the cwd
 # (e.g. C:\msys64\home\owner\...) and stores them under %USERPROFILE%\.claude.
 if command -v cygpath >/dev/null 2>&1 && [ -n "${USERPROFILE:-}" ]; then
-  encoded_pwd=$(cygpath -w "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
   claude_home=$(cygpath -u "$USERPROFILE")
+  encode_cwd() { cygpath -w "$1" | sed 's/[^a-zA-Z0-9]/-/g'; }
 else
-  encoded_pwd=$(printf '%s' "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
   claude_home="$HOME"
+  encode_cwd() { printf '%s' "$1" | sed 's/[^a-zA-Z0-9]/-/g'; }
 fi
 projects_dir="$claude_home/.claude/projects"
-proj_dir="$projects_dir/$encoded_pwd"
+proj_dir="$projects_dir/$(encode_cwd "$physical_pwd")"
+alt_proj_dir="$projects_dir/$(encode_cwd "$logical_pwd")"
+if [ ! -d "$proj_dir" ] && [ -d "$alt_proj_dir" ]; then
+  proj_dir="$alt_proj_dir"
+fi
 
 tab=$(printf '\t')
 
@@ -244,8 +256,9 @@ if [ "$all" = 1 ]; then
     exit 1
   fi
 elif [ ! -d "$proj_dir" ]; then
-  echo "No Claude Code session directory found for $PWD" >&2
+  echo "No Claude Code session directory found for $physical_pwd" >&2
   echo "(looked in: $proj_dir)" >&2
+  [ "$alt_proj_dir" = "$proj_dir" ] || echo "(and in: $alt_proj_dir)" >&2
   exit 1
 fi
 
