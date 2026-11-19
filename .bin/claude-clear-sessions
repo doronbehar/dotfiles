@@ -1,31 +1,52 @@
 #!/bin/sh
 # claude-clear-sessions — interactive fzf browser for Claude Code sessions
-# belonging to the current project ($PWD), with a keybinding to delete a
-# session's transcript.
+# belonging to the current project ($PWD), or to every project with --all,
+# with a keybinding to delete a session's transcript.
 #
 # POSIX sh — avoids bashisms (arrays, [[ ]], local, <<<, $BASH_SOURCE,
 # process substitution, `read -n`, `set -o pipefail`, etc.) so it runs
 # under dash, ash/busybox sh, and other /bin/sh implementations, not just bash.
 #
 # Usage:
-#   ./claude-clear-sessions
+#   ./claude-clear-sessions           # sessions of the current directory
+#   ./claude-clear-sessions --all     # sessions of every project, with the
+#                                     # project directory shown in the list
+#                                     # and in the preview
 #
 # Inside fzf:
 #   enter    -> open full session transcript in $PAGER
 #   ctrl-d   -> delete the highlighted session immediately (no confirmation)
 #   ctrl-r   -> reload the list (e.g. after deleting)
 #
-# Requires: fzf, jq
+# Requires: fzf, jq, awk
 #
 # Notes:
 #   - Claude Code has no dedicated session "title" field. The title shown
 #     here is the last "summary" event Claude Code wrote for the session,
 #     falling back to the first user message if no summary exists yet.
+#   - Sessions are listed project directory by project directory (in the
+#     order the directories are stored under ~/.claude/projects), newest
+#     first inside each one. Walking a directory at a time is also what lets
+#     the project label be resolved once per directory instead of once per
+#     transcript.
+#   - The project directory shown by --all is the "cwd" recorded inside the
+#     transcripts, falling back to the (lossy) encoded directory name Claude
+#     Code uses under ~/.claude/projects.
+#   - Transcripts run to megabytes, so grep narrows a file down to the few
+#     candidate lines before jq parses them: parsing every line of every
+#     transcript made --all take seconds.
 #   - This script re-invokes itself (via $0's resolved path) for
 #     --list/--delete/--preview/--pager, which is how fzf's reload/execute/preview
-#     stay in sync with a single source of truth.
+#     stay in sync with a single source of truth. The hidden first column of
+#     the list is the transcript's path, which is what those calls receive.
 
 set -eu
+
+all=0
+if [ "${1:-}" = "--all" ]; then
+  all=1
+  shift
+fi
 
 # On Windows POSIX environments (MSYS2/Git Bash/Cygwin), Claude Code is a
 # native Windows exe that keys project dirs by the Windows form of PWD
@@ -37,46 +58,124 @@ else
   encoded_pwd=$(printf '%s' "$PWD" | sed 's/[^a-zA-Z0-9]/-/g')
   claude_home="$HOME"
 fi
-proj_dir="$claude_home/.claude/projects/$encoded_pwd"
+projects_dir="$claude_home/.claude/projects"
+proj_dir="$projects_dir/$encoded_pwd"
+
+tab=$(printf '\t')
+
+# The project a transcript belongs to, as a displayable path. Claude Code
+# records "cwd" on most events (by line 7 at the latest), so a bounded head
+# is enough and keeps this cheap on long transcripts.
+project_label() {
+  label=$(head -n 50 "$1" | jq -r 'if type=="object" then (.cwd // empty) else empty end' | head -n 1)
+  [ -n "$label" ] || label=$(basename "$(dirname "$1")")
+  case "$label" in
+    "$HOME"/*) printf '~%s' "${label#"$HOME"}" ;;
+    *) printf '%s' "$label" ;;
+  esac
+}
+
+# The grep patterns below can only match an unescaped key/value pair (inside
+# message text the quotes are backslash-escaped), and jq re-checks every
+# candidate line at the top level, so a match nested in some payload is
+# dropped rather than trusted.
+session_title() {
+  f="$1"
+  title=$(grep -F '"type":"summary"' "$f" |
+    jq -r 'if type=="object" and .type=="summary" then (.summary // empty) else empty end' |
+    tail -n 1)
+  if [ -z "$title" ]; then
+    # The opening prompt is the first user event; the head bounds how much jq
+    # parses on a session that never got a summary.
+    title=$(grep -F '"type":"user"' "$f" | head -n 20 |
+      jq -r '
+        if type=="object" and .type=="user"
+        then (.message.content
+              | if type=="array"
+                then ([.[] | select(.type=="text") | .text][0] // empty)
+                elif type=="string" then .
+                else empty
+                end)
+        else empty
+        end' |
+      head -n 1)
+  fi
+  [ -z "$title" ] && title='(untitled)'
+  printf '%s' "$title" | tr '\n' ' ' | cut -c1-120
+}
+
+# One raw row per transcript: path, mtime, project (empty unless --all), title.
+emit_session() {
+  printf '%s\t%s\t%s\t%s\n' "$1" "$(date -r "$1" '+%Y-%m-%d %H:%M')" "$2" "$(session_title "$1")"
+}
+
+# Field 1 (the transcript's path) stays hidden from the fzf display; field 2
+# is the single visible column, with mtime, project and title joined by a
+# box-drawing vertical bar (│) instead of a wide tab gap — unlike ASCII "|",
+# it forms an unbroken line when stacked across rows, so the project column
+# is padded to the widest one for the bars to line up.
+format_rows() {
+  awk -F '\t' -v all="$all" '
+    {
+      path[NR] = $1; mtime[NR] = $2; project[NR] = $3; title[NR] = $4
+      if (length($3) > width) width = length($3)
+    }
+    END {
+      bar = "\342\224\202"
+      for (i = 1; i <= NR; i++) {
+        if (all == "1")
+          printf "%s\t%s %s %-*s %s %s\n", path[i], mtime[i], bar, width, project[i], bar, title[i]
+        else
+          printf "%s\t%s %s %s\n", path[i], mtime[i], bar, title[i]
+      }
+    }
+  '
+}
+
+# All sessions of one project directory, newest first.
+list_dir_sessions() {
+  d="$1"
+  [ -d "$d" ] || return 0
+
+  # Every transcript in a project directory shares the same cwd, so the label
+  # is resolved from the first one and reused for the rest.
+  project=''
+  if [ "$all" = 1 ]; then
+    for f in "$d"/*.jsonl; do
+      [ -e "$f" ] || continue
+      project=$(project_label "$f")
+      break
+    done
+  fi
+
+  for f in "$d"/*.jsonl; do
+    [ -e "$f" ] || continue
+    emit_session "$f" "$project"
+  done | sort -t "$tab" -k2 -r
+}
 
 list_sessions() {
-  [ -d "$proj_dir" ] || return 0
-  for f in "$proj_dir"/*.jsonl; do
-    [ -e "$f" ] || continue
-    session_id=$(basename "$f" .jsonl)
-    mtime=$(date -r "$f" '+%Y-%m-%d %H:%M')
-
-    title=$(jq -r 'select(.type=="summary") | .summary // empty' "$f" | tail -n 1)
-    if [ -z "$title" ]; then
-      title=$(jq -r '
-        select(.type=="user") | .message.content
-        | if type=="array"
-          then ([.[] | select(.type=="text") | .text][0] // empty)
-          else .
-          end
-      ' "$f" | grep -v '^null$' | head -n 1)
-    fi
-    [ -z "$title" ] && title='(untitled)'
-    title=$(printf '%s' "$title" | tr '\n' ' ' | cut -c1-120)
-
-    # Field 1 (session id) stays hidden from the fzf display; field 2 is the
-    # single visible column, with mtime and title joined by a box-drawing
-    # vertical bar (│) instead of a wide tab gap — unlike ASCII "|", it forms
-    # an unbroken line when stacked across rows.
-    printf '%s\t%s \342\224\202 %s\n' "$session_id" "$mtime" "$title"
-  done | sort -t "$(printf '\t')" -k2 -r
+  if [ "$all" = 1 ]; then
+    [ -d "$projects_dir" ] || return 0
+    for d in "$projects_dir"/*; do
+      list_dir_sessions "$d"
+    done
+  else
+    list_dir_sessions "$proj_dir"
+  fi | format_rows
 }
 
 # Colorized transcript: bold header, [user] in cyan, [assistant] in green.
 format_session() {
-  session_id="$1"
-  f="$proj_dir/$session_id.jsonl"
+  f="$1"
   if [ ! -e "$f" ]; then
     printf '\033[31m(missing file)\033[0m\n'
     return
   fi
 
-  printf '\033[1;33mSession %s\033[0m\n\n' "$session_id"
+  printf '\033[1;33mSession %s\033[0m\n' "$(basename "$f" .jsonl)"
+  [ "$all" = 1 ] && printf '\033[1;35m%s\033[0m\n' "$(project_label "$f")"
+  printf '\n'
 
   jq -r '
     select(.type=="user" or .type=="assistant") as $m
@@ -100,15 +199,14 @@ preview_session() { format_session "$1" | head -c 4000; }
 pager_session() { format_session "$1" | ${PAGER:-less}; }
 
 delete_session() {
-  session_id="$1"
-  f="$proj_dir/$session_id.jsonl"
+  f="$1"
   if [ ! -e "$f" ]; then
     echo "Not found: $f" >&2
     sleep 1
     return
   fi
   rm -- "$f"
-  echo "Deleted $session_id"
+  echo "Deleted $(basename "$f" .jsonl)"
   sleep 0.3
 }
 
@@ -131,9 +229,21 @@ case "${1:-}" in
     pager_session "$2"
     exit 0
     ;;
+  '') ;;
+  *)
+    echo "Unknown argument: $1" >&2
+    echo "Usage: $(basename "$0") [--all]" >&2
+    exit 1
+    ;;
 esac
 
-if [ ! -d "$proj_dir" ]; then
+if [ "$all" = 1 ]; then
+  if [ ! -d "$projects_dir" ]; then
+    echo "No Claude Code projects directory found" >&2
+    echo "(looked in: $projects_dir)" >&2
+    exit 1
+  fi
+elif [ ! -d "$proj_dir" ]; then
   echo "No Claude Code session directory found for $PWD" >&2
   echo "(looked in: $proj_dir)" >&2
   exit 1
@@ -143,13 +253,20 @@ command -v fzf >/dev/null 2>&1 || { echo "fzf is not installed" >&2; exit 1; }
 command -v jq  >/dev/null 2>&1 || { echo "jq is not installed"  >&2; exit 1; }
 
 self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+# Passed on to every self-invocation so the list, the preview and the header
+# all agree on which mode they are in.
+if [ "$all" = 1 ]; then
+  self_cmd="\"$self\" --all"
+else
+  self_cmd="\"$self\""
+fi
 
 list_sessions | fzf \
   --delimiter='\t' \
   --with-nth=2 \
   --header 'enter: open in pager   ctrl-d: delete   ctrl-r: reload' \
-  --preview "\"$self\" --preview {1}" \
+  --preview "$self_cmd --preview {1}" \
   --preview-window=right:60%:wrap \
-  --bind "enter:execute(\"$self\" --pager {1})" \
-  --bind "ctrl-d:execute(\"$self\" --delete {1})+reload($self --list)" \
-  --bind "ctrl-r:reload($self --list)"
+  --bind "enter:execute($self_cmd --pager {1})" \
+  --bind "ctrl-d:execute($self_cmd --delete {1})+reload($self_cmd --list)" \
+  --bind "ctrl-r:reload($self_cmd --list)"
