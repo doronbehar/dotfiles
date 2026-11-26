@@ -136,15 +136,6 @@ The `cd $HOME` in `/etc/zsh/zshenv` is what makes `ssh lab ls -l .files` resolve
 So `sshd_config` is strictly less capable here, and splitting the fix across two places would mean two places to check.
 `PermitUserEnvironment` (default `no`) has the same limitation; it would at least read `~/.ssh/environment`, which the junction maps into the version-controlled `.files/.ssh/`, but it is also a documented security loosening.
 
-### zsh runs as a non-login shell
-
-`DefaultShell` takes a bare executable path with no room for `-l`, so `/etc/zsh/zprofile` — which is `emulate sh -c 'source /etc/profile'` — never runs, and therefore neither does `/etc/profile`.
-Anything needed from the MSYS2 login environment has to be set explicitly.
-Don't blanket-source `/etc/profile` from `zshenv`: in a real login shell it runs *after* `.zshenv`, so you'd be reordering startup.
-Note `/etc/profile` only *validates* `HOME`, it never sets it — making zsh a login shell would not have fixed the problem above.
-
-`/etc/zsh/zshenv` already prepends `/usr/bin:/ucrt64/bin` to `PATH` unconditionally, and sets the default `PROMPT` (whose `${MSYSTEM}` segment rendering empty is the quickest visual tell that `/etc/profile` never ran).
-
 ## Gotchas worth remembering
 
 - **scp/sftp use Windows paths.**
