@@ -1,0 +1,47 @@
+#!/usr/bin/env zsh
+# tcp-clip-get — print the clipboard of the workstation on the other end of the
+# ssh connection on stdout.
+#
+# Meant to run on a host you ssh'd *into* (e.g. `lab`), where `ssh-lab` on the
+# workstation reverse-forwarded a `wl-paste` server onto $TCP_CLIP_GET_PORT.
+#
+# Plain TCP on purpose: the Windows sshd implements neither X11 forwarding nor
+# AF_UNIX forwarding, and OSC 52 would tie this to the terminal emulator, to
+# tmux's set-clipboard, and to having a tty.  A forwarded TCP port needs none
+# of them.
+
+set -eu
+
+port=${TCP_CLIP_GET_PORT:-15299}
+
+zmodload zsh/net/tcp
+
+# ztcp's own "connection failed" line belongs on a terminal, but not in nvim,
+# which runs this as a clipboard provider and garbles its UI on any stderr.
+# Only that one expected line is routed away; everything below still speaks up.
+if [[ -t 2 ]]; then
+	ztcp_err=/dev/stderr
+else
+	ztcp_err=/dev/null
+fi
+
+# No clipboard forward - a plain `ssh lab`, or a local session on the box itself.
+# Fall back to the Windows clipboard through /dev/clipboard: a deliberate
+# fallback, not a silenced failure.  In a local desktop session that is the
+# desktop's own clipboard; over ssh it is private to that one connection.
+# Either way it beats clip.exe/Get-Clipboard, since Cygwin normalises CRLF and
+# does not mangle non-ASCII through the console code page.
+if ! ztcp 127.0.0.1 $port 2>$ztcp_err; then
+	if [[ -c /dev/clipboard ]]; then
+		if [[ -t 2 ]]; then
+			print -u2 "tcp-clip-get: nothing listening on 127.0.0.1:$port, falling back to /dev/clipboard"
+		fi
+		exec cat /dev/clipboard
+	fi
+	print -u2 "tcp-clip-get: nothing listening on 127.0.0.1:$port and no /dev/clipboard here"
+	exit 1
+fi
+
+fd=$REPLY
+cat <&$fd
+ztcp -c $fd

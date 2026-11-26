@@ -127,6 +127,40 @@ source ${ZDOTDIR:-$HOME}/.zsh/zle/fzf/personal-widgets
 if [[ -f ~/.local/share/zsh/macros/${HOST} ]]; then
 	source ~/.local/share/zsh/macros/${HOST}
 fi
+
+
+# {{{1 xclip / xsel / wl-{copy,paste}
+# The existence / no existence of a command indicates the
+if _command_exists wl-copy; then
+	alias wlcp='wl-copy -p'
+	alias wlpp='wl-paste -p'
+	alias wlc='wl-copy'
+	alias wlp='wl-paste'
+	alias wlpng='wl-copy --type image/png'
+elif _command_exists xsel; then
+	# Xsel automatically detects if it's pasting or copying
+	alias wlcp='xsel -p'
+	alias wlpp='xsel -p'
+	alias wlc='xsel -b'
+	alias wlp='xsel -b'
+elif _command_exists xclip; then
+	# xclip automatically detects if it's pasting or copying
+	alias wlcp="xclip -selection primary"
+	alias wlpp="xclip -selection primary"
+	alias wlc="xclip -selection clipboard"
+	alias wlp="xclip -selection clipboard"
+# TODO: Check how this works with wsl launched from msys2 - from ssh and not
+elif _command_exists clip.exe; then
+	export ZSH_SYSTEM_CLIPBOARD_METHOD="tcp"
+	function zsh-system-clipboard-set-tcp(){ tcp-clip-set; }
+	function zsh-system-clipboard-get-tcp(){ tcp-clip-get; }
+	alias wlp="tcp-clip-get"
+	alias wlc="tcp-clip-set"
+	alias wlpp="tcp-clip-get"
+	alias wlcp="tcp-clip-set"
+	export GIT_FZF_CLIPBOARD_COMMAND="tcp-clip-set"
+	export TMUX_URL_SELECT_CLIP_CMD="tcp-clip-set"
+fi
 # sync with system clipboard, only if programs available
 # https://github.com/kutsan/zsh-system-clipboard
 if _command_exists xclip || _command_exists xsel || _command_exists wl-copy || _command_exists clip.exe; then

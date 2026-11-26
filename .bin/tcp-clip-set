@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+# tcp-clip-set — copy stdin into the clipboard of the workstation on the other
+# end of the ssh connection.  Counterpart of tcp-clip-get; see that script for
+# why this is a forwarded TCP port rather than X11 forwarding or OSC 52.
+#
+# Being a plain stdin-consuming command, it also drops into anything that just
+# wants a "put this in the clipboard" command, such as $GIT_FZF_CLIPBOARD_COMMAND
+# and $TMUX_URL_SELECT_CLIP_CMD, exactly where clip.exe is used off ssh.
+
+set -eu
+
+port=${TCP_CLIP_SET_PORT:-15300}
+
+zmodload zsh/net/tcp
+
+# See tcp-clip-get for both of these: the scoped stderr and the fallback.
+if [[ -t 2 ]]; then
+	ztcp_err=/dev/stderr
+else
+	ztcp_err=/dev/null
+fi
+
+if ! ztcp 127.0.0.1 $port 2>$ztcp_err; then
+	if [[ -c /dev/clipboard ]]; then
+		if [[ -t 2 ]]; then
+			print -u2 "tcp-clip-set: nothing listening on 127.0.0.1:$port, falling back to /dev/clipboard"
+		fi
+		exec cat > /dev/clipboard
+	fi
+	print -u2 "tcp-clip-set: nothing listening on 127.0.0.1:$port and no /dev/clipboard here"
+	exit 1
+fi
+
+fd=$REPLY
+cat >&$fd
+# Closing the socket is what makes `wl-copy` on the workstation see EOF and
+# take ownership of the selection; without it, it would wait for more input.
+ztcp -c $fd
