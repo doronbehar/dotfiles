@@ -50,7 +50,7 @@ icacls.exe C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /gra
 ACL must end up as **only** `NT AUTHORITY\SYSTEM:(F)` and `BUILTIN\Administrators:(F)`.
 Use `-Encoding ascii`, not `utf8` — PowerShell 5.1 writes a BOM.
 
-The config itself is tracked as `windows-home/sshd_config`.
+The config itself is tracked as `windows/ssh/sshd_config`.
 Two things that file cannot tell you on its own: the hardening directives must stay **above** the `Match Group administrators` block — the file *ends* with that block, so appending puts them inside it and they apply to admins only, leaving every other account with password login — and `KbdInteractiveAuthentication no` is load-bearing, because this server really does advertise `keyboard-interactive`.
 
 Validate before restarting with:
@@ -102,7 +102,7 @@ Local mintty sessions are unaffected, which is what makes this confusing.
 
 Consequence: zsh resolves `$HOME/.zshenv` to `/c/Users/owner/.zshenv`, finds nothing, and the entire config chain is bypassed.
 
-The fix must be in `/etc/zsh/zshenv` (tracked as `windows-home/etc.zshenv`).
+The fix must be in `/etc/zsh/zshenv` (tracked as `windows/ssh/etc.zshenv`).
 That is the only file zsh reads *before* it resolves `$HOME/.zshenv`, so it cannot live in this repo's `.zshenv` — a chicken-and-egg that is easy to get wrong and appears to work until you test a fresh session:
 
 ```zsh

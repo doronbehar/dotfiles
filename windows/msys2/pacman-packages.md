@@ -12,7 +12,7 @@ pacman -Qsq | while read p; do
       print name
     }
   }'
-done > ~/.files/windows-home/msys2-pacman-packages.txt
+done > ~/.files/windows/msys2/pacman-packages.txt
 ```
 
 ```

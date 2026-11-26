@@ -2,6 +2,6 @@
 # included by ~/.files/.config/git/config. This file in turn will include the
 # real file needed for windows machines.
 [include]
-	path = ~/.files/windows-home/gitconfig
+	path = ~/.files/windows/git/config
 
 # vim: ft=gitconfig
